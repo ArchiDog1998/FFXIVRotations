@@ -1,6 +1,6 @@
 namespace RotationSolver.Default.Healer;
 
-[SourceCode("https://github.com/ArchiDog1998/RotationSolver/blob/main/RotationSolver.Default/Healer/WHM_Default.cs")]
+[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default : WHM_Base
 {
     public override string GameVersion => "6.28";

@@ -1,7 +1,7 @@
 namespace RotationSolver.Default.Melee;
 
 [RotationDesc(ActionID.Mug)]
-[SourceCode("https://github.com/ArchiDog1998/RotationSolver/blob/main/RotationSolver.Default/Melee/NIN_Default.cs")]
+[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/NIN_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/nin/earlymug3.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/nin/nininfographicwindows.png")]
 [LinkDescription("https://docs.google.com/spreadsheets/u/0/d/1BZZrqWMRrugCeiBICEgjCz2vRNXt_lRTxPnSQr24Em0/htmlview#",
