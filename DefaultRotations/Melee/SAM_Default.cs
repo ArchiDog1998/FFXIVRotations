@@ -1,6 +1,6 @@
 ﻿namespace RotationSolver.Default.Melee;
 
-[SourceCode("https://github.com/ArchiDog1998/RotationSolver/blob/main/RotationSolver.Default/Melee/SAM_Default.cs")]
+[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/SAM_Default.cs")]
 public sealed class SAM_Default : SAM_Base
 {
     public override string GameVersion => "6.28";

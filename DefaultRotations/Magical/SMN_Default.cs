@@ -2,7 +2,7 @@
 
 [BetaRotation]
 [RotationDesc(ActionID.SearingLight)]
-[SourceCode("https://github.com/ArchiDog1998/RotationSolver/blob/main/RotationSolver.Default/Magical/SMN_Default.cs")]
+[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/SMN_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/smn/6.png")]
 public sealed class SMN_Default : SMN_Base
 {

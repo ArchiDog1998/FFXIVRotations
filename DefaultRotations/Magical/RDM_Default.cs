@@ -1,7 +1,7 @@
 namespace RotationSolver.Default.Magical;
 
 [RotationDesc(ActionID.Embolden)]
-[SourceCode("https://github.com/ArchiDog1998/RotationSolver/blob/main/RotationSolver.Default/Magical/RDM_Default.cs")]
+[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/RDM_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
 public sealed class RDM_Default : RDM_Base
 {
