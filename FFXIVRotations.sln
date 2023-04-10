@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultRotations", "DefaultRotations\DefaultRotations.csproj", "{00DD640B-5207-40FB-A99B-8625E6B218C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraRotations", "ExtraRotations\ExtraRotations.csproj", "{0F9CE428-A3E7-44F3-BAE8-D1F373064A75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00DD640B-5207-40FB-A99B-8625E6B218C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DD640B-5207-40FB-A99B-8625E6B218C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DD640B-5207-40FB-A99B-8625E6B218C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DD640B-5207-40FB-A99B-8625E6B218C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F9CE428-A3E7-44F3-BAE8-D1F373064A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9CE428-A3E7-44F3-BAE8-D1F373064A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9CE428-A3E7-44F3-BAE8-D1F373064A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F9CE428-A3E7-44F3-BAE8-D1F373064A75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47134325-72D1-43BB-BF01-EB072F6B3742}
+	EndGlobalSection
+EndGlobal
