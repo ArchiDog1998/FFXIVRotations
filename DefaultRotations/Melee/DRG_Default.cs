@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Melee;
+namespace DefaultRotations.Melee;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/DRG_Default.cs")]
 public sealed class DRG_Default : DRG_Base
@@ -19,7 +19,7 @@ public sealed class DRG_Default : DRG_Base
     {
         if (abilitiesRemaining > 1)
         {
-            
+
             if (SpineShatterDive.CanUse(out act, CanUseOption.EmptyOrSkipCombo | option)) return true;
             if (DragonFireDive.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo | option)) return true;
         }

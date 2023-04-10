@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Healer;
+namespace DefaultRotations.Healer;
 
 [RotationDesc(ActionID.ChainStratagem)]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SCH_Default.cs")]
@@ -121,7 +121,7 @@ public sealed class SCH_Default : SCH_Base
     protected override bool HealAreaAbility(byte abilitiesRemaining, out IAction act)
     {
         //慰藉
-        if(WhisperingDawn.ElapsedOneChargeAfterGCD(1) || FeyIllumination.ElapsedOneChargeAfterGCD(1) || FeyBlessing.ElapsedOneChargeAfterGCD(1))
+        if (WhisperingDawn.ElapsedOneChargeAfterGCD(1) || FeyIllumination.ElapsedOneChargeAfterGCD(1) || FeyBlessing.ElapsedOneChargeAfterGCD(1))
         {
             if (SummonSeraph.CanUse(out act)) return true;
         }

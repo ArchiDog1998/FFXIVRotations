@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Melee;
+namespace DefaultRotations.Melee;
 
 [RotationDesc(ActionID.RiddleOfFire)]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/MNK_Default.cs")]
@@ -45,7 +45,7 @@ public sealed class MNK_Default : MNK_Base
     {
         if (FourPointFury.CanUse(out act)) return true;
         if ((Player.WillStatusEndGCD(3, 0, true, StatusID.DisciplinedFist)
-            || Player.WillStatusEndGCD(7, 0, true, StatusID.DisciplinedFist) 
+            || Player.WillStatusEndGCD(7, 0, true, StatusID.DisciplinedFist)
             && UseLunarPerfectBalance) && TwinSnakes.CanUse(out act)) return true;
         if (TrueStrike.CanUse(out act)) return true;
         return false;
@@ -54,7 +54,7 @@ public sealed class MNK_Default : MNK_Base
     private static bool CoerlForm(out IAction act)
     {
         if (RockBreaker.CanUse(out act)) return true;
-        if (UseLunarPerfectBalance && Demolish.CanUse(out act, CanUseOption.MustUse) 
+        if (UseLunarPerfectBalance && Demolish.CanUse(out act, CanUseOption.MustUse)
             && (Demolish.Target?.WillStatusEndGCD(7, 0, true, StatusID.Demolish) ?? false)) return true;
         if (Demolish.CanUse(out act)) return true;
         if (SnapPunch.CanUse(out act)) return true;
@@ -121,7 +121,7 @@ public sealed class MNK_Default : MNK_Base
 
             //Add status when solar.
             if (Player.WillStatusEndGCD(3, 0, true, StatusID.DisciplinedFist)
-                || Target.WillStatusEndGCD(3, 0, true, StatusID.Demolish)) 
+                || Target.WillStatusEndGCD(3, 0, true, StatusID.Demolish))
             {
                 if (SolarNadi(out act)) return true;
             }

@@ -1,4 +1,4 @@
-﻿namespace RotationSolver.Default.Melee;
+﻿namespace DefaultRotations.Melee;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/SAM_Default.cs")]
 public sealed class SAM_Default : SAM_Base
@@ -28,7 +28,7 @@ public sealed class SAM_Default : SAM_Base
         if (KaeshiSetsugekka.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
 
         //奥义斩浪
-        if ((!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana)) && HaveMoon && HaveFlower 
+        if ((!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana)) && HaveMoon && HaveFlower
             && OgiNamikiri.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //处理居合术
@@ -85,7 +85,7 @@ public sealed class SAM_Default : SAM_Base
         }
 
         //闪影、红莲
-        if(HaveMoon && HaveFlower)
+        if (HaveMoon && HaveFlower)
         {
             if (HissatsuGuren.CanUse(out act, !HissatsuSenei.EnoughLevel ? CanUseOption.MustUse : CanUseOption.None)) return true;
             if (HissatsuSenei.CanUse(out act)) return true;

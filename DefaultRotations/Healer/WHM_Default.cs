@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Healer;
+namespace DefaultRotations.Healer;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default : WHM_Base

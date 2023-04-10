@@ -1,4 +1,4 @@
-﻿namespace RotationSolver.Default.Magical;
+﻿namespace DefaultRotations.Magical;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/BLM_Default.cs")]
 public class BLM_Default : BLM_Base
@@ -277,7 +277,7 @@ public class BLM_Default : BLM_Base
             }
             else if (HasFire)
             {
-                if(Fire3.CanUse(out act)) return true;
+                if (Fire3.CanUse(out act)) return true;
             }
             if (Fire.CanUse(out act)) return true;
         }

@@ -1,4 +1,4 @@
-namespace RotationSolver.Old.Melee;
+namespace DefaultRotations.Melee;
 
 [RotationDesc(ActionID.Mug)]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/NIN_Old.cs")]

@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Ranged;
+namespace DefaultRotations.Ranged;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/DNC_Default.cs")]
 public sealed class DNC_Default : DNC_Base

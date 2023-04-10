@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Tank;
+namespace DefaultRotations.Tank;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/GNB_Default.cs")]
 public sealed class GNB_Default : GNB_Base

@@ -1,4 +1,4 @@
-namespace RotationSolver.Old.Tank;
+namespace DefaultRotations.Tank;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/WAR_Old.cs")]
 public sealed class WAR_Old : WAR_Base

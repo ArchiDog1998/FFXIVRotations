@@ -1,4 +1,4 @@
-﻿namespace RotationSolver.Extra.Magical;
+﻿namespace ExtraRotations.Magical;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/ExtraRotations/Magical/BLU_Extra.cs")]
 public sealed class BLU_Extra : BLU_Base
@@ -31,7 +31,7 @@ public sealed class BLU_Extra : BLU_Base
 
             if (TripleTrident.CanUse(out act, CanUseOption.MustUse)) return true;
         }
-        if (ChocoMeteor.CanUse(out act,  DataCenter.HasCompanion ? CanUseOption.MustUse : CanUseOption.None)) return true;
+        if (ChocoMeteor.CanUse(out act, DataCenter.HasCompanion ? CanUseOption.MustUse : CanUseOption.None)) return true;
 
         if (SonicBoom.CanUse(out act)) return true;
         if (DrillCannons.CanUse(out act, CanUseOption.MustUse)) return true;

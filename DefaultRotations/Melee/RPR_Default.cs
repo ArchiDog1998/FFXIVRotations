@@ -1,4 +1,4 @@
-﻿namespace RotationSolver.Default.Melee;
+﻿namespace DefaultRotations.Melee;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/RPR_Default.cs")]
 public sealed class RPR_Default : RPR_Base

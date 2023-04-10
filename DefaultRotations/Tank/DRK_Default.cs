@@ -1,4 +1,4 @@
-namespace RotationSolver.Balance.Tank;
+namespace DefaultRotations.Tank;
 
 
 [RotationDesc(ActionID.BloodWeapon, ActionID.Delirium)]
@@ -14,7 +14,7 @@ public sealed class DRK_Default : DRK_Base
 
     protected override bool CanHealSingleAbility => false;
 
-    private static bool InTwoMinBurst => BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown 
+    private static bool InTwoMinBurst => BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown
         && LivingShadow.IsCoolingDown && !LivingShadow.ElapsedAfter(20);
 
     private static bool CombatLess => CombatElapsedLess(3);
@@ -27,7 +27,7 @@ public sealed class DRK_Default : DRK_Base
 
             if (CombatLess) return false;
 
-            if ((InTwoMinBurst && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges==0 && CarveandSpit.IsCoolingDown) || HasDarkArts) return true;
+            if (InTwoMinBurst && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveandSpit.IsCoolingDown || HasDarkArts) return true;
 
             if (Configs.GetBool("TheBlackestNight") && Player.CurrentMp < 6000) return false;
 
@@ -56,7 +56,7 @@ public sealed class DRK_Default : DRK_Base
     protected override IAction CountDownAction(float remainTime)
     {
         //Provoke when has Shield.
-        if(remainTime <= Service.Config.CountDownAhead)
+        if (remainTime <= Service.Config.CountDownAhead)
         {
             if (HasTankStance)
             {
@@ -109,10 +109,10 @@ public sealed class DRK_Default : DRK_Base
         else
         {
             //30
-            if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && (ShadowWall.CanUse(out act))) return true;
+            if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && ShadowWall.CanUse(out act)) return true;
 
             //20
-            if ((ShadowWall.IsCoolingDown && ShadowWall.ElapsedAfter(60)) && (Rampart.CanUse(out act))) return true;
+            if (ShadowWall.IsCoolingDown && ShadowWall.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
             if (DarkMind.CanUse(out act)) return true;
         }
 

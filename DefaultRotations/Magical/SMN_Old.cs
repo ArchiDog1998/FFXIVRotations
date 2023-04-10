@@ -1,4 +1,4 @@
-﻿namespace RotationSolver.Default.Magical;
+﻿namespace DefaultRotations.Magical;
 
 [RotationDesc(ActionID.SearingLight)]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/SMN_Old.cs")]
@@ -49,7 +49,7 @@ public sealed class SMN_Old : SMN_Base
         if (!SummonBahamut.EnoughLevel && HasHostilesInRange && AetherCharge.CanUse(out act)) return true;
 
         //毁4
-        if (IsMoving && (Player.HasStatus(true, StatusID.GarudasFavor) || InIfrit) 
+        if (IsMoving && (Player.HasStatus(true, StatusID.GarudasFavor) || InIfrit)
             && !Player.HasStatus(true, StatusID.SwiftCast) && !InBahamut && !InPhoenix
             && RuinIV.CanUse(out act, CanUseOption.MustUse)) return true;
 
@@ -84,7 +84,7 @@ public sealed class SMN_Old : SMN_Base
                 break;
         }
         if (SummonTimerRemaining == 0 && AttunmentTimerRemaining == 0 &&
-            !Player.HasStatus(true, StatusID.SwiftCast) && !InBahamut && !InPhoenix　&&
+            !Player.HasStatus(true, StatusID.SwiftCast) && !InBahamut && !InPhoenix &&
             RuinIV.CanUse(out act, CanUseOption.MustUse)) return true;
         //迸裂三灾
         if (Outburst.CanUse(out act)) return true;

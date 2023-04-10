@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Ranged;
+namespace DefaultRotations.Ranged;
 
 [BetaRotation]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/MCH_Default.cs")]
@@ -15,7 +15,7 @@ public sealed class MCH_Default : MCH_Base
         if (remainTime < Service.Config.CountDownAhead)
         {
             if (AirAnchor.CanUse(out var act1)) return act1;
-            else if(!AirAnchor.EnoughLevel && HotShot.CanUse(out act1)) return act1;
+            else if (!AirAnchor.EnoughLevel && HotShot.CanUse(out act1)) return act1;
         }
         if (remainTime < 2 && UseBurstMedicine(out var act)) return act;
         if (remainTime < 5 && Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return act;
@@ -89,7 +89,7 @@ public sealed class MCH_Default : MCH_Base
             if (Ricochet.CanUse(out act, option)) return true;
         }
         if (GaussRound.CanUse(out act, option)) return true;
-        
+
         return false;
     }
 
@@ -125,7 +125,7 @@ public sealed class MCH_Default : MCH_Base
     {
         act = null;
 
-        if(BarrelStabilizer.IsCoolingDown && BarrelStabilizer.WillHaveOneChargeGCD(8))
+        if (BarrelStabilizer.IsCoolingDown && BarrelStabilizer.WillHaveOneChargeGCD(8))
         {
             if (AirAnchorBlockTime(8)) return false;
         }

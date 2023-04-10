@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Magical;
+namespace DefaultRotations.Magical;
 
 [RotationDesc(ActionID.Embolden)]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/RDM_Default.cs")]

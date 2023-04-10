@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Healer;
+namespace DefaultRotations.Healer;
 
 [RotationDesc(ActionID.Divination)]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/AST_Default.cs")]
