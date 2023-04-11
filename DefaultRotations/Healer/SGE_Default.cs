@@ -3,9 +3,11 @@ namespace DefaultRotations.Healer;
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SGE_Default.cs")]
 public sealed class SGE_Default : SGE_Base
 {
-    public override string GameVersion => "6.18";
+    public override string GameVersion => "6.38";
 
     public override string RotationName => "Default";
+
+    public override string Description => "SGE DPS optimisation by Nore.";
 
 
     /// <summary>
