@@ -20,7 +20,6 @@ public sealed class BLU_Extra : BLU_Base
         if (ChocoMeteor.CanUse(out act)) return true;
         if (DrillCannons.CanUse(out act)) return true;
 
-
         if (TripleTrident.OnSlot && TripleTrident.RightType && TripleTrident.WillHaveOneChargeGCD(OnSlotCount(Whistle, Tingle), 0))
         {
             if ((TripleTrident.CanUse(out _, CanUseOption.MustUse) || !HasHostilesInRange) && Whistle.CanUse(out act)) return true;
