@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Ranged;
+namespace DefaultRotations.Ranged;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/BRD_Default.cs")]
 public sealed class BRD_Default : BRD_Base

@@ -5,4 +5,7 @@
 	  <Folder Include="Tank\" />
 	  <Folder Include="Ranged\" />
 	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Update="RotationSolver.Basic" Version="2.2.6" />
+	</ItemGroup>
 </Project>

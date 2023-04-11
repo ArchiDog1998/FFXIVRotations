@@ -1,4 +1,4 @@
-﻿namespace RotationSolver.Default.Magical;
+﻿namespace DefaultRotations.Magical;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/BLU_Default.cs")]
 public sealed class BLU_Default : BLU_Base

@@ -1,5 +1,4 @@
-﻿
-namespace RotationSolver.Default.Tank;
+﻿namespace DefaultRotations.Tank;
 
 [LinkDescription("https://xiv.sleepyshiba.com/pld/img/63-60stentative2.png")]
 [RotationDesc("The whole rotation's burst\nis base on:")]
@@ -49,7 +48,7 @@ public class PLD_Default : PLD_Base
             && Requiescat.CanUse(out act, CanUseOption.MustUse)) return true;
 
         var option = CanUseOption.MustUse;
-        if(HasFightOrFlight) option |= CanUseOption.EmptyOrSkipCombo;
+        if (HasFightOrFlight) option |= CanUseOption.EmptyOrSkipCombo;
         if (!IsMoving && Intervene.CanUse(out act, option)) return true;
 
         if (HasTankStance && OathGauge == 100 && UseOath(out act)) return true;

@@ -1,4 +1,4 @@
-namespace RotationSolver.Default.Melee;
+namespace DefaultRotations.Melee;
 
 [RotationDesc(ActionID.Mug)]
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/NIN_Default.cs")]
@@ -28,7 +28,7 @@ public sealed class NIN_Default : NIN_Base
     {
         if (remainTime > 10) ClearNinjutsu();
 
-        var realInHuton = (InHuton || IsLastAction(false, Huton));
+        var realInHuton = InHuton || IsLastAction(false, Huton);
         if (realInHuton && _ninActionAim == Huton) ClearNinjutsu();
 
         if (DoNinjutsu(out var act))
@@ -57,7 +57,7 @@ public sealed class NIN_Default : NIN_Base
     {
         if (act == null || AdjustId(ActionID.Ninjutsu) == ActionID.RabbitMedium) return;
         if (_ninActionAim != null && IsLastAction(false, Ten, Jin, Chi, FumaShurikenTen, FumaShurikenJin)) return;
-        if(_ninActionAim != act)
+        if (_ninActionAim != act)
         {
             _ninActionAim = act;
         }
@@ -265,7 +265,7 @@ public sealed class NIN_Default : NIN_Base
     {
         var hasRaijuReady = Player.HasStatus(true, StatusID.RaijuReady);
 
-        if ((InTrickAttack || InMug) && NoNinjutsu && !hasRaijuReady 
+        if ((InTrickAttack || InMug) && NoNinjutsu && !hasRaijuReady
             && PhantomKamaitachi.CanUse(out act)) return true;
 
         if (ChoiceNinjutsu(out act)) return true;
@@ -337,7 +337,7 @@ public sealed class NIN_Default : NIN_Base
         act = null;
         if (!InCombat || AdjustId(2260) != 2260) return false;
 
-        if (!IsMoving && InTrickAttack && !Ten.ElapsedAfter(30) &&  TenChiJin.CanUse(out act)) return true;
+        if (!IsMoving && InTrickAttack && !Ten.ElapsedAfter(30) && TenChiJin.CanUse(out act)) return true;
 
         if (!CombatElapsedLess(5) && Bunshin.CanUse(out act)) return true;
 
@@ -353,7 +353,7 @@ public sealed class NIN_Default : NIN_Base
             }
         }
 
-        if ((!InMug || InTrickAttack) 
+        if ((!InMug || InTrickAttack)
             && (!Bunshin.WillHaveOneCharge(10) || Player.HasStatus(false, StatusID.PhantomKamaitachiReady) || Mug.WillHaveOneCharge(2)))
         {
             if (HellfrogMedium.CanUse(out act)) return true;
