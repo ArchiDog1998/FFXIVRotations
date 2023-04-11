@@ -10,6 +10,9 @@
 		<DalamudLibPath>$(AppData)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
     </PropertyGroup>
     <ItemGroup>
+
+		<PackageReference Include="RotationSolver.Basic" Version="2.2.6" />
+		
         <Reference Include="Dalamud">
 			<HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
 			<Private>False</Private>
