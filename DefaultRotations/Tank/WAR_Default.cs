@@ -114,10 +114,10 @@ public sealed class WAR_Default : WAR_Base
         else
         {
             //30
-            if (Vengeance.CanUse(out act)) return true;
+            if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && Vengeance.CanUse(out act)) return true;
 
             //20
-            if (Rampart.CanUse(out act)) return true;
+            if (Vengeance.IsCoolingDown && Vengeance.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
         }
         if (Reprisal.CanUse(out act)) return true;
 
