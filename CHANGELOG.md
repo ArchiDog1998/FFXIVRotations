@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.1...v1.0.2) (2023-04-13)
+
+
+### Bug Fixes
+
+* add ChangeLog desc. ([9139f5d](https://github.com/ArchiDog1998/FFXIVRotations/commit/9139f5d70dffda1d5a956aa04fea458bbef1f608))
+* changed the defense Strategy. ([6d789e7](https://github.com/ArchiDog1998/FFXIVRotations/commit/6d789e7c7f14d24b1853ebc2e23ba44d690d2cb4))
+
 ## [1.0.1](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.0...v1.0.1) (2023-04-11)
 
 
