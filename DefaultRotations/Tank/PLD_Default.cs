@@ -126,10 +126,10 @@ public class PLD_Default : PLD_Base
         else
         {
             //30
-            if (Sentinel.CanUse(out act)) return true;
+            if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && Sentinel.CanUse(out act)) return true;
 
             //20
-            if (Rampart.CanUse(out act)) return true;
+            if (Sentinel.IsCoolingDown && Sentinel.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
         }
 
         if (Reprisal.CanUse(out act)) return true;
