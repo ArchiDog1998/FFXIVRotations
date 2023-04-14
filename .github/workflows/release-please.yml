@@ -62,7 +62,7 @@ jobs:
         - name: Download Build Artifact
           uses: actions/download-artifact@v3
 
-        - name: Upload DefaultRotations Asset
+        - name: Upload DefaultRotations dll
           uses: actions/upload-release-asset@v1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -71,8 +71,18 @@ jobs:
             asset_path: artifact/DefaultRotations.dll
             asset_name: DefaultRotations.dll
             asset_content_type: application/x-msdownload
+            
+        - name: Upload DefaultRotations pdb
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ needs.release-please.outputs.upload_url }}
+            asset_path: artifact/DefaultRotations.pdb
+            asset_name: DefaultRotations.pdb
+            asset_content_type: application/octet-stream
               
-        - name: Upload ExtraRotations Asset
+        - name: Upload ExtraRotations dll
           uses: actions/upload-release-asset@v1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -81,3 +91,13 @@ jobs:
             asset_path: artifact/ExtraRotations.dll
             asset_name: ExtraRotations.dll
             asset_content_type: application/x-msdownload
+            
+        - name: Upload ExtraRotations pdb
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ needs.release-please.outputs.upload_url }}
+            asset_path: artifact/ExtraRotations.pdb
+            asset_name: ExtraRotations.pdb
+            asset_content_type: application/octet-stream
