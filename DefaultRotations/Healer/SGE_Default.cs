@@ -7,11 +7,7 @@ public sealed class SGE_Default : SGE_Base
 
     public override string RotationName => "Default";
 
-
-    /// <summary>
-    /// втсц╬Ы╨БуО╤о
-    /// </summary>
-    private static BaseAction MEukrasianDiagnosis { get; } = new(ActionID.EukrasianDiagnosis, true)
+    private static BaseAction MEukrasianDiagnosis { get; } = new(ActionID.EukrasianDiagnosis,  ActionOption.Heal)
     {
         ChoiceTarget = (Targets, mustUse) =>
         {
