@@ -12,7 +12,7 @@ public sealed class AST_Default : AST_Base
         => base.CreateConfiguration()
             .SetFloat("UseEarthlyStarTime", 15, "Use the Earthly Star in Count down time", 4, 20);
 
-    static IBaseAction AspectedBeneficDefense { get; } = new BaseAction(ActionID.AspectedBenefic, true, isEot: true)
+    static IBaseAction AspectedBeneficDefense { get; } = new BaseAction(ActionID.AspectedBenefic,  ActionOption.Hot)
     {
         ChoiceTarget = TargetFilter.FindAttackedTarget,
         ActionCheck = b => b.IsJobCategory(JobRole.Tank),
@@ -165,7 +165,7 @@ public sealed class AST_Default : AST_Base
             if (Astrodyne.CanUse(out act)) return true;
         }
 
-        if (DrawnCrownCard == CardType.LORD || MinorArcana.WillHaveOneChargeGCD(1))
+        if (DrawnCrownCard == CardType.LORD || MinorArcana.WillHaveOneChargeGCD(1, 0))
         {
             //进攻牌，随便发。或者CD要转好了，赶紧发掉。
             if (MinorArcana.CanUse(out act, CanUseOption.MustUse)) return true;

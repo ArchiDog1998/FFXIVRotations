@@ -12,7 +12,7 @@ public sealed class WHM_Default : WHM_Base
         return base.CreateConfiguration().SetBool("UseLilyWhenFull", true, "Auto use Lily when full")
                                             .SetBool("UsePreRegen", false, "Regen on Tank in 5 seconds.");
     }
-    public static IBaseAction RegenDefense { get; } = new BaseAction(ActionID.Regen, true, isEot: true, isTimeline: true)
+    public static IBaseAction RegenDefense { get; } = new BaseAction(ActionID.Regen, ActionOption.Hot)
     {
         ChoiceTarget = TargetFilter.FindAttackedTarget,
         TargetStatus = Regen.TargetStatus,

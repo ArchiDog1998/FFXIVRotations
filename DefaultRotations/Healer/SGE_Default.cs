@@ -20,7 +20,7 @@ public sealed class SGE_Default : SGE_Base
     /// <summary>
     /// ���þ�������
     /// </summary>
-    private static BaseAction MEukrasianDiagnosis { get; } = new(ActionID.EukrasianDiagnosis, true)
+    private static BaseAction MEukrasianDiagnosis { get; } = new(ActionID.EukrasianDiagnosis, ActionOption.Heal)
     {
         ChoiceTarget = (Targets, mustUse) =>
         {
