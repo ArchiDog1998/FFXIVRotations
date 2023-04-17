@@ -48,8 +48,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: |
-            .\DefaultRotations\bin\Release\DefaultRotations\
-            .\ExtraRotations\bin\Release\ExtraRotations\
+            .\DefaultRotations\bin\Release\net7.0-windows\DefaultRotations\
+            .\ExtraRotations\bin\Release\net7.0-windows\ExtraRotations\
 
   release:
       name: release
