@@ -9,6 +9,13 @@ public sealed class SGE_Default : SGE_Base
 
     public override string Description => "SGE DPS optimisation by Nore.";
 
+    private static bool InTwoMinBurst()
+    {
+        if (RatioOfMembersIn2minsBurst >= 0.5) return true;
+        if (RatioOfMembersIn2minsBurst == -1) return true;
+        else return false;
+    }
+
 
     /// <summary>
     /// ���þ�������
@@ -68,24 +75,27 @@ public sealed class SGE_Default : SGE_Base
     [RotationDesc(ActionID.Haima, ActionID.Taurochole, ActionID.Panhaima, ActionID.Kerachole, ActionID.Holos)]
     protected override bool DefenseSingleAbility(byte abilitiesRemaining, out IAction act)
     {
-        if (Addersgall <= 1)
+        if (abilitiesRemaining == 1)
         {
-            if (Haima.CanUse(out act)) return true;
+            if (Addersgall <= 1)
+            {
+                if (Haima.CanUse(out act)) return true;
+            }
+
+            //��ţ��֭
+            if (Taurochole.CanUse(out act) && Taurochole.Target.GetHealthRatio() < 0.8) return true;
+
+            if (Addersgall <= 1)
+            {
+                if ((!Haima.EnoughLevel || Haima.ElapsedAfter(20)) && Panhaima.CanUse(out act)) return true;
+            }
+
+            //������֭
+            if ((!Taurochole.EnoughLevel || Taurochole.ElapsedAfter(20)) && Kerachole.CanUse(out act)) return true;
+
+            //������
+            if (Holos.CanUse(out act)) return true;
         }
-
-        //��ţ��֭
-        if (Taurochole.CanUse(out act) && Taurochole.Target.GetHealthRatio() < 0.8) return true;
-
-        if (Addersgall <= 1)
-        {
-            if ((!Haima.EnoughLevel || Haima.ElapsedAfter(20)) && Panhaima.CanUse(out act)) return true;
-        }
-
-        //������֭
-        if ((!Taurochole.EnoughLevel || Taurochole.ElapsedAfter(20)) && Kerachole.CanUse(out act)) return true;
-
-        //������
-        if (Holos.CanUse(out act)) return true;
 
         return base.DefenseSingleAbility(abilitiesRemaining, out act);
     }
@@ -113,21 +123,24 @@ public sealed class SGE_Default : SGE_Base
     }
 
     [RotationDesc(ActionID.Panhaima, ActionID.Kerachole, ActionID.Holos)]
-    protected override bool DefenseAreaAbility(byte abilityRemain, out IAction act)
+    protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
     {
-        //����Ѫ
-        if (Addersgall <= 1)
+        if (abilitiesRemaining == 1)
         {
-            if (Panhaima.CanUse(out act)) return true;
+            //����Ѫ
+            if (Addersgall <= 1)
+            {
+                if (Panhaima.CanUse(out act)) return true;
+            }
+
+            //������֭
+            if (Kerachole.CanUse(out act)) return true;
+
+            //������
+            if (Holos.CanUse(out act)) return true;
         }
 
-        //������֭
-        if (Kerachole.CanUse(out act)) return true;
-
-        //������
-        if (Holos.CanUse(out act)) return true;
-
-        return base.DefenseAreaAbility(abilityRemain, out act);
+        return base.DefenseAreaAbility(abilitiesRemaining, out act);
     }
 
     [RotationDesc(ActionID.EukrasianPrognosis)]
@@ -172,8 +185,11 @@ public sealed class SGE_Default : SGE_Base
 
     protected override bool GeneralGCD(out IAction act)
     {
+        //����
+        if (IsMoving && Toxikon.CanUse(out act, CanUseOption.MustUse)) return true;
+
         var option = CanUseOption.MustUse;
-        if (IsMoving || Dyskrasia.CanUse(out _)) option |= CanUseOption.EmptyOrSkipCombo;
+        if (IsMoving || Dyskrasia.CanUse(out _) || InTwoMinBurst()) option |= CanUseOption.EmptyOrSkipCombo;
         //���� ��һ����λ
         if (Phlegma3.CanUse(out act, option)) return true;
         if (!Phlegma3.EnoughLevel && Phlegma2.CanUse(out act, option)) return true;
@@ -199,9 +215,6 @@ public sealed class SGE_Default : SGE_Base
         //עҩ
         if (Dosis.CanUse(out act)) return true;
 
-        //����
-        if (IsMoving && Toxikon.CanUse(out act, CanUseOption.MustUse)) return true;
-
         //��ս��Tˢ�����ζ���
         if (MEukrasianDiagnosis.CanUse(out _))
         {
@@ -210,6 +223,12 @@ public sealed class SGE_Default : SGE_Base
 
             act = MEukrasianDiagnosis;
             return true;
+        }
+        if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
+            || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
+            || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
+        {
+            if (Eukrasia.CanUse(out act)) return true;
         }
         //if (Eukrasia.CanUse(out act)) return true;
 
@@ -247,19 +266,22 @@ public sealed class SGE_Default : SGE_Base
         //����
         if (Soteria.CanUse(out act) && PartyMembers.Any(b => b.HasStatus(true, StatusID.Kardion) && b.GetHealthRatio() < 0.85f)) return true;
 
-        var tank = PartyTanks;
-        if (Addersgall <= 1 && tank.Any(t => t.GetHealthRatio() < 0.65f))
+        if (abilitiesRemaining == 1)
         {
-            if (Haima.CanUse(out act)) return true;
+            var tank = PartyTanks;
+            if (Addersgall == 0 && tank.Any(t => t.GetHealthRatio() < 0.65f))
+            {
+                if (Haima.CanUse(out act)) return true;
 
-            //����
-            if (Physis.CanUse(out act)) return true;
+                //����
+                if (Physis.CanUse(out act)) return true;
 
-            //������
-            if (Holos.CanUse(out act)) return true;
+                //������
+                if (Holos.CanUse(out act)) return true;
 
-            //����Ѫ
-            if ((!Haima.EnoughLevel || Haima.ElapsedAfter(20)) && Panhaima.CanUse(out act)) return true;
+                //����Ѫ
+                if ((!Haima.EnoughLevel || Haima.ElapsedAfter(20)) && Panhaima.CanUse(out act)) return true;
+            }
         }
 
         //�¸�������
@@ -318,19 +340,22 @@ public sealed class SGE_Default : SGE_Base
     [RotationDesc(ActionID.Kerachole, ActionID.Physis, ActionID.Holos, ActionID.Ixochole)]
     protected override bool HealAreaAbility(byte abilitiesRemaining, out IAction act)
     {
-        //������֭
-        if (Kerachole.CanUse(out act) && Level >= 78) return true;
-
         //����
         if (Physis.CanUse(out act)) return true;
 
-        //������
-        if (Holos.CanUse(out act) && PartyMembersAverHP < 0.65f) return true;
+        if (abilitiesRemaining == 1)
+        {
+            //������֭
+            if (Kerachole.CanUse(out act) && Level >= 78) return true;
 
-        //������֭
-        if (Ixochole.CanUse(out act)) return true;
+            //������
+            if (Holos.CanUse(out act) && PartyMembersAverHP < 0.50f) return true;
 
-        if (Kerachole.CanUse(out act)) return true;
+            //������֭
+            if (Ixochole.CanUse(out act)) return true;
+
+            if (Kerachole.CanUse(out act)) return true;
+        }
 
         return false;
     }

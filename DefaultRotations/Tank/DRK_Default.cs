@@ -1,3 +1,5 @@
+using Dalamud.Utility;
+
 namespace DefaultRotations.Tank;
 
 
@@ -6,7 +8,7 @@ namespace DefaultRotations.Tank;
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
 public sealed class DRK_Default : DRK_Base
 {
-    public override string GameVersion => "6.38";
+    public override string GameVersion => "6.39";
 
     public override string RotationName => "Balance";
 
@@ -14,8 +16,12 @@ public sealed class DRK_Default : DRK_Base
 
     protected override bool CanHealSingleAbility => false;
 
-    private static bool InTwoMinBurst => BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown
-        && ((LivingShadow.IsCoolingDown && !(LivingShadow.ElapsedAfter(20))) || !LivingShadow.EnoughLevel);
+    private static bool InTwoMinBurst()
+    {
+        if (RatioOfMembersIn2minsBurst >= 0.5) return true;
+        if (RatioOfMembersIn2minsBurst == -1 && (BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown && ((LivingShadow.IsCoolingDown && !(LivingShadow.ElapsedAfter(15))) || !LivingShadow.EnoughLevel))) return true;
+        else return false;
+    }
 
     private static bool CombatLess => CombatElapsedLess(3);
 
@@ -27,7 +33,9 @@ public sealed class DRK_Default : DRK_Base
 
             if (CombatLess) return false;
 
-            if ((InTwoMinBurst && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveandSpit.IsCoolingDown) || HasDarkArts) return true;
+            if ((InTwoMinBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.TheBlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
+
+            if ((InTwoMinBurst() && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveandSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
 
             if (Configs.GetBool("TheBlackestNight") && Player.CurrentMp < 6000) return false;
 
@@ -41,9 +49,9 @@ public sealed class DRK_Default : DRK_Base
         {
             if (!Delirium.EnoughLevel) return true;
 
-            if (Player.HasStatus(true, StatusID.Delirium) && Player.StatusStack(true, StatusID.BloodWeapon) < 2) return true;
+            if (Player.HasStatus(true, StatusID.Delirium) && LivingShadow.IsCoolingDown) return true;
 
-            if (BloodWeapon.WillHaveOneChargeGCD(1) || Blood >= 90 && !Player.HasStatus(true, StatusID.Delirium)) return true;
+            if ((Delirium.WillHaveOneChargeGCD(1) && !LivingShadow.WillHaveOneChargeGCD(3)) || Blood >= 90 && !LivingShadow.WillHaveOneChargeGCD(1)) return true;
 
             return false;
         }
@@ -62,15 +70,38 @@ public sealed class DRK_Default : DRK_Base
             {
                 if (Provoke.CanUse(out var act1)) return act1;
             }
-            else
-            {
-                if (Unmend.CanUse(out var act1)) return act1;
-            }
+            //else
+            //{
+            //    if (Unmend.CanUse(out var act1)) return act1;
+            //}
         }
         if (remainTime <= 2 && UseBurstMedicine(out var act)) return act;
         if (remainTime <= 3 && TheBlackestNight.CanUse(out act)) return act;
         if (remainTime <= 4 && BloodWeapon.CanUse(out act)) return act;
         return base.CountDownAction(remainTime);
+    }
+
+    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    {
+        if (base.EmergencyAbility(abilitiesRemaining, nextGCD, out act)) return true;
+
+        if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && nextGCD.IsTheSameTo(false, HardSlash, SyphonStrike, Souleater, BloodSpiller, Unmend))
+        {
+            int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            foreach (int number in numbers)
+            {
+                if (BloodWeapon.IsCoolingDown)
+                {
+                    break;
+                }
+
+                BloodWeapon.CanUse(out act, CanUseOption.MustUse);
+            }
+            //if (BloodWeapon.CanUse(out act, CanUseOption.MustUse)) return true;
+
+        }
+
+        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
     }
 
     [RotationDesc(ActionID.TheBlackestNight)]
@@ -84,9 +115,11 @@ public sealed class DRK_Default : DRK_Base
     [RotationDesc(ActionID.DarkMissionary, ActionID.Reprisal)]
     protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
     {
-        if (DarkMissionary.CanUse(out act)) return true;
-        if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
+        act = null;
 
+        if (!InTwoMinBurst() && DarkMissionary.CanUse(out act)) return true;
+        if (!InTwoMinBurst() && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
+        
         return false;
     }
 
@@ -121,8 +154,6 @@ public sealed class DRK_Default : DRK_Base
 
     protected override bool GeneralGCD(out IAction act)
     {
-        if (IsMoving && HasHostilesInRange && BloodWeapon.CanUse(out act)) return true;
-
         //Use Blood
         if (UseBlood)
         {
@@ -147,6 +178,8 @@ public sealed class DRK_Default : DRK_Base
 
     protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
     {
+        //if (InCombat && CombatElapsedLess(2) && BloodWeapon.CanUse(out act)) return true;
+
         if (CheckDarkSide)
         {
             if (FloodOfDarkness.CanUse(out act)) return true;
@@ -156,8 +189,8 @@ public sealed class DRK_Default : DRK_Base
         if (InBurst)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (BloodWeapon.CanUse(out act)) return true;
             if (Delirium.CanUse(out act)) return true;
+            if (Delirium.ElapsedAfterGCD(1) && !Delirium.ElapsedAfterGCD(3) && BloodWeapon.CanUse(out act)) return true;
             if (LivingShadow.CanUse(out act, CanUseOption.MustUse)) return true;
         }
 
@@ -169,24 +202,22 @@ public sealed class DRK_Default : DRK_Base
 
         if (!IsMoving && SaltedEarth.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        if (InTwoMinBurst)
-        {
-            if (ShadowBringer.CanUse(out act, CanUseOption.MustUse)) return true;
-        }
+        if (ShadowBringer.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        if (AbyssalDrain.CanUse(out act)) return true;
+        if (NumberOfHostilesInRange >= 3 && AbyssalDrain.CanUse(out act)) return true;
         if (CarveandSpit.CanUse(out act)) return true;
 
-        if (InTwoMinBurst)
+        if (InTwoMinBurst())
         {
             if (ShadowBringer.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
 
-            if (Plunge.CanUse(out act, CanUseOption.MustUse) && !IsMoving) return true;
         }
+
+        if (Plunge.CanUse(out act, CanUseOption.MustUse) && !IsMoving) return true;
 
         if (SaltandDarkness.CanUse(out act)) return true;
 
-        if (InTwoMinBurst)
+        if (InTwoMinBurst())
         {
             if (Plunge.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo) && !IsMoving) return true;
         }
