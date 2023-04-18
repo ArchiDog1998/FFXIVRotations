@@ -47,13 +47,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: |
-            .\DefaultRotations\bin\Release\DefaultRotations\
-            .\ExtraRotations\bin\Release\ExtraRotations\
+            .\DefaultRotations\bin\Release\net7.0-windows\
+            .\ExtraRotations\bin\Release\net7.0-windows\
 
   release:
       name: release
-      needs: build
-      if: success() && startsWith(github.ref, 'refs/tags/v')
+      needs: |
+        release-please
+        build
       runs-on: ubuntu-latest
 
       steps:

@@ -157,6 +157,13 @@ public sealed class WHM_Default : WHM_Base
         return false;
     }
 
+    [RotationDesc(ActionID.Regen)]
+    protected override bool DefenseSingleGCD(out IAction act)
+    {
+        if (RegenDefense.CanUse(out act)) return true;
+        return base.DefenseSingleGCD(out act);
+    }
+
     protected override IAction CountDownAction(float remainTime)
     {
         if (remainTime < Stone.CastTime + Service.Config.CountDownAhead
