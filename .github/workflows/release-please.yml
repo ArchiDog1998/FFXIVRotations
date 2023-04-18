@@ -21,6 +21,7 @@ jobs:
   build:
     if: ${{ needs.release-please.outputs.released }}
     name: build
+    needs: release-please
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -47,8 +48,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: |
-            .\DefaultRotations\bin\Release\net7.0-windows\
-            .\ExtraRotations\bin\Release\net7.0-windows\
+            .\DefaultRotations\bin\Release\net7.0-windows\DefaultRotations\
+            .\ExtraRotations\bin\Release\net7.0-windows\ExtraRotations\
 
   release:
       name: release
