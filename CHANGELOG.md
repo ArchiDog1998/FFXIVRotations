@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.4](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.3...v1.0.4) (2023-04-18)
+
+
+### Bug Fixes
+
+* add defense Single for whm. ([cc3e557](https://github.com/ArchiDog1998/FFXIVRotations/commit/cc3e557a338c67d671b4034097414382742a2100))
+* fixed action with needs. ([37d4d74](https://github.com/ArchiDog1998/FFXIVRotations/commit/37d4d7480b9d3ffc4f7eac2beb2692f7af90a1fb))
+
 ## [1.0.3](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.2...v1.0.3) (2023-04-16)
 
 
