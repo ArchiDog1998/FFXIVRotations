@@ -97,7 +97,7 @@ public sealed class SMN_Default : SMN_Base
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (InBurst && !Player.HasStatus(false, StatusID.SearingLight))
         {
@@ -128,7 +128,7 @@ public sealed class SMN_Default : SMN_Base
 
         return false;
     }
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //即刻进循环
         switch (Configs.GetCombo("addSwiftcast"))
@@ -156,7 +156,7 @@ public sealed class SMN_Default : SMN_Base
                 }
                 break;
         }
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override IAction CountDownAction(float remainTime)

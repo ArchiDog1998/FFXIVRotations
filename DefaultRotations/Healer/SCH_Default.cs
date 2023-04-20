@@ -18,7 +18,7 @@ public sealed class SCH_Default : SCH_Base
                                             .SetBool("GiveT", false, "Give Recitation to Tank");
     }
 
-    protected override bool EmergencyAbility(byte abilityRemain, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //秘策绑定单盾群盾
         if (nextGCD.IsTheSameTo(true, Succor, Adloquium))
@@ -37,7 +37,7 @@ public sealed class SCH_Default : SCH_Base
             }
         }
 
-        return base.EmergencyAbility(abilityRemain, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool GeneralGCD(out IAction act)
@@ -74,7 +74,7 @@ public sealed class SCH_Default : SCH_Base
     }
 
     [RotationDesc(ActionID.Aetherpact, ActionID.Protraction, ActionID.SacredSoil, ActionID.Excogitation, ActionID.Lustrate, ActionID.Aetherpact)]
-    protected override bool HealSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealSingleAbility(out IAction act)
     {
         //判断是否有人有线
         var haveLink = PartyMembers.Any(p => p.HasStatus(true, StatusID.Aetherpact));
@@ -101,7 +101,7 @@ public sealed class SCH_Default : SCH_Base
     }
 
     [RotationDesc(ActionID.Excogitation)]
-    protected override bool DefenseSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseSingleAbility(out IAction act)
     {
         if (Excogitation.CanUse(out act)) return true;
         return false;
@@ -118,7 +118,7 @@ public sealed class SCH_Default : SCH_Base
 
 
     [RotationDesc(ActionID.SummonSeraph, ActionID.Consolation, ActionID.WhisperingDawn, ActionID.SacredSoil, ActionID.Indomitability)]
-    protected override bool HealAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealAreaAbility(out IAction act)
     {
         //慰藉
         if (WhisperingDawn.ElapsedOneChargeAfterGCD(1) || FeyIllumination.ElapsedOneChargeAfterGCD(1) || FeyBlessing.ElapsedOneChargeAfterGCD(1))
@@ -151,7 +151,7 @@ public sealed class SCH_Default : SCH_Base
     }
 
     [RotationDesc(ActionID.FeyIllumination, ActionID.Expedient, ActionID.SummonSeraph, ActionID.Consolation, ActionID.SacredSoil)]
-    protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseAreaAbility(out IAction act)
     {
         //异想的幻光
         if (FeyIllumination.CanUse(out act)) return true;
@@ -175,7 +175,7 @@ public sealed class SCH_Default : SCH_Base
     }
 
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (InBurst)
         {

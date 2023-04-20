@@ -49,27 +49,24 @@ public sealed class WAR_Default : WAR_Base
         if (Maim.CanUse(out act)) return true;
         if (HeavySwing.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(1, out act)) return true;
+        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
         if (Tomahawk.CanUse(out act)) return true;
 
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (Infuriate.CanUse(out act, gcdCountForAbility: 3)) return true;
 
         if (CombatElapsedLessGCD(1)) return false;
 
-        if (abilitiesRemaining == 1)
+        if (UseBurstMedicine(out act)) return true;
+        if (Player.HasStatus(false, StatusID.SurgingTempest)
+            && !Player.WillStatusEndGCD(6, 0, true, StatusID.SurgingTempest)
+            || !MythrilTempest.EnoughLevel)
         {
-            if (UseBurstMedicine(out act)) return true;
-            if (Player.HasStatus(false, StatusID.SurgingTempest)
-                && !Player.WillStatusEndGCD(6, 0, true, StatusID.SurgingTempest)
-                || !MythrilTempest.EnoughLevel)
-            {
-                if (Berserk.CanUse(out act)) return true;
-            }
+            if (Berserk.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
 
         if (InBurstStatus)
@@ -89,7 +86,7 @@ public sealed class WAR_Default : WAR_Base
         return false;
     }
 
-    protected override bool GeneralAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool GeneralAbility(out IAction act)
     {
         //Auto healing
         if (Player.GetHealthRatio() < 0.6f)
@@ -100,32 +97,28 @@ public sealed class WAR_Default : WAR_Base
 
         if (!HasTankStance && NascentFlash.CanUse(out act)) return true;
 
-        return base.GeneralAbility(abilitiesRemaining, out act);
+        return base.GeneralAbility(out act);
     }
 
     [RotationDesc(ActionID.RawIntuition, ActionID.Vengeance, ActionID.Rampart, ActionID.RawIntuition, ActionID.Reprisal)]
-    protected override bool DefenseSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseSingleAbility(out IAction act)
     {
-        if (abilitiesRemaining == 1)
-        {
-            //10
-            if (RawIntuition.CanUse(out act)) return true;
-        }
-        else
-        {
-            //30
-            if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && Vengeance.CanUse(out act)) return true;
+        //10
+        if (RawIntuition.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
-            //20
-            if (Vengeance.IsCoolingDown && Vengeance.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
-        }
+        //30
+        if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && Vengeance.CanUse(out act)) return true;
+
+        //20
+        if (Vengeance.IsCoolingDown && Vengeance.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
+
         if (Reprisal.CanUse(out act)) return true;
 
         return false;
     }
 
     [RotationDesc(ActionID.ShakeItOff, ActionID.Reprisal)]
-    protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseAreaAbility(out IAction act)
     {
         if (ShakeItOff.CanUse(out act, CanUseOption.MustUse)) return true;
         if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;

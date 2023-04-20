@@ -124,7 +124,7 @@ public sealed class RPR_Default : RPR_Base
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (InBurst)
         {

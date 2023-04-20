@@ -33,7 +33,7 @@ public sealed class AST_Default : AST_Base
     }
 
     [RotationDesc(ActionID.CelestialIntersection, ActionID.Exaltation)]
-    protected override bool DefenseSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseSingleAbility(out IAction act)
     {
         //天星交错
         if (CelestialIntersection.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
@@ -44,12 +44,12 @@ public sealed class AST_Default : AST_Base
     }
 
     [RotationDesc(ActionID.CollectiveUnconscious)]
-    protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseAreaAbility(out IAction act)
     {
         //来个命运之轮
         if (CollectiveUnconscious.CanUse(out act)) return true;
 
-        return base.DefenseAreaAbility(abilitiesRemaining, out act);
+        return base.DefenseAreaAbility(out act);
     }
 
     protected override bool GeneralGCD(out IAction act)
@@ -82,13 +82,12 @@ public sealed class AST_Default : AST_Base
         return false;
     }
 
-    protected override bool EmergencyAbility(byte abilityRemain, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
-        if (base.EmergencyAbility(abilityRemain, nextGCD, out act)) return true;
+        if (base.EmergencyAbility(nextGCD, out act)) return true;
 
         if (PartyHealers.Count() == 1 && Player.HasStatus(false, StatusID.Silence)
             && HasHostilesInRange && EchoDrops.CanUse(out act)) return true;
-
 
         if (!InCombat) return false;
 
@@ -109,7 +108,7 @@ public sealed class AST_Default : AST_Base
         return false;
     }
 
-    protected override bool GeneralAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool GeneralAbility(out IAction act)
     {
         //如果当前还没有卡牌，那就抽一张
         if (Draw.CanUse(out act)) return true;
@@ -140,7 +139,7 @@ public sealed class AST_Default : AST_Base
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (InBurst && !IsMoving && Divination.CanUse(out act)) return true;
 
@@ -172,17 +171,14 @@ public sealed class AST_Default : AST_Base
         }
 
         //发牌
-        if (abilitiesRemaining == 1)
-        {
-            if (PlayCard(out act)) return true;
-        }
+        if (PlayCard(out act)) return true;
 
         return false;
     }
 
     [RotationDesc(ActionID.EssentialDignity, ActionID.CelestialIntersection, ActionID.CelestialOpposition,
         ActionID.EarthlyStar, ActionID.Horoscope)]
-    protected override bool HealSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealSingleAbility(out IAction act)
     {
         //常规奶
         if (EssentialDignity.CanUse(out act)) return true;
@@ -219,7 +215,7 @@ public sealed class AST_Default : AST_Base
     }
 
     [RotationDesc(ActionID.CelestialOpposition, ActionID.EarthlyStar, ActionID.Horoscope)]
-    protected override bool HealAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealAreaAbility(out IAction act)
     {
         //群Hot
         if (CelestialOpposition.CanUse(out act)) return true;

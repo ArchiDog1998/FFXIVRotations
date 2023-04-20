@@ -269,7 +269,7 @@ public sealed class NIN_Old : NIN_Base
             if (SpinningEdge.CanUse(out act)) return true;
 
             //飞刀
-            if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(1, out act)) return true;
+            if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
             if (ThrowingDagger.CanUse(out act)) return true;
         }
 
@@ -284,7 +284,7 @@ public sealed class NIN_Old : NIN_Base
         return base.MoveForwardGCD(out act);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
         if (!InCombat || AdjustId(2260) != 2260) return false;

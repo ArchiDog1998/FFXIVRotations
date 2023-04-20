@@ -74,7 +74,7 @@ public sealed class DRK_Default : DRK_Base
     }
 
     [RotationDesc(ActionID.TheBlackestNight)]
-    protected override bool HealSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealSingleAbility(out IAction act)
     {
         if (TheBlackestNight.CanUse(out act)) return true;
 
@@ -82,7 +82,7 @@ public sealed class DRK_Default : DRK_Base
     }
 
     [RotationDesc(ActionID.DarkMissionary, ActionID.Reprisal)]
-    protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseAreaAbility(out IAction act)
     {
         if (DarkMissionary.CanUse(out act)) return true;
         if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
@@ -91,30 +91,24 @@ public sealed class DRK_Default : DRK_Base
     }
 
     [RotationDesc(ActionID.TheBlackestNight, ActionID.Oblation, ActionID.ShadowWall, ActionID.Rampart, ActionID.DarkMind, ActionID.Reprisal)]
-    protected override bool DefenseSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseSingleAbility(out IAction act)
     {
         act = null;
 
         if (Player.HasStatus(true, StatusID.TheBlackestNight)) return false;
 
-        if (abilitiesRemaining == 1)
-        {
-            //10
-            if (Oblation.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
+        //10
+        if (Oblation.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.OnLastAbility)) return true;
 
-            if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (Reprisal.CanUse(out act, CanUseOption.MustUse | CanUseOption.OnLastAbility)) return true;
 
-            if (TheBlackestNight.CanUse(out act)) return true;
-        }
-        else
-        {
-            //30
-            if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && ShadowWall.CanUse(out act)) return true;
+        if (TheBlackestNight.CanUse(out act, CanUseOption.OnLastAbility)) return true;
+        //30
+        if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && ShadowWall.CanUse(out act)) return true;
 
-            //20
-            if (ShadowWall.IsCoolingDown && ShadowWall.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
-            if (DarkMind.CanUse(out act)) return true;
-        }
+        //20
+        if (ShadowWall.IsCoolingDown && ShadowWall.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
+        if (DarkMind.CanUse(out act)) return true;
 
         return false;
     }
@@ -139,13 +133,13 @@ public sealed class DRK_Default : DRK_Base
         if (SyphonStrike.CanUse(out act)) return true;
         if (HardSlash.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(1, out act)) return true;
+        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
         if (Unmend.CanUse(out act)) return true;
 
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (CheckDarkSide)
         {
