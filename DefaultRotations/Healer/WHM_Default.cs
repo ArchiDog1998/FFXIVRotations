@@ -46,7 +46,7 @@ public sealed class WHM_Default : WHM_Base
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         //加个神速咏唱
         if (PresenseOfMind.CanUse(out act)) return true;
@@ -57,7 +57,7 @@ public sealed class WHM_Default : WHM_Base
         return false;
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //加个无中生有
         if (nextGCD is BaseAction action && action.MPNeed >= 1000 &&
@@ -69,7 +69,7 @@ public sealed class WHM_Default : WHM_Base
             if (PlenaryIndulgence.CanUse(out act)) return true;
         }
 
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     [RotationDesc(ActionID.AfflatusSolace, ActionID.Regen, ActionID.Cure2, ActionID.Cure)]
@@ -92,7 +92,7 @@ public sealed class WHM_Default : WHM_Base
     }
 
     [RotationDesc(ActionID.Benediction, ActionID.Asylum, ActionID.DivineBenison, ActionID.Tetragrammaton)]
-    protected override bool HealSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealSingleAbility(out IAction act)
     {
         if (Benediction.CanUse(out act) &&
             Benediction.Target.GetHealthRatio() < 0.3) return true;
@@ -129,14 +129,14 @@ public sealed class WHM_Default : WHM_Base
     }
 
     [RotationDesc(ActionID.Asylum)]
-    protected override bool HealAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealAreaAbility(out IAction act)
     {
         if (Asylum.CanUse(out act)) return true;
         return false;
     }
 
     [RotationDesc(ActionID.DivineBenison, ActionID.Aquaveil)]
-    protected override bool DefenseSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseSingleAbility(out IAction act)
     {
         //神祝祷
         if (DivineBenison.CanUse(out act)) return true;
@@ -147,7 +147,7 @@ public sealed class WHM_Default : WHM_Base
     }
 
     [RotationDesc(ActionID.Temperance, ActionID.LiturgyOfTheBell)]
-    protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseAreaAbility(out IAction act)
     {
         //节制
         if (Temperance.CanUse(out act)) return true;

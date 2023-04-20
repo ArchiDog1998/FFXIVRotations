@@ -9,7 +9,7 @@ public sealed class BLU_Extra : BLU_Base
 
     public override string Description => "This is a simplified version for me (ArchiTed) using, \nwhich doesn't contain all actions.";
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
         return false;

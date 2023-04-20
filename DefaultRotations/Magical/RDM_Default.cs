@@ -117,7 +117,7 @@ public sealed class RDM_Default : RDM_Base
         return false;
     }
 
-    protected override bool EmergencyAbility(byte abilityRemain, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         act = null;
         if (CombatElapsedLess(4)) return false;
@@ -132,7 +132,7 @@ public sealed class RDM_Default : RDM_Base
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         //Swift
         if (ManaStacks == 0 && (BlackMana < 50 || WhiteMana < 50)

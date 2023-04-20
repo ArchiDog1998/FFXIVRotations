@@ -36,19 +36,19 @@ public sealed class BLU_Default : BLU_Base
     /// </summary>
     private bool SingleAOE => Configs.GetBool("SingleAOE");
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
         return false;
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         if (nextGCD.IsTheSameTo(false, SelfDestruct, FinalSting))
         {
             if (Swiftcast.CanUse(out act)) return true;
         }
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool MoveForwardGCD(out IAction act)

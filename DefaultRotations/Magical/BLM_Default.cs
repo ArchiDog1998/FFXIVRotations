@@ -51,7 +51,7 @@ public class BLM_Default : BLM_Base
         return base.CountDownAction(remainTime);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (InBurst && UseBurstMedicine(out act)) return true;
         if (InUmbralIce)
@@ -75,14 +75,14 @@ public class BLM_Default : BLM_Base
         return false;
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //To Fire
         if (Player.CurrentMp >= 7200 && UmbralIceStacks == 2 && Paradox.EnoughLevel)
         {
-            if ((HasFire || HasSwift) && abilitiesRemaining == 1 && Transpose.CanUse(out act)) return true;
+            if ((HasFire || HasSwift) && Transpose.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
-        if (nextGCD.IsTheSameTo(false, Fire3) && HasFire && abilitiesRemaining == 1)
+        if (nextGCD.IsTheSameTo(false, Fire3) && HasFire)
         {
             if (Transpose.CanUse(out act)) return true;
         }
@@ -90,12 +90,12 @@ public class BLM_Default : BLM_Base
         //Using Manafont
         if (InAstralFire)
         {
-            if (Player.CurrentMp == 0 && abilitiesRemaining == 2 && Manafont.CanUse(out act)) return true;
+            if (Player.CurrentMp == 0 && Manafont.CanUse(out act)) return true;
             //To Ice
             if (NeedToTransposeGoIce(true) && Transpose.CanUse(out act)) return true;
         }
 
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool GeneralGCD(out IAction act)
@@ -355,11 +355,11 @@ public class BLM_Default : BLM_Base
     }
 
     [RotationDesc(ActionID.BetweenTheLines, ActionID.LeyLines)]
-    protected override bool HealSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealSingleAbility(out IAction act)
     {
         if (BetweenTheLines.CanUse(out act)) return true;
         if (LeyLines.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        return base.HealSingleAbility(abilitiesRemaining, out act);
+        return base.HealSingleAbility(out act);
     }
 }

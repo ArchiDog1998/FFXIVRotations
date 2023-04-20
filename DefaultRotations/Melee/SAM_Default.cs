@@ -73,7 +73,7 @@ public sealed class SAM_Default : SAM_Base
         return false;
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         //意气冲天
         if (Kenki <= 50 && Ikishoten.CanUse(out act)) return true;
@@ -105,7 +105,7 @@ public sealed class SAM_Default : SAM_Base
         act = null;
         return false;
     }
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //明镜止水
         if (HasHostilesInRange && IsLastGCD(true, Yukikaze, Mangetsu, Oka) &&
@@ -113,7 +113,7 @@ public sealed class SAM_Default : SAM_Base
         {
             if (MeikyoShisui.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
 
