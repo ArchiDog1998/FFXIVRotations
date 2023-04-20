@@ -85,6 +85,8 @@ public class PLD_Default : PLD_Base
             if (Atonement.CanUse(out act)) return true;
         }
         //123
+        if( Configs.GetBool("UseShieldBash") && ShieldBash.CanUse(out act)) return true;
+
         if (RageOfHalone.CanUse(out act)) return true;
         if (RiotBlade.CanUse(out act)) return true;
         if (FastBlade.CanUse(out act)) return true;
