@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.4...v1.0.5) (2023-04-20)
+
+
+### Bug Fixes
+
+* patched with new Api. ([41f2d37](https://github.com/ArchiDog1998/FFXIVRotations/commit/41f2d37893774c976bbcd2cf24b07d4807ef140f))
+
 ## [1.0.4](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.3...v1.0.4) (2023-04-18)
 
 
