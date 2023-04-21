@@ -16,11 +16,11 @@ public sealed class WAR_Default : WAR_Base
         {
             if (HasTankStance)
             {
-                if (Provoke.CanUse(out var act1)) return act1;
+                if (Provoke.CanUse(out var act1, CanUseOption.IgnoreClippingCheck)) return act1;
             }
             else
             {
-                if (Tomahawk.CanUse(out var act1)) return act1;
+                if (Tomahawk.CanUse(out var act1, CanUseOption.IgnoreClippingCheck)) return act1;
             }
         }
         return base.CountDownAction(remainTime);

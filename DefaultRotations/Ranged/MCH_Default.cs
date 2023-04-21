@@ -18,7 +18,7 @@ public sealed class MCH_Default : MCH_Base
             else if (!AirAnchor.EnoughLevel && HotShot.CanUse(out act1)) return act1;
         }
         if (remainTime < 2 && UseBurstMedicine(out var act)) return act;
-        if (remainTime < 5 && Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return act;
+        if (remainTime < 5 && Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
         return base.CountDownAction(remainTime);
     }
 

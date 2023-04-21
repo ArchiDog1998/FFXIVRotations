@@ -47,7 +47,7 @@ public class BLM_Default : BLM_Base
         {
             if (Fire3.CanUse(out act)) return act;
         }
-        if (remainTime <= 12 && SharpCast.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return act;
+        if (remainTime <= 12 && SharpCast.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
         return base.CountDownAction(remainTime);
     }
 
@@ -103,7 +103,7 @@ public class BLM_Default : BLM_Base
         if (InFireOrIce(out act, out var mustGo)) return true;
         if (mustGo) return false;
         //Triplecast for moving.
-        if (IsMoving && HasHostilesInRange && TripleCast.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
+        if (IsMoving && HasHostilesInRange && TripleCast.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return true;
 
         if (AddElementBase(out act)) return true;
         if (Scathe.CanUse(out act)) return true;
