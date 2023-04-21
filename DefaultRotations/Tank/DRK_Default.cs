@@ -35,7 +35,7 @@ public sealed class DRK_Default : DRK_Base
 
             if ((InTwoMinBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.TheBlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
 
-            if ((InTwoMinBurst() && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveandSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
+            if ((InTwoMinBurst() && BloodWeapon.IsCoolingDown && LivingShadow.IsCoolingDown && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveandSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
 
             if (Configs.GetBool("TheBlackestNight") && Player.CurrentMp < 6000) return false;
 
