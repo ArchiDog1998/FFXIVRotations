@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.5...v1.0.6) (2023-04-21)
+
+
+### Bug Fixes
+
+* add some ignore clipping. ([f1d76c6](https://github.com/ArchiDog1998/FFXIVRotations/commit/f1d76c6f5fd1092b3e2029b5b046bc078dc6f028))
+
 ## [1.0.5](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.4...v1.0.5) (2023-04-20)
 
 
