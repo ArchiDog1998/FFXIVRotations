@@ -81,9 +81,9 @@ public sealed class DRK_Default : DRK_Base
         return base.CountDownAction(remainTime);
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
-        if (base.EmergencyAbility(abilitiesRemaining, nextGCD, out act)) return true;
+        if (base.EmergencyAbility(nextGCD, out act)) return true;
 
         //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && nextGCD.IsTheSameTo(false, HardSlash, SyphonStrike, Souleater, BloodSpiller, Unmend))
         if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && Target != null && Target.IsNPCEnemy())
@@ -102,7 +102,7 @@ public sealed class DRK_Default : DRK_Base
 
         }
 
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     [RotationDesc(ActionID.TheBlackestNight)]
