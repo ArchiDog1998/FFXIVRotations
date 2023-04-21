@@ -25,7 +25,7 @@ public class PLD_Default : PLD_Base
             && HolySpirit.CanUse(out var act)) return act;
 
         if (remainTime < 15 && Configs.GetBool("UseDivineVeilPre")
-            && DivineVeil.CanUse(out act)) return act;
+            && DivineVeil.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
 
         return base.CountDownAction(remainTime);
     }

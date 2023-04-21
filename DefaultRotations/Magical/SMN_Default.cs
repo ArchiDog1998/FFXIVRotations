@@ -161,7 +161,7 @@ public sealed class SMN_Default : SMN_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime <= 30 && SummonCarbuncle.CanUse(out _)) return SummonCarbuncle;
+        if (SummonCarbuncle.CanUse(out _)) return SummonCarbuncle;
         //1.5s预读毁3
         if (remainTime <= Ruin.CastTime + Service.Config.CountDownAhead
             && Ruin.CanUse(out _)) return Ruin;

@@ -120,9 +120,9 @@ public sealed class SAM_Default : SAM_Base
     protected override IAction CountDownAction(float remainTime)
     {
         //开局使用明镜
-        if (remainTime <= 5 && MeikyoShisui.CanUse(out _)) return MeikyoShisui;
+        if (remainTime <= 5 && MeikyoShisui.CanUse(out _, CanUseOption.IgnoreClippingCheck)) return MeikyoShisui;
         //真北防止boss面向没到位
-        if (remainTime <= 2 && TrueNorth.CanUse(out _)) return TrueNorth;
+        if (remainTime <= 2 && TrueNorth.CanUse(out _, CanUseOption.IgnoreClippingCheck)) return TrueNorth;
         return base.CountDownAction(remainTime);
     }
 }

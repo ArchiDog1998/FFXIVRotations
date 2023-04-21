@@ -22,12 +22,12 @@ public sealed class AST_Default : AST_Base
     protected override IAction CountDownAction(float remainTime)
     {
         if (remainTime < Malefic.CastTime + Service.Config.CountDownAhead
-            && Malefic.CanUse(out var act)) return act;
+            && Malefic.CanUse(out var act, CanUseOption.IgnoreClippingCheck)) return act;
         if (remainTime < 3 && UseBurstMedicine(out act)) return act;
-        if (remainTime < 4 && AspectedBeneficDefense.CanUse(out act)) return act;
+        if (remainTime < 4 && AspectedBeneficDefense.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
         if (remainTime < Configs.GetFloat("UseEarthlyStarTime")
-            && EarthlyStar.CanUse(out act)) return act;
-        if (remainTime < 30 && Draw.CanUse(out act)) return act;
+            && EarthlyStar.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
+        if (remainTime < 30 && Draw.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
 
         return base.CountDownAction(remainTime);
     }
