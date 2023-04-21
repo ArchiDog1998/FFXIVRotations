@@ -85,19 +85,20 @@ public sealed class DRK_Default : DRK_Base
     {
         if (base.EmergencyAbility(abilitiesRemaining, nextGCD, out act)) return true;
 
-        if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && nextGCD.IsTheSameTo(false, HardSlash, SyphonStrike, Souleater, BloodSpiller, Unmend))
+        //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && nextGCD.IsTheSameTo(false, HardSlash, SyphonStrike, Souleater, BloodSpiller, Unmend))
+        if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && Target != null && Target.IsNPCEnemy())
         {
-            int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            foreach (int number in numbers)
-            {
-                if (BloodWeapon.IsCoolingDown)
-                {
-                    break;
-                }
+            //int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            //foreach (int number in numbers)
+            //{
+            //    if (BloodWeapon.IsCoolingDown)
+            //    {
+            //        break;
+            //    }
 
-                BloodWeapon.CanUse(out act, CanUseOption.MustUse);
-            }
-            //if (BloodWeapon.CanUse(out act, CanUseOption.MustUse)) return true;
+            //    BloodWeapon.CanUse(out act, CanUseOption.MustUse);
+            //}
+            if (BloodWeapon.CanUse(out act, CanUseOption.MustUse)) return true;
 
         }
 
