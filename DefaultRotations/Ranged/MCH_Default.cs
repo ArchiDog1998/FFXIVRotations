@@ -53,7 +53,7 @@ public sealed class MCH_Default : MCH_Base
         return false;
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         if (Ricochet.CanUse(out act, CanUseOption.MustUse)) return true;
         if (GaussRound.CanUse(out act, CanUseOption.MustUse)) return true;
@@ -63,10 +63,10 @@ public sealed class MCH_Default : MCH_Base
         {
             if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         if (InBurst)
         {

@@ -17,7 +17,7 @@ public sealed class DNC_Default : DNC_Base
         return base.CountDownAction(remainTime);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
         //ÌøÎè×´Ì¬½ûÖ¹Ê¹ÓÃ

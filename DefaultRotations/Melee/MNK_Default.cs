@@ -81,7 +81,7 @@ public sealed class MNK_Default : MNK_Base
         }
         if (OpoOpoForm(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(1, out act)) return true;
+        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
         if (Chakra < 5 && Meditation.CanUse(out act)) return true;
         if (Configs.GetBool("AutoFormShift") && FormShift.CanUse(out act)) return true;
 
@@ -173,17 +173,17 @@ public sealed class MNK_Default : MNK_Base
         return CoerlForm(out act);
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
-        if (abilitiesRemaining == 1 && InCombat)
+        if (InCombat)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (InBurst && !CombatElapsedLessGCD(2) && RiddleOfFire.CanUse(out act)) return true;
+            if (InBurst && !CombatElapsedLessGCD(2) && RiddleOfFire.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
 

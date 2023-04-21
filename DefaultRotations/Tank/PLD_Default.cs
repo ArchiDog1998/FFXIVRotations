@@ -15,7 +15,8 @@ public class PLD_Default : PLD_Base
     {
         return base.CreateConfiguration()
             .SetBool("UseDivineVeilPre", false, "DivineVeilPre in 15 seconds counting down.")
-            .SetBool("UseHolyWhenAway", true, "Use HolyCircle or HolySpirit when far from enemies");
+            .SetBool("UseHolyWhenAway", true, "Use HolyCircle or HolySpirit when far from enemies")
+            .SetBool("UseShieldBash", true, "Use ShieldBash when Lowblow is cooling down");
     }
 
     protected override IAction CountDownAction(float remainTime)
@@ -29,14 +30,14 @@ public class PLD_Default : PLD_Base
         return base.CountDownAction(remainTime);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
 
-        if (abilitiesRemaining == 1 && InCombat)
+        if (InCombat)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (InBurst && !CombatElapsedLess(5) && FightOrFlight.CanUse(out act)) return true;
+            if (InBurst && !CombatElapsedLess(5) && FightOrFlight.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
         if (CombatElapsedLess(8)) return false;
 
@@ -84,6 +85,8 @@ public class PLD_Default : PLD_Base
             if (Atonement.CanUse(out act)) return true;
         }
         //123
+        if( Configs.GetBool("UseShieldBash") && ShieldBash.CanUse(out act)) return true;
+
         if (RageOfHalone.CanUse(out act)) return true;
         if (RiotBlade.CanUse(out act)) return true;
         if (FastBlade.CanUse(out act)) return true;
@@ -100,7 +103,7 @@ public class PLD_Default : PLD_Base
     }
 
     [RotationDesc(ActionID.Reprisal, ActionID.DivineVeil)]
-    protected override bool DefenseAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseAreaAbility(out IAction act)
     {
         if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
         if (DivineVeil.CanUse(out act)) return true;
@@ -108,39 +111,33 @@ public class PLD_Default : PLD_Base
     }
 
     [RotationDesc(ActionID.PassageOfArms)]
-    protected override bool HealAreaAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool HealAreaAbility(out IAction act)
     {
         if (PassageOfArms.CanUse(out act)) return true;
-        return base.HealAreaAbility(abilitiesRemaining, out act);
+        return base.HealAreaAbility(out act);
     }
 
     [RotationDesc(ActionID.Sentinel, ActionID.Rampart, ActionID.Bulwark, ActionID.Sheltron, ActionID.Reprisal)]
-    protected override bool DefenseSingleAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool DefenseSingleAbility(out IAction act)
     {
-        if (abilitiesRemaining == 1)
-        {
-            //10
-            if (Bulwark.CanUse(out act)) return true;
-            if (UseOath(out act)) return true;
-        }
-        else
-        {
-            //30
-            if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && Sentinel.CanUse(out act)) return true;
+        //10
+        if (Bulwark.CanUse(out act, CanUseOption.OnLastAbility)) return true;
+        if (UseOath(out act, CanUseOption.OnLastAbility)) return true;
+        //30
+        if ((!Rampart.IsCoolingDown || Rampart.ElapsedAfter(60)) && Sentinel.CanUse(out act)) return true;
 
-            //20
-            if (Sentinel.IsCoolingDown && Sentinel.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
-        }
+        //20
+        if (Sentinel.IsCoolingDown && Sentinel.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
 
         if (Reprisal.CanUse(out act)) return true;
 
         return false;
     }
 
-    private static bool UseOath(out IAction act)
+    private static bool UseOath(out IAction act, CanUseOption option = CanUseOption.None)
     {
-        if (Sheltron.CanUse(out act)) return true;
-        if (Intervention.CanUse(out act)) return true;
+        if (Sheltron.CanUse(out act, option)) return true;
+        if (Intervention.CanUse(out act, option)) return true;
 
         return false;
     }

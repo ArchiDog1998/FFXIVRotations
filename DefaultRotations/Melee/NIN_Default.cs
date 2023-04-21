@@ -290,7 +290,7 @@ public sealed class NIN_Default : NIN_Base
             if (SpinningEdge.CanUse(out act)) return true;
 
             //Range
-            if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(1, out act)) return true;
+            if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
             if (ThrowingDagger.CanUse(out act)) return true;
         }
 
@@ -312,9 +312,9 @@ public sealed class NIN_Default : NIN_Base
         return base.MoveForwardGCD(out act);
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
-        if (!NoNinjutsu || !InCombat) return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        if (!NoNinjutsu || !InCombat) return base.EmergencyAbility(nextGCD, out act);
 
         if (Kassatsu.CanUse(out act)) return true;
         if (UseBurstMedicine(out act)) return true;
@@ -329,10 +329,10 @@ public sealed class NIN_Default : NIN_Base
                 && Meisui.CanUse(out act)) return true;
         }
 
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
         if (!InCombat || AdjustId(2260) != 2260) return false;

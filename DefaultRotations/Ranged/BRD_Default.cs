@@ -57,12 +57,12 @@ public sealed class BRD_Default : BRD_Base
         return false;
     }
 
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //如果接下来要上毒或者要直线射击，那算了。
         if (nextGCD.IsTheSameTo(true, StraitShoot, VenomousBite, WindBite, IronJaws))
         {
-            return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+            return base.EmergencyAbility(nextGCD, out act);
         }
         else if ((!RagingStrikes.EnoughLevel || Player.HasStatus(true, StatusID.RagingStrikes)) && (!BattleVoice.EnoughLevel || Player.HasStatus(true, StatusID.BattleVoice)))
         {
@@ -73,10 +73,10 @@ public sealed class BRD_Default : BRD_Base
             }
         }
 
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         act = null;
 
@@ -117,9 +117,9 @@ public sealed class BRD_Default : BRD_Base
         if (RadiantFinale.EnoughLevel && RadiantFinale.IsCoolingDown && BattleVoice.EnoughLevel && !BattleVoice.IsCoolingDown) return false;
 
         //放浪神的小步舞曲
-        if (WanderersMinuet.CanUse(out act))
+        if (WanderersMinuet.CanUse(out act, CanUseOption.OnLastAbility))
         {
-            if (SongEndAfter(ARMYRemainTime) && (Song != Song.NONE || Player.HasStatus(true, StatusID.ArmyEthos)) && abilitiesRemaining == 1) return true;
+            if (SongEndAfter(ARMYRemainTime) && (Song != Song.NONE || Player.HasStatus(true, StatusID.ArmyEthos))) return true;
         }
 
         //九天连箭
@@ -132,9 +132,9 @@ public sealed class BRD_Default : BRD_Base
 
             if (Repertoire == 3) return true;
 
-            if (Repertoire == 2 && EmpyrealArrow.WillHaveOneChargeGCD(1) && abilitiesRemaining == 1) return true;
+            if (Repertoire == 2 && EmpyrealArrow.WillHaveOneChargeGCD(1) && NextAbilityToNextGCD < PitchPerfect.AnimationLockTime + Ping) return true;
 
-            if (Repertoire == 2 && EmpyrealArrow.WillHaveOneChargeGCD() && abilitiesRemaining == 2) return true;
+            if (Repertoire == 2 && EmpyrealArrow.WillHaveOneChargeGCD() && NextAbilityToNextGCD > PitchPerfect.AnimationLockTime + Ping) return true;
         }
 
         //贤者的叙事谣

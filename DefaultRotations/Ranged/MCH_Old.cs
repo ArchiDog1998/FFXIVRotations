@@ -70,7 +70,7 @@ public sealed class MCH_Old : MCH_Base
         if (remainTime <= 5 && Reassemble.CanUse(out _, CanUseOption.EmptyOrSkipCombo)) return Reassemble;
         return base.CountDownAction(remainTime);
     }
-    protected override bool EmergencyAbility(byte abilitiesRemaining, IAction nextGCD, out IAction act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //等级小于钻头时,绑定狙击弹
         if (!Drill.EnoughLevel && nextGCD.IsTheSameTo(true, CleanShot))
@@ -98,10 +98,10 @@ public sealed class MCH_Old : MCH_Base
         {
             if (InBurst && Configs.GetBool("MCH_Opener") && Wildfire.CanUse(out act)) return true;
         }
-        return base.EmergencyAbility(abilitiesRemaining, nextGCD, out act);
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool AttackAbility(byte abilitiesRemaining, out IAction act)
+    protected override bool AttackAbility(out IAction act)
     {
         //野火
         if (InBurst && CanUseWildfire(out act)) return true;
@@ -117,7 +117,7 @@ public sealed class MCH_Old : MCH_Base
         if (BarrelStabilizer.CanUse(out act)) return true;
 
         //超荷
-        if (CanUseHypercharge(out act) && (Configs.GetBool("MCH_Opener") && abilitiesRemaining == 1 || !Configs.GetBool("MCH_Opener"))) return true;
+        if (CanUseHypercharge(out act)) return true;
 
         if (GaussRound.CurrentCharges <= Ricochet.CurrentCharges)
         {
@@ -165,7 +165,7 @@ public sealed class MCH_Old : MCH_Base
     /// <returns></returns>
     private bool CanUseHypercharge(out IAction act)
     {
-        if (!Hypercharge.CanUse(out act) || Player.HasStatus(true, StatusID.Reassemble)) return false;
+        if (!Hypercharge.CanUse(out act, CanUseOption.OnLastAbility) || Player.HasStatus(true, StatusID.Reassemble)) return false;
 
         //有野火buff必须释放超荷
         if (Player.HasStatus(true, StatusID.Wildfire)) return true;
