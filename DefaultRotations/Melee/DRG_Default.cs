@@ -15,10 +15,10 @@ public sealed class DRG_Default : DRG_Base
     }
 
     [RotationDesc(ActionID.SpineShatterDive, ActionID.DragonFireDive)]
-    protected override bool MoveForwardAbility(out IAction act, CanUseOption option = CanUseOption.None)
+    protected override bool MoveForwardAbility(out IAction act)
     {
-        if (SpineShatterDive.CanUse(out act, CanUseOption.EmptyOrSkipCombo | option)) return true;
-        if (DragonFireDive.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo | option)) return true;
+        if (SpineShatterDive.CanUse(out act)) return true;
+        if (DragonFireDive.CanUse(out act, CanUseOption.MustUse)) return true;
 
         return false;
     }

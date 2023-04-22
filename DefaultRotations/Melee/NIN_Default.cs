@@ -28,7 +28,7 @@ public sealed class NIN_Default : NIN_Base
     {
         if (remainTime > 10) ClearNinjutsu();
 
-        var realInHuton = InHuton || IsLastAction(false, Huton);
+        var realInHuton = !HutonEndAfterGCD() || IsLastAction(false, Huton);
         if (realInHuton && _ninActionAim == Huton) ClearNinjutsu();
 
         if (DoNinjutsu(out var act))
@@ -106,7 +106,7 @@ public sealed class NIN_Default : NIN_Base
         {
             //Buff
             if (Huraijin.CanUse(out act)) return true;
-            if (InHuton && _ninActionAim?.ID == Huton.ID)
+            if (!HutonEndAfterGCD() && _ninActionAim?.ID == Huton.ID)
             {
                 ClearNinjutsu();
                 return false;

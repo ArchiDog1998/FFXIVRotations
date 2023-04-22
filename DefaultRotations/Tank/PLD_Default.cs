@@ -42,7 +42,6 @@ public class PLD_Default : PLD_Base
         if (CombatElapsedLess(8)) return false;
 
         if (CircleOfScorn.CanUse(out act, CanUseOption.MustUse)) return true;
-        if (Expiacion.CanUse(out act, CanUseOption.MustUse)) return true;
         if (SpiritsWithin.CanUse(out act, CanUseOption.MustUse)) return true;
 
         if (Player.WillStatusEndGCD(6, 0, true, StatusID.FightOrFlight)

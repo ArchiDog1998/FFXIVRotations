@@ -86,7 +86,7 @@ public sealed class SMN_Default : SMN_Base
                 if (SummonRuby.CanUse(out act)) return true;
                 break;
         }
-        if (SummonTimerRemaining == 0 && AttunmentTimerRemaining == 0 &&
+        if (SummonTimeEndAfterGCD() && AttunmentTimeEndAfterGCD() &&
             !Player.HasStatus(true, StatusID.SwiftCast) && !InBahamut && !InPhoenix &&
             RuinIV.CanUse(out act, CanUseOption.MustUse)) return true;
         //迸裂三灾
