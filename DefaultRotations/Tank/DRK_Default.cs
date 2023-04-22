@@ -68,7 +68,7 @@ public sealed class DRK_Default : DRK_Base
         {
             if (HasTankStance)
             {
-                if (Provoke.CanUse(out _, CanUseOption.IgnoreClippingCheck))) return Provoke;
+                if (Provoke.CanUse(out _, CanUseOption.IgnoreClippingCheck)) return Provoke;
             }
             //else
             //{
