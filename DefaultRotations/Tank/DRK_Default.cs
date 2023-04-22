@@ -27,7 +27,7 @@ public sealed class DRK_Default : DRK_Base
 
             if (CombatLess) return false;
 
-            if (InTwoMinBurst && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveandSpit.IsCoolingDown || HasDarkArts) return true;
+            if (InTwoMinBurst && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveAndSpit.IsCoolingDown || HasDarkArts) return true;
 
             if (Configs.GetBool("TheBlackestNight") && Player.CurrentMp < 6000) return false;
 
@@ -169,7 +169,7 @@ public sealed class DRK_Default : DRK_Base
         }
 
         if (AbyssalDrain.CanUse(out act)) return true;
-        if (CarveandSpit.CanUse(out act)) return true;
+        if (CarveAndSpit.CanUse(out act)) return true;
 
         if (InTwoMinBurst)
         {

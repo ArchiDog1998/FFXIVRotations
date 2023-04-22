@@ -65,7 +65,7 @@ public sealed class NIN_Old : NIN_Base
             //加状态
             if (Huraijin.CanUse(out act)) return true;
 
-            if (InHuton && _ninActionAim?.ID == Huton.ID)
+            if (!HutonEndAfterGCD() && _ninActionAim?.ID == Huton.ID)
             {
                 ClearNinjutsu();
                 return false;
