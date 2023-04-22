@@ -18,13 +18,13 @@ public sealed class MNK_Default : MNK_Base
     {
         if (remainTime < 0.2)
         {
-            if (Thunderclap.CanUse(out var act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return act;
-            if (Thunderclap.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return act;
+            if (Thunderclap.CanUse(out var act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
+            if (Thunderclap.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
         }
         if (remainTime < 15)
         {
-            if (Chakra < 5 && Meditation.CanUse(out var act)) return act;
-            if (FormShift.CanUse(out act)) return act;
+            if (Chakra < 5 && Meditation.CanUse(out var act, CanUseOption.IgnoreClippingCheck)) return act;
+            if (FormShift.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
         }
 
         return base.CountDownAction(remainTime);

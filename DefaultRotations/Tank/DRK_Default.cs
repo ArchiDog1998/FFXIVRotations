@@ -76,8 +76,8 @@ public sealed class DRK_Default : DRK_Base
             //}
         }
         if (remainTime <= 2 && UseBurstMedicine(out var act)) return act;
-        if (remainTime <= 3 && TheBlackestNight.CanUse(out act)) return act;
-        if (remainTime <= 4 && BloodWeapon.CanUse(out act)) return act;
+        if (remainTime <= 3 && TheBlackestNight.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
+        if (remainTime <= 4 && BloodWeapon.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
         return base.CountDownAction(remainTime);
     }
 

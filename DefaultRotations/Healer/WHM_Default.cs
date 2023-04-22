@@ -171,8 +171,8 @@ public sealed class WHM_Default : WHM_Base
 
         if (Configs.GetBool("UsePreRegen") && remainTime <= 5 && remainTime > 3)
         {
-            if (RegenDefense.CanUse(out act)) return act;
-            if (DivineBenison.CanUse(out act)) return act;
+            if (RegenDefense.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
+            if (DivineBenison.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;
         }
         return base.CountDownAction(remainTime);
     }
