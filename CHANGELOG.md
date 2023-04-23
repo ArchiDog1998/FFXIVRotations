@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.7...v1.0.8) (2023-04-23)
+
+
+### Bug Fixes
+
+* Add an option for reassemble using. ([43cfbee](https://github.com/ArchiDog1998/FFXIVRotations/commit/43cfbeecacc8f881199dba932f831d7c1f07ee9d))
+
 ## [1.0.7](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.6...v1.0.7) (2023-04-22)
 
 
