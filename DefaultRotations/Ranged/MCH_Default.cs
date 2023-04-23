@@ -41,7 +41,6 @@ public sealed class MCH_Default : MCH_Base
             if (AirAnchor.CanUse(out act)) return true;
             else if (!AirAnchor.EnoughLevel && HotShot.CanUse(out act)) return true;
 
-
             if (Drill.CanUse(out act)) return true;
         }
 
