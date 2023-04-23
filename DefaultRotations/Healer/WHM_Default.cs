@@ -8,18 +8,20 @@ public sealed class WHM_Default : WHM_Base
     public override string RotationName => "Default";
 
     protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration().SetBool("UseLilyWhenFull", true, "Auto use Lily when full")
-                                            .SetBool("UsePreRegen", false, "Regen on Tank in 5 seconds.");
-    }
+        => base.CreateConfiguration()
+            .SetBool("UseLilyWhenFull", true, "Auto use Lily when full")
+            .SetBool("UsePreRegen", false, "Regen on Tank in 5 seconds.");
     public static IBaseAction RegenDefense { get; } = new BaseAction(ActionID.Regen, ActionOption.Hot)
     {
         ChoiceTarget = TargetFilter.FindAttackedTarget,
+        ActionCheck = b => b.IsJobCategory(JobRole.Tank),
         TargetStatus = Regen.TargetStatus,
     };
 
     protected override bool GeneralGCD(out IAction act)
     {
+        if (NotInCombatDelay && RegenDefense.CanUse(out act)) return true;
+
         //苦难之心
         if (AfflatusMisery.CanUse(out act, CanUseOption.MustUse)) return true;
 
