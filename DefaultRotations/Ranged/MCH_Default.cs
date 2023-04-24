@@ -60,7 +60,7 @@ public sealed class MCH_Default : MCH_Base
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
-        if (Configs.GetBool("MCH_Reassemble") && nextGCD.IsTheSameTo(true, ChainSaw))
+        if (Configs.GetBool("MCH_Reassemble") && ChainSaw.EnoughLevel && nextGCD.IsTheSameTo(true, ChainSaw))
         {
             if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
