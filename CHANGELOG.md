@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.9](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.8...v1.0.9) (2023-04-24)
+
+
+### Bug Fixes
+
+* add a level check for MCH option. ([6fd51cf](https://github.com/ArchiDog1998/FFXIVRotations/commit/6fd51cf027f070829b369b3a661bff9c428e5d0a))
+* add regen for WHM. ([ad8f291](https://github.com/ArchiDog1998/FFXIVRotations/commit/ad8f291c3cffc95f42ffa099abd6a14134d59a6f))
+* update api. ([d9accfc](https://github.com/ArchiDog1998/FFXIVRotations/commit/d9accfc39e7793d600d745e7cf02d81d0710de86))
+
 ## [1.0.8](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.7...v1.0.8) (2023-04-23)
 
 
