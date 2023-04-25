@@ -62,6 +62,7 @@ public sealed class NIN_Default : NIN_Base
             _ninActionAim = act;
         }
     }
+
     private static void ClearNinjutsu()
     {
         if (_ninActionAim != null)
@@ -74,6 +75,7 @@ public sealed class NIN_Default : NIN_Base
     {
         act = null;
         if (AdjustId(ActionID.Ninjutsu) != ActionID.Ninjutsu) return false;
+        if (TimeSinceLastAction.TotalSeconds > 4.5) ClearNinjutsu();
         if (_ninActionAim != null && WeaponRemain < 0.2) return false;
 
         //Kassatsu
