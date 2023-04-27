@@ -8,11 +8,11 @@ namespace DefaultRotations.Tank;
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
 public sealed class DRK_Default : DRK_Base
 {
-    public override string GameVersion => "6.39";
+    public override string GameVersion => "6.38";
 
     public override string RotationName => "Balance";
 
-    public override string Description => "Special thanks to Nore for fixing the rotation.";
+    public override string Description => "Please contact Nore#7219 on Discord for questions about this rotation.";
 
     protected override bool CanHealSingleAbility => false;
 

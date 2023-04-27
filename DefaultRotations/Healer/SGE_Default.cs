@@ -7,7 +7,7 @@ public sealed class SGE_Default : SGE_Base
 
     public override string RotationName => "Default";
 
-    public override string Description => "SGE DPS optimisation by Nore.";
+    public override string Description => "Please contact Nore#7219 on Discord for questions about this rotation.";
 
     private static bool InTwoMinBurst()
     {
