@@ -28,7 +28,7 @@ public sealed class NIN_Default : NIN_Base
     {
         if (remainTime > 10) ClearNinjutsu();
 
-        var realInHuton = InHuton || IsLastAction(false, Huton);
+        var realInHuton = !HutonEndAfterGCD() || IsLastAction(false, Huton);
         if (realInHuton && _ninActionAim == Huton) ClearNinjutsu();
 
         if (DoNinjutsu(out var act))
@@ -62,6 +62,7 @@ public sealed class NIN_Default : NIN_Base
             _ninActionAim = act;
         }
     }
+
     private static void ClearNinjutsu()
     {
         if (_ninActionAim != null)
@@ -74,6 +75,7 @@ public sealed class NIN_Default : NIN_Base
     {
         act = null;
         if (AdjustId(ActionID.Ninjutsu) != ActionID.Ninjutsu) return false;
+        if (TimeSinceLastAction.TotalSeconds > 4.5) ClearNinjutsu();
         if (_ninActionAim != null && WeaponRemain < 0.2) return false;
 
         //Kassatsu
@@ -106,7 +108,7 @@ public sealed class NIN_Default : NIN_Base
         {
             //Buff
             if (Huraijin.CanUse(out act)) return true;
-            if (InHuton && _ninActionAim?.ID == Huton.ID)
+            if (!HutonEndAfterGCD() && _ninActionAim?.ID == Huton.ID)
             {
                 ClearNinjutsu();
                 return false;

@@ -28,13 +28,13 @@ public sealed class SAM_Default : SAM_Base
         if (KaeshiSetsugekka.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
 
         //奥义斩浪
-        if ((!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana)) && HaveMoon && HaveFlower
+        if ((!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana)) && HasMoon && HasFlower
             && OgiNamikiri.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //处理居合术
         if (SenCount == 1 && IsTargetBoss && !IsTargetDying)
         {
-            if (HaveMoon && HaveFlower && Higanbana.CanUse(out act)) return true;
+            if (HasMoon && HasFlower && Higanbana.CanUse(out act)) return true;
         }
         if (SenCount == 2)
         {
@@ -46,8 +46,8 @@ public sealed class SAM_Default : SAM_Base
         }
 
         //连击2
-        if ((!HaveMoon || MoonTime < FlowerTime || !Oka.EnoughLevel) && Mangetsu.CanUse(out act, haveMeikyoShisui && !HasGetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
-        if ((!HaveFlower || FlowerTime < MoonTime) && Oka.CanUse(out act, haveMeikyoShisui && !HasKa ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if ((!HasMoon || IsMoonTimeLessThanFlower || !Oka.EnoughLevel) && Mangetsu.CanUse(out act, haveMeikyoShisui && !HasGetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if ((!HasFlower || !IsMoonTimeLessThanFlower) && Oka.CanUse(out act, haveMeikyoShisui && !HasKa ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
         if (!HasSetsu && Yukikaze.CanUse(out act, haveMeikyoShisui && HasGetsu && HasKa && !HasSetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
 
         //连击3
@@ -55,8 +55,8 @@ public sealed class SAM_Default : SAM_Base
         if (Kasha.CanUse(out act, haveMeikyoShisui && !HasKa ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
 
         //连击2
-        if ((!HaveMoon || MoonTime < FlowerTime || !Shifu.EnoughLevel) && Jinpu.CanUse(out act)) return true;
-        if ((!HaveFlower || FlowerTime < MoonTime) && Shifu.CanUse(out act)) return true;
+        if ((!HasMoon || IsMoonTimeLessThanFlower || !Shifu.EnoughLevel) && Jinpu.CanUse(out act)) return true;
+        if ((!HasFlower || !IsMoonTimeLessThanFlower) && Shifu.CanUse(out act)) return true;
 
         if (!haveMeikyoShisui)
         {
@@ -85,7 +85,7 @@ public sealed class SAM_Default : SAM_Base
         }
 
         //闪影、红莲
-        if (HaveMoon && HaveFlower)
+        if (HasMoon && HasFlower)
         {
             if (HissatsuGuren.CanUse(out act, !HissatsuSenei.EnoughLevel ? CanUseOption.MustUse : CanUseOption.None)) return true;
             if (HissatsuSenei.CanUse(out act)) return true;
@@ -109,7 +109,7 @@ public sealed class SAM_Default : SAM_Base
     {
         //明镜止水
         if (HasHostilesInRange && IsLastGCD(true, Yukikaze, Mangetsu, Oka) &&
-            (!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana) && !Target.WillStatusEnd(40, true, StatusID.Higanbana) || !HaveMoon && !HaveFlower || IsTargetBoss && IsTargetDying))
+            (!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana) && !Target.WillStatusEnd(40, true, StatusID.Higanbana) || !HasMoon && !HasFlower || IsTargetBoss && IsTargetDying))
         {
             if (MeikyoShisui.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }

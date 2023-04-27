@@ -21,7 +21,13 @@ public sealed class MCH_Default : MCH_Base
         if (remainTime < 5 && Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
         return base.CountDownAction(remainTime);
     }
-
+    
+    protected override IRotationConfigSet CreateConfiguration()
+    {
+        return base.CreateConfiguration()
+            .SetBool("MCH_Reassemble", true, "Ressamble for ChainSaw");
+    }
+    
     protected override bool GeneralGCD(out IAction act)
     {
         //Overheated
@@ -34,7 +40,6 @@ public sealed class MCH_Default : MCH_Base
         {
             if (AirAnchor.CanUse(out act)) return true;
             else if (!AirAnchor.EnoughLevel && HotShot.CanUse(out act)) return true;
-
 
             if (Drill.CanUse(out act)) return true;
         }
@@ -55,11 +60,15 @@ public sealed class MCH_Default : MCH_Base
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
+        if (Configs.GetBool("MCH_Reassemble") && ChainSaw.EnoughLevel && nextGCD.IsTheSameTo(true, ChainSaw))
+        {
+            if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
+        }
         if (Ricochet.CanUse(out act, CanUseOption.MustUse)) return true;
         if (GaussRound.CanUse(out act, CanUseOption.MustUse)) return true;
 
         if (!Drill.EnoughLevel && nextGCD.IsTheSameTo(true, CleanShot)
-            || nextGCD.IsTheSameTo(false, AirAnchor, Drill, ChainSaw))
+            || nextGCD.IsTheSameTo(false, AirAnchor, ChainSaw))
         {
             if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
