@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.10](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.9...v1.0.10) (2023-04-27)
+
+
+### Bug Fixes
+
+* clear Ninjutsu when no actions for 4.5s. ([0af5106](https://github.com/ArchiDog1998/FFXIVRotations/commit/0af51066323ec8684303df644243d43f7bab6e0d))
+* update with api. ([107a7b0](https://github.com/ArchiDog1998/FFXIVRotations/commit/107a7b026da399d7d3a77632de86bf693942f185))
+
 ## [1.0.9](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.8...v1.0.9) (2023-04-24)
 
 
