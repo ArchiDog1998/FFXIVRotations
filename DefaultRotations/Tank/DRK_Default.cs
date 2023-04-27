@@ -35,7 +35,7 @@ public sealed class DRK_Default : DRK_Base
 
             if ((InTwoMinBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.TheBlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
 
-            if ((InTwoMinBurst() && BloodWeapon.IsCoolingDown && LivingShadow.IsCoolingDown && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveandSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
+            if ((InTwoMinBurst() && BloodWeapon.IsCoolingDown && LivingShadow.IsCoolingDown && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveAndSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
 
             if (Configs.GetBool("TheBlackestNight") && Player.CurrentMp < 6000) return false;
 
@@ -200,7 +200,7 @@ public sealed class DRK_Default : DRK_Base
         if (ShadowBringer.CanUse(out act, CanUseOption.MustUse)) return true;
 
         if (NumberOfHostilesInRange >= 3 && AbyssalDrain.CanUse(out act)) return true;
-        if (CarveandSpit.CanUse(out act)) return true;
+        if (CarveAndSpit.CanUse(out act)) return true;
 
         if (InTwoMinBurst())
         {
