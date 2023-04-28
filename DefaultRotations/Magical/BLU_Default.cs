@@ -325,7 +325,11 @@ public sealed class BLU_Default : BLU_Base
 
         if (false)
         {
-            if (AcornBomb.CanUse(out act, CanUseOption.MustUse)) return true;
+            if (AcornBomb.CanUse(out act, CanUseOption.MustUse))
+            {
+                return true;
+            }
+
             if (Faze.CanUse(out act, CanUseOption.MustUse)) return true;
             if (Snort.CanUse(out act, CanUseOption.MustUse)) return true;
             if (BadBreath.CanUse(out act, CanUseOption.MustUse)) return true;
