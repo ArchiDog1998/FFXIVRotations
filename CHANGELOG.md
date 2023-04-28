@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.10...v1.0.11) (2023-04-28)
+
+
+### Bug Fixes
+
+* changed drk, ast, sge rotations. ([62f1ce2](https://github.com/ArchiDog1998/FFXIVRotations/commit/62f1ce2c941ed308ce82b3e6f1ac1ee2e026c334))
+
 ## [1.0.10](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.9...v1.0.10) (2023-04-27)
 
 
