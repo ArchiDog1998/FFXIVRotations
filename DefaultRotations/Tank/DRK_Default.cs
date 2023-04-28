@@ -174,7 +174,6 @@ public sealed class DRK_Default : DRK_Base
     protected override bool AttackAbility(out IAction act)
     {
         //if (InCombat && CombatElapsedLess(2) && BloodWeapon.CanUse(out act)) return true;
-
         if (CheckDarkSide)
         {
             if (FloodOfDarkness.CanUse(out act)) return true;
