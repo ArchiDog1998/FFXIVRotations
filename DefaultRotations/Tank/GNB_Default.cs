@@ -11,6 +11,26 @@ public sealed class GNB_Default : GNB_Base
 
     protected override bool CanHealAreaSpell => false;
 
+    protected override IAction CountDownAction(float remainTime)
+    {
+        if (remainTime <= 0.7 && LightningShot.CanUse(out var act)) return act;
+        if (remainTime <= 1.2 && UseBurstMedicine(out act)) return act;
+        return base.CountDownAction(remainTime);
+    }
+
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
+    {
+        if (base.EmergencyAbility(nextGCD, out act)) return true;
+
+        if (InCombat && CombatElapsedLess(30))
+        {
+            if (IsLastGCD((ActionID)BrutalShell.ID) && NoMercy.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
+            if (Player.HasStatus(true, StatusID.NoMercy) && BloodFest.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
+        }
+
+        return base.EmergencyAbility(nextGCD, out act);
+    }
+
     protected override bool GeneralGCD(out IAction act)
     {
         if (FatedCircle.CanUse(out act)) return true;
@@ -42,12 +62,6 @@ public sealed class GNB_Default : GNB_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InCombat && CombatElapsedLess(30))
-        {
-            if (IsLastGCD((ActionID)BrutalShell.ID) && NoMercy.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
-            if (Player.HasStatus(true, StatusID.NoMercy) && BloodFest.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
-        }
-
         if (InBurst && CanUseNoMercy(out act)) return true;
 
         if (JugularRip.CanUse(out act)) return true;
