@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.12](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.11...v1.0.12) (2023-04-29)
+
+
+### Bug Fixes
+
+* fixed blm triple cast. ([e1babbb](https://github.com/ArchiDog1998/FFXIVRotations/commit/e1babbb9b21f09183572106a4b14ce44520b2fa5))
+* MCH add Reassembly to Drill. ([ab0dac2](https://github.com/ArchiDog1998/FFXIVRotations/commit/ab0dac2996a38ae0975eb6927b73a7a41e748214))
+
 ## [1.0.11](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.10...v1.0.11) (2023-04-28)
 
 
