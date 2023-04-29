@@ -204,6 +204,14 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
 
+        if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
+            || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
+            || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
+        {
+            if (Eukrasia.CanUse(out act)) return true;
+            if (Dosis.CanUse(out act)) return true;
+        }
+
         if (Dosis.CanUse(out act)) return true;
 
         if (MEukrasianDiagnosis.CanUse(out _))
@@ -214,13 +222,6 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
 
-        if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
-            || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
-            || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
-        {
-            if (Eukrasia.CanUse(out act)) return true;
-            if (Dosis.CanUse(out act)) return true;
-        }
         //if (Eukrasia.CanUse(out act)) return true;
 
         return false;
