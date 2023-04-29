@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace DefaultRotations.Tank;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/GNB_Default.cs")]
@@ -62,7 +64,9 @@ public sealed class GNB_Default : GNB_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst && CanUseNoMercy(out act)) return true;
+        //if (InBurst && CanUseNoMercy(out act)) return true;
+
+        if (!CombatElapsedLessGCD(5) && NoMercy.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
 
         if (JugularRip.CanUse(out act)) return true;
 
@@ -84,7 +88,10 @@ public sealed class GNB_Default : GNB_Base
 
         if (AbdomenTear.CanUse(out act)) return true;
 
-        if (Player.HasStatus(true, StatusID.NoMercy) && RoughDivide.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo) && !IsMoving) return true;
+        if (Player.HasStatus(true, StatusID.NoMercy))
+        {
+            if (RoughDivide.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo) && !IsMoving) return true;
+        }
 
         if (EyeGouge.CanUse(out act)) return true;
         if (Hypervelocity.CanUse(out act)) return true;
@@ -128,24 +135,24 @@ public sealed class GNB_Default : GNB_Base
         return false;
     }
 
-    private bool CanUseNoMercy(out IAction act)
-    {
-        if (!NoMercy.CanUse(out act, CanUseOption.OnLastAbility)) return false;
+    //private bool CanUseNoMercy(out IAction act)
+    //{
+    //    if (!NoMercy.CanUse(out act, CanUseOption.OnLastAbility)) return false;
 
-        if (!IsFullParty && !IsTargetBoss && !IsMoving && DemonSlice.CanUse(out _)) return true;
+    //    if (!IsFullParty && !IsTargetBoss && !IsMoving && DemonSlice.CanUse(out _)) return true;
 
-        if (!BurstStrike.EnoughLevel) return true;
+    //    if (!BurstStrike.EnoughLevel) return true;
 
-        if (BurstStrike.EnoughLevel)
-        {
-            if (IsLastGCD((ActionID)KeenEdge.ID) && Ammo == 1 && !GnashingFang.IsCoolingDown && !BloodFest.IsCoolingDown) return true;
-            else if (Ammo == (Level >= 88 ? 3 : 2)) return true;
-            else if (Ammo == 2 && GnashingFang.IsCoolingDown) return true;
-        }
+    //    if (BurstStrike.EnoughLevel)
+    //    {
+    //        if (IsLastGCD((ActionID)KeenEdge.ID) && Ammo == 1 && !GnashingFang.IsCoolingDown && !BloodFest.IsCoolingDown) return true;
+    //        else if (Ammo == (Level >= 88 ? 3 : 2)) return true;
+    //        else if (Ammo == 2 && GnashingFang.IsCoolingDown) return true;
+    //    }
 
-        act = null;
-        return false;
-    }
+    //    act = null;
+    //    return false;
+    //}
 
     private bool CanUseGnashingFang(out IAction act)
     {
