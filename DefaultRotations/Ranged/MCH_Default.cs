@@ -25,7 +25,7 @@ public sealed class MCH_Default : MCH_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("MCH_Reassemble", true, "Ressamble for ChainSaw");
+            .SetBool("MCH_Reassemble", true, "Reassamble for ChainSaw");
     }
     
     protected override bool GeneralGCD(out IAction act)
@@ -68,7 +68,7 @@ public sealed class MCH_Default : MCH_Base
         if (GaussRound.CanUse(out act, CanUseOption.MustUse)) return true;
 
         if (!Drill.EnoughLevel && nextGCD.IsTheSameTo(true, CleanShot)
-            || nextGCD.IsTheSameTo(false, AirAnchor, ChainSaw))
+            || nextGCD.IsTheSameTo(false, AirAnchor, ChainSaw, Drill))
         {
             if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
@@ -98,7 +98,6 @@ public sealed class MCH_Default : MCH_Base
             if (Ricochet.CanUse(out act, option)) return true;
         }
         if (GaussRound.CanUse(out act, option)) return true;
-
         return false;
     }
 

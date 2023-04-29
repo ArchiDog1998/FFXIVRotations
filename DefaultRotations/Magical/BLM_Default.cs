@@ -261,7 +261,7 @@ public class BLM_Default : BLM_Base
             if (AddThunder(out act, 0)) return true;
         }
 
-        if (TripleCast.CanUse(out act)) return true;
+        if (TripleCast.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return true;
 
         if (AddThunder(out act, 0) && Player.WillStatusEndGCD(1, 0, true,
             StatusID.Thundercloud)) return true;
