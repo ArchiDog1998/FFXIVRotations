@@ -68,7 +68,7 @@ public sealed class MCH_Default : MCH_Base
         if (GaussRound.CanUse(out act, CanUseOption.MustUse)) return true;
 
         if (!Drill.EnoughLevel && nextGCD.IsTheSameTo(true, CleanShot)
-            || nextGCD.IsTheSameTo(false, AirAnchor, ChainSaw))
+            || nextGCD.IsTheSameTo(false, AirAnchor, ChainSaw, Drill))
         {
             if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
