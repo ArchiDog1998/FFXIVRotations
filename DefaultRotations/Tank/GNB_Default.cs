@@ -13,8 +13,6 @@ public sealed class GNB_Default : GNB_Base
 
     protected override bool GeneralGCD(out IAction act)
     {
-        if (CanUseDoubleDown(out act)) return true;
-
         if (FatedCircle.CanUse(out act)) return true;
 
         if (DemonSlaughter.CanUse(out act)) return true;
@@ -22,10 +20,12 @@ public sealed class GNB_Default : GNB_Base
 
         if (CanUseGnashingFang(out act)) return true;
 
-        if (CanUseSonicBreak(out act)) return true;
+        if (Player.HasStatus(true, StatusID.NoMercy) && CanUseSonicBreak(out act)) return true;
 
-        if (WickedTalon.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
+        if (Player.HasStatus(true, StatusID.NoMercy) && CanUseDoubleDown(out act)) return true;
+
         if (SavageClaw.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
+        if (WickedTalon.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
 
         if (CanUseBurstStrike(out act)) return true;
 
@@ -42,7 +42,15 @@ public sealed class GNB_Default : GNB_Base
 
     protected override bool AttackAbility(out IAction act)
     {
+        if (CombatElapsedLess(30))
+        {
+            if (IsLastGCD((ActionID)BrutalShell.ID) && NoMercy.CanUse(out act)) return true;
+            if (Player.HasStatus(true, StatusID.NoMercy) && BloodFest.CanUse(out act)) return true;
+        }
+
         if (InBurst && CanUseNoMercy(out act)) return true;
+
+        if (JugularRip.CanUse(out act)) return true;
 
         if (DangerZone.CanUse(out act))
         {
@@ -55,17 +63,15 @@ public sealed class GNB_Default : GNB_Base
             if (!Player.HasStatus(true, StatusID.NoMercy) && !GnashingFang.WillHaveOneCharge(20)) return true;
         }
 
-        if (CanUseBowShock(out act)) return true;
+        if (Player.HasStatus(true, StatusID.NoMercy) && CanUseBowShock(out act)) return true;
 
-        if (JugularRip.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.NoMercy) && RoughDivide.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (GnashingFang.IsCoolingDown && DoubleDown.IsCoolingDown && Ammo == 0 && BloodFest.CanUse(out act)) return true;
+
         if (AbdomenTear.CanUse(out act)) return true;
         if (EyeGouge.CanUse(out act)) return true;
         if (Hypervelocity.CanUse(out act)) return true;
-
-        if (GnashingFang.IsCoolingDown && BloodFest.CanUse(out act)) return true;
-
-        if (Player.HasStatus(true, StatusID.NoMercy) && RoughDivide.CanUse(out act, CanUseOption.MustUse)) return true;
-
+        
         act = null;
         return false;
     }
@@ -73,8 +79,9 @@ public sealed class GNB_Default : GNB_Base
     [RotationDesc(ActionID.HeartOfLight, ActionID.Reprisal)]
     protected override bool DefenseAreaAbility(out IAction act)
     {
-        if (HeartOfLight.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
-        if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
+        act = null;
+        if (!Player.HasStatus(true, StatusID.NoMercy) && HeartOfLight.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
+        if (!Player.HasStatus(true, StatusID.NoMercy) && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
         return false;
     }
 
