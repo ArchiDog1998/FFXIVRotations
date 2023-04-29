@@ -209,7 +209,7 @@ public sealed class SGE_Default : SGE_Base
         if (!Phlegma3.EnoughLevel && Phlegma2.CanUse(out act, option)) return true;
         if (!Phlegma2.EnoughLevel && Phlegma.CanUse(out act, option)) return true;
 
-        if (PartyMembersAverHP < 0.65f || PartyTanks.Any(t => t.GetHealthRatio() < 0.6f))
+        if (PartyMembers.Any(b => b.GetHealthRatio() < 0.20f) || PartyTanks.Any(t => t.GetHealthRatio() < 0.6f))
         {
             if (Pneuma.CanUse(out act, CanUseOption.MustUse)) return true;
         }
