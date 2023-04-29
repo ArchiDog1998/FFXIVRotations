@@ -167,7 +167,7 @@ public sealed class DRK_Default : DRK_Base
         if (HardSlash.CanUse(out act)) return true;
 
         if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
-        if (Unmend.CanUse(out act)) return true;
+        if (BloodWeapon.IsCoolingDown && !Player.HasStatus(true, StatusID.BloodWeapon) && Unmend.CanUse(out act)) return true;
 
         return false;
     }
