@@ -1,3 +1,5 @@
+using static FFXIVClientStructs.FFXIV.Client.UI.Misc.ConfigModule;
+
 namespace DefaultRotations.Healer;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SGE_Default.cs")]
@@ -42,7 +44,7 @@ public sealed class SGE_Default : SGE_Base
         ActionCheck = b =>
         {
             if (!HasHostilesInRange) return false;
-            if (b.HasStatus(false, StatusID.EukrasianDosis)) return false;
+            if (b.HasStatus(true, StatusID.EukrasianDosis)) return false;
             return true;
         }
     };
@@ -222,7 +224,7 @@ public sealed class SGE_Default : SGE_Base
         //    if (Dosis.CanUse(out act)) return true;
         //}
 
-        if (MEukrasianDosis.CanUse(out _))
+        if ((IsMoving || !IsMoving) && !Target.HasStatus(true, StatusID.EukrasianDosis) && MEukrasianDosis.CanUse(out _))
         {
             if (Eukrasia.CanUse(out act)) return true;
 
@@ -283,7 +285,9 @@ public sealed class SGE_Default : SGE_Base
             if (Haima.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
             //����
-            if (Physis.CanUse(out act)) return true;
+            if (Physis2.CanUse(out act)) return true;
+            if (!Physis2.EnoughLevel && Physis.CanUse(out act)) return true;
+          
 
             //������
             if (Holos.CanUse(out act, CanUseOption.OnLastAbility)) return true;
@@ -345,7 +349,8 @@ public sealed class SGE_Default : SGE_Base
     [RotationDesc(ActionID.Kerachole, ActionID.Physis, ActionID.Holos, ActionID.Ixochole)]
     protected override bool HealAreaAbility(out IAction act)
     {
-        if (Physis.CanUse(out act)) return true;
+        if (Physis2.CanUse(out act)) return true;
+        if (!Physis2.EnoughLevel && Physis.CanUse(out act)) return true;
 
         if (Kerachole.CanUse(out act, CanUseOption.OnLastAbility) && Level >= 78) return true;
 
