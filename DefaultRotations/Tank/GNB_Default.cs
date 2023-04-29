@@ -65,10 +65,13 @@ public sealed class GNB_Default : GNB_Base
 
         if (Player.HasStatus(true, StatusID.NoMercy) && CanUseBowShock(out act)) return true;
 
-        if (Player.HasStatus(true, StatusID.NoMercy) && RoughDivide.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (RoughDivide.CanUse(out act, CanUseOption.MustUse) && !IsMoving) return true;
         if (GnashingFang.IsCoolingDown && DoubleDown.IsCoolingDown && Ammo == 0 && BloodFest.CanUse(out act)) return true;
 
         if (AbdomenTear.CanUse(out act)) return true;
+
+        if (Player.HasStatus(true, StatusID.NoMercy) && RoughDivide.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo) && !IsMoving) return true;
+
         if (EyeGouge.CanUse(out act)) return true;
         if (Hypervelocity.CanUse(out act)) return true;
         
