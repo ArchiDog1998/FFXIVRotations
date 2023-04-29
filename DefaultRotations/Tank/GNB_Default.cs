@@ -42,10 +42,10 @@ public sealed class GNB_Default : GNB_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (CombatElapsedLess(30))
+        if (InCombat && CombatElapsedLess(30))
         {
-            if (IsLastGCD((ActionID)BrutalShell.ID) && NoMercy.CanUse(out act)) return true;
-            if (Player.HasStatus(true, StatusID.NoMercy) && BloodFest.CanUse(out act)) return true;
+            if (IsLastGCD((ActionID)BrutalShell.ID) && NoMercy.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
+            if (Player.HasStatus(true, StatusID.NoMercy) && BloodFest.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
         }
 
         if (InBurst && CanUseNoMercy(out act)) return true;
