@@ -24,7 +24,7 @@ public sealed class GNB_Default : GNB_Base
 
         if (InCombat && CombatElapsedLess(30))
         {
-            if (IsLastGCD((ActionID)BrutalShell.ID) && NoMercy.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
+            if (!CombatElapsedLessGCD(2) && NoMercy.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
             if (Player.HasStatus(true, StatusID.NoMercy) && BloodFest.CanUse(out act, CanUseOption.MustUse | CanUseOption.IgnoreClippingCheck)) return true;
         }
 
