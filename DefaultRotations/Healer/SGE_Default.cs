@@ -1,3 +1,5 @@
+using static FFXIVClientStructs.FFXIV.Client.UI.Misc.ConfigModule;
+
 namespace DefaultRotations.Healer;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SGE_Default.cs")]
@@ -36,6 +38,16 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
     };
+
+    //private static BaseAction MEukrasianDosis { get; } = new(ActionID.EukrasianDosis)
+    //{
+    //    ActionCheck = b =>
+    //    {
+    //        if (!HasHostilesInRange) return false;
+    //        if (b.HasStatus(true, StatusID.EukrasianDosis, StatusID.EukrasianDosis2, StatusID.EukrasianDosis3)) return false;
+    //        return true;
+    //    }
+    //};
 
     protected override bool CanHealSingleSpell => base.CanHealSingleSpell && (Configs.GetBool("GCDHeal") || PartyHealers.Count() < 2);
     protected override bool CanHealAreaSpell => base.CanHealAreaSpell && (Configs.GetBool("GCDHeal") || PartyHealers.Count() < 2);
@@ -171,14 +183,23 @@ public sealed class SGE_Default : SGE_Base
 
     protected override bool GeneralGCD(out IAction act)
     {
+        //if (Target.IsBoss())
+        //{
+        //    if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
+        //    || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
+        //    || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
+        //    {
+        //        if (Eukrasia.CanUse(out act)) return true;
+        //        if (Dosis.CanUse(out act)) return true;
+        //    }
+        //}
         if (Target.IsBoss())
         {
-            if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
-            || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
-            || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
+            if (EukrasianDosis.CanUse(out _, CanUseOption.IgnoreCastCheck))
             {
-                if (Eukrasia.CanUse(out act)) return true;
-                if (Dosis.CanUse(out act)) return true;
+                if (Eukrasia.CanUse(out act, CanUseOption.IgnoreCastCheck)) return true;
+                act = EukrasianDosis;
+                return true;
             }
         }
 
@@ -197,12 +218,28 @@ public sealed class SGE_Default : SGE_Base
 
         if (Dyskrasia.CanUse(out act)) return true;
 
-        if (EukrasianDosis.CanUse(out var enAct))
+        if (EukrasianDosis.CanUse(out _, CanUseOption.IgnoreCastCheck))
         {
-            if (Eukrasia.CanUse(out act)) return true;
-            act = enAct;
+            if (Eukrasia.CanUse(out act, CanUseOption.IgnoreCastCheck)) return true;
+            act = EukrasianDosis;
             return true;
         }
+
+        //if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
+        //    || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
+        //    || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
+        //{
+        //    if (Eukrasia.CanUse(out act)) return true;
+        //    if (Dosis.CanUse(out act)) return true;
+        //}
+
+        //if ((IsMoving || !IsMoving) && !Target.HasStatus(true, StatusID.EukrasianDosis, StatusID.EukrasianDosis2, StatusID.EukrasianDosis3) && MEukrasianDosis.CanUse(out _))
+        //{
+        //    if (Eukrasia.CanUse(out act, CanUseOption.IgnoreCastCheck)) return true;
+            
+        //    act = MEukrasianDosis;
+        //    return true;
+        //}
 
         if (Dosis.CanUse(out act)) return true;
 
@@ -213,12 +250,7 @@ public sealed class SGE_Default : SGE_Base
             act = MEukrasianDiagnosis;
             return true;
         }
-        if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
-            || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
-            || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
-        {
-            if (Eukrasia.CanUse(out act)) return true;
-        }
+
         //if (Eukrasia.CanUse(out act)) return true;
 
         return false;
@@ -262,7 +294,9 @@ public sealed class SGE_Default : SGE_Base
             if (Haima.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
             //����
-            if (Physis.CanUse(out act)) return true;
+            if (Physis2.CanUse(out act)) return true;
+            if (!Physis2.EnoughLevel && Physis.CanUse(out act)) return true;
+          
 
             //������
             if (Holos.CanUse(out act, CanUseOption.OnLastAbility)) return true;
@@ -324,7 +358,8 @@ public sealed class SGE_Default : SGE_Base
     [RotationDesc(ActionID.Kerachole, ActionID.Physis, ActionID.Holos, ActionID.Ixochole)]
     protected override bool HealAreaAbility(out IAction act)
     {
-        if (Physis.CanUse(out act)) return true;
+        if (Physis2.CanUse(out act)) return true;
+        if (!Physis2.EnoughLevel && Physis.CanUse(out act)) return true;
 
         if (Kerachole.CanUse(out act, CanUseOption.OnLastAbility) && Level >= 78) return true;
 

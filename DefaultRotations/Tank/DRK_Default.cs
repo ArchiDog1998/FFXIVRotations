@@ -86,7 +86,8 @@ public sealed class DRK_Default : DRK_Base
         if (base.EmergencyAbility(nextGCD, out act)) return true;
 
         //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && nextGCD.IsTheSameTo(false, HardSlash, SyphonStrike, Souleater, BloodSpiller, Unmend))
-        if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && Target != null && Target.IsNPCEnemy())
+        //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && Target != null && Target.IsNPCEnemy() && NumberOfHostilesIn(25) == 1)
+        if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && NumberOfHostilesIn(25) == 1)
         {
             //int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             //foreach (int number in numbers)
@@ -166,7 +167,7 @@ public sealed class DRK_Default : DRK_Base
         if (HardSlash.CanUse(out act)) return true;
 
         if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
-        if (Unmend.CanUse(out act)) return true;
+        if (BloodWeapon.IsCoolingDown && !Player.HasStatus(true, StatusID.BloodWeapon) && Unmend.CanUse(out act)) return true;
 
         return false;
     }
