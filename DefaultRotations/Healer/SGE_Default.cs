@@ -37,6 +37,16 @@ public sealed class SGE_Default : SGE_Base
         }
     };
 
+    private static BaseAction MEukrasianDosis { get; } = new(ActionID.EukrasianDosis)
+    {
+        ActionCheck = b =>
+        {
+            if (!HasHostilesInRange) return false;
+            if (b.HasStatus(false, StatusID.EukrasianDosis)) return false;
+            return true;
+        }
+    };
+
     protected override bool CanHealSingleSpell => base.CanHealSingleSpell && (Configs.GetBool("GCDHeal") || PartyHealers.Count() < 2);
     protected override bool CanHealAreaSpell => base.CanHealAreaSpell && (Configs.GetBool("GCDHeal") || PartyHealers.Count() < 2);
 
@@ -204,12 +214,20 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
 
-        if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
-            || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
-            || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
+        //if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
+        //    || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
+        //    || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
+        //{
+        //    if (Eukrasia.CanUse(out act)) return true;
+        //    if (Dosis.CanUse(out act)) return true;
+        //}
+
+        if (MEukrasianDosis.CanUse(out _))
         {
             if (Eukrasia.CanUse(out act)) return true;
-            if (Dosis.CanUse(out act)) return true;
+
+            act = MEukrasianDosis;
+            return true;
         }
 
         if (Dosis.CanUse(out act)) return true;
