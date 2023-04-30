@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.13](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.12...v1.0.13) (2023-04-30)
+
+
+### Bug Fixes
+
+* changed GNB rotation. ([cc70f1c](https://github.com/ArchiDog1998/FFXIVRotations/commit/cc70f1c463a299a6f7052a9a5addc403f2eb5ce6))
+* fixed reference. ([f33a05e](https://github.com/ArchiDog1998/FFXIVRotations/commit/f33a05e8e24d068a50620063421ebc130f813bc2))
+
 ## [1.0.12](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.11...v1.0.12) (2023-04-29)
 
 
