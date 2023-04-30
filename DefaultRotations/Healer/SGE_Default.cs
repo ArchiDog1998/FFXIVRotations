@@ -209,7 +209,7 @@ public sealed class SGE_Default : SGE_Base
         if (!Phlegma3.EnoughLevel && Phlegma2.CanUse(out act, option)) return true;
         if (!Phlegma2.EnoughLevel && Phlegma.CanUse(out act, option)) return true;
 
-        if (PartyMembersAverHP < 0.65f || PartyTanks.Any(t => t.GetHealthRatio() < 0.6f))
+        if (PartyMembers.Any(b => b.GetHealthRatio() < 0.20f) || PartyTanks.Any(t => t.GetHealthRatio() < 0.6f))
         {
             if (Pneuma.CanUse(out act, CanUseOption.MustUse)) return true;
         }
@@ -289,7 +289,7 @@ public sealed class SGE_Default : SGE_Base
 
 
         var tank = PartyTanks;
-        if (Addersgall == 0 && tank.Any(t => t.GetHealthRatio() < 0.65f))
+        if (Addersgall < 1 && (tank.Any(t => t.GetHealthRatio() < 0.65f) || PartyMembers.Any(b => b.GetHealthRatio() < 0.20f)))
         {
             if (Haima.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
@@ -312,7 +312,7 @@ public sealed class SGE_Default : SGE_Base
             if (Zoe.CanUse(out act)) return true;
         }
 
-        if (PartyTanks.Any(t => t.GetHealthRatio() < 0.70f))
+        if (PartyTanks.Any(t => t.GetHealthRatio() < 0.70f) || PartyMembers.Any(b => b.GetHealthRatio() < 0.30f))
         {
             //����
             if (Krasis.CanUse(out act)) return true;
