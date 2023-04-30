@@ -1,5 +1,3 @@
-using static FFXIVClientStructs.FFXIV.Client.UI.Misc.ConfigModule;
-
 namespace DefaultRotations.Healer;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SGE_Default.cs")]
