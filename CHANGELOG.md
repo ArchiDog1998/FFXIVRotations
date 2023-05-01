@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.14](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.13...v1.0.14) (2023-05-01)
+
+
+### Bug Fixes
+
+* add old rotations. ([dc46d65](https://github.com/ArchiDog1998/FFXIVRotations/commit/dc46d6579dc62625a353095c9d316b264f6e17e0))
+* fixed MP check. ([fd980c3](https://github.com/ArchiDog1998/FFXIVRotations/commit/fd980c32bee6d0a277e059847d2870b4cdd57a05))
+
 ## [1.0.13](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.12...v1.0.13) (2023-04-30)
 
 
