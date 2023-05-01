@@ -9,9 +9,9 @@ public sealed class SGE_Default : SGE_Base
 
     public override string Description => "Please contact Nore#7219 on Discord for questions about this rotation.";
 
-    protected static bool NoOgcds => Addersgall < 1 && (!Physis.EnoughLevel || Physis.IsCoolingDown || Physis2.IsCoolingDown) && (!Haima.EnoughLevel || Haima.IsCoolingDown) && (!Panhaima.EnoughLevel || Panhaima.IsCoolingDown) && (!Holos.EnoughLevel || Holos.IsCoolingDown) && (!Pneuma.EnoughLevel || Pneuma.IsCoolingDown) && (!Rhizomata.EnoughLevel || Rhizomata.IsCoolingDown) && (!Pneuma.EnoughLevel || Krasis.IsCoolingDown);
+    static bool NoOgcds => Addersgall < 1 && (!Physis.EnoughLevel || Physis.IsCoolingDown || Physis2.IsCoolingDown) && (!Haima.EnoughLevel || Haima.IsCoolingDown) && (!Panhaima.EnoughLevel || Panhaima.IsCoolingDown) && (!Holos.EnoughLevel || Holos.IsCoolingDown) && (!Pneuma.EnoughLevel || Pneuma.IsCoolingDown) && (!Rhizomata.EnoughLevel || Rhizomata.IsCoolingDown) && (!Pneuma.EnoughLevel || Krasis.IsCoolingDown);
 
-    protected static bool NoOgcdsAOE => Addersgall < 1 && (!Physis.EnoughLevel || Physis.IsCoolingDown || Physis2.IsCoolingDown) && (!Panhaima.EnoughLevel || Panhaima.IsCoolingDown) && (!Holos.EnoughLevel || Holos.IsCoolingDown) && (!Pneuma.EnoughLevel || Pneuma.IsCoolingDown) && (!Rhizomata.EnoughLevel || Rhizomata.IsCoolingDown) && (!Pneuma.EnoughLevel || Krasis.IsCoolingDown);
+    static bool NoOgcdsAOE => Addersgall < 1 && (!Physis.EnoughLevel || Physis.IsCoolingDown || Physis2.IsCoolingDown) && (!Panhaima.EnoughLevel || Panhaima.IsCoolingDown) && (!Holos.EnoughLevel || Holos.IsCoolingDown) && (!Pneuma.EnoughLevel || Pneuma.IsCoolingDown) && (!Rhizomata.EnoughLevel || Rhizomata.IsCoolingDown) && (!Pneuma.EnoughLevel || Krasis.IsCoolingDown);
 
     private static bool InTwoMinBurst()
     {

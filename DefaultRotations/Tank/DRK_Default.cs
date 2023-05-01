@@ -37,9 +37,9 @@ public sealed class DRK_Default : DRK_Base
 
             if ((InTwoMinBurst() && BloodWeapon.IsCoolingDown && LivingShadow.IsCoolingDown && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveAndSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
 
-            if (Configs.GetBool("TheBlackestNight") && Player.CurrentMp < 6000) return false;
+            if (Configs.GetBool("TheBlackestNight") && CurrentMp < 6000) return false;
 
-            return Player.CurrentMp >= 8500;
+            return CurrentMp >= 8500;
         }
     }
 
