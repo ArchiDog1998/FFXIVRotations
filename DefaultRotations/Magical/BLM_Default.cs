@@ -12,10 +12,10 @@ public class BLM_Default : BLM_Base
         get
         {
             //Can use Despair.
-            if (Despair.EnoughLevel && Player.CurrentMp >= Despair.MPNeed) return false;
+            if (Despair.EnoughLevel && CurrentMp >= Despair.MPNeed) return false;
 
             //Can use Fire1
-            if (Fire.EnoughLevel && Player.CurrentMp >= Fire.MPNeed) return false;
+            if (Fire.EnoughLevel && CurrentMp >= Fire.MPNeed) return false;
 
             return true;
         }
@@ -78,7 +78,7 @@ public class BLM_Default : BLM_Base
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         //To Fire
-        if (Player.CurrentMp >= 7200 && UmbralIceStacks == 2 && Paradox.EnoughLevel)
+        if (CurrentMp >= 7200 && UmbralIceStacks == 2 && Paradox.EnoughLevel)
         {
             if ((HasFire || HasSwift) && Transpose.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
@@ -90,7 +90,7 @@ public class BLM_Default : BLM_Base
         //Using Manafont
         if (InAstralFire)
         {
-            if (Player.CurrentMp == 0 && Manafont.CanUse(out act)) return true;
+            if (CurrentMp == 0 && Manafont.CanUse(out act)) return true;
             //To Ice
             if (NeedToTransposeGoIce(true) && Transpose.CanUse(out act)) return true;
         }
@@ -205,7 +205,7 @@ public class BLM_Default : BLM_Base
         if (UmbralIceStacks < 3) return false;
 
         //Need more MP
-        if (Player.CurrentMp < 9600) return false;
+        if (CurrentMp < 9600) return false;
 
         if (IsParadoxActive)
         {
@@ -242,7 +242,7 @@ public class BLM_Default : BLM_Base
 
         if (ElementTimeEndAfterGCD(Configs.GetBool("ExtendTimeSafely") ? 3u : 2u))
         {
-            if (Player.CurrentMp >= Fire.MPNeed * 2 + 800 && Fire.CanUse(out act)) return true;
+            if (CurrentMp >= Fire.MPNeed * 2 + 800 && Fire.CanUse(out act)) return true;
             if (Flare.CanUse(out act)) return true;
             if (Despair.CanUse(out act)) return true;
         }
@@ -269,7 +269,7 @@ public class BLM_Default : BLM_Base
         if (UmbralHearts < 2 && Flare.CanUse(out act)) return true;
         if (Fire2.CanUse(out act)) return true;
 
-        if (Player.CurrentMp >= Fire.MPNeed + 800)
+        if (CurrentMp >= Fire.MPNeed + 800)
         {
             if (Fire4.EnoughLevel)
             {
@@ -314,7 +314,7 @@ public class BLM_Default : BLM_Base
 
     private static bool AddElementBase(out IAction act)
     {
-        if (Player.CurrentMp >= 7200)
+        if (CurrentMp >= 7200)
         {
             if (Fire2.CanUse(out act)) return true;
             if (Fire3.CanUse(out act)) return true;

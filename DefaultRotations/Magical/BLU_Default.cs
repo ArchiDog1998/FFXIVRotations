@@ -279,7 +279,7 @@ public sealed class BLU_Default : BLU_Base
         if (SharpenedKnife.CanUse(out act)) return true;
 
         //吸血 回蓝
-        if (Player.CurrentMp < 1000 && BloodDrain.CanUse(out act)) return true;
+        if (CurrentMp < 1000 && BloodDrain.CanUse(out act)) return true;
         //音爆
         if (SonicBoom.CanUse(out act)) return true;
         if (DrillCannons.CanUse(out act, CanUseOption.MustUse)) return true;
