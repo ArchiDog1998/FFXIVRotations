@@ -211,7 +211,7 @@ public sealed class AST_Default : AST_Base
             if (tank.Any(t => t.GetHealthRatio() < 0.3) && Horoscope.CanUse(out act)) return true;
         }
 
-        return false;
+        return base.HealSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.CelestialOpposition, ActionID.EarthlyStar, ActionID.Horoscope)]
