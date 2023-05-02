@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.15](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.14...v1.0.15) (2023-05-02)
+
+
+### Bug Fixes
+
+* add base.healsingleablity for heal potion usage. ([7723512](https://github.com/ArchiDog1998/FFXIVRotations/commit/7723512c9f234f0bcee587f655a3b4248c53e9d3))
+
 ## [1.0.14](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.13...v1.0.14) (2023-05-01)
 
 
