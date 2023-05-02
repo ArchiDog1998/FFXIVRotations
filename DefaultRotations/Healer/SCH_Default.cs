@@ -97,7 +97,7 @@ public sealed class SCH_Default : SCH_Base
         //以太契约
         if (Aetherpact.CanUse(out act) && !haveLink) return true;
 
-        return false;
+        return base.HealSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.Excogitation)]

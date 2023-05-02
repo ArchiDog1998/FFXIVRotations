@@ -78,7 +78,7 @@ public sealed class DRK_Old : DRK_Base
     {
         if (TheBlackestNight.CanUse(out act)) return true;
 
-        return false;
+        return base.HealSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.DarkMissionary, ActionID.Reprisal)]

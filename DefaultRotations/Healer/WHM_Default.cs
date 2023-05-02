@@ -107,7 +107,7 @@ public sealed class WHM_Default : WHM_Base
 
         //神名
         if (Tetragrammaton.CanUse(out act)) return true;
-        return false;
+        return base.HealSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.AfflatusRapture, ActionID.Medica2, ActionID.Cure3, ActionID.Medica)]

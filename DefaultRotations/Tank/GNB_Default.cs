@@ -132,7 +132,7 @@ public sealed class GNB_Default : GNB_Base
     protected override bool HealSingleAbility(out IAction act)
     {
         if (Aurora.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.OnLastAbility)) return true;
-        return false;
+        return base.HealSingleAbility(out act);
     }
 
     //private bool CanUseNoMercy(out IAction act)
