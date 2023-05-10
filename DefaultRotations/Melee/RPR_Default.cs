@@ -157,4 +157,5 @@ public sealed class RPR_Default : RPR_Base
         act = null;
         return false;
     }
+
 }
