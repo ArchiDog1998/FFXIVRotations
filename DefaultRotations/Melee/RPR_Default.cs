@@ -1,5 +1,6 @@
 ﻿namespace DefaultRotations.Melee;
 
+[BetaRotation]
 [RotationDesc(ActionID.ArcaneCircle)]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/double_communio.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/rpr_6.3_early_enshroud.png")]
