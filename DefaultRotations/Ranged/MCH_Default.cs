@@ -80,8 +80,7 @@ public sealed class MCH_Default : MCH_Base
         if (InBurst)
         {
             if (UseBurstMedicine(out act)) return true;
-            if ((IsLastAbility(false, Hypercharge) || Heat >= 50)
-                && !CombatElapsedLess(12)
+            if ((IsLastAbility(false, Hypercharge) || Heat >= 50) && !CombatElapsedLess(10)
                 && Wildfire.CanUse(out act)) return true;
         }
 
@@ -90,7 +89,7 @@ public sealed class MCH_Default : MCH_Base
 
         if (BarrelStabilizer.CanUse(out act)) return true;
 
-        if (CombatElapsedLess(10)) return false;
+        if (CombatElapsedLess(8)) return false;
 
         var option = CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo;
         if (GaussRound.CurrentCharges <= Ricochet.CurrentCharges)
@@ -118,11 +117,11 @@ public sealed class MCH_Default : MCH_Base
         act = null;
         if (AirAnchor.EnoughLevel)
         {
-            if (!AirAnchor.IsCoolingDown || AirAnchor.ElapsedAfter(10)) return false;
+            if (!AirAnchor.IsCoolingDown || AirAnchor.ElapsedAfter(18)) return false;
         }
         else
         {
-            if (!HotShot.IsCoolingDown || HotShot.ElapsedAfter(10)) return false;
+            if (!HotShot.IsCoolingDown || HotShot.ElapsedAfter(18)) return false;
         }
 
         return RookAutoturret.CanUse(out act);
@@ -133,14 +132,14 @@ public sealed class MCH_Default : MCH_Base
     {
         act = null;
 
-        if (BarrelStabilizer.IsCoolingDown && BarrelStabilizer.WillHaveOneChargeGCD(8))
-        {
-            if (AirAnchorBlockTime(8)) return false;
-        }
-        else
-        {
-            if (AirAnchorBlockTime(12)) return false;
-        }
+        //if (BarrelStabilizer.IsCoolingDown && BarrelStabilizer.WillHaveOneChargeGCD(8))
+        //{
+        //    if (AirAnchorBlockTime(8)) return false;
+        //}
+        //else
+        //{
+        //    if (AirAnchorBlockTime(12)) return false;
+        //}
 
         //Check recast.
         if (!SpreadShot.CanUse(out _))
