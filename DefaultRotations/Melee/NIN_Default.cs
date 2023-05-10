@@ -207,7 +207,8 @@ public sealed class NIN_Default : NIN_Base
         }
 
         //Keep Kassatsu in Burst.
-        if (Player.HasStatus(false, StatusID.Kassatsu) && !InTrickAttack) return false;
+        if (!Player.WillStatusEnd(3, false, StatusID.Kassatsu) 
+            && Player.HasStatus(false, StatusID.Kassatsu) && !InTrickAttack) return false;
         if (_ninActionAim == null) return false;
 
         var id = AdjustId(ActionID.Ninjutsu);
