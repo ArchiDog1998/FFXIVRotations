@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.16](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.15...v1.0.16) (2023-05-10)
+
+
+### Bug Fixes
+
+* changed some rotations. ([fe32717](https://github.com/ArchiDog1998/FFXIVRotations/commit/fe327179a8740c49575c7ee553b8f5f3531cab08))
+* fixed nin Kassatsu waste. ([0e92d54](https://github.com/ArchiDog1998/FFXIVRotations/commit/0e92d54da5aa5c67ba994e0f48cfc784f38357e3))
+* WHM Assize and Medica2. ([fabbd67](https://github.com/ArchiDog1998/FFXIVRotations/commit/fabbd67247258cd79e751f54d5741f75540eb98b))
+
 ## [1.0.15](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.14...v1.0.15) (2023-05-02)
 
 
