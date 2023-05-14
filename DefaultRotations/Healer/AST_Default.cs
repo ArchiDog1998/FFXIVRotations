@@ -12,10 +12,10 @@ public sealed class AST_Default : AST_Base
         => base.CreateConfiguration()
             .SetFloat("UseEarthlyStarTime", 15, "Use the Earthly Star in Count down time", 4, 20);
 
-    static IBaseAction AspectedBeneficDefense { get; } = new BaseAction(ActionID.AspectedBenefic,  ActionOption.Hot)
+    static IBaseAction AspectedBeneficDefense { get; } = new BaseAction(ActionID.AspectedBenefic, ActionOption.Hot)
     {
         ChoiceTarget = TargetFilter.FindAttackedTarget,
-        ActionCheck = b => b.IsJobCategory(JobRole.Tank),
+        ActionCheck = (b, m) => b.IsJobCategory(JobRole.Tank),
         TargetStatus = new StatusID[] { StatusID.AspectedBenefic },
     };
 
@@ -113,7 +113,7 @@ public sealed class AST_Default : AST_Base
         //如果当前还没有卡牌，那就抽一张
         if (Draw.CanUse(out act)) return true;
 
-        bool canUse = Astrodyne.ActionCheck(Service.Player);
+        bool canUse = Astrodyne.ActionCheck(Service.Player, false);
 
         //如果当前卡牌已经拥有了，就重抽
         if (!canUse && Redraw.CanUse(out act)) return true;
