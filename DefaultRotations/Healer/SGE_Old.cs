@@ -15,7 +15,7 @@ public sealed class SGE_Old : SGE_Base
             if (!targets.Any()) return null;
             return targets.First();
         },
-        ActionCheck = b =>
+        ActionCheck = (b, m) =>
         {
             if (InCombat) return false;
             if (b == Player) return false;

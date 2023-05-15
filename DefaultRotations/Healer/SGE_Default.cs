@@ -32,7 +32,7 @@ public sealed class SGE_Default : SGE_Base
             if (!targets.Any()) return null;
             return targets.First();
         },
-        ActionCheck = b =>
+        ActionCheck = (b, m) =>
         {
             if (InCombat || HasHostilesInRange) return false;
             if (b == Player) return false;
