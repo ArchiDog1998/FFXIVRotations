@@ -14,7 +14,7 @@ public sealed class WHM_Default : WHM_Base
     public static IBaseAction RegenDefense { get; } = new BaseAction(ActionID.Regen, ActionOption.Hot)
     {
         ChoiceTarget = TargetFilter.FindAttackedTarget,
-        ActionCheck = b => b.IsJobCategory(JobRole.Tank),
+        ActionCheck = (b, m) => b.IsJobCategory(JobRole.Tank),
         TargetStatus = Regen.TargetStatus,
     };
 
