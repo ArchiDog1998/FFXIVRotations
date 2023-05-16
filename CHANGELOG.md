@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.17](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.16...v1.0.17) (2023-05-16)
+
+
+### Bug Fixes
+
+* Change ActionCheck to use second arg ([c0bf9f0](https://github.com/ArchiDog1998/FFXIVRotations/commit/c0bf9f0893829d801947cc7ee139351d042d19d2))
+* update api. ([d79fe78](https://github.com/ArchiDog1998/FFXIVRotations/commit/d79fe787e92a22dda898ce285d5e9407283e7ab7))
+
 ## [1.0.16](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.15...v1.0.16) (2023-05-10)
 
 
