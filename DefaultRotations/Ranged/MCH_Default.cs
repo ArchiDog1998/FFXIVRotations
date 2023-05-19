@@ -25,7 +25,7 @@ public sealed class MCH_Default : MCH_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("MCH_Reassemble", true, "Reassamble for ChainSaw");
+            .SetBool("MCH_Reassemble", true, "Use Reassamble with ChainSaw");
     }
     
     protected override bool GeneralGCD(out IAction act)

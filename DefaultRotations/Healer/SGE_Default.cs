@@ -56,7 +56,7 @@ public sealed class SGE_Default : SGE_Base
 
     protected override IRotationConfigSet CreateConfiguration()
     {
-        return base.CreateConfiguration().SetBool("GCDHeal", false, "Auto Use GCD to heal.");
+        return base.CreateConfiguration().SetBool("GCDHeal", false, "Use spells with cast times to heal.");
     }
 
     protected override bool AttackAbility(out IAction act)

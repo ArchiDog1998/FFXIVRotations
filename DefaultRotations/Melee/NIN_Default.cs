@@ -20,8 +20,8 @@ public sealed class NIN_Default : NIN_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseHide", true, "Use hide")
-            .SetBool("AutoUnhide", true, "Auto Unhide.");
+            .SetBool("UseHide", true, "Use Hide")
+            .SetBool("AutoUnhide", true, "Use Unhide");
     }
 
     protected override IAction CountDownAction(float remainTime)

@@ -14,9 +14,9 @@ public class PLD_Default : PLD_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseDivineVeilPre", false, "DivineVeilPre in 15 seconds counting down.")
-            .SetBool("UseHolyWhenAway", true, "Use HolyCircle or HolySpirit when far from enemies")
-            .SetBool("UseShieldBash", true, "Use ShieldBash when Lowblow is cooling down");
+            .SetBool("UseDivineVeilPre", false, "Use Divine Veil at 15 seconds remaining on Countdown")
+            .SetBool("UseHolyWhenAway", true, "Use Holy Circle or Holy Spirit when out of melee range")
+            .SetBool("UseShieldBash", true, "Use Shield Bash when Low Blow is cooling down");
     }
 
     protected override IAction CountDownAction(float remainTime)

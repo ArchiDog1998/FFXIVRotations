@@ -13,8 +13,8 @@ public sealed class NIN_Old : NIN_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseHide", true, "Use hide")
-            .SetBool("AutoUnhide", true, "Auto Unhide.");
+            .SetBool("UseHide", true, "Use Hide")
+            .SetBool("AutoUnhide", true, "Use Unhide");
     }
 
     private static void SetNinjustus(INinAction act)

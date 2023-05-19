@@ -9,8 +9,8 @@ public sealed class WHM_Default : WHM_Base
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-            .SetBool("UseLilyWhenFull", true, "Auto use Lily when full")
-            .SetBool("UsePreRegen", false, "Regen on Tank in 5 seconds.");
+            .SetBool("UseLilyWhenFull", true, "Use Lily at max stacks.")
+            .SetBool("UsePreRegen", false, "Regen on Tank at 5 seconds remaining on Countdown.");
     public static IBaseAction RegenDefense { get; } = new BaseAction(ActionID.Regen, ActionOption.Hot)
     {
         ChoiceTarget = TargetFilter.FindAttackedTarget,
