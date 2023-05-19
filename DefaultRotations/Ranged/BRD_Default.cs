@@ -8,11 +8,11 @@ public sealed class BRD_Default : BRD_Base
     public override string RotationName => "Default";
 
     protected override IRotationConfigSet CreateConfiguration() => base.CreateConfiguration()
-            .SetBool("BindWAND", false, "Use Raging Strikes on WAND")
-            .SetCombo("FirstSong", 0, "First Song", "WAND", "MAGE", "ARMY")
-            .SetFloat("WANDTime", 43, "WAND Time", min: 0, max: 45, speed: 1)
-            .SetFloat("MAGETime", 34, "MAGE Time", min: 0, max: 45, speed: 1)
-            .SetFloat("ARMYTime", 43, "ARMY Time", min: 0, max: 45, speed: 1);
+            .SetBool("BindWAND", false, @"Use Raging Strikes on ""Wanderer's Minuet""")
+            .SetCombo("FirstSong", 0, "First Song", "Wanderer's Minuet", "Mage's Ballad", "Army's Paeon")
+            .SetFloat("WANDTime", 43, "Wanderer's Minuet Uptime", min: 0, max: 45, speed: 1)
+            .SetFloat("MAGETime", 34, "Mage's Ballad Uptime", min: 0, max: 45, speed: 1)
+            .SetFloat("ARMYTime", 43, "Army's Paeon Uptime", min: 0, max: 45, speed: 1);
 
     public override string Description => "Please make sure that the three song times add up to 120 seconds!";
 

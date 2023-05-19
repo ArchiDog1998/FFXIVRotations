@@ -12,9 +12,9 @@ public sealed class SMN_Old : SMN_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetCombo("addSwiftcast", 0, "Use Swiftcast", "No", "Wind", "Fire", "All")
-            .SetCombo("SummonOrder", 0, "Order", "Soil-Wind-Fire", "Soil-Fire-Wind", "Wind-Soil-Fire")
-            .SetBool("addCrimsonCyclone", true, "Auto CrimsonCyclon");
+            .SetCombo("addSwiftcast", 0, "Use Swiftcast", "No", "Emerald", "Ruby", "All")
+            .SetCombo("SummonOrder", 0, "Order", "Topaz-Emerald-Ruby", "Topaz-Ruby-Emerald", "Emerald-Topaz-Ruby")
+            .SetBool("addCrimsonCyclone", true, "Use Crimson Cyclone");
     }
 
     protected override bool CanHealSingleSpell => false;

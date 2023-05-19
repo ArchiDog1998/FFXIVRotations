@@ -10,7 +10,7 @@ public sealed class SAM_Default : SAM_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetFloat("addKenki", 50, "use Kenki above.", min: 0, max: 85, speed: 5);
+            .SetFloat("addKenki", 50, "Use Kenki above.", min: 0, max: 85, speed: 5);
     }
 
     /// <summary>

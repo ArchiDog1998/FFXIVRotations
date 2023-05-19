@@ -11,7 +11,7 @@ public sealed class MNK_Default : MNK_Base
 
     protected override IRotationConfigSet CreateConfiguration()
     {
-        return base.CreateConfiguration().SetBool("AutoFormShift", true, "Auto use FormShift");
+        return base.CreateConfiguration().SetBool("AutoFormShift", true, "Use Form Shift");
     }
 
     protected override IAction CountDownAction(float remainTime)
