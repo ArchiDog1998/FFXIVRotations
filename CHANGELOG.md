@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.18](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.17...v1.0.18) (2023-05-20)
+
+
+### Bug Fixes
+
+* changed translations. ([43a8f2d](https://github.com/ArchiDog1998/FFXIVRotations/commit/43a8f2d49ce7393255b7b9c022762603f4cce226))
+
 ## [1.0.17](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.16...v1.0.17) (2023-05-16)
 
 
