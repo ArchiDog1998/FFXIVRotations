@@ -10,8 +10,6 @@
 		<DalamudLibPath>$(AppData)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
     </PropertyGroup>
     <ItemGroup>
-
-		
         <Reference Include="Dalamud">
 			<HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
 			<Private>False</Private>
