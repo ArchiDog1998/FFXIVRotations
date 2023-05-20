@@ -7,13 +7,6 @@ public sealed class DRG_Default : DRG_Base
 
     public override string RotationName => "Default";
 
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration().SetBool("DRG_ShouldDelay", true, "Delay the dragon?")
-            .SetBool("DRG_Opener", false, "Opener in lv.88")
-            .SetBool("DRG_SafeMove", true, "Moving save");
-    }
-
     [RotationDesc(ActionID.SpineShatterDive, ActionID.DragonFireDive)]
     protected override bool MoveForwardAbility(out IAction act)
     {
@@ -85,16 +78,9 @@ public sealed class DRG_Default : DRG_Base
         if (DoomSpike.CanUse(out act)) return true;
 
 
-        if (Configs.GetBool("ShouldDelay"))
-        {
-            if (WheelingThrust.CanUse(out act)) return true;
-            if (FangandClaw.CanUse(out act)) return true;
-        }
-        else
-        {
-            if (FangandClaw.CanUse(out act)) return true;
-            if (WheelingThrust.CanUse(out act)) return true;
-        }
+        if (WheelingThrust.CanUse(out act)) return true;
+        if (FangandClaw.CanUse(out act)) return true;
+
 
         if (FullThrust.CanUse(out act)) return true;
         if (ChaosThrust.CanUse(out act)) return true;

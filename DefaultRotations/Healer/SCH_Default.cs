@@ -13,8 +13,8 @@ public sealed class SCH_Default : SCH_Base
 
     protected override IRotationConfigSet CreateConfiguration()
     {
-        return base.CreateConfiguration().SetBool("GCDHeal", false, "Aut use GCD to heal")
-                                            .SetBool("prevDUN", false, "Recitation in 15 seconds.")
+        return base.CreateConfiguration().SetBool("GCDHeal", false, "Use spells with cast times to heal.")
+                                            .SetBool("prevDUN", false, "Recitation at 15 seconds remaining on Countdown.")
                                             .SetBool("GiveT", false, "Give Recitation to Tank");
     }
 

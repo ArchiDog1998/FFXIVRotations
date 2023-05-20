@@ -36,9 +36,9 @@ public class BLM_Default : BLM_Base
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-        .SetBool("UseTransposeForParadox", true, "Use Transpose to Fire for Paradox")
-        .SetBool("ExtendTimeSafely", false, "Extend Fire Element Time Safely")
-        .SetBool("UseN15", false, "Use N15");
+        .SetBool("UseTransposeForParadox", true, "Use Transpose to Astral Fire before Paradox")
+        .SetBool("ExtendTimeSafely", false, "Extend Astral Fire Time Safely")
+        .SetBool("UseN15", false, @"Use ""Double Paradox"" rotation [N15]");
 
     protected override IAction CountDownAction(float remainTime)
     {

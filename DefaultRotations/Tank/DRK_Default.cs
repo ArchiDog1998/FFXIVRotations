@@ -59,7 +59,7 @@ public sealed class DRK_Default : DRK_Base
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-            .SetBool("TheBlackestNight", true, "Keep 3000 MP");
+            .SetBool("TheBlackestNight", true, "Keep at least 3000 MP");
 
     protected override IAction CountDownAction(float remainTime)
     {

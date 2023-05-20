@@ -13,11 +13,11 @@ public sealed class BLU_Default : BLU_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("MoonFluteBreak", false, "MoonFlute")
-            .SetBool("SingleAOE", true, "Single AOE")
-            .SetBool("GamblerKill", false, "Gambler Kill")
-            .SetBool("UseFinalSting", false, "Use FinalSting")
-            .SetFloat("FinalStingHP", 0, "FinalStingHP");
+            .SetBool("MoonFluteBreak", false, "Use Moon Flute")
+            .SetBool("SingleAOE", true, "Use high-damage AoE skills on single target")
+            .SetBool("GamblerKill", false, "Use skills with a chance to fail")
+            .SetBool("UseFinalSting", false, "Use Final Sting")
+            .SetFloat("FinalStingHP", 0, "Target HPP for Final Sting");
     }
 
     private bool MoonFluteBreak => Configs.GetBool("MoonFluteBreak");

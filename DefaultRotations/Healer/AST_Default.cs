@@ -10,7 +10,7 @@ public sealed class AST_Default : AST_Base
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-            .SetFloat("UseEarthlyStarTime", 15, "Use the Earthly Star in Count down time", 4, 20);
+            .SetFloat("UseEarthlyStarTime", 15, "Use Earthly Star during countdown timer.", 4, 20);
 
     static IBaseAction AspectedBeneficDefense { get; } = new BaseAction(ActionID.AspectedBenefic, ActionOption.Hot)
     {

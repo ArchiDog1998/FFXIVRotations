@@ -10,7 +10,7 @@ public sealed class MNK_Old : MNK_Base
 
     protected override IRotationConfigSet CreateConfiguration()
     {
-        return base.CreateConfiguration().SetBool("AutoFormShift", true, "Auto use FormShift");
+        return base.CreateConfiguration().SetBool("AutoFormShift", true, "Use Form Shift");
     }
 
     private bool OpoOpoForm(out IAction act)
