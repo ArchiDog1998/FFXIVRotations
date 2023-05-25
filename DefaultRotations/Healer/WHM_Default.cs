@@ -146,8 +146,7 @@ public sealed class WHM_Default : WHM_Base
 
     protected override bool DefenseAreaGCD(out IAction act)
     {
-        if (Medica2.CanUse(out act) && PartyMembers.Count((n) => n.HasStatus(true, StatusID.Medica2)) < PartyMembers.Count() / 2
-            && !IsLastAction(true, Medica2)) return true;
+        if (Medica2.CanUse(out act) && PartyMembers.Count((n) => n.HasStatus(true, StatusID.Medica2)) < PartyMembers.Count() / 2) return true;
         return base.DefenseAreaGCD(out act);
     }
 

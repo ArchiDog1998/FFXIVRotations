@@ -51,13 +51,6 @@ public sealed class BLU_Default : BLU_Base
         return base.EmergencyAbility(nextGCD, out act);
     }
 
-    protected override bool MoveForwardGCD(out IAction act)
-    {
-        //正义飞踢
-        if (JKick.CanUse(out act, CanUseOption.MustUse)) return true;
-        return base.MoveForwardGCD(out act);
-    }
-
     protected override bool GeneralGCD(out IAction act)
     {
         act = null;

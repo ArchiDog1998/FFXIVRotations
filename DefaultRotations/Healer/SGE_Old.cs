@@ -227,7 +227,7 @@ public sealed class SGE_Old : SGE_Base
     [RotationDesc(ActionID.Kerachole, ActionID.Physis, ActionID.Holos, ActionID.Ixochole)]
     protected override bool HealAreaAbility(out IAction act)
     {
-        if (Kerachole.CanUse(out act) && Level >= 78) return true;
+        if (Kerachole.CanUse(out act) && EnhancedKerachole.EnoughLevel) return true;
 
         if (Physis.CanUse(out act)) return true;
 
