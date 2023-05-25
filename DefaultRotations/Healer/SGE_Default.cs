@@ -264,7 +264,7 @@ public sealed class SGE_Default : SGE_Base
         //��ţ��֭
         if (Taurochole.CanUse(out act)) return true;
 
-        if (Kerachole.CanUse(out act) && Level >= 78) return true;
+        if (Kerachole.CanUse(out act) && EnhancedKerachole.EnoughLevel) return true;
 
         //������֭
         if ((!Taurochole.EnoughLevel || Taurochole.IsCoolingDown) && Druochole.CanUse(out act)) return true;
@@ -363,7 +363,7 @@ public sealed class SGE_Default : SGE_Base
         if (Physis2.CanUse(out act)) return true;
         if (!Physis2.EnoughLevel && Physis.CanUse(out act)) return true;
 
-        if (Kerachole.CanUse(out act, CanUseOption.OnLastAbility) && Level >= 78) return true;
+        if (Kerachole.CanUse(out act, CanUseOption.OnLastAbility) && EnhancedKerachole.EnoughLevel) return true;
 
         if (Holos.CanUse(out act, CanUseOption.OnLastAbility) && PartyMembersAverHP < 0.50f) return true;
 

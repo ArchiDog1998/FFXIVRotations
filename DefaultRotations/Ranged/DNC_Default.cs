@@ -129,9 +129,6 @@ public sealed class DNC_Default : DNC_Base
         if (!StandardStep.CanUse(out act, CanUseOption.MustUse)) return false;
         if (Player.WillStatusEndGCD(2, 0, true, StatusID.StandardFinish)) return true;
 
-        //等级低于玩家太多不跳舞,都直接秒了还跳啥舞
-        if (Level - Target.Level > 10) return false;
-
         //周围没有敌人不跳舞
         if (!HasHostilesInRange) return false;
 

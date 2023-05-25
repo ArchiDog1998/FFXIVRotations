@@ -160,7 +160,7 @@ public sealed class GNB_Default : GNB_Base
         {
             if (DemonSlice.CanUse(out _)) return false;
 
-            if (Ammo == (Level >= 88 ? 3 : 2) && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercy.WillHaveOneCharge(55))) return true;
+            if (Ammo == MaxAmmo && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercy.WillHaveOneCharge(55))) return true;
 
             if (Ammo > 0 && !NoMercy.WillHaveOneCharge(17) && NoMercy.WillHaveOneCharge(35)) return true;
 
@@ -217,10 +217,10 @@ public sealed class GNB_Default : GNB_Base
             if (Player.HasStatus(true, StatusID.NoMercy) &&
                 AmmoComboStep == 0 &&
                 !GnashingFang.WillHaveOneCharge(1)) return true;
-            if (Level < 88 && Ammo == 2) return true;
+            if (!CartridgeCharge2.EnoughLevel && Ammo == 2) return true;
 
             if (IsLastGCD((ActionID)BrutalShell.ID) &&
-                (Ammo == (Level >= 88 ? 3 : 2) ||
+                (Ammo == MaxAmmo ||
                 BloodFest.WillHaveOneCharge(6) && Ammo <= 2 && !NoMercy.WillHaveOneCharge(10) && BloodFest.EnoughLevel)) return true;
 
         }

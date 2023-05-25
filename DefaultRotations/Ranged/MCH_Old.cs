@@ -217,7 +217,7 @@ public sealed class MCH_Old : MCH_Base
         if (Battery == 100 && ChainSaw.EnoughLevel && !ChainSaw.WillHaveOneCharge(13)) return true;
 
         //小怪,AOE,不吃团辅判断
-        if (!Configs.GetBool("MCH_Automaton") || !Target.IsBoss() && !IsMoving || Level < Wildfire.ID) return true;
+        if (!Configs.GetBool("MCH_Automaton") || !Target.IsBoss() && !IsMoving || !Wildfire.EnoughLevel) return true;
         if (SpreadShot.CanUse(out _) && !Target.IsBoss() && IsMoving) return false;
 
         //机器人吃团辅判断
