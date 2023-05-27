@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.20](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.19...v1.0.20) (2023-05-27)
+
+
+### Bug Fixes
+
+* changed ko-fi link. ([d0af227](https://github.com/ArchiDog1998/FFXIVRotations/commit/d0af227098eed734dcda0ceb62c8824aadbb2354))
+
 ## [1.0.19](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.18...v1.0.19) (2023-05-25)
 
 
