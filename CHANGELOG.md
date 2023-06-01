@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.21](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.20...v1.0.21) (2023-06-01)
+
+
+### Bug Fixes
+
+* make WildFire to the last. ([5146c7e](https://github.com/ArchiDog1998/FFXIVRotations/commit/5146c7e751932393de949295778f07e52d1c2fd9))
+* remove defense gcd from whm.. ([6389342](https://github.com/ArchiDog1998/FFXIVRotations/commit/6389342ce2c8bc50df6a1eb826e6ffbc08581c04))
+
 ## [1.0.20](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.19...v1.0.20) (2023-05-27)
 
 
