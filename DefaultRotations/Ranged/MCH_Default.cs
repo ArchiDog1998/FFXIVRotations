@@ -81,7 +81,7 @@ public sealed class MCH_Default : MCH_Base
         {
             if (UseBurstMedicine(out act)) return true;
             if ((IsLastAbility(false, Hypercharge) || Heat >= 50) && !CombatElapsedLess(10)
-                && Wildfire.CanUse(out act)) return true;
+                && Wildfire.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
 
         if (!CombatElapsedLess(12) && CanUseHypercharge(out act)) return true;
