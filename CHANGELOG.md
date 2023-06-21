@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.22](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.21...v1.0.22) (2023-06-21)
+
+
+### Bug Fixes
+
+* changed the rotation name of mch. ([fcc4df7](https://github.com/ArchiDog1998/FFXIVRotations/commit/fcc4df7a840d34eb98b85a6f0bbdb55051cd2802))
+
 ## [1.0.21](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.20...v1.0.21) (2023-06-01)
 
 
