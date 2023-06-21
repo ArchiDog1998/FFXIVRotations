@@ -8,7 +8,7 @@ public sealed class MCH_Default : MCH_Base
 {
     public override string GameVersion => "6.38";
 
-    public override string RotationName => "General Purpose";
+    public override string RotationName => "Delayed Tools Opener";
 
     protected override IAction CountDownAction(float remainTime)
     {

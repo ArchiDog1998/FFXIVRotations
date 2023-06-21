@@ -1,5 +1,3 @@
-using System.Numerics;
-
 namespace DefaultRotations.Tank;
 
 [SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/GNB_Default.cs")]
