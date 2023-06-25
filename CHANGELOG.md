@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.23](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.22...v1.0.23) (2023-06-25)
+
+
+### Bug Fixes
+
+* AST card play. ([2e395d4](https://github.com/ArchiDog1998/FFXIVRotations/commit/2e395d47df64663a40083414bb3474d24c99690a))
+
 ## [1.0.22](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.21...v1.0.22) (2023-06-21)
 
 
