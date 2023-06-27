@@ -9,6 +9,8 @@ public sealed class RDM_Default : RDM_Base
 
     public override string RotationName => "Standard";
 
+    static IBaseAction VerthunderStartUp { get; } = new BaseAction(ActionID.Verthunder);
+
     public bool CanStartMeleeCombo
     {
         get
@@ -45,8 +47,8 @@ public sealed class RDM_Default : RDM_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < Verthunder.CastTime + Service.Config.CountDownAhead
-            && Verthunder.CanUse(out var act)) return act;
+        if (remainTime < VerthunderStartUp.CastTime + Service.Config.CountDownAhead
+            && VerthunderStartUp.CanUse(out var act)) return act;
 
         //Remove Swift
         StatusHelper.StatusOff(StatusID.DualCast);
