@@ -124,7 +124,7 @@ public sealed class RDM_Default : RDM_Base
         act = null;
         if (CombatElapsedLess(4)) return false;
 
-        if (InBurst && Embolden.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (InBurst && HasHostilesInRange && Embolden.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //Use Manafication after embolden.
         if ((Player.HasStatus(true, StatusID.Embolden) || IsLastAbility(ActionID.Embolden))
