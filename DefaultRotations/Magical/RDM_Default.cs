@@ -9,6 +9,8 @@ public sealed class RDM_Default : RDM_Base
 
     public override string RotationName => "Standard";
 
+    static IBaseAction VerthunderStartUp { get; } = new BaseAction(ActionID.Verthunder);
+
     public bool CanStartMeleeCombo
     {
         get
@@ -45,8 +47,8 @@ public sealed class RDM_Default : RDM_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < Verthunder.CastTime + Service.Config.CountDownAhead
-            && Verthunder.CanUse(out var act)) return act;
+        if (remainTime < VerthunderStartUp.CastTime + Service.Config.CountDownAhead
+            && VerthunderStartUp.CanUse(out var act)) return act;
 
         //Remove Swift
         StatusHelper.StatusOff(StatusID.DualCast);
@@ -122,7 +124,7 @@ public sealed class RDM_Default : RDM_Base
         act = null;
         if (CombatElapsedLess(4)) return false;
 
-        if (InBurst && Embolden.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (InBurst && HasHostilesInRange && Embolden.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //Use Manafication after embolden.
         if ((Player.HasStatus(true, StatusID.Embolden) || IsLastAbility(ActionID.Embolden))

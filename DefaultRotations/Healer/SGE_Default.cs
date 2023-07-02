@@ -20,10 +20,6 @@ public sealed class SGE_Default : SGE_Base
         else return false;
     }
 
-
-    /// <summary>
-    /// ���þ�������
-    /// </summary>
     private static BaseAction MEukrasianDiagnosis { get; } = new(ActionID.EukrasianDiagnosis, ActionOption.Heal)
     {
         ChoiceTarget = (Targets, mustUse) =>
@@ -40,16 +36,6 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
     };
-
-    //private static BaseAction MEukrasianDosis { get; } = new(ActionID.EukrasianDosis)
-    //{
-    //    ActionCheck = b =>
-    //    {
-    //        if (!HasHostilesInRange) return false;
-    //        if (b.HasStatus(true, StatusID.EukrasianDosis, StatusID.EukrasianDosis2, StatusID.EukrasianDosis3)) return false;
-    //        return true;
-    //    }
-    //};
 
     protected override bool CanHealSingleSpell => base.CanHealSingleSpell && (Configs.GetBool("GCDHeal") || PartyHealers.Count() < 2);
     protected override bool CanHealAreaSpell => base.CanHealAreaSpell && (Configs.GetBool("GCDHeal") || PartyHealers.Count() < 2);
@@ -97,7 +83,6 @@ public sealed class SGE_Default : SGE_Base
             if (Haima.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
 
-        //��ţ��֭
         if (Taurochole.CanUse(out act, CanUseOption.OnLastAbility) && Taurochole.Target.GetHealthRatio() < 0.8) return true;
 
         if (Addersgall <= 1)
@@ -105,10 +90,8 @@ public sealed class SGE_Default : SGE_Base
             if ((!Haima.EnoughLevel || Haima.ElapsedAfter(20)) && Panhaima.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
 
-        //������֭
         if ((!Taurochole.EnoughLevel || Taurochole.ElapsedAfter(20)) && Kerachole.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
-        //������
         if (Holos.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
         return base.DefenseSingleAbility(out act);
@@ -185,16 +168,6 @@ public sealed class SGE_Default : SGE_Base
 
     protected override bool GeneralGCD(out IAction act)
     {
-        //if (Target.IsBoss())
-        //{
-        //    if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
-        //    || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
-        //    || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
-        //    {
-        //        if (Eukrasia.CanUse(out act)) return true;
-        //        if (Dosis.CanUse(out act)) return true;
-        //    }
-        //}
         if (Target.IsBoss())
         {
             if (EukrasianDosis.CanUse(out _, CanUseOption.IgnoreCastCheck))
@@ -227,22 +200,6 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
 
-        //if ((Player.Level >= 82 && !Target.HasStatus(true, StatusID.EukrasianDosis3)
-        //    || (Player.Level >= 72 && Player.Level < 82 && !Target.HasStatus(true, StatusID.EukrasianDosis2))
-        //    || (Player.Level > 30 && Player.Level < 72 && !Target.HasStatus(true, StatusID.EukrasianDosis))))
-        //{
-        //    if (Eukrasia.CanUse(out act)) return true;
-        //    if (Dosis.CanUse(out act)) return true;
-        //}
-
-        //if ((IsMoving || !IsMoving) && !Target.HasStatus(true, StatusID.EukrasianDosis, StatusID.EukrasianDosis2, StatusID.EukrasianDosis3) && MEukrasianDosis.CanUse(out _))
-        //{
-        //    if (Eukrasia.CanUse(out act, CanUseOption.IgnoreCastCheck)) return true;
-            
-        //    act = MEukrasianDosis;
-        //    return true;
-        //}
-
         if (Dosis.CanUse(out act)) return true;
 
         if (MEukrasianDiagnosis.CanUse(out _))
@@ -253,40 +210,18 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
 
-        //if (Eukrasia.CanUse(out act)) return true;
-
         return false;
     }
 
     [RotationDesc(ActionID.Taurochole, ActionID.Kerachole, ActionID.Druochole, ActionID.Holos, ActionID.Physis, ActionID.Panhaima)]
     protected override bool HealSingleAbility(out IAction act)
     {
-        //��ţ��֭
         if (Taurochole.CanUse(out act)) return true;
 
         if (Kerachole.CanUse(out act) && EnhancedKerachole.EnoughLevel) return true;
 
-        //������֭
         if ((!Taurochole.EnoughLevel || Taurochole.IsCoolingDown) && Druochole.CanUse(out act)) return true;
 
-        //����Դ����ʱ���뷶Χ���ƻ���ѹ��
-        //var tank = PartyTanks;
-        //var isBoss = Dosis.Target.IsBoss();
-        //if (Addersgall == 0 && tank.Count() == 1 && tank.Any(t => t.GetHealthRatio() < 0.6f) && !isBoss)
-        //{
-        //    //������
-        //    if (Holos.CanUse(out act)) return true;
-
-        //    //����
-        //    if (Physis.CanUse(out act)) return true;
-
-        //    if (Haima.CanUse(out act)) return true;
-
-        //    //����Ѫ
-        //    if (Panhaima.CanUse(out act)) return true;
-        //}
-
-        //����
         if (Soteria.CanUse(out act) && PartyMembers.Any(b => b.HasStatus(true, StatusID.Kardion) && b.GetHealthRatio() < 0.85f)) return true;
 
 
@@ -295,28 +230,21 @@ public sealed class SGE_Default : SGE_Base
         {
             if (Haima.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
-            //����
             if (Physis2.CanUse(out act)) return true;
             if (!Physis2.EnoughLevel && Physis.CanUse(out act)) return true;
           
-
-            //������
             if (Holos.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
-            //����Ѫ
             if ((!Haima.EnoughLevel || Haima.ElapsedAfter(20)) && Panhaima.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
 
-        //�¸�������
         if (PartyTanks.Any(t => t.GetHealthRatio() < 0.60f))
         {
-            //�
             if (Zoe.CanUse(out act)) return true;
         }
 
         if (PartyTanks.Any(t => t.GetHealthRatio() < 0.70f) || PartyMembers.Any(b => b.GetHealthRatio() < 0.30f))
         {
-            //����
             if (Krasis.CanUse(out act)) return true;
         }
 
@@ -340,7 +268,7 @@ public sealed class SGE_Default : SGE_Base
             if (Pneuma.CanUse(out act, CanUseOption.MustUse)) return true;
         }
 
-        if (EukrasianPrognosis.Target.HasStatus(false, StatusID.EukrasianDiagnosis, StatusID.EukrasianPrognosis, StatusID.Galvanize))
+        if (Player.HasStatus(false, StatusID.EukrasianDiagnosis, StatusID.EukrasianPrognosis, StatusID.Galvanize))
         {
             if (Prognosis.CanUse(out act)) return true;
         }
