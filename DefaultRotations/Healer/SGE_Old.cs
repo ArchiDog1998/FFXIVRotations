@@ -207,7 +207,7 @@ public sealed class SGE_Old : SGE_Base
             if (Pneuma.CanUse(out act, CanUseOption.MustUse)) return true;
         }
 
-        if (EukrasianPrognosis.Target.HasStatus(false, StatusID.EukrasianDiagnosis, StatusID.EukrasianPrognosis, StatusID.Galvanize))
+        if (Player.HasStatus(false, StatusID.EukrasianDiagnosis, StatusID.EukrasianPrognosis, StatusID.Galvanize))
         {
             if (Prognosis.CanUse(out act)) return true;
         }
