@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.24](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.23...v1.0.24) (2023-07-02)
+
+
+### Bug Fixes
+
+* fixed rdm opener. ([d6e60ec](https://github.com/ArchiDog1998/FFXIVRotations/commit/d6e60ec1d3ea917b64a93edb29d1aa32bd6f5429))
+* rdm embolden burst check. ([ae39e11](https://github.com/ArchiDog1998/FFXIVRotations/commit/ae39e1185af3a1dee045840c8f75cb9a2af97013))
+* try to fix the eukrasian bug. ([a2085e5](https://github.com/ArchiDog1998/FFXIVRotations/commit/a2085e51e5943019191ecedafca640242d58792b))
+
 ## [1.0.23](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.22...v1.0.23) (2023-06-25)
 
 
