@@ -42,13 +42,13 @@ public sealed class RDM_Default : RDM_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseVercure", true, "Use Vercure for Dualcast");
+            .SetBool("UseVercure", true, "Use Vercure for Dualcast when out of combat.");
     }
 
     protected override IAction CountDownAction(float remainTime)
     {
         if (remainTime < VerthunderStartUp.CastTime + Service.Config.CountDownAhead
-            && VerthunderStartUp.CanUse(out var act)) return act;
+            && VerthunderStartUp.CanUse(out var act, CanUseOption.EmptyOrSkipCombo)) return act;
 
         //Remove Swift
         StatusHelper.StatusOff(StatusID.DualCast);
@@ -80,7 +80,7 @@ public sealed class RDM_Default : RDM_Base
 
         if (Jolt.CanUse(out act)) return true;
 
-        if (Configs.GetBool("UseVercure") && Vercure.CanUse(out act)) return true;
+        if (Configs.GetBool("UseVercure") && NotInCombatDelay && Vercure.CanUse(out act)) return true;
 
         return false;
     }
