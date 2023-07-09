@@ -358,7 +358,7 @@ public class BLM_Default : BLM_Base
     protected override bool HealSingleAbility(out IAction act)
     {
         if (BetweenTheLines.CanUse(out act)) return true;
-        if (LeyLines.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (LeyLines.CanUse(out act)) return true;
 
         return base.HealSingleAbility(out act);
     }

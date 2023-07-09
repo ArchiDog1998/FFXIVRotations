@@ -48,7 +48,7 @@ public sealed class RDM_Default : RDM_Base
     protected override IAction CountDownAction(float remainTime)
     {
         if (remainTime < VerthunderStartUp.CastTime + Service.Config.CountDownAhead
-            && VerthunderStartUp.CanUse(out var act)) return act;
+            && VerthunderStartUp.CanUse(out var act, CanUseOption.EmptyOrSkipCombo)) return act;
 
         //Remove Swift
         StatusHelper.StatusOff(StatusID.DualCast);
