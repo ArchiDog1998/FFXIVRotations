@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.25](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.24...v1.0.25) (2023-07-09)
+
+
+### Bug Fixes
+
+* blm leylines. ([d6e8cca](https://github.com/ArchiDog1998/FFXIVRotations/commit/d6e8cca97134a8cd7e7c4b4fc54f60d78a112880))
+* RDM add delay for vercure casting. ([99a9aab](https://github.com/ArchiDog1998/FFXIVRotations/commit/99a9aab789560ee9ab70116a87e990d519b941bb))
+
 ## [1.0.24](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.23...v1.0.24) (2023-07-02)
 
 
