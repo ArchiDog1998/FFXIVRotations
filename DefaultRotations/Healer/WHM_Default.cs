@@ -152,7 +152,7 @@ public sealed class WHM_Default : WHM_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < Stone.CastTime + Service.Config.CountDownAhead
+        if (remainTime < Stone.CastTime + CountDownAhead
             && Stone.CanUse(out var act)) return act;
 
         if (Configs.GetBool("UsePreRegen") && remainTime <= 5 && remainTime > 3)

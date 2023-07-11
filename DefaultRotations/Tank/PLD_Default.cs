@@ -21,7 +21,7 @@ public class PLD_Default : PLD_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < HolySpirit.CastTime + Service.Config.CountDownAhead
+        if (remainTime < HolySpirit.CastTime + CountDownAhead
             && HolySpirit.CanUse(out var act)) return act;
 
         if (remainTime < 15 && Configs.GetBool("UseDivineVeilPre")

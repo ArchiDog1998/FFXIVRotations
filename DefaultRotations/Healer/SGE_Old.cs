@@ -130,7 +130,7 @@ public sealed class SGE_Old : SGE_Base
 
         if (Addersgall == 0 && Rhizomata.CanUse(out act)) return true;
 
-        if (Soteria.CanUse(out act) && PartyMembers.Any(b => b.HasStatus(true, StatusID.Kardion) && b.GetHealthRatio() < Service.Config.HealthSingleAbility)) return true;
+        if (Soteria.CanUse(out act) && PartyMembers.Any(b => b.HasStatus(true, StatusID.Kardion) && b.GetHealthRatio() < HealthSingleAbility)) return true;
 
         if (Pepsis.CanUse(out act)) return true;
 

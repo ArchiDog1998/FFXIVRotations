@@ -6,6 +6,6 @@
 	  <Folder Include="Ranged\" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="RotationSolver.Basic" Version="2.10.2" />
+		<PackageReference Include="RotationSolver.Basic" Version="3.0.8.1" />
 	</ItemGroup>
 </Project>

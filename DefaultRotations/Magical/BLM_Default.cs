@@ -43,7 +43,7 @@ public class BLM_Default : BLM_Base
     protected override IAction CountDownAction(float remainTime)
     {
         IAction act;
-        if (remainTime < Fire3.CastTime + Service.Config.CountDownAhead)
+        if (remainTime < Fire3.CastTime + CountDownAhead)
         {
             if (Fire3.CanUse(out act)) return act;
         }
