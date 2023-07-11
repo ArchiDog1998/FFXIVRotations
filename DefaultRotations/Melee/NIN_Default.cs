@@ -33,7 +33,7 @@ public sealed class NIN_Default : NIN_Base
 
         if (DoNinjutsu(out var act))
         {
-            if (act == Suiton && remainTime > Service.Config.CountDownAhead) return null;
+            if (act == Suiton && remainTime > CountDownAhead) return null;
             return act;
         }
 

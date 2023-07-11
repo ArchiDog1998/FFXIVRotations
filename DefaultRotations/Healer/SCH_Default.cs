@@ -202,7 +202,7 @@ public sealed class SCH_Default : SCH_Base
     //15秒秘策单盾扩散
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < Ruin.CastTime + Service.Config.CountDownAhead
+        if (remainTime < Ruin.CastTime + CountDownAhead
             && Ruin.CanUse(out var act)) return act;
 
         if (Configs.GetBool("prevDUN") && remainTime <= 15 && !DeploymentTactics.IsCoolingDown && PartyMembers.Count() > 1)

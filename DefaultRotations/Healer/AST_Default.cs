@@ -21,7 +21,7 @@ public sealed class AST_Default : AST_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < Malefic.CastTime + Service.Config.CountDownAhead
+        if (remainTime < Malefic.CastTime + CountDownAhead
             && Malefic.CanUse(out var act, CanUseOption.IgnoreClippingCheck)) return act;
         if (remainTime < 3 && UseBurstMedicine(out act)) return act;
         if (remainTime < 4 && AspectedBeneficDefense.CanUse(out act, CanUseOption.IgnoreClippingCheck)) return act;

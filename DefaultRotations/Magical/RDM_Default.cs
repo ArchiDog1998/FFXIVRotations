@@ -42,12 +42,12 @@ public sealed class RDM_Default : RDM_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseVercure", true, "Use Vercure for Dualcast when out of combat.");
+            .SetBool("UseVercure", false, "Use Vercure for Dualcast when out of combat.");
     }
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < VerthunderStartUp.CastTime + Service.Config.CountDownAhead
+        if (remainTime < VerthunderStartUp.CastTime + CountDownAhead
             && VerthunderStartUp.CanUse(out var act, CanUseOption.EmptyOrSkipCombo)) return act;
 
         //Remove Swift

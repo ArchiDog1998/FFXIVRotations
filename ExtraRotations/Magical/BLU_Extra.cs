@@ -30,7 +30,7 @@ public sealed class BLU_Extra : BLU_Base
 
             if (TripleTrident.CanUse(out act, CanUseOption.MustUse)) return true;
         }
-        if (ChocoMeteor.CanUse(out act, DataCenter.HasCompanion ? CanUseOption.MustUse : CanUseOption.None)) return true;
+        if (ChocoMeteor.CanUse(out act, HasCompanion ? CanUseOption.MustUse : CanUseOption.None)) return true;
 
         if (SonicBoom.CanUse(out act)) return true;
         if (DrillCannons.CanUse(out act, CanUseOption.MustUse)) return true;

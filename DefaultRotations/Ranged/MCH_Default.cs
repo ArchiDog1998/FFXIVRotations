@@ -12,7 +12,7 @@ public sealed class MCH_Default : MCH_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < Service.Config.CountDownAhead)
+        if (remainTime < CountDownAhead)
         {
             if (AirAnchor.CanUse(out var act1)) return act1;
             else if (!AirAnchor.EnoughLevel && HotShot.CanUse(out act1)) return act1;

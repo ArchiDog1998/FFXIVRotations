@@ -13,7 +13,7 @@ public sealed class RPR_Default : RPR_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
-        if (remainTime < Harpe.CastTime + Service.Config.CountDownAhead
+        if (remainTime < Harpe.CastTime + CountDownAhead
             && Harpe.CanUse(out var act)) return act;
 
         if (SoulSow.CanUse(out act)) return act;

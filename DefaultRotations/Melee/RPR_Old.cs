@@ -17,7 +17,7 @@ public sealed class RPR_Old : RPR_Base
         //倒数收获月
         if (remainTime <= 30 && SoulSow.CanUse(out _)) return SoulSow;
         //提前2s勾刃
-        if (remainTime <= Harpe.CastTime + Service.Config.CountDownAhead
+        if (remainTime <= Harpe.CastTime + CountDownAhead
             && Harpe.CanUse(out _)) return Harpe;
         return base.CountDownAction(remainTime);
     }
