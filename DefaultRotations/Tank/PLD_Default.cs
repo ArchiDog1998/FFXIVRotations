@@ -7,6 +7,7 @@
 public class PLD_Default : PLD_Base
 {
     public override string GameVersion => "6.31";
+
     public override string RotationName => "Tentative v1.2";
 
     public override string Description => "Please work well!";
