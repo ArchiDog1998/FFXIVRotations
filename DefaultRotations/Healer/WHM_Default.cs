@@ -37,8 +37,9 @@ public sealed class WHM_Default : WHM_Base
 
         if (Holy.CanUse(out act)) return true;
 
-        if (Aero.CanUse(out act, IsMoving ? CanUseOption.MustUse : CanUseOption.None)) return true;
+        if (Aero.CanUse(out act)) return true;
         if (Stone.CanUse(out act)) return true;
+        if (Aero.CanUse(out act, CanUseOption.MustUse )) return true;
 
         act = null;
         return false;
