@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.27](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.26...v1.0.27) (2023-07-29)
+
+
+### Bug Fixes
+
+* update api. ([dbb41dc](https://github.com/ArchiDog1998/FFXIVRotations/commit/dbb41dc9d129e353f02c1422342aae7ffaf936ee))
+* whm dot. ([1c2e5ff](https://github.com/ArchiDog1998/FFXIVRotations/commit/1c2e5ff4fb82a141682e1db12eb49d6b7b507c0a))
+
 ## [1.0.26](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.25...v1.0.26) (2023-07-11)
 
 
