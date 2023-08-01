@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.28](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.27...v1.0.28) (2023-08-01)
+
+
+### Bug Fixes
+
+* BLU glass dance. ([b8b2b2f](https://github.com/ArchiDog1998/FFXIVRotations/commit/b8b2b2fca668802db849ec16903940abaa3e8f1f))
+* GlassDance. ([c8fb96b](https://github.com/ArchiDog1998/FFXIVRotations/commit/c8fb96b34b6126840fb9365ee3ea19e1287e0d5b))
+* patch api. ([d3154e6](https://github.com/ArchiDog1998/FFXIVRotations/commit/d3154e66f535b151ef1c6736411f713cd65b6b65))
+
 ## [1.0.27](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.26...v1.0.27) (2023-07-29)
 
 
