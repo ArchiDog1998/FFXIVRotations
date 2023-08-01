@@ -172,7 +172,7 @@ public sealed class BLU_Default : BLU_Base
         //山崩
         if (MountainBuster.CanUse(out act, CanUseOption.MustUse)) return true;
         //冰雪乱舞
-        if (MountainBuster.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (GlassDance.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //音爆
         if (SonicBoom.CanUse(out act)) return true;
