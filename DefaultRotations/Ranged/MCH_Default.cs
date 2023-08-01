@@ -1,8 +1,8 @@
 namespace DefaultRotations.Ranged;
 
 [BetaRotation]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/MCH_Default.cs")]
-[LinkDescription("https://cdn.discordapp.com/attachments/277968251789639680/1086348727691780226/mch_rotation.png")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/MCH_Default.cs")]
+[LinkDescription(Path = "https://cdn.discordapp.com/attachments/277968251789639680/1086348727691780226/mch_rotation.png")]
 [RotationDesc(ActionID.Wildfire)]
 public sealed class MCH_Default : MCH_Base
 {

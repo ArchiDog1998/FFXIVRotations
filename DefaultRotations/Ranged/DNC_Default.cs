@@ -1,6 +1,6 @@
 namespace DefaultRotations.Ranged;
 
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/DNC_Default.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/DNC_Default.cs")]
 public sealed class DNC_Default : DNC_Base
 {
     public override string GameVersion => "6.28";

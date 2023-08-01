@@ -1,7 +1,7 @@
 namespace DefaultRotations.Healer;
 
 [RotationDesc(ActionID.ChainStratagem)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SCH_Default.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SCH_Default.cs")]
 public sealed class SCH_Default : SCH_Base
 {
     public override string GameVersion => "6.28";

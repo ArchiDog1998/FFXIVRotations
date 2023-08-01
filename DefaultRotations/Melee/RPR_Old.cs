@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Melee;
 
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/RPR_Old.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/RPR_Old.cs")]
 public sealed class RPR_Old : RPR_Base
 {
     public override string GameVersion => "6.28";

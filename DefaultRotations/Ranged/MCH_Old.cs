@@ -1,6 +1,6 @@
 namespace DefaultRotations.Ranged;
 
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/MCH_Old.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Ranged/MCH_Old.cs")]
 public sealed class MCH_Old : MCH_Base
 {
     public override string GameVersion => "6.28";

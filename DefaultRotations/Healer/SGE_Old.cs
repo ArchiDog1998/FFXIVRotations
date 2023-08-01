@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Healer;
 
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SGE_Old.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/SGE_Old.cs")]
 public sealed class SGE_Old : SGE_Base
 {
     public override string GameVersion => "6.18";

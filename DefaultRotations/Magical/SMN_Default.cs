@@ -2,8 +2,8 @@
 
 [BetaRotation]
 [RotationDesc(ActionID.SearingLight)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/SMN_Default.cs")]
-[LinkDescription("https://www.thebalanceffxiv.com/img/jobs/smn/6.png")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/SMN_Default.cs")]
+[LinkDescription(Path = "https://www.thebalanceffxiv.com/img/jobs/smn/6.png")]
 public sealed class SMN_Default : SMN_Base
 {
     public override string GameVersion => "6.38";

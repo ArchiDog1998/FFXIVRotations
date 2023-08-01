@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Magical;
 
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/BLU_Default.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/BLU_Default.cs")]
 public sealed class BLU_Default : BLU_Base
 {
     public override string GameVersion => "6.18";
@@ -172,7 +172,7 @@ public sealed class BLU_Default : BLU_Base
         //山崩
         if (MountainBuster.CanUse(out act, CanUseOption.MustUse)) return true;
         //冰雪乱舞
-        if (MountainBuster.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (GlassDance.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //音爆
         if (SonicBoom.CanUse(out act)) return true;
@@ -444,7 +444,7 @@ public sealed class BLU_Default : BLU_Base
         if (MountainBuster.CanUse(out act, option)) return true;
 
         //冰雪乱舞
-        if (MountainBuster.CanUse(out act, option)) return true;
+        if (GlassDance.CanUse(out act, option)) return true;
 
         //if (MountainBuster.ShouldUse(out act, option)) return true;
 
