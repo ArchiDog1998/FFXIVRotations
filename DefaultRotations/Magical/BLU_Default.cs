@@ -444,7 +444,7 @@ public sealed class BLU_Default : BLU_Base
         if (MountainBuster.CanUse(out act, option)) return true;
 
         //冰雪乱舞
-        if (MountainBuster.CanUse(out act, option)) return true;
+        if (GlassDance.CanUse(out act, option)) return true;
 
         //if (MountainBuster.ShouldUse(out act, option)) return true;
 
