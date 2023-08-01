@@ -1,9 +1,9 @@
 ﻿namespace DefaultRotations.Tank;
 
-[LinkDescription("https://xiv.sleepyshiba.com/pld/img/63-60stentative2.png")]
+[LinkDescription(Path = "https://xiv.sleepyshiba.com/pld/img/63-60stentative2.png")]
 [RotationDesc("The whole rotation's burst\nis base on:")]
 [RotationDesc(ActionID.FightOrFlight)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/PLD_Default.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/PLD_Default.cs")]
 public class PLD_Default : PLD_Base
 {
     public override string GameVersion => "6.31";

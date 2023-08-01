@@ -1,8 +1,8 @@
 namespace DefaultRotations.Magical;
 
 [RotationDesc(ActionID.Embolden)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/RDM_Default.cs")]
-[LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/RDM_Default.cs")]
+[LinkDescription(Path = "https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
 public sealed class RDM_Default : RDM_Base
 {
     public override string GameVersion => "6.31";

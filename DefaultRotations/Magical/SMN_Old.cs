@@ -1,7 +1,7 @@
 ﻿namespace DefaultRotations.Magical;
 
 [RotationDesc(ActionID.SearingLight)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/SMN_Old.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/SMN_Old.cs")]
 
 public sealed class SMN_Old : SMN_Base
 {

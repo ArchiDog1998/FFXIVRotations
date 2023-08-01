@@ -1,7 +1,7 @@
 ﻿namespace DefaultRotations.Melee;
 
 [RotationDesc(ActionID.RiddleOfFire)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/MNK_Old.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/MNK_Old.cs")]
 public sealed class MNK_Old : MNK_Base
 {
     public override string GameVersion => "6.0";

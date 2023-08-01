@@ -2,8 +2,8 @@
 
 
 [RotationDesc(ActionID.BloodWeapon, ActionID.Delirium)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/DRK_Old.cs")]
-[LinkDescription("https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/DRK_Old.cs")]
+[LinkDescription(Path = "https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
 public sealed class DRK_Old : DRK_Base
 {
     public override string GameVersion => "6.38";

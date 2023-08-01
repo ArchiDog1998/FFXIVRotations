@@ -1,7 +1,7 @@
 namespace DefaultRotations.Healer;
 
 [RotationDesc(ActionID.Divination)]
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/AST_Default.cs")]
+[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Healer/AST_Default.cs")]
 public sealed class AST_Default : AST_Base
 {
     public override string GameVersion => "6.28";
