@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.29](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.28...v1.0.29) (2023-08-07)
+
+
+### Bug Fixes
+
+* add base attack abilities. ([9c10129](https://github.com/ArchiDog1998/FFXIVRotations/commit/9c10129bde9f3d1f479a856c72ee4ccaeceeaf9d))
+
 ## [1.0.28](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.27...v1.0.28) (2023-08-01)
 
 
