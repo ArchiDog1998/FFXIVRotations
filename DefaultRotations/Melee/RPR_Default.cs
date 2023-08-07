@@ -154,7 +154,6 @@ public sealed class RPR_Default : RPR_Base
             if (BloodStalk.CanUse(out act)) return true;
         }
 
-        act = null;
-        return false;
+        return base.AttackAbility(out act);
     }
 }

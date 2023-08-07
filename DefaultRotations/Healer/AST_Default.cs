@@ -172,7 +172,7 @@ public sealed class AST_Default : AST_Base
         if (Redraw.CanUse(out act)) return true;
         if (PlayCard(out act)) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 
     [RotationDesc(ActionID.EssentialDignity, ActionID.CelestialIntersection, ActionID.CelestialOpposition,

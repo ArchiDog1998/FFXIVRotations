@@ -362,6 +362,6 @@ public sealed class NIN_Default : NIN_Base
             if (HellfrogMedium.CanUse(out act)) return true;
             if (Bhavacakra.CanUse(out act)) return true;
         }
-        return false;
+        return base.AttackAbility(out act);
     }
 }

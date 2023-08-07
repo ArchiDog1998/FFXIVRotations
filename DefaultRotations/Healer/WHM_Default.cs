@@ -52,7 +52,7 @@ public sealed class WHM_Default : WHM_Base
         if (NumberOfHostilesIn(Assize.EffectRange) / (float)NumberOfHostilesInMaxRange > 0.8f 
             && Assize.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)

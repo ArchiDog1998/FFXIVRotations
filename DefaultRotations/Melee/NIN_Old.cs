@@ -312,6 +312,6 @@ public sealed class NIN_Old : NIN_Base
         {
             if (DreamWithinADream.CanUse(out act)) return true;
         }
-        return false;
+        return base.AttackAbility(out act);
     }
 }

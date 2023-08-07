@@ -83,6 +83,6 @@ public sealed class WAR_Old : WAR_Base
 
         if (Onslaught.CanUse(out act, CanUseOption.MustUse) && !IsMoving) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 }

@@ -54,7 +54,7 @@ public class PLD_Default : PLD_Base
 
         if (HasTankStance && OathGauge == 100 && UseOath(out act)) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 
     protected override bool GeneralGCD(out IAction act)

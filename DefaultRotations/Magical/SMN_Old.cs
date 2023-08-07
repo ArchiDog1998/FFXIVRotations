@@ -124,7 +124,7 @@ public sealed class SMN_Old : SMN_Base
         //能量吸收
         if (EnergyDrain.CanUse(out act)) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {

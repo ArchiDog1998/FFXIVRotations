@@ -127,8 +127,7 @@ public sealed class MCH_Old : MCH_Base
         //虹吸弹
         if (GaussRound.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
 
-        act = null!;
-        return false;
+        return base.AttackAbility(out act);
     }
 
     /// <summary>

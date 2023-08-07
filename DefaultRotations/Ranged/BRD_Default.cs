@@ -175,7 +175,7 @@ public sealed class BRD_Default : BRD_Base
             if (Bloodletter.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
 
-        return false;
+        return base.AttackAbility(out act);
     }
 
     private bool CanUseApexArrow(out IAction act)

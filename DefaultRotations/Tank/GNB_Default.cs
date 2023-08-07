@@ -93,9 +93,8 @@ public sealed class GNB_Default : GNB_Base
 
         if (EyeGouge.CanUse(out act)) return true;
         if (Hypervelocity.CanUse(out act)) return true;
-        
-        act = null;
-        return false;
+
+        return base.AttackAbility(out act);
     }
 
     [RotationDesc(ActionID.HeartOfLight, ActionID.Reprisal)]

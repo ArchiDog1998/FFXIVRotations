@@ -83,7 +83,7 @@ public sealed class WAR_Default : WAR_Base
         if (InBurstStatus) option |= CanUseOption.EmptyOrSkipCombo;
         if (Onslaught.CanUse(out act, option) && !IsMoving) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 
     protected override bool GeneralAbility(out IAction act)
