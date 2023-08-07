@@ -97,7 +97,8 @@ public sealed class MCH_Default : MCH_Base
             if (Ricochet.CanUse(out act, option)) return true;
         }
         if (GaussRound.CanUse(out act, option)) return true;
-        return false;
+
+        return base.AttackAbility(out act);
     }
 
     private static bool AirAnchorBlockTime(float time)

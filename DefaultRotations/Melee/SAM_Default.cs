@@ -102,8 +102,7 @@ public sealed class SAM_Default : SAM_Base
             if (HissatsuShinten.CanUse(out act)) return true;
         }
 
-        act = null;
-        return false;
+        return base.AttackAbility(out act);
     }
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {

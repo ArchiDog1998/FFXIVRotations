@@ -66,8 +66,7 @@ public sealed class GNB_Old : GNB_Base
 
         if (Player.HasStatus(true, StatusID.NoMercy) && RoughDivide.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        act = null;
-        return false;
+        return base.AttackAbility(out act);
     }
 
     [RotationDesc(ActionID.HeartOfLight, ActionID.Reprisal)]

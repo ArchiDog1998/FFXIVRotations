@@ -72,7 +72,7 @@ public class BLM_Default : BLM_Base
             if (TripleCast.CanUse(out act, gcdCountForAbility: 5)) return true;
         }
         if (Amplifier.CanUse(out act)) return true;
-        return false;
+        return base.AttackAbility(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)

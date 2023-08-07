@@ -144,6 +144,6 @@ public sealed class MNK_Old : MNK_Base
         if (SteelPeak.CanUse(out act)) return true;
         if (HowlingFist.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 }

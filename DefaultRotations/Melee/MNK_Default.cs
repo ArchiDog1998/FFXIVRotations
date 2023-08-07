@@ -204,6 +204,6 @@ public sealed class MNK_Default : MNK_Base
 
         if (RiddleOfWind.CanUse(out act)) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 }

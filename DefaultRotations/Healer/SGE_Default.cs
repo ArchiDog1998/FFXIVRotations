@@ -45,12 +45,6 @@ public sealed class SGE_Default : SGE_Base
         return base.CreateConfiguration().SetBool("GCDHeal", false, "Use spells with cast times to heal.");
     }
 
-    protected override bool AttackAbility(out IAction act)
-    {
-        act = null!;
-        return false;
-    }
-
     protected override IAction CountDownAction(float remainTime)
     {
         if (remainTime <= 1.5 && Dosis.CanUse(out var act)) return act;

@@ -185,6 +185,6 @@ public sealed class DRK_Old : DRK_Base
             if (Plunge.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo) && !IsMoving) return true;
         }
 
-        return false;
+        return base.AttackAbility(out act);
     }
 }

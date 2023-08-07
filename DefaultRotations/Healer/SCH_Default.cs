@@ -195,8 +195,7 @@ public sealed class SCH_Default : SCH_Base
         //以太超流
         if (Aetherflow.CanUse(out act)) return true;
 
-        act = null;
-        return false;
+        return base.AttackAbility(out act);
     }
 
     //15秒秘策单盾扩散

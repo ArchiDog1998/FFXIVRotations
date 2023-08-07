@@ -68,7 +68,7 @@ public sealed class DRG_Default : DRG_Base
 
         if (WyrmwindThrust.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 
     protected override bool GeneralGCD(out IAction act)

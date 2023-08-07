@@ -156,7 +156,7 @@ public sealed class RDM_Default : RDM_Base
         if (Engagement.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         if (CorpsACorps.CanUse(out act, CanUseOption.MustUse) && !IsMoving) return true;
 
-        return false;
+        return base.AttackAbility(out act);
     }
 }
 

@@ -55,7 +55,7 @@ public sealed class DNC_Default : DNC_Base
             return true;
         }
 
-        return false;
+        return base.AttackAbility(out act);
     }
 
     protected override bool GeneralGCD(out IAction act)

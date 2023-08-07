@@ -36,12 +36,6 @@ public sealed class BLU_Default : BLU_Base
     /// </summary>
     private bool SingleAOE => Configs.GetBool("SingleAOE");
 
-    protected override bool AttackAbility(out IAction act)
-    {
-        act = null;
-        return false;
-    }
-
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
         if (nextGCD.IsTheSameTo(false, SelfDestruct, FinalSting))
