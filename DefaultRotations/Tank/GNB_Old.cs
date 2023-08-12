@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Tank;
 
-[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/GNB_Old.cs")]
+[SourceCode(Path = "main/DefaultRotations/Tank/GNB_Old.cs")]
 public sealed class GNB_Old : GNB_Base
 {
     public override string GameVersion => "6.18";

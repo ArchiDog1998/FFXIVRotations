@@ -1,7 +1,7 @@
 namespace DefaultRotations.Tank;
 
-[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/WAR_Default.cs")]
-[LinkDescription(Path = "https://cdn.discordapp.com/attachments/277962807813865472/963548326433796116/unknown.png")]
+[SourceCode(Path = "main/DefaultRotations/Tank/WAR_Default.cs")]
+[LinkDescription("https://cdn.discordapp.com/attachments/277962807813865472/963548326433796116/unknown.png")]
 public sealed class WAR_Default : WAR_Base
 {
     public override string GameVersion => "6.35";

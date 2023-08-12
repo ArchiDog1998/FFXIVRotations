@@ -1,8 +1,7 @@
 ﻿namespace DefaultRotations.Magical;
 
 [RotationDesc(ActionID.SearingLight)]
-[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/SMN_Old.cs")]
-
+[SourceCode(Path = "main/DefaultRotations/Magical/SMN_Old.cs")]
 public sealed class SMN_Old : SMN_Base
 {
     public override string GameVersion => "6.28";

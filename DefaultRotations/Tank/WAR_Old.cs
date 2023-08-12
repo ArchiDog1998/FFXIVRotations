@@ -1,6 +1,6 @@
 namespace DefaultRotations.Tank;
 
-[SourceCode("https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Tank/WAR_Old.cs")]
+[SourceCode(Path = "main/DefaultRotations/Tank/WAR_Old.cs")]
 public sealed class WAR_Old : WAR_Base
 {
     public override string GameVersion => "6.0";

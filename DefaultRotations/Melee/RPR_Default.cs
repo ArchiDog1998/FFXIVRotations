@@ -2,9 +2,9 @@
 
 [BetaRotation]
 [RotationDesc(ActionID.ArcaneCircle)]
-[LinkDescription(Path = "https://www.thebalanceffxiv.com/img/jobs/rpr/double_communio.png")]
-[LinkDescription(Path = "https://www.thebalanceffxiv.com/img/jobs/rpr/rpr_6.3_early_enshroud.png")]
-[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/RPR_Default.cs")]
+[LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/double_communio.png")]
+[LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/rpr_6.3_early_enshroud.png")]
+[SourceCode(Path = "main/DefaultRotations/Melee/RPR_Default.cs")]
 public sealed class RPR_Default : RPR_Base
 {
     public override string GameVersion => "6.38";
