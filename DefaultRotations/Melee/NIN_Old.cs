@@ -1,7 +1,7 @@
 namespace DefaultRotations.Melee;
 
 [RotationDesc(ActionID.Mug)]
-[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/NIN_Old.cs")]
+[SourceCode(Path = "main/DefaultRotations/Melee/NIN_Old.cs")]
 public sealed class NIN_Old : NIN_Base
 {
     public override string GameVersion => "6.0";

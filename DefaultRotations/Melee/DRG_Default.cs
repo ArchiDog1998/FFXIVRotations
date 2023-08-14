@@ -1,6 +1,6 @@
 namespace DefaultRotations.Melee;
 
-[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Melee/DRG_Default.cs")]
+[SourceCode(Path = "main/DefaultRotations/Melee/DRG_Default.cs")]
 public sealed class DRG_Default : DRG_Base
 {
     public override string GameVersion => "6.18";

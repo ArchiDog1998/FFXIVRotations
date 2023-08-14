@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Magical;
 
-[SourceCode(Url = "https://github.com/ArchiDog1998/FFXIVRotations/blob/main/DefaultRotations/Magical/BLM_Default.cs")]
+[SourceCode(Path = "main/DefaultRotations/Magical/BLM_Default.cs")]
 public class BLM_Default : BLM_Base
 {
     public override string GameVersion => "6.31";
