@@ -49,8 +49,7 @@ public sealed class WHM_Default : WHM_Base
     {
         if (PresenseOfMind.CanUse(out act)) return true;
 
-        if (NumberOfHostilesIn(Assize.EffectRange) / (float)NumberOfHostilesInMaxRange > 0.8f 
-            && Assize.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (Assize.CanUse(out act, CanUseOption.MustUse)) return true;
 
         return base.AttackAbility(out act);
     }

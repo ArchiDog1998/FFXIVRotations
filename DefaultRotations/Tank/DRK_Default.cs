@@ -14,7 +14,7 @@ public sealed class DRK_Default : DRK_Base
 
     public override string Description => "Please contact Nore#7219 on Discord for questions about this rotation.";
 
-    protected override bool CanHealSingleAbility => false;
+    public override bool CanHealSingleAbility => false;
 
     private static bool InTwoMinBurst()
     {
@@ -87,7 +87,7 @@ public sealed class DRK_Default : DRK_Base
 
         //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && nextGCD.IsTheSameTo(false, HardSlash, SyphonStrike, Souleater, BloodSpiller, Unmend))
         //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && Target != null && Target.IsNPCEnemy() && NumberOfHostilesIn(25) == 1)
-        if ((InCombat && CombatElapsedLess(2) || TimeSinceLastAction.TotalSeconds >= 10) && NumberOfHostilesIn(25) == 1)
+        if ((InCombat && CombatElapsedLess(2) || TimeSinceLastAction.TotalSeconds >= 10))
         {
             //int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             //foreach (int number in numbers)

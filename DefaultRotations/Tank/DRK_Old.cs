@@ -12,7 +12,7 @@ public sealed class DRK_Old : DRK_Base
 
     public override string Description => "Special thanks to Nore for fixing the rotation.";
 
-    protected override bool CanHealSingleAbility => false;
+    public override bool CanHealSingleAbility => false;
 
     private static bool InTwoMinBurst => BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown
         && LivingShadow.IsCoolingDown && !LivingShadow.ElapsedAfter(20);

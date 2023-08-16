@@ -6,6 +6,7 @@ namespace DefaultRotations.Melee;
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/nin/nininfographicwindows.png")]
 [LinkDescription("https://docs.google.com/spreadsheets/u/0/d/1BZZrqWMRrugCeiBICEgjCz2vRNXt_lRTxPnSQr24Em0/htmlview#",
     "Under the “Planner (With sample section)”")]
+[YoutubeLink(ID = "Al9KlhA3Zvw")]
 public sealed class NIN_Default : NIN_Base
 {
     public override string GameVersion => "6.35";
