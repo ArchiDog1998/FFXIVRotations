@@ -1,6 +1,6 @@
 ﻿namespace ExtraRotations.Magical;
 
-[SourceCode(Path = "main/ExtraRotations/Magical/BLU_Extra.cs")]
+[SourceCode(Path = "main/DefaultRotations/Magical/BLU_Extra.cs")]
 public sealed class BLU_Extra : BLU_Base
 {
     public override string GameVersion => "6.3";
