@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.31](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.30...v1.0.31) (2023-08-19)
+
+
+### Bug Fixes
+
+* add macrocosmos. ([e118222](https://github.com/ArchiDog1998/FFXIVRotations/commit/e1182229fe40f1ad4e93316d54e44d4c865e43e3))
+* remove extra rotations. ([cda0107](https://github.com/ArchiDog1998/FFXIVRotations/commit/cda010726ba20227030c6a99c534bf5542071c53))
+* update api. ([735a4d8](https://github.com/ArchiDog1998/FFXIVRotations/commit/735a4d86e36a863ac5b03c3b5a8bd84d33786058))
+
 ## [1.0.30](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.29...v1.0.30) (2023-08-14)
 
 
