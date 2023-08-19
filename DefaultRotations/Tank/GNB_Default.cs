@@ -7,9 +7,9 @@ public sealed class GNB_Default : GNB_Base
 
     public override string RotationName => "Default";
 
-    protected override bool CanHealSingleSpell => false;
+    public override bool CanHealSingleSpell => false;
 
-    protected override bool CanHealAreaSpell => false;
+    public override bool CanHealAreaSpell => false;
 
     protected override IAction CountDownAction(float remainTime)
     {

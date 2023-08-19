@@ -20,7 +20,7 @@ public sealed class SMN_Default : SMN_Base
             .SetBool("addCrimsonCyclone", true, "Use Crimson Cyclone");
     }
 
-    protected override bool CanHealSingleSpell => false;
+    public override bool CanHealSingleSpell => false;
 
     [RotationDesc(ActionID.CrimsonCyclone)]
     protected override bool MoveForwardGCD(out IAction act)

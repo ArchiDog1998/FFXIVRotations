@@ -7,9 +7,9 @@ public sealed class GNB_Old : GNB_Base
 
     public override string RotationName => "Old";
 
-    protected override bool CanHealSingleSpell => false;
+    public override bool CanHealSingleSpell => false;
 
-    protected override bool CanHealAreaSpell => false;
+    public override bool CanHealAreaSpell => false;
 
     protected override bool GeneralGCD(out IAction act)
     {

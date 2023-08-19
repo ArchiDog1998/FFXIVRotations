@@ -7,8 +7,8 @@ public sealed class BLU_Default : BLU_Base
 
     public override string RotationName => "Default";
 
-    protected override bool CanHealAreaSpell => base.CanHealAreaSpell && BlueId == BLUID.Healer;
-    protected override bool CanHealSingleSpell => base.CanHealSingleSpell && BlueId == BLUID.Healer;
+    public override bool CanHealAreaSpell => base.CanHealAreaSpell && BlueId == BLUID.Healer;
+    public override bool CanHealSingleSpell => base.CanHealSingleSpell && BlueId == BLUID.Healer;
 
     protected override IRotationConfigSet CreateConfiguration()
     {
