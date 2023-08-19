@@ -43,10 +43,11 @@ public sealed class AST_Default : AST_Base
         return false;
     }
 
-    [RotationDesc(ActionID.CollectiveUnconscious)]
+    [RotationDesc(ActionID.Macrocosmos, ActionID.CollectiveUnconscious)]
     protected override bool DefenseAreaAbility(out IAction act)
     {
-        //来个命运之轮
+        if (Macrocosmos.CanUse(out act)) return true;
+
         if (CollectiveUnconscious.CanUse(out act)) return true;
 
         return base.DefenseAreaAbility(out act);
