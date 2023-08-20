@@ -69,7 +69,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
             upload_url: ${{ needs.release-please.outputs.upload_url }}
-            asset_path: artifact/DefaultRotations/bin/Release/net7.0-windows/DefaultRotations.dll
+            asset_path: artifact/DefaultRotations.dll
             asset_name: DefaultRotations.dll
             asset_content_type: application/x-msdownload
             
@@ -79,6 +79,6 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
             upload_url: ${{ needs.release-please.outputs.upload_url }}
-            asset_path: artifact/DefaultRotations/bin/Release/net7.0-windows/DefaultRotations.pdb
+            asset_path: artifact/DefaultRotations.pdb
             asset_name: DefaultRotations.pdb
             asset_content_type: application/octet-stream
