@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.33](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.32...v1.0.33) (2023-08-22)
+
+
+### Bug Fixes
+
+* gnb Cartridge using. ([0ca1094](https://github.com/ArchiDog1998/FFXIVRotations/commit/0ca1094ee815913a8470666e61392b262243759e))
+* Macrocosmos is gcd! ([b08ebfb](https://github.com/ArchiDog1998/FFXIVRotations/commit/b08ebfb731ab83da53ff9c78760ff4437eb66fad))
+* mispell. ([ac95e0a](https://github.com/ArchiDog1998/FFXIVRotations/commit/ac95e0a613bc43cf21e58ebe6f1a7913639e4eb8))
+
 ## [1.0.32](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.31...v1.0.32) (2023-08-19)
 
 
