@@ -33,12 +33,12 @@ public sealed class GNB_Default : GNB_Base
 
     protected override bool GeneralGCD(out IAction act)
     {
+        if (FatedCircle.CanUse(out act, aoeCount: 4)) return true;
+        if (CanUseGnashingFang(out act)) return true;
         if (FatedCircle.CanUse(out act)) return true;
 
         if (DemonSlaughter.CanUse(out act)) return true;
         if (DemonSlice.CanUse(out act)) return true;
-
-        if (CanUseGnashingFang(out act)) return true;
 
         if (Player.HasStatus(true, StatusID.NoMercy) && CanUseSonicBreak(out act)) return true;
 

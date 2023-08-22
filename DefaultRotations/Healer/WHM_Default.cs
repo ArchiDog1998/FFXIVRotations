@@ -47,7 +47,7 @@ public sealed class WHM_Default : WHM_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (PresenseOfMind.CanUse(out act)) return true;
+        if (PresenceOfMind.CanUse(out act)) return true;
 
         if (Assize.CanUse(out act, CanUseOption.MustUse)) return true;
 
