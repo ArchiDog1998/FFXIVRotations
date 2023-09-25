@@ -93,11 +93,11 @@ public sealed class DNC_Default : DNC_Base
         //剑舞
         if ((breaking || Esprit >= 85) && SaberDance.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        //提拉纳
-        if (Tillana.CanUse(out act, CanUseOption.MustUse)) return true;
-
         //流星舞
         if (StarFallDance.CanUse(out act, CanUseOption.MustUse)) return true;
+
+        //提拉纳
+        if (Tillana.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //使用标准舞步
         if (UseStandardStep(out act)) return true;
