@@ -54,7 +54,7 @@ public sealed class BRD_Default : BRD_Base
         //强力射击
         if (HeavyShoot.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)

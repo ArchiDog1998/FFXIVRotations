@@ -82,7 +82,7 @@ public sealed class RDM_Default : RDM_Base
 
         if (Configs.GetBool("UseVercure") && NotInCombatDelay && Vercure.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool EmergencyGCD(out IAction act)
@@ -116,7 +116,7 @@ public sealed class RDM_Default : RDM_Base
         }
         if (ManaStacks > 0 && Riposte.CanUse(out act)) return true;
 
-        return false;
+        return base.EmergencyGCD(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
@@ -130,8 +130,7 @@ public sealed class RDM_Default : RDM_Base
         if ((Player.HasStatus(true, StatusID.Embolden) || IsLastAbility(ActionID.Embolden))
             && Manafication.CanUse(out act)) return true;
 
-        act = null;
-        return false;
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool AttackAbility(out IAction act)

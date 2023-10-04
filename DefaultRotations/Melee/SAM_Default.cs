@@ -69,8 +69,7 @@ public sealed class SAM_Default : SAM_Base
             if (Enpi.CanUse(out act)) return true;
         }
 
-        act = null;
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)

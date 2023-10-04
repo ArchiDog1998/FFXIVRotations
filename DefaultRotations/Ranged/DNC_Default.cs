@@ -75,7 +75,7 @@ public sealed class DNC_Default : DNC_Base
         //¹¥»÷GCD
         if (AttackGCD(out act, Player.HasStatus(true, StatusID.Devilment))) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public sealed class DNC_Default : DNC_Base
     /// <param name="act"></param>
     /// <param name="breaking"></param>
     /// <returns></returns>
-    bool AttackGCD(out IAction act, bool breaking)
+    private bool AttackGCD(out IAction act, bool breaking)
     {
         act = null;
         //ÌøÎè×´Ì¬½ûÖ¹Ê¹ÓÃ

@@ -96,6 +96,6 @@ public sealed class DRG_Default : DRG_Base
         if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
         if (PiercingTalon.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 }

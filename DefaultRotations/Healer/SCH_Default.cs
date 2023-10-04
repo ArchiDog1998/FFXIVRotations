@@ -58,7 +58,7 @@ public sealed class SCH_Default : SCH_Base
         //Add dot.
         if (Bio.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     [RotationDesc(ActionID.Adloquium, ActionID.Physick)]
@@ -70,7 +70,7 @@ public sealed class SCH_Default : SCH_Base
         //医术
         if (Physick.CanUse(out act)) return true;
 
-        return false;
+        return base.HealSingleGCD(out act);
     }
 
     [RotationDesc(ActionID.Aetherpact, ActionID.Protraction, ActionID.SacredSoil, ActionID.Excogitation, ActionID.Lustrate, ActionID.Aetherpact)]
@@ -104,7 +104,7 @@ public sealed class SCH_Default : SCH_Base
     protected override bool DefenseSingleAbility(out IAction act)
     {
         if (Excogitation.CanUse(out act)) return true;
-        return false;
+        return base.DefenseSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.Succor)]
@@ -113,7 +113,7 @@ public sealed class SCH_Default : SCH_Base
         //士气高扬之策
         if (Succor.CanUse(out act)) return true;
 
-        return false;
+        return base.HealAreaGCD(out act);
     }
 
 
@@ -139,15 +139,14 @@ public sealed class SCH_Default : SCH_Base
         //不屈不挠之策
         if (Indomitability.CanUse(out act)) return true;
 
-        act = null;
-        return false;
+        return base.HealAreaAbility(out act);
     }
 
     [RotationDesc(ActionID.Succor)]
     protected override bool DefenseAreaGCD(out IAction act)
     {
         if (Succor.CanUse(out act)) return true;
-        return false;
+        return base.DefenseAreaGCD(out act);
     }
 
     [RotationDesc(ActionID.FeyIllumination, ActionID.Expedient, ActionID.SummonSeraph, ActionID.Consolation, ActionID.SacredSoil)]
@@ -160,8 +159,6 @@ public sealed class SCH_Default : SCH_Base
         if (Expedient.CanUse(out act)) return true;
 
         //慰藉
-
-
         if (WhisperingDawn.ElapsedOneChargeAfterGCD(1) || FeyIllumination.ElapsedOneChargeAfterGCD(1) || FeyBlessing.ElapsedOneChargeAfterGCD(1))
         {
             if (SummonSeraph.CanUse(out act)) return true;
@@ -171,7 +168,7 @@ public sealed class SCH_Default : SCH_Base
         //野战治疗阵
         if (SacredSoil.CanUse(out act)) return true;
 
-        return false;
+        return base.DefenseAreaAbility(out act);
     }
 
 

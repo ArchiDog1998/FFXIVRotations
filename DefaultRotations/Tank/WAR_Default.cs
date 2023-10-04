@@ -52,7 +52,7 @@ public sealed class WAR_Default : WAR_Base
         if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
         if (Tomahawk.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)
@@ -122,6 +122,6 @@ public sealed class WAR_Default : WAR_Base
     {
         if (ShakeItOff.CanUse(out act, CanUseOption.MustUse)) return true;
         if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
-        return false;
+        return base.DefenseAreaAbility(out act);
     }
 }

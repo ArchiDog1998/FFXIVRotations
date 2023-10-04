@@ -109,7 +109,7 @@ public class BLM_Default : BLM_Base
         if (Scathe.CanUse(out act)) return true;
         if (MaintainStatus(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     private bool InFireOrIce(out IAction act, out bool mustGo)
