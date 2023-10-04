@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.34](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.33...v1.0.34) (2023-10-04)
+
+
+### Bug Fixes
+
+* called base method. ([40175f5](https://github.com/ArchiDog1998/FFXIVRotations/commit/40175f5d600d1e053d816493a3558964e0b9e766))
+
 ## [1.0.33](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.32...v1.0.33) (2023-08-22)
 
 
