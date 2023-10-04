@@ -122,7 +122,7 @@ public sealed class DRK_Default : DRK_Base
         if (!InTwoMinBurst() && DarkMissionary.CanUse(out act)) return true;
         if (!InTwoMinBurst() && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        return false;
+        return base.DefenseAreaAbility(out act);
     }
 
     [RotationDesc(ActionID.TheBlackestNight, ActionID.Oblation, ActionID.Reprisal, ActionID.ShadowWall, ActionID.Rampart, ActionID.DarkMind)]
@@ -145,7 +145,7 @@ public sealed class DRK_Default : DRK_Base
         if (ShadowWall.IsCoolingDown && ShadowWall.ElapsedAfter(60) && Rampart.CanUse(out act)) return true;
         if (DarkMind.CanUse(out act)) return true;
 
-        return false;
+        return base.DefenseAreaAbility(out act);
     }
 
     protected override bool GeneralGCD(out IAction act)
@@ -169,7 +169,7 @@ public sealed class DRK_Default : DRK_Base
         if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
         if (BloodWeapon.IsCoolingDown && !Player.HasStatus(true, StatusID.BloodWeapon) && Unmend.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)

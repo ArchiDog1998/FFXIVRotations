@@ -75,7 +75,7 @@ public sealed class DNC_Default : DNC_Base
         //攻击GCD
         if (AttackGCD(out act, Player.HasStatus(true, StatusID.Devilment))) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public sealed class DNC_Default : DNC_Base
     /// <param name="act"></param>
     /// <param name="breaking"></param>
     /// <returns></returns>
-    bool AttackGCD(out IAction act, bool breaking)
+    private bool AttackGCD(out IAction act, bool breaking)
     {
         act = null;
         //跳舞状态禁止使用
@@ -93,11 +93,11 @@ public sealed class DNC_Default : DNC_Base
         //剑舞
         if ((breaking || Esprit >= 85) && SaberDance.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        //提拉纳
-        if (Tillana.CanUse(out act, CanUseOption.MustUse)) return true;
-
         //流星舞
         if (StarFallDance.CanUse(out act, CanUseOption.MustUse)) return true;
+
+        //提拉纳
+        if (Tillana.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //使用标准舞步
         if (UseStandardStep(out act)) return true;

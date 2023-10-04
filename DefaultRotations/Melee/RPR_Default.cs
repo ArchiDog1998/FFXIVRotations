@@ -104,7 +104,7 @@ public sealed class RPR_Default : RPR_Base
         if (InCombat && HarvestMoon.CanUse(out act, CanUseOption.MustUse)) return true;
         if (Harpe.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)

@@ -305,8 +305,7 @@ public sealed class NIN_Default : NIN_Base
         if (!InCombat && _ninActionAim == null && Configs.GetBool("UseHide")
             && Ten.IsCoolingDown && Hide.CanUse(out act)) return true;
 
-        act = null;
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     [RotationDesc(ActionID.ForkedRaiju)]

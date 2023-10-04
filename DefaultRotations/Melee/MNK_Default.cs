@@ -85,7 +85,7 @@ public sealed class MNK_Default : MNK_Base
         if (Chakra < 5 && Meditation.CanUse(out act)) return true;
         if (Configs.GetBool("AutoFormShift") && FormShift.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     static bool PerfectBalanceActions(out IAction act)

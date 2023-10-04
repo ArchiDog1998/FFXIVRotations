@@ -55,7 +55,7 @@ public sealed class MCH_Default : MCH_Base
         if (SlugShot.CanUse(out act)) return true;
         if (SplitShot.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)

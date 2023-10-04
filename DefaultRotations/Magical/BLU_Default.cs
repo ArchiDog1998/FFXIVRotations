@@ -75,9 +75,7 @@ public sealed class BLU_Default : BLU_Base
         //单体填充
         if (SingleGCD(out act)) return true;
 
-
-        act = null;
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool HealSingleGCD(out IAction act)

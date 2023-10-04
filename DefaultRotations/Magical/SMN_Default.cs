@@ -94,7 +94,7 @@ public sealed class SMN_Default : SMN_Base
 
         //毁123
         if (Ruin.CanUse(out act)) return true;
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)

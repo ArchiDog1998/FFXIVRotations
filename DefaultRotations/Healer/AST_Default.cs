@@ -40,7 +40,7 @@ public sealed class AST_Default : AST_Base
 
         //给T减伤，这个很重要。
         if (Exaltation.CanUse(out act)) return true;
-        return false;
+        return base.DefenseSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.Macrocosmos)]
@@ -71,8 +71,7 @@ public sealed class AST_Default : AST_Base
         if (Malefic.CanUse(out act)) return true;
         if (Combust.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        act = null!;
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     [RotationDesc(ActionID.AspectedHelios, ActionID.Helios)]
@@ -84,8 +83,7 @@ public sealed class AST_Default : AST_Base
         //阳星
         if (Helios.CanUse(out act)) return true;
 
-        act = null!;
-        return false;
+        return base.HealAreaGCD(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
@@ -111,7 +109,7 @@ public sealed class AST_Default : AST_Base
         {
             if (Synastry.CanUse(out act)) return true;
         }
-        return false;
+        return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool GeneralAbility(out IAction act)
@@ -122,8 +120,7 @@ public sealed class AST_Default : AST_Base
         //如果当前卡牌已经拥有了，就重抽
         if (Redraw.CanUse(out act)) return true;
 
-        act = null;
-        return false;
+        return base.GeneralAbility(out act);
     }
 
     [RotationDesc(ActionID.AspectedBenefic, ActionID.Benefic2, ActionID.Benefic)]
@@ -139,8 +136,7 @@ public sealed class AST_Default : AST_Base
         //吉星
         if (Benefic.CanUse(out act)) return true;
 
-        act = null;
-        return false;
+        return base.HealSingleGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)
@@ -239,6 +235,6 @@ public sealed class AST_Default : AST_Base
         //奶量牌，要看情况。
         if (DrawnCrownCard == CardType.LADY && MinorArcana.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        return false;
+        return base.HealAreaAbility(out act);
     }
 }

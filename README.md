@@ -14,9 +14,6 @@ Please do NOT Fork this repo, try to make new one by yourself!
 
 Download path
 
-```
-https://github.com/ArchiDog1998/FFXIVRotations/releases/latest/download/ExtraRotations.dll
-```
 
 ```
 https://github.com/ArchiDog1998/FFXIVRotations/releases/latest/download/DefaultRotations.dll

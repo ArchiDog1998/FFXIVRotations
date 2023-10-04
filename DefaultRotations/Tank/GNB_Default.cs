@@ -57,7 +57,7 @@ public sealed class GNB_Default : GNB_Base
 
         if (LightningShot.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)
@@ -103,7 +103,7 @@ public sealed class GNB_Default : GNB_Base
         act = null;
         if (!Player.HasStatus(true, StatusID.NoMercy) && HeartOfLight.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         if (!Player.HasStatus(true, StatusID.NoMercy) && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
-        return false;
+        return base.DefenseAreaAbility(out act);
     }
 
     [RotationDesc(ActionID.HeartOfStone, ActionID.Nebula, ActionID.Rampart, ActionID.Camouflage, ActionID.Reprisal)]
@@ -121,8 +121,7 @@ public sealed class GNB_Default : GNB_Base
 
         if (Reprisal.CanUse(out act)) return true;
 
-        act = null;
-        return false;
+        return base.DefenseSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.Aurora)]

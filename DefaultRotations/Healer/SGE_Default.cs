@@ -156,8 +156,7 @@ public sealed class SGE_Default : SGE_Base
 
         if (Pepsis.CanUse(out act)) return true;
 
-        act = null!;
-        return false;
+        return base.GeneralAbility(out act);
     }
 
     protected override bool GeneralGCD(out IAction act)
@@ -204,7 +203,7 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     [RotationDesc(ActionID.Taurochole, ActionID.Kerachole, ActionID.Druochole, ActionID.Holos, ActionID.Physis, ActionID.Panhaima)]
@@ -251,7 +250,7 @@ public sealed class SGE_Default : SGE_Base
     protected override bool HealSingleGCD(out IAction act)
     {
         if (Diagnosis.CanUse(out act)) return true;
-        return false;
+        return base.HealSingleGCD(out act);
     }
 
     [RotationDesc(ActionID.Pneuma, ActionID.Prognosis, ActionID.EukrasianPrognosis)]
@@ -275,8 +274,7 @@ public sealed class SGE_Default : SGE_Base
             return true;
         }
 
-        act = null;
-        return false;
+        return base.HealAreaGCD(out act);
     }
 
     [RotationDesc(ActionID.Kerachole, ActionID.Physis, ActionID.Holos, ActionID.Ixochole)]
@@ -293,6 +291,6 @@ public sealed class SGE_Default : SGE_Base
 
         if (Kerachole.CanUse(out act, CanUseOption.OnLastAbility)) return true;
 
-        return false;
+        return base.HealAreaAbility(out act);
     }
 }

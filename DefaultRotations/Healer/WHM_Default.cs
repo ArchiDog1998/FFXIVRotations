@@ -41,8 +41,7 @@ public sealed class WHM_Default : WHM_Base
         if (Stone.CanUse(out act)) return true;
         if (Aero.CanUse(out act, CanUseOption.MustUse )) return true;
 
-        act = null;
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction act)
@@ -79,7 +78,7 @@ public sealed class WHM_Default : WHM_Base
 
         if (Cure.CanUse(out act)) return true;
 
-        return false;
+        return base.HealSingleGCD(out act);
     }
 
     [RotationDesc(ActionID.Benediction, ActionID.Asylum, ActionID.DivineBenison, ActionID.Tetragrammaton)]
@@ -109,14 +108,14 @@ public sealed class WHM_Default : WHM_Base
 
         if (Medica.CanUse(out act)) return true;
 
-        return false;
+        return base.HealAreaGCD(out act);
     }
 
     [RotationDesc(ActionID.Asylum)]
     protected override bool HealAreaAbility(out IAction act)
     {
         if (Asylum.CanUse(out act)) return true;
-        return false;
+        return base.HealAreaAbility(out act);
     }
 
     [RotationDesc(ActionID.DivineBenison, ActionID.Aquaveil)]
@@ -125,7 +124,7 @@ public sealed class WHM_Default : WHM_Base
         if (DivineBenison.CanUse(out act)) return true;
 
         if (Aquaveil.CanUse(out act)) return true;
-        return false;
+        return base.DefenseSingleAbility(out act);
     }
 
     [RotationDesc(ActionID.Temperance, ActionID.LiturgyOfTheBell)]
@@ -134,7 +133,7 @@ public sealed class WHM_Default : WHM_Base
         if (Temperance.CanUse(out act)) return true;
 
         if (LiturgyOfTheBell.CanUse(out act)) return true;
-        return false;
+        return base.DefenseAreaAbility(out act);
     }
 
     //[RotationDesc(ActionID.Regen)]

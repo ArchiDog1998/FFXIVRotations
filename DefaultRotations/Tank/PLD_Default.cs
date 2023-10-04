@@ -99,7 +99,7 @@ public class PLD_Default : PLD_Base
         }
         if (ShieldLob.CanUse(out act)) return true;
 
-        return false;
+        return base.GeneralGCD(out act);
     }
 
     [RotationDesc(ActionID.Reprisal, ActionID.DivineVeil)]
@@ -107,7 +107,7 @@ public class PLD_Default : PLD_Base
     {
         if (Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
         if (DivineVeil.CanUse(out act)) return true;
-        return false;
+        return base.DefenseAreaAbility(out act);
     }
 
     [RotationDesc(ActionID.PassageOfArms)]
@@ -131,7 +131,7 @@ public class PLD_Default : PLD_Base
 
         if (Reprisal.CanUse(out act)) return true;
 
-        return false;
+        return base.DefenseSingleAbility(out act);
     }
 
     private static bool UseOath(out IAction act, CanUseOption option = CanUseOption.None)
