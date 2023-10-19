@@ -18,8 +18,7 @@ public sealed class MNK_Default : MNK_Base
     {
         if (remainTime < 0.2)
         {
-            if (Thunderclap.CanUse(out var act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
-            if (Thunderclap.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
+            if (Thunderclap.CanUse(out var act, CanUseOption.IgnoreClippingCheck)) return act;
         }
         if (remainTime < 15)
         {
