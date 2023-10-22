@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-	  <PackageReference Include="RotationSolver.Basic" Version="3.3.3" />
+	  <PackageReference Include="RotationSolver.Basic" Version="3.4.0" />
   </ItemGroup>
 </Project>

@@ -96,7 +96,7 @@ public sealed class SMN_Old : SMN_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst && !Player.HasStatus(false, StatusID.SearingLight))
+        if (IsBurst && !Player.HasStatus(false, StatusID.SearingLight))
         {
             //灼热之光
             if (SearingLight.CanUse(out act)) return true;

@@ -13,7 +13,7 @@ public sealed class SGE_Default : SGE_Base
 
     static bool NoOgcdsAOE => Addersgall < 1 && (!Physis.EnoughLevel || Physis.IsCoolingDown || Physis2.IsCoolingDown) && (!Panhaima.EnoughLevel || Panhaima.IsCoolingDown) && (!Holos.EnoughLevel || Holos.IsCoolingDown) && (!Pneuma.EnoughLevel || Pneuma.IsCoolingDown) && (!Rhizomata.EnoughLevel || Rhizomata.IsCoolingDown) && (!Pneuma.EnoughLevel || Krasis.IsCoolingDown);
 
-    private static bool InTwoMinBurst()
+    private static bool InTwoMIsBurst()
     {
         if (RatioOfMembersIn2minsBurst >= 0.5) return true;
         if (RatioOfMembersIn2minsBurst == -1) return true;
@@ -172,7 +172,7 @@ public sealed class SGE_Default : SGE_Base
         }
 
         var option = CanUseOption.MustUse;
-        if (IsMoving || Dyskrasia.CanUse(out _) || InTwoMinBurst()) option |= CanUseOption.EmptyOrSkipCombo;
+        if (IsMoving || Dyskrasia.CanUse(out _) || InTwoMIsBurst()) option |= CanUseOption.EmptyOrSkipCombo;
         if (Phlegma3.CanUse(out act, option)) return true;
         if (!Phlegma3.EnoughLevel && Phlegma2.CanUse(out act, option)) return true;
         if (!Phlegma2.EnoughLevel && Phlegma.CanUse(out act, option)) return true;

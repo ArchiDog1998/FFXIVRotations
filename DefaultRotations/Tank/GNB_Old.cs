@@ -33,7 +33,7 @@ public sealed class GNB_Old : GNB_Base
         if (BrutalShell.CanUse(out act)) return true;
         if (KeenEdge.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
 
         if (LightningShot.CanUse(out act)) return true;
 
@@ -42,7 +42,7 @@ public sealed class GNB_Old : GNB_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst && CanUseNoMercy(out act)) return true;
+        if (IsBurst && CanUseNoMercy(out act)) return true;
 
         if (DangerZone.CanUse(out act))
         {

@@ -18,8 +18,7 @@ public sealed class MNK_Default : MNK_Base
     {
         if (remainTime < 0.2)
         {
-            if (Thunderclap.CanUse(out var act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
-            if (Thunderclap.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
+            if (Thunderclap.CanUse(out var act, CanUseOption.IgnoreClippingCheck)) return act;
         }
         if (remainTime < 15)
         {
@@ -81,7 +80,7 @@ public sealed class MNK_Default : MNK_Base
         }
         if (OpoOpoForm(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
         if (Chakra < 5 && Meditation.CanUse(out act)) return true;
         if (Configs.GetBool("AutoFormShift") && FormShift.CanUse(out act)) return true;
 
@@ -178,7 +177,7 @@ public sealed class MNK_Default : MNK_Base
         if (InCombat)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (InBurst && !CombatElapsedLessGCD(2) && RiddleOfFire.CanUse(out act, CanUseOption.OnLastAbility)) return true;
+            if (IsBurst && !CombatElapsedLessGCD(2) && RiddleOfFire.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
         return base.EmergencyAbility(nextGCD, out act);
     }

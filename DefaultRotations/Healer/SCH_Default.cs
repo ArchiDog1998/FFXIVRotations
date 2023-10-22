@@ -174,7 +174,7 @@ public sealed class SCH_Default : SCH_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst)
+        if (IsBurst)
         {
             //连环计
             if (ChainStratagem.CanUse(out act)) return true;

@@ -37,7 +37,7 @@ public sealed class WAR_Old : WAR_Base
         if (Maim.CanUse(out act)) return true;
         if (HeavySwing.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
 
         if (Tomahawk.CanUse(out act)) return true;
 

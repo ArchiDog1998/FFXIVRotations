@@ -53,7 +53,7 @@ public class BLM_Default : BLM_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst && UseBurstMedicine(out act)) return true;
+        if (IsBurst && UseBurstMedicine(out act)) return true;
         if (InUmbralIce)
         {
             if (UmbralIceStacks == 2 && !HasFire

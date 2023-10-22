@@ -26,7 +26,7 @@ public sealed class DNC_Default : DNC_Base
         //½ø¹¥Ö®Ì½¸ê
         if (Devilment.CanUse(out act))
         {
-            if (InBurst && !TechnicalStep.EnoughLevel) return true;
+            if (IsBurst && !TechnicalStep.EnoughLevel) return true;
 
             if (Player.HasStatus(true, StatusID.TechnicalFinish)) return true;
         }
@@ -70,7 +70,7 @@ public sealed class DNC_Default : DNC_Base
         if (ExecuteStepGCD(out act)) return true;
 
         //¼¼ÇÉÎè²½
-        if (InBurst && InCombat && TechnicalStep.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (IsBurst && InCombat && TechnicalStep.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //¹¥»÷GCD
         if (AttackGCD(out act, Player.HasStatus(true, StatusID.Devilment))) return true;

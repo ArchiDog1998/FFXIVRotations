@@ -96,7 +96,7 @@ public sealed class MCH_Old : MCH_Base
         //起手在链锯前释放野火
         if (nextGCD.IsTheSameTo(true, ChainSaw) && !IsLastGCD(true, HeatBlast))
         {
-            if (InBurst && Configs.GetBool("MCH_Opener") && Wildfire.CanUse(out act)) return true;
+            if (IsBurst && Configs.GetBool("MCH_Opener") && Wildfire.CanUse(out act)) return true;
         }
         return base.EmergencyAbility(nextGCD, out act);
     }
@@ -104,7 +104,7 @@ public sealed class MCH_Old : MCH_Base
     protected override bool AttackAbility(out IAction act)
     {
         //野火
-        if (InBurst && CanUseWildfire(out act)) return true;
+        if (IsBurst && CanUseWildfire(out act)) return true;
 
         //车式浮空炮塔
         if (CanUseRookAutoturret(out act)) return true;

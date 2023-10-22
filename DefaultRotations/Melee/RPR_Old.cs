@@ -126,7 +126,7 @@ public sealed class RPR_Old : RPR_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst)
+        if (IsBurst)
         {
             //神秘环
             if (Target.HasStatus(true, StatusID.DeathsDesign) && ArcaneCircle.CanUse(out act)) return true;

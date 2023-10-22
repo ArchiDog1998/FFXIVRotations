@@ -100,7 +100,7 @@ public sealed class MNK_Old : MNK_Base
         }
         if (OpoOpoForm(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
         if (Chakra < 5 && Meditation.CanUse(out act)) return true;
         if (Configs.GetBool("AutoFormShift") && FormShift.CanUse(out act)) return true;
 
@@ -109,7 +109,7 @@ public sealed class MNK_Old : MNK_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst)
+        if (IsBurst)
         {
             if (RiddleOfFire.CanUse(out act)) return true;
             if (Brotherhood.CanUse(out act)) return true;

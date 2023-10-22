@@ -124,7 +124,7 @@ public sealed class RDM_Default : RDM_Base
         act = null;
         if (CombatElapsedLess(4)) return false;
 
-        if (InBurst && HasHostilesInRange && Embolden.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (IsBurst && HasHostilesInRange && Embolden.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //Use Manafication after embolden.
         if ((Player.HasStatus(true, StatusID.Embolden) || IsLastAbility(ActionID.Embolden))
@@ -146,7 +146,7 @@ public sealed class RDM_Default : RDM_Base
             }
         }
 
-        if (InBurst && UseBurstMedicine(out act)) return true;
+        if (IsBurst && UseBurstMedicine(out act)) return true;
 
         //Attack abilities.
         if (ContreSixte.CanUse(out act, CanUseOption.MustUse)) return true;

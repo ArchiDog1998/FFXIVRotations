@@ -77,7 +77,7 @@ public sealed class MCH_Default : MCH_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst)
+        if (IsBurst)
         {
             if (UseBurstMedicine(out act)) return true;
             if ((IsLastAbility(false, Hypercharge) || Heat >= 50) && !CombatElapsedLess(10)

@@ -94,7 +94,7 @@ public sealed class NIN_Old : NIN_Base
                 return true;
             }
             //背刺
-            if (InBurst && TrickAttack.WillHaveOneChargeGCD(1, 1) && Suiton.CanUse(out _))
+            if (IsBurst && TrickAttack.WillHaveOneChargeGCD(1, 1) && Suiton.CanUse(out _))
             {
                 SetNinjustus(Suiton);
             }
@@ -269,7 +269,7 @@ public sealed class NIN_Old : NIN_Base
             if (SpinningEdge.CanUse(out act)) return true;
 
             //飞刀
-            if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+            if (IsMoveForward && MoveForwardAbility(out act)) return true;
             if (ThrowingDagger.CanUse(out act)) return true;
         }
 
@@ -290,7 +290,7 @@ public sealed class NIN_Old : NIN_Base
         if (!InCombat || AdjustId(2260) != 2260) return false;
 
         //夺取
-        if (InBurst && Mug.CanUse(out act)) return true;
+        if (IsBurst && Mug.CanUse(out act)) return true;
 
         //解决Buff
         if (TrickAttack.CanUse(out act)) return true;

@@ -14,7 +14,7 @@ public sealed class DRK_Old : DRK_Base
 
     public override bool CanHealSingleAbility => false;
 
-    private static bool InTwoMinBurst => BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown
+    private static bool InTwoMIsBurst => BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown
         && LivingShadow.IsCoolingDown && !LivingShadow.ElapsedAfter(20);
 
     private static bool CombatLess => CombatElapsedLess(3);
@@ -27,7 +27,7 @@ public sealed class DRK_Old : DRK_Base
 
             if (CombatLess) return false;
 
-            if (InTwoMinBurst && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveAndSpit.IsCoolingDown || HasDarkArts) return true;
+            if (InTwoMIsBurst && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveAndSpit.IsCoolingDown || HasDarkArts) return true;
 
             if (Configs.GetBool("TheBlackestNight") && CurrentMp < 6000) return false;
 
@@ -133,7 +133,7 @@ public sealed class DRK_Old : DRK_Base
         if (SyphonStrike.CanUse(out act)) return true;
         if (HardSlash.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
         if (Unmend.CanUse(out act)) return true;
 
         return false;
@@ -147,7 +147,7 @@ public sealed class DRK_Old : DRK_Base
             if (EdgeOfDarkness.CanUse(out act)) return true;
         }
 
-        if (InBurst)
+        if (IsBurst)
         {
             if (UseBurstMedicine(out act)) return true;
             if (BloodWeapon.CanUse(out act)) return true;
@@ -163,7 +163,7 @@ public sealed class DRK_Old : DRK_Base
 
         if (!IsMoving && SaltedEarth.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        if (InTwoMinBurst)
+        if (InTwoMIsBurst)
         {
             if (ShadowBringer.CanUse(out act, CanUseOption.MustUse)) return true;
         }
@@ -171,7 +171,7 @@ public sealed class DRK_Old : DRK_Base
         if (AbyssalDrain.CanUse(out act)) return true;
         if (CarveAndSpit.CanUse(out act)) return true;
 
-        if (InTwoMinBurst)
+        if (InTwoMIsBurst)
         {
             if (ShadowBringer.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
 
@@ -180,7 +180,7 @@ public sealed class DRK_Old : DRK_Base
 
         if (SaltandDarkness.CanUse(out act)) return true;
 
-        if (InTwoMinBurst)
+        if (InTwoMIsBurst)
         {
             if (Plunge.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo) && !IsMoving) return true;
         }
