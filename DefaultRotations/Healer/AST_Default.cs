@@ -141,13 +141,13 @@ public sealed class AST_Default : AST_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst && !IsMoving && Divination.CanUse(out act)) return true;
+        if (IsBurst && !IsMoving && Divination.CanUse(out act)) return true;
 
         //如果当前还没有皇冠卡牌，那就抽一张
         if (MinorArcana.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
 
         //如果当前还没有卡牌，那就抽一张
-        if (Draw.CanUse(out act, InBurst ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if (Draw.CanUse(out act, IsBurst ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
 
         //光速，创造更多的内插能力技的机会。
         if (IsMoving && Lightspeed.CanUse(out act)) return true;

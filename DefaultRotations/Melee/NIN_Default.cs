@@ -132,7 +132,7 @@ public sealed class NIN_Default : NIN_Base
             }
 
             //Vulnerable
-            if (InBurst && TrickAttack.WillHaveOneCharge(18) && Suiton.CanUse(out _))
+            if (IsBurst && TrickAttack.WillHaveOneCharge(18) && Suiton.CanUse(out _))
             {
                 SetNinjutsu(Suiton);
                 return false;
@@ -294,7 +294,7 @@ public sealed class NIN_Default : NIN_Base
             if (SpinningEdge.CanUse(out act)) return true;
 
             //Range
-            if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+            if (IsMoveForward && MoveForwardAbility(out act)) return true;
             if (ThrowingDagger.CanUse(out act)) return true;
         }
 
@@ -322,7 +322,7 @@ public sealed class NIN_Default : NIN_Base
         if (Kassatsu.CanUse(out act)) return true;
         if (UseBurstMedicine(out act)) return true;
 
-        if (InBurst && !CombatElapsedLess(5) && Mug.CanUse(out act)) return true;
+        if (IsBurst && !CombatElapsedLess(5) && Mug.CanUse(out act)) return true;
 
         //Use Suiton
         if (!CombatElapsedLess(6))

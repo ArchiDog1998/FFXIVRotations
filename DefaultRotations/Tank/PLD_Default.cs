@@ -38,7 +38,7 @@ public class PLD_Default : PLD_Base
         if (InCombat)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (InBurst && !CombatElapsedLess(5) && FightOrFlight.CanUse(out act, CanUseOption.OnLastAbility)) return true;
+            if (IsBurst && !CombatElapsedLess(5) && FightOrFlight.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
         if (CombatElapsedLess(8)) return false;
 

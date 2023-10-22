@@ -90,7 +90,7 @@ public sealed class BRD_Default : BRD_Base
             if (ArmysPaeon.CanUse(out act)) return true;
         }
 
-        if (InBurst && Song != Song.NONE && MagesBallad.EnoughLevel)
+        if (IsBurst && Song != Song.NONE && MagesBallad.EnoughLevel)
         {
             //猛者强击
             if (RagingStrikes.CanUse(out act))

@@ -16,7 +16,7 @@ public sealed class DRK_Default : DRK_Base
 
     public override bool CanHealSingleAbility => false;
 
-    private static bool InTwoMinBurst()
+    private static bool InTwoMIsBurst()
     {
         if (RatioOfMembersIn2minsBurst >= 0.5) return true;
         if (RatioOfMembersIn2minsBurst == -1 && (BloodWeapon.IsCoolingDown && Delirium.IsCoolingDown && ((LivingShadow.IsCoolingDown && !(LivingShadow.ElapsedAfter(15))) || !LivingShadow.EnoughLevel))) return true;
@@ -33,9 +33,9 @@ public sealed class DRK_Default : DRK_Base
 
             if (CombatLess) return false;
 
-            if ((InTwoMinBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.TheBlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
+            if ((InTwoMIsBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.TheBlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
 
-            if ((InTwoMinBurst() && BloodWeapon.IsCoolingDown && LivingShadow.IsCoolingDown && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveAndSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
+            if ((InTwoMIsBurst() && BloodWeapon.IsCoolingDown && LivingShadow.IsCoolingDown && SaltedEarth.IsCoolingDown && ShadowBringer.CurrentCharges == 0 && CarveAndSpit.IsCoolingDown  && SaltandDarkness.IsCoolingDown)) return true;
 
             if (Configs.GetBool("TheBlackestNight") && CurrentMp < 6000) return false;
 
@@ -119,8 +119,8 @@ public sealed class DRK_Default : DRK_Base
     {
         act = null;
 
-        if (!InTwoMinBurst() && DarkMissionary.CanUse(out act)) return true;
-        if (!InTwoMinBurst() && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (!InTwoMIsBurst() && DarkMissionary.CanUse(out act)) return true;
+        if (!InTwoMIsBurst() && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
 
         return base.DefenseAreaAbility(out act);
     }
@@ -166,7 +166,7 @@ public sealed class DRK_Default : DRK_Base
         if (SyphonStrike.CanUse(out act)) return true;
         if (HardSlash.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
         if (BloodWeapon.IsCoolingDown && !Player.HasStatus(true, StatusID.BloodWeapon) && Unmend.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
@@ -181,7 +181,7 @@ public sealed class DRK_Default : DRK_Base
             if (EdgeOfDarkness.CanUse(out act)) return true;
         }
 
-        if (InBurst)
+        if (IsBurst)
         {
             if (UseBurstMedicine(out act)) return true;
             if (Delirium.CanUse(out act)) return true;
@@ -202,7 +202,7 @@ public sealed class DRK_Default : DRK_Base
         if (NumberOfHostilesInRange >= 3 && AbyssalDrain.CanUse(out act)) return true;
         if (CarveAndSpit.CanUse(out act)) return true;
 
-        if (InTwoMinBurst())
+        if (InTwoMIsBurst())
         {
             if (ShadowBringer.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
 
@@ -212,7 +212,7 @@ public sealed class DRK_Default : DRK_Base
 
         if (SaltandDarkness.CanUse(out act)) return true;
 
-        if (InTwoMinBurst())
+        if (InTwoMIsBurst())
         {
             if (Plunge.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo) && !IsMoving) return true;
         }

@@ -109,7 +109,7 @@ public sealed class RPR_Default : RPR_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst)
+        if (IsBurst)
         {
             if (UseBurstMedicine(out act))
             {

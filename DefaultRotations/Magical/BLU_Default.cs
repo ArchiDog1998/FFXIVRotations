@@ -83,7 +83,7 @@ public sealed class BLU_Default : BLU_Base
         if (BlueId == BLUID.Healer)
         {
             //有某些非常危险的状态。
-            if (SpecialType == SpecialCommandType.EsunaStanceNorth && WeakenPeople.Any() || DyingPeople.Any())
+            if (IsEsunaStanceNorth && WeakenPeople.Any() || DyingPeople.Any())
             {
                 if (Exuviation.CanUse(out act, CanUseOption.MustUse)) return true;
             }
@@ -156,7 +156,7 @@ public sealed class BLU_Default : BLU_Base
         //冰雾
         if (WhiteDeath.CanUse(out act)) return true;
         //如意大旋风
-        if (InBurst && !MoonFluteBreak && BothEnds.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (IsBurst && !MoonFluteBreak && BothEnds.CanUse(out act, CanUseOption.MustUse)) return true;
         //类星体
         if (Quasar.CanUse(out act, CanUseOption.MustUse)) return true;
         //飞翎雨
@@ -402,9 +402,9 @@ public sealed class BLU_Default : BLU_Base
         if (TheRoseOfDestruction.CanUse(out act)) return true;
 
         //渔叉三段
-        if (InBurst && !MoonFluteBreak && TripleTrident.CanUse(out act)) return true;
+        if (IsBurst && !MoonFluteBreak && TripleTrident.CanUse(out act)) return true;
         //马特拉魔术
-        if (InBurst && !MoonFluteBreak && MatraMagic.CanUse(out act)) return true;
+        if (IsBurst && !MoonFluteBreak && MatraMagic.CanUse(out act)) return true;
 
         //捕食
         if (Devour.CanUse(out act)) return true;
@@ -413,12 +413,12 @@ public sealed class BLU_Default : BLU_Base
 
         var option = SingleAOE ? CanUseOption.MustUse : CanUseOption.None;
         //月下彼岸花
-        if (InBurst && !MoonFluteBreak && NightBloom.CanUse(out act, option)) return true;
+        if (IsBurst && !MoonFluteBreak && NightBloom.CanUse(out act, option)) return true;
         //如意大旋风
-        if (InBurst && !MoonFluteBreak && BothEnds.CanUse(out act, option)) return true;
+        if (IsBurst && !MoonFluteBreak && BothEnds.CanUse(out act, option)) return true;
 
         //穿甲散弹
-        if (InBurst && !MoonFluteBreak && Surpanakha.CurrentCharges >= 3 && Surpanakha.CanUse(out act, option | CanUseOption.EmptyOrSkipCombo)) return true;
+        if (IsBurst && !MoonFluteBreak && Surpanakha.CurrentCharges >= 3 && Surpanakha.CanUse(out act, option | CanUseOption.EmptyOrSkipCombo)) return true;
 
         //类星体
         if (Quasar.CanUse(out act, option)) return true;

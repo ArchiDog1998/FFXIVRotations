@@ -28,7 +28,7 @@ public sealed class DRG_Default : DRG_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        if (InBurst)
+        if (IsBurst)
         {
             if (LanceCharge.CanUse(out act, CanUseOption.MustUse) && Player.HasStatus(true, StatusID.PowerSurge)) return true;
             if (LanceCharge.CanUse(out act, CanUseOption.MustUse | CanUseOption.OnLastAbility) && !Player.HasStatus(true, StatusID.PowerSurge)) return true;
@@ -93,7 +93,7 @@ public sealed class DRG_Default : DRG_Base
         if (VorpalThrust.CanUse(out act)) return true;
         if (TrueThrust.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
         if (PiercingTalon.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);

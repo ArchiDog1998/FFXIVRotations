@@ -8,7 +8,7 @@ public sealed class WAR_Default : WAR_Base
 
     public override string RotationName => "All-Around";
 
-    private static bool InBurstStatus => !Player.WillStatusEndGCD(0, 0, false, StatusID.InnerStrength);
+    private static bool IsBurstStatus => !Player.WillStatusEndGCD(0, 0, false, StatusID.InnerStrength);
 
     protected override IAction CountDownAction(float remainTime)
     {
@@ -30,11 +30,11 @@ public sealed class WAR_Default : WAR_Base
     {
         if (!Player.WillStatusEndGCD(3, 0, true, StatusID.SurgingTempest))
         {
-            if (!IsMoving && InBurstStatus && PrimalRend.CanUse(out act, CanUseOption.MustUse))
+            if (!IsMoving && IsBurstStatus && PrimalRend.CanUse(out act, CanUseOption.MustUse))
             {
                 if (PrimalRend.Target.DistanceToPlayer() < 1) return true;
             }
-            if (InBurstStatus || !Player.HasStatus(false, StatusID.NascentChaos) || BeastGauge > 80)
+            if (IsBurstStatus || !Player.HasStatus(false, StatusID.NascentChaos) || BeastGauge > 80)
             {
                 if (SteelCyclone.CanUse(out act)) return true;
                 if (InnerBeast.CanUse(out act)) return true;
@@ -49,7 +49,7 @@ public sealed class WAR_Default : WAR_Base
         if (Maim.CanUse(out act)) return true;
         if (HeavySwing.CanUse(out act)) return true;
 
-        if (SpecialType == SpecialCommandType.MoveForward && MoveForwardAbility(out act)) return true;
+        if (IsMoveForward && MoveForwardAbility(out act)) return true;
         if (Tomahawk.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
@@ -69,7 +69,7 @@ public sealed class WAR_Default : WAR_Base
             if (Berserk.CanUse(out act, CanUseOption.OnLastAbility)) return true;
         }
 
-        if (InBurstStatus)
+        if (IsBurstStatus)
         {
             if (Infuriate.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }
@@ -80,7 +80,7 @@ public sealed class WAR_Default : WAR_Base
         if (Upheaval.CanUse(out act)) return true;
 
         var option = CanUseOption.MustUse;
-        if (InBurstStatus) option |= CanUseOption.EmptyOrSkipCombo;
+        if (IsBurstStatus) option |= CanUseOption.EmptyOrSkipCombo;
         if (Onslaught.CanUse(out act, option) && !IsMoving) return true;
 
         return base.AttackAbility(out act);
