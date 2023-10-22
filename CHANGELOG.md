@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.35](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.34...v1.0.35) (2023-10-22)
+
+
+### Bug Fixes
+
+* MNK count down. ([b1481d6](https://github.com/ArchiDog1998/FFXIVRotations/commit/b1481d6d24f3109c4a061565014cc7c339c1e64d))
+* update api. ([f9dec21](https://github.com/ArchiDog1998/FFXIVRotations/commit/f9dec21bb4273a3755dd856f66f2870f705c5931))
+
 ## [1.0.34](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.33...v1.0.34) (2023-10-04)
 
 
