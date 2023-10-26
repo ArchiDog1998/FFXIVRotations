@@ -11,14 +11,13 @@ public sealed class RDM_Default : RDM_Base
 
     static IBaseAction VerthunderStartUp { get; } = new BaseAction(ActionID.Verthunder);
 
-    public bool CanStartMeleeCombo
+    private static bool CanStartMeleeCombo
     {
         get
         {
             if (Player.HasStatus(true, StatusID.Manafication, StatusID.Embolden) ||
                              BlackMana == 100 || WhiteMana == 100) return true;
 
-            //在魔法元没有溢出的情况下，要求较小的魔元不带触发。
             if (BlackMana == WhiteMana) return false;
 
             else if (WhiteMana < BlackMana)
