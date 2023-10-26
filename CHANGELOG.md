@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.36](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.35...v1.0.36) (2023-10-26)
+
+
+### Bug Fixes
+
+* nin ninjustu. ([e20ea9c](https://github.com/ArchiDog1998/FFXIVRotations/commit/e20ea9ce86092562c4e87c725b41a99f21dc1561))
+
 ## [1.0.35](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.34...v1.0.35) (2023-10-22)
 
 
