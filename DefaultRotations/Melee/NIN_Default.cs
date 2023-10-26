@@ -72,7 +72,7 @@ public sealed class NIN_Default : NIN_Base
         }
     }
 
-    private bool ChoiceNinjutsu(out IAction act)
+    private static bool ChoiceNinjutsu(out IAction act)
     {
         act = null;
         if (AdjustId(ActionID.Ninjutsu) != ActionID.Ninjutsu) return false;
@@ -164,7 +164,7 @@ public sealed class NIN_Default : NIN_Base
         return false;
     }
 
-    private bool DoNinjutsu(out IAction act)
+    private static bool DoNinjutsu(out IAction act)
     {
         act = null;
 
@@ -175,8 +175,9 @@ public sealed class NIN_Default : NIN_Base
             uint chiId = AdjustId(Chi.ID);
             uint jinId = AdjustId(Jin.ID);
 
-            //第一个
-            if (tenId == FumaShurikenTen.ID)
+            //First
+            if (tenId == FumaShurikenTen.ID
+                && !IsLastAction(false, FumaShurikenJin, FumaShurikenTen))
             {
                 //AOE
                 if (Katon.CanUse(out _))
@@ -187,21 +188,21 @@ public sealed class NIN_Default : NIN_Base
                 if (FumaShurikenTen.CanUse(out act)) return true;
             }
 
-            //第二击杀AOE
-            else if (tenId == KatonTen.ID)
+            //Second
+            else if (tenId == KatonTen.ID && !IsLastAction(false, KatonTen))
             {
                 if (KatonTen.CanUse(out act, CanUseOption.MustUse)) return true;
             }
-            //其他几击
-            else if (chiId == RaitonChi.ID)
+            //Others
+            else if (chiId == RaitonChi.ID && !IsLastAction(false, RaitonChi))
             {
                 if (RaitonChi.CanUse(out act, CanUseOption.MustUse)) return true;
             }
-            else if (chiId == DotonChi.ID)
+            else if (chiId == DotonChi.ID && !IsLastAction(false, DotonChi))
             {
                 if (DotonChi.CanUse(out act, CanUseOption.MustUse)) return true;
             }
-            else if (jinId == SuitonJin.ID)
+            else if (jinId == SuitonJin.ID && !IsLastAction(false, SuitonJin))
             {
                 if (SuitonJin.CanUse(out act, CanUseOption.MustUse)) return true;
             }
@@ -214,24 +215,25 @@ public sealed class NIN_Default : NIN_Base
 
         var id = AdjustId(ActionID.Ninjutsu);
 
+        //Failed
+        if ((uint)id == RabbitMedium.ID)
+        {
+            ClearNinjutsu();
+            act = null;
+            return false;
+        }
         //First
-        if (id == ActionID.Ninjutsu)
+        else if (id == ActionID.Ninjutsu)
         {
             //Can't use.
             if (!Player.HasStatus(true, StatusID.Kassatsu, StatusID.TenChiJin)
-                && !Ten.CanUse(out _, CanUseOption.EmptyOrSkipCombo))
+                && !Ten.CanUse(out _, CanUseOption.EmptyOrSkipCombo)
+                && !IsLastAction(false, _ninActionAim.Ninjutsu[0]))
             {
                 return false;
             }
             act = _ninActionAim.Ninjutsu[0];
             return true;
-        }
-        //Failed
-        else if ((uint)id == RabbitMedium.ID)
-        {
-            ClearNinjutsu();
-            act = null;
-            return false;
         }
         //Finished
         else if ((uint)id == _ninActionAim.ID)
@@ -246,7 +248,8 @@ public sealed class NIN_Default : NIN_Base
         //Second
         else if ((uint)id == FumaShuriken.ID)
         {
-            if (_ninActionAim.Ninjutsu.Length > 1)
+            if (_ninActionAim.Ninjutsu.Length > 1
+                && !IsLastAction(false, _ninActionAim.Ninjutsu[1]))
             {
                 act = _ninActionAim.Ninjutsu[1];
                 return true;
@@ -255,7 +258,8 @@ public sealed class NIN_Default : NIN_Base
         //Third
         else if ((uint)id == Katon.ID || (uint)id == Raiton.ID || (uint)id == Hyoton.ID)
         {
-            if (_ninActionAim.Ninjutsu.Length > 2)
+            if (_ninActionAim.Ninjutsu.Length > 2
+                && !IsLastAction(false, _ninActionAim.Ninjutsu[2]))
             {
                 act = _ninActionAim.Ninjutsu[2];
                 return true;
@@ -338,7 +342,7 @@ public sealed class NIN_Default : NIN_Base
     protected override bool AttackAbility(out IAction act)
     {
         act = null;
-        if (!InCombat || AdjustId(2260) != 2260) return false;
+        if (!NoNinjutsu || !InCombat) return false;
 
         if (!IsMoving && InTrickAttack && !Ten.ElapsedAfter(30) && TenChiJin.CanUse(out act)) return true;
 
@@ -363,5 +367,11 @@ public sealed class NIN_Default : NIN_Base
             if (Bhavacakra.CanUse(out act)) return true;
         }
         return base.AttackAbility(out act);
+    }
+
+    public override void DisplayStatus()
+    {
+        ImGui.Text(_ninActionAim?.ToString() ?? "No Aimed Ninjustus.");
+        base.DisplayStatus();
     }
 }
