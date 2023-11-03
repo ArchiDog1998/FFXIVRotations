@@ -23,6 +23,9 @@ public sealed class SAM_Default : SAM_Base
         //奥义回返
         if (KaeshiNamikiri.CanUse(out act, CanUseOption.MustUse)) return true;
 
+        var IsTargetBoss = Target?.IsBoss() ?? false;
+        var IsTargetDying = Target?.IsDying() ?? false;
+
         //燕回返
         if (KaeshiGoken.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
         if (KaeshiSetsugekka.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
@@ -74,6 +77,9 @@ public sealed class SAM_Default : SAM_Base
 
     protected override bool AttackAbility(out IAction act)
     {
+        var IsTargetBoss = Target?.IsBoss() ?? false;
+        var IsTargetDying = Target?.IsDying() ?? false;
+
         //意气冲天
         if (Kenki <= 50 && Ikishoten.CanUse(out act)) return true;
 
@@ -105,6 +111,9 @@ public sealed class SAM_Default : SAM_Base
     }
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
+        var IsTargetBoss = Target?.IsBoss() ?? false;
+        var IsTargetDying = Target?.IsDying() ?? false;
+
         //明镜止水
         if (HasHostilesInRange && IsLastGCD(true, Yukikaze, Mangetsu, Oka) &&
             (!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana) && !Target.WillStatusEnd(40, true, StatusID.Higanbana) || !HasMoon && !HasFlower || IsTargetBoss && IsTargetDying))
