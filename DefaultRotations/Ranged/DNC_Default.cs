@@ -24,15 +24,9 @@ public sealed class DNC_Default : DNC_Base
             return base.EmergencyAbility(nextGCD, out act);
         }
 
-        foreach (var action in RecordActions)
-        {
-            if (action.Action.RowId != (uint)ActionID.TechnicalStep) continue;
+        if (TechnicalStep.ElapsedAfter(115)
+            && UseBurstMedicine(out act)) return true;
 
-            var timeFromNow = (DateTime.Now - action.UsedTime).TotalSeconds;
-            if (timeFromNow > 15) continue;
-
-            return UseBurstMedicine(out act);
-        }
         return base.EmergencyAbility(nextGCD, out act);
     }
 

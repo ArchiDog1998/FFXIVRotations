@@ -105,6 +105,9 @@ public sealed class SMN_Default : SMN_Base
             if (SearingLight.CanUse(out act)) return true;
         }
 
+        var IsTargetBoss = Target?.IsBoss() ?? false;
+        var IsTargetDying = Target?.IsDying() ?? false;
+
         //龙神不死鸟迸发
         if ((InBahamut && SummonBahamut.ElapsedOneChargeAfterGCD(3) || InPhoenix || IsTargetBoss && IsTargetDying) && EnkindleBahamut.CanUse(out act, CanUseOption.MustUse)) return true;
         //死星核爆

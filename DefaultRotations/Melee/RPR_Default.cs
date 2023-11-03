@@ -109,6 +109,9 @@ public sealed class RPR_Default : RPR_Base
 
     protected override bool AttackAbility(out IAction act)
     {
+        var IsTargetBoss = Target?.IsBoss() ?? false;
+        var IsTargetDying = Target?.IsDying() ?? false;
+
         if (IsBurst)
         {
             if (UseBurstMedicine(out act))
