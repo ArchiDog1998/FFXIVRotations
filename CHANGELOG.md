@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.37](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.36...v1.0.37) (2023-11-03)
+
+
+### Bug Fixes
+
+* add tinctures for dnc. but it is not ideal. ([6aee1cd](https://github.com/ArchiDog1998/FFXIVRotations/commit/6aee1cd10b966f054a8b7e160d0f238f7d22e395))
+* update api. ([b799d3e](https://github.com/ArchiDog1998/FFXIVRotations/commit/b799d3e0d13f5634855211760eb7b894431a424c))
+
 ## [1.0.36](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.35...v1.0.36) (2023-10-26)
 
 
