@@ -139,17 +139,15 @@ public sealed class DNC_Default : DNC_Base
         act = null;
         if (!IsDancing) return false;
 
-        if (Player.HasStatus(true, StatusID.StandardStep) && (Player.WillStatusEnd(1, true, StatusID.StandardStep) || CompletedSteps == 2 && Player.WillStatusEnd(1, true, StatusID.StandardFinish))
-            || StandardFinish.CanUse(out _, CanUseOption.MustUse))
+        if (StandardFinish.CanUse(out act, CanUseOption.MustUse) 
+            || Player.HasStatus(true, StatusID.StandardStep) && (Player.WillStatusEnd(1, true, StatusID.StandardStep) || CompletedSteps == 2 && Player.WillStatusEnd(1, true, StatusID.StandardFinish)))
         {
-            act = StandardStep;
             return true;
         }
 
-        //ºº«…ŒË≤ΩΩ· ¯
-        if (Player.HasStatus(true, StatusID.TechnicalStep) && Player.WillStatusEnd(1, true, StatusID.TechnicalStep) || TechnicalFinish.CanUse(out _, CanUseOption.MustUse))
+        if (TechnicalFinish.CanUse(out act, CanUseOption.MustUse)
+            || Player.HasStatus(true, StatusID.TechnicalStep) && Player.WillStatusEnd(1, true, StatusID.TechnicalStep))
         {
-            act = TechnicalStep;
             return true;
         }
 
