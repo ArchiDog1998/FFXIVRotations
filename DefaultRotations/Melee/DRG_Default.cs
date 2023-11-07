@@ -3,6 +3,8 @@ namespace DefaultRotations.Melee;
 [SourceCode(Path = "main/DefaultRotations/Melee/DRG_Default.cs")]
 public sealed class DRG_Default : DRG_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.18";
 
     public override string RotationName => "Default";

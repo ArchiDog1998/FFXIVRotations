@@ -3,6 +3,8 @@
 [SourceCode(Path = "main/DefaultRotations/Magical/BLU_Extra.cs")]
 public sealed class BLU_Extra : BLU_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.3";
 
     public override string RotationName => "Extra";

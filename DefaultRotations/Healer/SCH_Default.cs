@@ -4,6 +4,8 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/SCH_Default.cs")]
 public sealed class SCH_Default : SCH_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.28";
 
     public override string RotationName => "Default";
@@ -13,9 +15,9 @@ public sealed class SCH_Default : SCH_Base
 
     protected override IRotationConfigSet CreateConfiguration()
     {
-        return base.CreateConfiguration().SetBool("GCDHeal", false, "Use spells with cast times to heal.")
-                                            .SetBool("prevDUN", false, "Recitation at 15 seconds remaining on Countdown.")
-                                            .SetBool("GiveT", false, "Give Recitation to Tank");
+        return base.CreateConfiguration().SetBool(CombatType.PvE,"GCDHeal", false, "Use spells with cast times to heal.")
+                                            .SetBool(CombatType.PvE, "prevDUN", false, "Recitation at 15 seconds remaining on Countdown.")
+                                            .SetBool(CombatType.PvE, "GiveT", false, "Give Recitation to Tank");
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)

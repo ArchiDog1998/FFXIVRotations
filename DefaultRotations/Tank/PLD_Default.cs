@@ -6,6 +6,8 @@
 [SourceCode(Path = "main/DefaultRotations/Tank/PLD_Default.cs")]
 public class PLD_Default : PLD_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.31";
 
     public override string RotationName => "Tentative v1.2";
@@ -15,9 +17,9 @@ public class PLD_Default : PLD_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseDivineVeilPre", false, "Use Divine Veil at 15 seconds remaining on Countdown")
-            .SetBool("UseHolyWhenAway", true, "Use Holy Circle or Holy Spirit when out of melee range")
-            .SetBool("UseShieldBash", true, "Use Shield Bash when Low Blow is cooling down");
+            .SetBool(CombatType.PvE, "UseDivineVeilPre", false, "Use Divine Veil at 15 seconds remaining on Countdown")
+            .SetBool(CombatType.PvE, "UseHolyWhenAway", true, "Use Holy Circle or Holy Spirit when out of melee range")
+            .SetBool(CombatType.PvE, "UseShieldBash", true, "Use Shield Bash when Low Blow is cooling down");
     }
 
     protected override IAction CountDownAction(float remainTime)

@@ -3,6 +3,8 @@ namespace DefaultRotations.Ranged;
 [SourceCode(Path = "main/DefaultRotations/Ranged/DNC_Default.cs")]
 public sealed class DNC_Default : DNC_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.28";
 
     public override string RotationName => "Default";

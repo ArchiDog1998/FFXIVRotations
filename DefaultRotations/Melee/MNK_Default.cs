@@ -5,13 +5,15 @@ namespace DefaultRotations.Melee;
 [LinkDescription("https://i.imgur.com/C5lQhpe.png")]
 public sealed class MNK_Default : MNK_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.35";
 
     public override string RotationName => "Lunar Solar";
 
     protected override IRotationConfigSet CreateConfiguration()
     {
-        return base.CreateConfiguration().SetBool("AutoFormShift", true, "Use Form Shift");
+        return base.CreateConfiguration().SetBool(CombatType.PvE, "AutoFormShift", true, "Use Form Shift");
     }
 
     protected override IAction CountDownAction(float remainTime)
@@ -120,7 +122,7 @@ public sealed class MNK_Default : MNK_Base
 
             //Add status when solar.
             if (Player.WillStatusEndGCD(3, 0, true, StatusID.DisciplinedFist)
-                || Target.WillStatusEndGCD(3, 0, true, StatusID.Demolish))
+                || (HostileTarget?.WillStatusEndGCD(3, 0, true, StatusID.Demolish) ?? false))
             {
                 if (SolarNadi(out act)) return true;
             }
@@ -147,7 +149,7 @@ public sealed class MNK_Default : MNK_Base
             if (RaptorForm(out act)) return true;
         }
         if (!BeastChakras.Contains(BeastChakra.COEURL)
-            && Target.WillStatusEndGCD(1, 0, true, StatusID.Demolish))
+            && (HostileTarget?.WillStatusEndGCD(1, 0, true, StatusID.Demolish) ?? false))
         {
             if (CoerlForm(out act)) return true;
         }

@@ -3,6 +3,8 @@ namespace DefaultRotations.Tank;
 [SourceCode(Path = "main/DefaultRotations/Tank/GNB_Default.cs")]
 public sealed class GNB_Default : GNB_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.38";
 
     public override string RotationName => "Default";
@@ -70,7 +72,7 @@ public sealed class GNB_Default : GNB_Base
 
         if (DangerZone.CanUse(out act))
         {
-            if (!IsFullParty && !DangerZone.IsTargetBoss) return true;
+            if (!IsFullParty && !(DangerZone.Target?.IsBossFromTTK() ?? false)) return true;
 
             if (!GnashingFang.EnoughLevel && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercy.WillHaveOneCharge(15))) return true;
 
@@ -100,7 +102,6 @@ public sealed class GNB_Default : GNB_Base
     [RotationDesc(ActionID.HeartOfLight, ActionID.Reprisal)]
     protected override bool DefenseAreaAbility(out IAction act)
     {
-        act = null;
         if (!Player.HasStatus(true, StatusID.NoMercy) && HeartOfLight.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         if (!Player.HasStatus(true, StatusID.NoMercy) && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
         return base.DefenseAreaAbility(out act);
@@ -150,7 +151,7 @@ public sealed class GNB_Default : GNB_Base
     //    return false;
     //}
 
-    private bool CanUseGnashingFang(out IAction act)
+    private static bool CanUseGnashingFang(out IAction act)
     {
         if (GnashingFang.CanUse(out act))
         {
@@ -169,7 +170,7 @@ public sealed class GNB_Default : GNB_Base
         return false;
     }
 
-    private bool CanUseSonicBreak(out IAction act)
+    private static bool CanUseSonicBreak(out IAction act)
     {
         if (SonicBreak.CanUse(out act))
         {
@@ -188,7 +189,7 @@ public sealed class GNB_Default : GNB_Base
         return false;
     }
 
-    private bool CanUseDoubleDown(out IAction act)
+    private static bool CanUseDoubleDown(out IAction act)
     {
         if (DoubleDown.CanUse(out act, CanUseOption.MustUse))
         {
@@ -202,7 +203,7 @@ public sealed class GNB_Default : GNB_Base
         return false;
     }
 
-    private bool CanUseBurstStrike(out IAction act)
+    private static bool CanUseBurstStrike(out IAction act)
     {
         if (BurstStrike.CanUse(out act))
         {
@@ -223,7 +224,7 @@ public sealed class GNB_Default : GNB_Base
         return false;
     }
 
-    private bool CanUseBowShock(out IAction act)
+    private static bool CanUseBowShock(out IAction act)
     {
         if (BowShock.CanUse(out act, CanUseOption.MustUse))
         {

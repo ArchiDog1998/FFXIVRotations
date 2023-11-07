@@ -3,16 +3,18 @@ namespace DefaultRotations.Ranged;
 [SourceCode(Path = "main/DefaultRotations/Ranged/BRD_Default.cs")]
 public sealed class BRD_Default : BRD_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.28";
 
     public override string RotationName => "Default";
 
     protected override IRotationConfigSet CreateConfiguration() => base.CreateConfiguration()
-            .SetBool("BindWAND", false, @"Use Raging Strikes on ""Wanderer's Minuet""")
-            .SetCombo("FirstSong", 0, "First Song", "Wanderer's Minuet", "Mage's Ballad", "Army's Paeon")
-            .SetFloat("WANDTime", 43, "Wanderer's Minuet Uptime", min: 0, max: 45, speed: 1)
-            .SetFloat("MAGETime", 34, "Mage's Ballad Uptime", min: 0, max: 45, speed: 1)
-            .SetFloat("ARMYTime", 43, "Army's Paeon Uptime", min: 0, max: 45, speed: 1);
+            .SetBool(CombatType.PvE, "BindWAND", false, @"Use Raging Strikes on ""Wanderer's Minuet""")
+            .SetCombo(CombatType.PvE, "FirstSong", 0, "First Song", "Wanderer's Minuet", "Mage's Ballad", "Army's Paeon")
+            .SetFloat( RotationSolver.Basic.Configuration.ConfigUnitType.Seconds, CombatType.PvE, "WANDTime", 43, "Wanderer's Minuet Uptime", min: 0, max: 45, speed: 1)
+            .SetFloat(RotationSolver.Basic.Configuration.ConfigUnitType.Seconds, CombatType.PvE,"MAGETime", 34, "Mage's Ballad Uptime", min: 0, max: 45, speed: 1)
+            .SetFloat(RotationSolver.Basic.Configuration.ConfigUnitType.Seconds, CombatType.PvE, "ARMYTime", 43, "Army's Paeon Uptime", min: 0, max: 45, speed: 1);
 
     public override string Description => "Please make sure that the three song times add up to 120 seconds!";
 

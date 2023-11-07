@@ -3,15 +3,13 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/SGE_Default.cs")]
 public sealed class SGE_Default : SGE_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.38";
 
     public override string RotationName => "Default";
 
     public override string Description => "Please contact Nore#7219 on Discord for questions about this rotation.";
-
-    static bool NoOgcds => Addersgall < 1 && (!Physis.EnoughLevel || Physis.IsCoolingDown || Physis2.IsCoolingDown) && (!Haima.EnoughLevel || Haima.IsCoolingDown) && (!Panhaima.EnoughLevel || Panhaima.IsCoolingDown) && (!Holos.EnoughLevel || Holos.IsCoolingDown) && (!Pneuma.EnoughLevel || Pneuma.IsCoolingDown) && (!Rhizomata.EnoughLevel || Rhizomata.IsCoolingDown) && (!Pneuma.EnoughLevel || Krasis.IsCoolingDown);
-
-    static bool NoOgcdsAOE => Addersgall < 1 && (!Physis.EnoughLevel || Physis.IsCoolingDown || Physis2.IsCoolingDown) && (!Panhaima.EnoughLevel || Panhaima.IsCoolingDown) && (!Holos.EnoughLevel || Holos.IsCoolingDown) && (!Pneuma.EnoughLevel || Pneuma.IsCoolingDown) && (!Rhizomata.EnoughLevel || Rhizomata.IsCoolingDown) && (!Pneuma.EnoughLevel || Krasis.IsCoolingDown);
 
     private static bool InTwoMIsBurst()
     {
@@ -42,7 +40,7 @@ public sealed class SGE_Default : SGE_Base
 
     protected override IRotationConfigSet CreateConfiguration()
     {
-        return base.CreateConfiguration().SetBool("GCDHeal", false, "Use spells with cast times to heal.");
+        return base.CreateConfiguration().SetBool(CombatType.PvE, "GCDHeal", false, "Use spells with cast times to heal.");
     }
 
     protected override IAction CountDownAction(float remainTime)
@@ -161,7 +159,7 @@ public sealed class SGE_Default : SGE_Base
 
     protected override bool GeneralGCD(out IAction act)
     {
-        if (Target.IsBoss())
+        if (HostileTarget?.IsBossFromTTK() ?? false)
         {
             if (EukrasianDosis.CanUse(out _, CanUseOption.IgnoreCastCheck))
             {

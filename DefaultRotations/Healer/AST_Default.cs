@@ -4,13 +4,15 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/AST_Default.cs")]
 public sealed class AST_Default : AST_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.28";
 
     public override string RotationName => "Default";
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-            .SetFloat("UseEarthlyStarTime", 15, "Use Earthly Star during countdown timer.", 4, 20);
+            .SetFloat(RotationSolver.Basic.Configuration.ConfigUnitType.Seconds, CombatType.PvE, "UseEarthlyStarTime", 15, "Use Earthly Star during countdown timer.", 4, 20);
 
     static IBaseAction AspectedBeneficDefense { get; } = new BaseAction(ActionID.AspectedBenefic, ActionOption.Hot)
     {
@@ -190,7 +192,7 @@ public sealed class AST_Default : AST_Base
         if (DrawnCrownCard == CardType.LADY && MinorArcana.CanUse(out act, CanUseOption.MustUse)) return true;
 
         var tank = PartyTanks;
-        var isBoss = Malefic.IsTargetBoss;
+        var isBoss = Malefic.Target.IsBossFromTTK();
         if (EssentialDignity.IsCoolingDown && tank.Count() == 1 && tank.Any(t => t.GetHealthRatio() < 0.5) && !isBoss)
         {
             //群Hot
