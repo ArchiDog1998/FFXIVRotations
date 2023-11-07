@@ -3,6 +3,8 @@
 [SourceCode(Path = "main/DefaultRotations/Melee/SAM_Default.cs")]
 public sealed class SAM_Default : SAM_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.28";
 
     public override string RotationName => "Default";
@@ -10,28 +12,28 @@ public sealed class SAM_Default : SAM_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetFloat("addKenki", 50, "Use Kenki above.", min: 0, max: 85, speed: 5);
+            .SetInt(CombatType.PvE, "addKenki", 50, "Use Kenki above.", min: 0, max: 85, speed: 5);
     }
 
     /// <summary>
     /// 明镜止水
     /// </summary>
-    private static bool haveMeikyoShisui => Player.HasStatus(true, StatusID.MeikyoShisui);
+    private static bool HaveMeikyoShisui => Player.HasStatus(true, StatusID.MeikyoShisui);
 
     protected override bool GeneralGCD(out IAction act)
     {
         //奥义回返
         if (KaeshiNamikiri.CanUse(out act, CanUseOption.MustUse)) return true;
 
-        var IsTargetBoss = Target?.IsBoss() ?? false;
-        var IsTargetDying = Target?.IsDying() ?? false;
+        var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
+        var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
         //燕回返
         if (KaeshiGoken.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
         if (KaeshiSetsugekka.CanUse(out act, CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo)) return true;
 
         //奥义斩浪
-        if ((!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana)) && HasMoon && HasFlower
+        if ((!IsTargetBoss || (HostileTarget?.HasStatus(true, StatusID.Higanbana) ?? false)) && HasMoon && HasFlower
             && OgiNamikiri.CanUse(out act, CanUseOption.MustUse)) return true;
 
         //处理居合术
@@ -49,19 +51,19 @@ public sealed class SAM_Default : SAM_Base
         }
 
         //连击2
-        if ((!HasMoon || IsMoonTimeLessThanFlower || !Oka.EnoughLevel) && Mangetsu.CanUse(out act, haveMeikyoShisui && !HasGetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
-        if ((!HasFlower || !IsMoonTimeLessThanFlower) && Oka.CanUse(out act, haveMeikyoShisui && !HasKa ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
-        if (!HasSetsu && Yukikaze.CanUse(out act, haveMeikyoShisui && HasGetsu && HasKa && !HasSetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if ((!HasMoon || IsMoonTimeLessThanFlower || !Oka.EnoughLevel) && Mangetsu.CanUse(out act, HaveMeikyoShisui && !HasGetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if ((!HasFlower || !IsMoonTimeLessThanFlower) && Oka.CanUse(out act, HaveMeikyoShisui && !HasKa ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if (!HasSetsu && Yukikaze.CanUse(out act, HaveMeikyoShisui && HasGetsu && HasKa && !HasSetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
 
         //连击3
-        if (Gekko.CanUse(out act, haveMeikyoShisui && !HasGetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
-        if (Kasha.CanUse(out act, haveMeikyoShisui && !HasKa ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if (Gekko.CanUse(out act, HaveMeikyoShisui && !HasGetsu ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
+        if (Kasha.CanUse(out act, HaveMeikyoShisui && !HasKa ? CanUseOption.EmptyOrSkipCombo : CanUseOption.None)) return true;
 
         //连击2
         if ((!HasMoon || IsMoonTimeLessThanFlower || !Shifu.EnoughLevel) && Jinpu.CanUse(out act)) return true;
         if ((!HasFlower || !IsMoonTimeLessThanFlower) && Shifu.CanUse(out act)) return true;
 
-        if (!haveMeikyoShisui)
+        if (!HaveMeikyoShisui)
         {
             //连击1
             if (Fuko.CanUse(out act)) return true;
@@ -77,14 +79,14 @@ public sealed class SAM_Default : SAM_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        var IsTargetBoss = Target?.IsBoss() ?? false;
-        var IsTargetDying = Target?.IsDying() ?? false;
+        var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
+        var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
         //意气冲天
         if (Kenki <= 50 && Ikishoten.CanUse(out act)) return true;
 
         //叶隐
-        if (Target.HasStatus(true, StatusID.Higanbana) && Target.WillStatusEnd(32, true, StatusID.Higanbana) && !Target.WillStatusEnd(28, true, StatusID.Higanbana) && SenCount == 1 && IsLastAction(true, Yukikaze) && !haveMeikyoShisui)
+        if ((HostileTarget?.HasStatus(true, StatusID.Higanbana) ?? false) && (HostileTarget?.WillStatusEnd(32, true, StatusID.Higanbana) ?? false) && !(HostileTarget?.WillStatusEnd(28, true, StatusID.Higanbana) ?? false) && SenCount == 1 && IsLastAction(true, Yukikaze) && !HaveMeikyoShisui)
         {
             if (Hagakure.CanUse(out act)) return true;
         }
@@ -101,7 +103,7 @@ public sealed class SAM_Default : SAM_Base
         if (Shoha.CanUse(out act)) return true;
 
         //震天、九天
-        if (Kenki >= 50 && Ikishoten.WillHaveOneCharge(10) || Kenki >= Configs.GetFloat("addKenki") || IsTargetBoss && IsTargetDying)
+        if (Kenki >= 50 && Ikishoten.WillHaveOneCharge(10) || Kenki >= Configs.GetInt("addKenki") || IsTargetBoss && IsTargetDying)
         {
             if (HissatsuKyuten.CanUse(out act)) return true;
             if (HissatsuShinten.CanUse(out act)) return true;
@@ -111,12 +113,12 @@ public sealed class SAM_Default : SAM_Base
     }
     protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
     {
-        var IsTargetBoss = Target?.IsBoss() ?? false;
-        var IsTargetDying = Target?.IsDying() ?? false;
+        var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
+        var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
         //明镜止水
         if (HasHostilesInRange && IsLastGCD(true, Yukikaze, Mangetsu, Oka) &&
-            (!IsTargetBoss || Target.HasStatus(true, StatusID.Higanbana) && !Target.WillStatusEnd(40, true, StatusID.Higanbana) || !HasMoon && !HasFlower || IsTargetBoss && IsTargetDying))
+            (!IsTargetBoss || (HostileTarget?.HasStatus(true, StatusID.Higanbana) ?? false) && !(HostileTarget?.WillStatusEnd(40, true, StatusID.Higanbana) ?? false) || !HasMoon && !HasFlower || IsTargetBoss && IsTargetDying))
         {
             if (MeikyoShisui.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
         }

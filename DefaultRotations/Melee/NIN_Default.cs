@@ -9,6 +9,8 @@ namespace DefaultRotations.Melee;
 [YoutubeLink(ID = "Al9KlhA3Zvw")]
 public sealed class NIN_Default : NIN_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.35";
 
     public override string RotationName => "Standard";
@@ -21,8 +23,8 @@ public sealed class NIN_Default : NIN_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseHide", true, "Use Hide")
-            .SetBool("AutoUnhide", true, "Use Unhide");
+            .SetBool(CombatType.PvE, "UseHide", true, "Use Hide")
+            .SetBool(CombatType.PvE, "AutoUnhide", true, "Use Unhide");
     }
 
     protected override IAction CountDownAction(float remainTime)

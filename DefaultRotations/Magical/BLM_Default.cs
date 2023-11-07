@@ -3,6 +3,8 @@
 [SourceCode(Path = "main/DefaultRotations/Magical/BLM_Default.cs")]
 public class BLM_Default : BLM_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.31";
 
     public override string RotationName => "Default";
@@ -36,9 +38,9 @@ public class BLM_Default : BLM_Base
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-        .SetBool("UseTransposeForParadox", true, "Use Transpose to Astral Fire before Paradox")
-        .SetBool("ExtendTimeSafely", false, "Extend Astral Fire Time Safely")
-        .SetBool("UseN15", false, @"Use ""Double Paradox"" rotation [N15]");
+        .SetBool(CombatType.PvE, "UseTransposeForParadox", true, "Use Transpose to Astral Fire before Paradox")
+        .SetBool(CombatType.PvE, "ExtendTimeSafely", false, "Extend Astral Fire Time Safely")
+        .SetBool(CombatType.PvE, "UseN15", false, @"Use ""Double Paradox"" rotation [N15]");
 
     protected override IAction CountDownAction(float remainTime)
     {

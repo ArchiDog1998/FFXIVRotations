@@ -5,6 +5,8 @@ namespace DefaultRotations.Magical;
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
 public sealed class RDM_Default : RDM_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.31";
 
     public override string RotationName => "Standard";
@@ -41,7 +43,7 @@ public sealed class RDM_Default : RDM_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("UseVercure", false, "Use Vercure for Dualcast when out of combat.");
+            .SetBool(CombatType.PvE, "UseVercure", false, "Use Vercure for Dualcast when out of combat.");
     }
 
     protected override IAction CountDownAction(float remainTime)

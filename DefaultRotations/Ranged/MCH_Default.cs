@@ -6,6 +6,8 @@ namespace DefaultRotations.Ranged;
 [RotationDesc(ActionID.Wildfire)]
 public sealed class MCH_Default : MCH_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.38";
 
     public override string RotationName => "Delayed Tools Opener";
@@ -25,7 +27,7 @@ public sealed class MCH_Default : MCH_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("MCH_Reassemble", true, "Use Reassamble with ChainSaw");
+            .SetBool(CombatType.PvE, "MCH_Reassemble", true, "Use Reassamble with ChainSaw");
     }
     
     protected override bool GeneralGCD(out IAction act)
@@ -101,19 +103,19 @@ public sealed class MCH_Default : MCH_Base
         return base.AttackAbility(out act);
     }
 
-    private static bool AirAnchorBlockTime(float time)
-    {
-        if (AirAnchor.EnoughLevel)
-        {
-            return AirAnchor.IsCoolingDown && AirAnchor.WillHaveOneCharge(time);
-        }
-        else
-        {
-            return HotShot.IsCoolingDown && HotShot.WillHaveOneCharge(time);
-        }
-    }
+    //private static bool AirAnchorBlockTime(float time)
+    //{
+    //    if (AirAnchor.EnoughLevel)
+    //    {
+    //        return AirAnchor.IsCoolingDown && AirAnchor.WillHaveOneCharge(time);
+    //    }
+    //    else
+    //    {
+    //        return HotShot.IsCoolingDown && HotShot.WillHaveOneCharge(time);
+    //    }
+    //}
 
-    private bool CanUseRookAutoturret(out IAction act)
+    private static bool CanUseRookAutoturret(out IAction act)
     {
         act = null;
         if (AirAnchor.EnoughLevel)

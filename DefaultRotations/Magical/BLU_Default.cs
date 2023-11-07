@@ -3,6 +3,8 @@
 [SourceCode(Path = "main/DefaultRotations/Magical/BLU_Default.cs")]
 public sealed class BLU_Default : BLU_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.18";
 
     public override string RotationName => "Default";
@@ -13,11 +15,11 @@ public sealed class BLU_Default : BLU_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetBool("MoonFluteBreak", false, "Use Moon Flute")
-            .SetBool("SingleAOE", true, "Use high-damage AoE skills on single target")
-            .SetBool("GamblerKill", false, "Use skills with a chance to fail")
-            .SetBool("UseFinalSting", false, "Use Final Sting")
-            .SetFloat("FinalStingHP", 0, "Target HPP for Final Sting");
+            .SetBool(CombatType.PvE, "MoonFluteBreak", false, "Use Moon Flute")
+            .SetBool(CombatType.PvE, "SingleAOE", true, "Use high-damage AoE skills on single target")
+            .SetBool(CombatType.PvE, "GamblerKill", false, "Use skills with a chance to fail")
+            .SetBool(CombatType.PvE, "UseFinalSting", false, "Use Final Sting")
+            .SetFloat( RotationSolver.Basic.Configuration.ConfigUnitType.Percent, CombatType.PvE, "FinalStingHP", 0, "Target HPP for Final Sting");
     }
 
     private bool MoonFluteBreak => Configs.GetBool("MoonFluteBreak");
@@ -26,7 +28,7 @@ public sealed class BLU_Default : BLU_Base
     /// <summary>
     /// 0-70练级,快速练级,滑舌拉怪
     /// </summary>
-    private bool QuickLevel => false;
+    private static bool QuickLevel => false;
     /// <summary>
     /// 赌几率秒杀
     /// </summary>
@@ -178,7 +180,7 @@ public sealed class BLU_Default : BLU_Base
     /// </summary>
     /// <param name="act"></param>
     /// <returns></returns>
-    private bool CanUseMoonFlute(out IAction act)
+    private static bool CanUseMoonFlute(out IAction act)
     {
         if (!MoonFlute.CanUse(out act) && !HasHostilesInRange) return false;
 
@@ -204,7 +206,7 @@ public sealed class BLU_Default : BLU_Base
 
         if (AllOnSlot(Whistle, MoonFlute, FinalSting) && !AllOnSlot(BasicInstinct))
         {
-            if ((float)Target.CurrentHp / Target.MaxHp > FinalStingHP) return false;
+            if (HostileTarget?.GetHealthRatio() > FinalStingHP) return false;
 
             if (Whistle.CanUse(out act)) return true;
             if (MoonFlute.CanUse(out act)) return true;
@@ -216,7 +218,7 @@ public sealed class BLU_Default : BLU_Base
             //破防
             if (Player.HasStatus(true, StatusID.WaxingNocturne) && OffGuard.CanUse(out act)) return true;
 
-            if ((float)Target.CurrentHp / Target.MaxHp > FinalStingHP) return false;
+            if (HostileTarget?.GetHealthRatio() > FinalStingHP) return false;
             if (Whistle.CanUse(out act)) return true;
             if (MoonFlute.CanUse(out act)) return true;
             if (useFinalSting && FinalSting.CanUse(out act)) return true;
@@ -335,7 +337,7 @@ public sealed class BLU_Default : BLU_Base
         if (TheRamVoice.CanUse(out act)) return true;
 
         //超振动
-        if (!IsMoving && Target.HasStatus(false, StatusID.DeepFreeze) && TheRamVoice.CanUse(out act)) return true;
+        if (!IsMoving && (HostileTarget?.HasStatus(false, StatusID.DeepFreeze) ?? false) && TheRamVoice.CanUse(out act)) return true;
 
         //雷电咆哮
         if (TheDragonVoice.CanUse(out act)) return true;

@@ -4,6 +4,8 @@ namespace DefaultRotations.Tank;
 [LinkDescription("https://cdn.discordapp.com/attachments/277962807813865472/963548326433796116/unknown.png")]
 public sealed class WAR_Default : WAR_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.35";
 
     public override string RotationName => "All-Around";

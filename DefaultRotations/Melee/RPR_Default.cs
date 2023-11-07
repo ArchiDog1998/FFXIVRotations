@@ -7,6 +7,8 @@
 [SourceCode(Path = "main/DefaultRotations/Melee/RPR_Default.cs")]
 public sealed class RPR_Default : RPR_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.38";
 
     public override string RotationName => "Early Enshroud";
@@ -49,7 +51,7 @@ public sealed class RPR_Default : RPR_Base
             if (LemureShroud > 1)
             {
                 if (PlentifulHarvest.EnoughLevel && ArcaneCircle.WillHaveOneCharge(9) &&
-                   (LemureShroud == 4 && Target.WillStatusEnd(30, true, StatusID.DeathsDesign) || LemureShroud == 3 && Target.WillStatusEnd(50, true, StatusID.DeathsDesign)))
+                   (LemureShroud == 4 && (HostileTarget?.WillStatusEnd(30, true, StatusID.DeathsDesign) ?? false) || LemureShroud == 3 && (HostileTarget?.WillStatusEnd(50, true, StatusID.DeathsDesign) ?? false)))
                 {
                     if (ShadowOfDeath.CanUse(out act, CanUseOption.MustUse)) return true;
                 }
@@ -109,8 +111,8 @@ public sealed class RPR_Default : RPR_Base
 
     protected override bool AttackAbility(out IAction act)
     {
-        var IsTargetBoss = Target?.IsBoss() ?? false;
-        var IsTargetDying = Target?.IsDying() ?? false;
+        var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
+        var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
         if (IsBurst)
         {
@@ -125,7 +127,8 @@ public sealed class RPR_Default : RPR_Base
                     if(ArcaneCircle.WillHaveOneCharge(5)) return true;
                 }
             }
-            if (Target.HasStatus(true, StatusID.DeathsDesign) && ArcaneCircle.CanUse(out act)) return true;
+            if ((HostileTarget?.HasStatus(true, StatusID.DeathsDesign) ?? false)
+                && ArcaneCircle.CanUse(out act)) return true;
         }
 
         if (IsTargetBoss && IsTargetDying ||

@@ -6,6 +6,8 @@
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/smn/6.png")]
 public sealed class SMN_Default : SMN_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.38";
 
     public override string RotationName => "General purpose";
@@ -15,9 +17,9 @@ public sealed class SMN_Default : SMN_Base
     protected override IRotationConfigSet CreateConfiguration()
     {
         return base.CreateConfiguration()
-            .SetCombo("addSwiftcast", 0, "Use Swiftcast", "No", "Emerald", "Ruby", "All")
-            .SetCombo("SummonOrder", 0, "Order", "Topaz-Emerald-Ruby", "Topaz-Ruby-Emerald", "Emerald-Topaz-Ruby")
-            .SetBool("addCrimsonCyclone", true, "Use Crimson Cyclone");
+            .SetCombo(CombatType.PvE, "addSwiftcast", 0, "Use Swiftcast", "No", "Emerald", "Ruby", "All")
+            .SetCombo(CombatType.PvE, "SummonOrder", 0, "Order", "Topaz-Emerald-Ruby", "Topaz-Ruby-Emerald", "Emerald-Topaz-Ruby")
+            .SetBool(CombatType.PvE, "addCrimsonCyclone", true, "Use Crimson Cyclone");
     }
 
     public override bool CanHealSingleSpell => false;
@@ -105,8 +107,8 @@ public sealed class SMN_Default : SMN_Base
             if (SearingLight.CanUse(out act)) return true;
         }
 
-        var IsTargetBoss = Target?.IsBoss() ?? false;
-        var IsTargetDying = Target?.IsDying() ?? false;
+        var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
+        var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
         //龙神不死鸟迸发
         if ((InBahamut && SummonBahamut.ElapsedOneChargeAfterGCD(3) || InPhoenix || IsTargetBoss && IsTargetDying) && EnkindleBahamut.CanUse(out act, CanUseOption.MustUse)) return true;

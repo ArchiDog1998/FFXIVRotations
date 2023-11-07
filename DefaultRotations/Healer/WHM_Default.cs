@@ -3,14 +3,16 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default : WHM_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.28";
 
     public override string RotationName => "Default";
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-            .SetBool("UseLilyWhenFull", true, "Use Lily at max stacks.")
-            .SetBool("UsePreRegen", false, "Regen on Tank at 5 seconds remaining on Countdown.");
+            .SetBool(CombatType.PvE, "UseLilyWhenFull", true, "Use Lily at max stacks.")
+            .SetBool(CombatType.PvE, "UsePreRegen", false, "Regen on Tank at 5 seconds remaining on Countdown.");
     public static IBaseAction RegenDefense { get; } = new BaseAction(ActionID.Regen, ActionOption.Hot)
     {
         ChoiceTarget = TargetFilter.FindAttackedTarget,

@@ -1,5 +1,3 @@
-using Dalamud.Utility;
-
 namespace DefaultRotations.Tank;
 
 
@@ -8,6 +6,8 @@ namespace DefaultRotations.Tank;
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
 public sealed class DRK_Default : DRK_Base
 {
+    public override CombatType Type => CombatType.PvE;
+
     public override string GameVersion => "6.38";
 
     public override string RotationName => "Balance";
@@ -43,7 +43,7 @@ public sealed class DRK_Default : DRK_Base
         }
     }
 
-    private bool UseBlood
+    private static bool UseBlood
     {
         get
         {
@@ -59,7 +59,7 @@ public sealed class DRK_Default : DRK_Base
 
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
-            .SetBool("TheBlackestNight", true, "Keep at least 3000 MP");
+            .SetBool(CombatType.PvE, "TheBlackestNight", true, "Keep at least 3000 MP");
 
     protected override IAction CountDownAction(float remainTime)
     {
@@ -117,8 +117,6 @@ public sealed class DRK_Default : DRK_Base
     [RotationDesc(ActionID.DarkMissionary, ActionID.Reprisal)]
     protected override bool DefenseAreaAbility(out IAction act)
     {
-        act = null;
-
         if (!InTwoMIsBurst() && DarkMissionary.CanUse(out act)) return true;
         if (!InTwoMIsBurst() && Reprisal.CanUse(out act, CanUseOption.MustUse)) return true;
 
