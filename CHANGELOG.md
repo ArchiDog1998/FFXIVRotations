@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.38](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.37...v1.0.38) (2023-11-07)
+
+
+### Bug Fixes
+
+* better targeting for DNC. ([20b4b3b](https://github.com/ArchiDog1998/FFXIVRotations/commit/20b4b3b36f3bec3f3842986dc82fc630c29d7634))
+* patch new api! ([27659dd](https://github.com/ArchiDog1998/FFXIVRotations/commit/27659ddf8fff7bead155cb22516b82e353ced311))
+
 ## [1.0.37](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.36...v1.0.37) (2023-11-03)
 
 
