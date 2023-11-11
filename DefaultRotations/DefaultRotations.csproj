@@ -6,6 +6,6 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <ItemGroup>
-	  <PackageReference Include="RotationSolver.Basic" Version="3.4.13" />
+	  <PackageReference Include="RotationSolver.Basic" Version="3.5.2" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,10 @@ public sealed class DNC_Default : DNC_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
+        //if(remainTime <= CountDownAhead)
+        //{
+        //    if(DanceFinishGCD(out))
+        //}
         if (remainTime <= 15)
         {
             if (StandardStep.CanUse(out var act, CanUseOption.MustUse)) return act;
@@ -68,7 +72,7 @@ public sealed class DNC_Default : DNC_Base
     {
         if (!InCombat && !Player.HasStatus(true, StatusID.ClosedPosition1) && ClosedPosition.CanUse(out act)) return true;
 
-        if (FinishStepGCD(out act)) return true;
+        if (DanceFinishGCD(out act)) return true;
         if (ExecuteStepGCD(out act)) return true;
 
         if (IsBurst && InCombat && TechnicalStep.CanUse(out act, CanUseOption.MustUse)) return true;
@@ -133,26 +137,6 @@ public sealed class DNC_Default : DNC_Base
                 }
             }
         }
-        return false;
-    }
-
-    private static bool FinishStepGCD(out IAction act)
-    {
-        act = null;
-        if (!IsDancing) return false;
-
-        if (StandardFinish.CanUse(out act, CanUseOption.MustUse) 
-            || Player.HasStatus(true, StatusID.StandardStep) && (Player.WillStatusEnd(1, true, StatusID.StandardStep) || CompletedSteps == 2 && Player.WillStatusEnd(1, true, StatusID.StandardFinish)))
-        {
-            return true;
-        }
-
-        if (TechnicalFinish.CanUse(out act, CanUseOption.MustUse)
-            || Player.HasStatus(true, StatusID.TechnicalStep) && Player.WillStatusEnd(1, true, StatusID.TechnicalStep))
-        {
-            return true;
-        }
-
         return false;
     }
 }
