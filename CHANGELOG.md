@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.39](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.38...v1.0.39) (2023-11-11)
+
+
+### Bug Fixes
+
+* dnc finish dance. ([2ff293c](https://github.com/ArchiDog1998/FFXIVRotations/commit/2ff293c0f5a19ed391a9d3737391e24d9eda0478))
+* removed a method. ([5a36124](https://github.com/ArchiDog1998/FFXIVRotations/commit/5a361240e75c158947bcdc82ad3e46b483e59442))
+
 ## [1.0.38](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.37...v1.0.38) (2023-11-07)
 
 
