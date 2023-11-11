@@ -11,6 +11,10 @@ public sealed class DNC_Default : DNC_Base
 
     protected override IAction CountDownAction(float remainTime)
     {
+        //if(remainTime <= CountDownAhead)
+        //{
+        //    if(DanceFinishGCD(out))
+        //}
         if (remainTime <= 15)
         {
             if (StandardStep.CanUse(out var act, CanUseOption.MustUse)) return act;
@@ -68,6 +72,7 @@ public sealed class DNC_Default : DNC_Base
     {
         if (!InCombat && !Player.HasStatus(true, StatusID.ClosedPosition1) && ClosedPosition.CanUse(out act)) return true;
 
+        if (DanceFinishGCD(out act)) return true;
         if (ExecuteStepGCD(out act)) return true;
 
         if (IsBurst && InCombat && TechnicalStep.CanUse(out act, CanUseOption.MustUse)) return true;
