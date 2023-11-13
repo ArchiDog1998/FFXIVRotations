@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.40](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.39...v1.0.40) (2023-11-13)
+
+
+### Bug Fixes
+
+* update api, fixed sge. ([db6c60b](https://github.com/ArchiDog1998/FFXIVRotations/commit/db6c60b715dd67055d35534e5598321a7f0c53f5))
+
 ## [1.0.39](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.38...v1.0.39) (2023-11-11)
 
 
