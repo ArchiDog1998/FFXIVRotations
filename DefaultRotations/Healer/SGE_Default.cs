@@ -24,7 +24,7 @@ public sealed class SGE_Default : SGE_Base
         {
             var targets = Targets.GetJobCategory(JobRole.Tank);
             if (!targets.Any()) return null;
-            return targets.First();
+            return targets.FirstOrDefault();
         },
         ActionCheck = (b, m) =>
         {
