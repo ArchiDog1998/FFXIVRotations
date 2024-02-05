@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.40...v1.1.0) (2024-02-05)
+
+
+### Features
+
+* patch rs 4.0.0, just a part of it. ([239b2fe](https://github.com/ArchiDog1998/FFXIVRotations/commit/239b2feaa120e8a7c1ea32ab971fc2eb915633ae))
+
 ## [1.0.40](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.39...v1.0.40) (2023-11-13)
 
 
