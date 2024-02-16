@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.0...v1.1.1) (2024-02-16)
+
+
+### Bug Fixes
+
+* add back the all jobs' rotations. ([fabd41d](https://github.com/ArchiDog1998/FFXIVRotations/commit/fabd41deb29de3c6cdca027ece40e7a7b4f623f0))
+* add brd rotation. ([4031eb2](https://github.com/ArchiDog1998/FFXIVRotations/commit/4031eb296cfa65cbfa377a858c7640399cbd2b83))
+
 ## [1.1.0](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.0.40...v1.1.0) (2024-02-05)
 
 
