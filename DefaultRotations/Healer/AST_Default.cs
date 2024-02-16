@@ -5,8 +5,6 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/AST_Default.cs")]
 public sealed class AST_Default : AstrologianRotation
 {
-    public override CombatType Type => CombatType.PvE;
-
     protected override IRotationConfigSet CreateConfiguration()
         => base.CreateConfiguration()
             .SetFloat(ConfigUnitType.Seconds, CombatType.PvE, "UseEarthlyStarTime", 15, "Use Earthly Star during countdown timer.", 4, 20);

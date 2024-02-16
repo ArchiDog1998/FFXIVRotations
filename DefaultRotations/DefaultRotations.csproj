@@ -3,7 +3,7 @@
 	  <DalamudLibPath>$(AppData)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="RotationSolver.Basic" Version="4.0.0" />
+    <PackageReference Include="RotationSolver.Basic" Version="4.0.0.2" />
   </ItemGroup>
   <ItemGroup>
 	  <Reference Include="Dalamud">
