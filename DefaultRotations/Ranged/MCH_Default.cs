@@ -1,164 +1,137 @@
-//namespace DefaultRotations.Ranged;
+namespace DefaultRotations.Ranged;
 
-//[BetaRotation]
-//[SourceCode(Path = "main/DefaultRotations/Ranged/MCH_Default.cs")]
-//[LinkDescription("https://cdn.discordapp.com/attachments/277968251789639680/1086348727691780226/mch_rotation.png")]
-//[RotationDesc(ActionID.Wildfire)]
-//public sealed class MCH_Default : MCH_Base
-//{
-//    public override CombatType Type => CombatType.PvE;
+[Rotation("Delayed Tools Opener", CombatType.PvE, GameVersion = "6.38")]
+[BetaRotation]
+[SourceCode(Path = "main/DefaultRotations/Ranged/MCH_Default.cs")]
+[LinkDescription("https://cdn.discordapp.com/attachments/277968251789639680/1086348727691780226/mch_rotation.png")]
+[RotationDesc(ActionID.WildfirePvE)]
+public sealed class MCH_Default : MachinistRotation
+{
+    protected override IAction? CountDownAction(float remainTime)
+    {
+        if (remainTime < CountDownAhead)
+        {
+            if (AirAnchorPvE.CanUse(out var act1)) return act1;
+            else if (!AirAnchorPvE.EnoughLevel && HotShotPvE.CanUse(out act1)) return act1;
+        }
+        if (remainTime < 2 && UseBurstMedicine(out var act)) return act;
+        if (remainTime < 5 && ReassemblePvE.CanUse(out act, isEmpty: true)) return act;
+        return base.CountDownAction(remainTime);
+    }
 
-//    public override string GameVersion => "6.38";
+    protected override IRotationConfigSet CreateConfiguration()
+    {
+        return base.CreateConfiguration()
+            .SetBool(CombatType.PvE, "MCH_Reassemble", true, "Use Reassamble with ChainSaw");
+    }
 
-//    public override string RotationName => "Delayed Tools Opener";
+    protected override bool GeneralGCD(out IAction? act)
+    {
+        //Overheated
+        if (AutoCrossbowPvE.CanUse(out act)) return true;
+        if (HeatBlastPvE.CanUse(out act)) return true;
 
-//    protected override IAction CountDownAction(float remainTime)
-//    {
-//        if (remainTime < CountDownAhead)
-//        {
-//            if (AirAnchor.CanUse(out var act1)) return act1;
-//            else if (!AirAnchor.EnoughLevel && HotShot.CanUse(out act1)) return act1;
-//        }
-//        if (remainTime < 2 && UseBurstMedicine(out var act)) return act;
-//        if (remainTime < 5 && Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.IgnoreClippingCheck)) return act;
-//        return base.CountDownAction(remainTime);
-//    }
-    
-//    protected override IRotationConfigSet CreateConfiguration()
-//    {
-//        return base.CreateConfiguration()
-//            .SetBool(CombatType.PvE, "MCH_Reassemble", true, "Use Reassamble with ChainSaw");
-//    }
-    
-//    protected override bool GeneralGCD(out IAction act)
-//    {
-//        //Overheated
-//        if (AutoCrossbow.CanUse(out act)) return true;
-//        if (HeatBlast.CanUse(out act)) return true;
+        //Long Cds
+        if (BioblasterPvE.CanUse(out act)) return true;
+        if (!SpreadShotPvE.CanUse(out _))
+        {
+            if (AirAnchorPvE.CanUse(out act)) return true;
+            else if (!AirAnchorPvE.EnoughLevel && HotShotPvE.CanUse(out act)) return true;
 
-//        //Long Cds
-//        if (BioBlaster.CanUse(out act)) return true;
-//        if (!SpreadShot.CanUse(out _))
-//        {
-//            if (AirAnchor.CanUse(out act)) return true;
-//            else if (!AirAnchor.EnoughLevel && HotShot.CanUse(out act)) return true;
+            if (DrillPvE.CanUse(out act)) return true;
+        }
 
-//            if (Drill.CanUse(out act)) return true;
-//        }
+        if (!CombatElapsedLessGCD(4) && ChainSawPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-//        if (!CombatElapsedLessGCD(4) && ChainSaw.CanUse(out act, CanUseOption.MustUse)) return true;
+        //Aoe
+        if (ChainSawPvE.CanUse(out act)) return true;
+        if (SpreadShotPvE.CanUse(out act)) return true;
 
-//        //Aoe
-//        if (ChainSaw.CanUse(out act)) return true;
-//        if (SpreadShot.CanUse(out act)) return true;
+        //Single
+        if (CleanShotPvE.CanUse(out act)) return true;
+        if (SlugShotPvE.CanUse(out act)) return true;
+        if (SplitShotPvE.CanUse(out act)) return true;
 
-//        //Single
-//        if (CleanShot.CanUse(out act)) return true;
-//        if (SlugShot.CanUse(out act)) return true;
-//        if (SplitShot.CanUse(out act)) return true;
+        return base.GeneralGCD(out act);
+    }
 
-//        return base.GeneralGCD(out act);
-//    }
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
+    {
+        if (Configs.GetBool("MCH_Reassemble") && ChainSawPvE.EnoughLevel && nextGCD.IsTheSameTo(true, ChainSawPvE))
+        {
+            if (ReassemblePvE.CanUse(out act, isEmpty: true)) return true;
+        }
+        if (RicochetPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (GaussRoundPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-//    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
-//    {
-//        if (Configs.GetBool("MCH_Reassemble") && ChainSaw.EnoughLevel && nextGCD.IsTheSameTo(true, ChainSaw))
-//        {
-//            if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
-//        }
-//        if (Ricochet.CanUse(out act, CanUseOption.MustUse)) return true;
-//        if (GaussRound.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (!DrillPvE.EnoughLevel && nextGCD.IsTheSameTo(true, CleanShotPvE)
+            || nextGCD.IsTheSameTo(false, AirAnchorPvE, ChainSawPvE, DrillPvE))
+        {
+            if (ReassemblePvE.CanUse(out act, isEmpty: true)) return true;
+        }
+        return base.EmergencyAbility(nextGCD, out act);
+    }
 
-//        if (!Drill.EnoughLevel && nextGCD.IsTheSameTo(true, CleanShot)
-//            || nextGCD.IsTheSameTo(false, AirAnchor, ChainSaw, Drill))
-//        {
-//            if (Reassemble.CanUse(out act, CanUseOption.EmptyOrSkipCombo)) return true;
-//        }
-//        return base.EmergencyAbility(nextGCD, out act);
-//    }
+    protected override bool AttackAbility(out IAction? act)
+    {
+        if (IsBurst)
+        {
+            if (UseBurstMedicine(out act)) return true;
+            if ((IsLastAbility(false, HyperchargePvE) || Heat >= 50) && !CombatElapsedLess(10)
+                && WildfirePvE.CanUse(out act, onLastAbility: true)) return true;
+        }
 
-//    protected override bool AttackAbility(out IAction act)
-//    {
-//        if (IsBurst)
-//        {
-//            if (UseBurstMedicine(out act)) return true;
-//            if ((IsLastAbility(false, Hypercharge) || Heat >= 50) && !CombatElapsedLess(10)
-//                && Wildfire.CanUse(out act, CanUseOption.OnLastAbility)) return true;
-//        }
+        if (!CombatElapsedLess(12) && CanUseHypercharge(out act)) return true;
+        if (CanUseRookAutoturret(out act)) return true;
 
-//        if (!CombatElapsedLess(12) && CanUseHypercharge(out act)) return true;
-//        if (CanUseRookAutoturret(out act)) return true;
+        if (BarrelStabilizerPvE.CanUse(out act)) return true;
 
-//        if (BarrelStabilizer.CanUse(out act)) return true;
+        if (CombatElapsedLess(8)) return false;
 
-//        if (CombatElapsedLess(8)) return false;
+        if (GaussRoundPvE.Cooldown.CurrentCharges <= RicochetPvE.Cooldown.CurrentCharges)
+        {
+            if (RicochetPvE.CanUse(out act, isEmpty: true)) return true;
+        }
+        if (GaussRoundPvE.CanUse(out act, isEmpty: true)) return true;
 
-//        var option = CanUseOption.MustUse | CanUseOption.EmptyOrSkipCombo;
-//        if (GaussRound.CurrentCharges <= Ricochet.CurrentCharges)
-//        {
-//            if (Ricochet.CanUse(out act, option)) return true;
-//        }
-//        if (GaussRound.CanUse(out act, option)) return true;
+        return base.AttackAbility(out act);
+    }
 
-//        return base.AttackAbility(out act);
-//    }
+    private bool CanUseRookAutoturret(out IAction? act)
+    {
+        act = null;
+        if (AirAnchorPvE.EnoughLevel)
+        {
+            if (!AirAnchorPvE.Cooldown.IsCoolingDown || AirAnchorPvE.Cooldown.ElapsedAfter(18)) return false;
+        }
+        else
+        {
+            if (!HotShotPvE.Cooldown.IsCoolingDown || HotShotPvE.Cooldown.ElapsedAfter(18)) return false;
+        }
 
-//    //private static bool AirAnchorBlockTime(float time)
-//    //{
-//    //    if (AirAnchor.EnoughLevel)
-//    //    {
-//    //        return AirAnchor.IsCoolingDown && AirAnchor.WillHaveOneCharge(time);
-//    //    }
-//    //    else
-//    //    {
-//    //        return HotShot.IsCoolingDown && HotShot.WillHaveOneCharge(time);
-//    //    }
-//    //}
+        return RookAutoturretPvE.CanUse(out act);
+    }
 
-//    private static bool CanUseRookAutoturret(out IAction act)
-//    {
-//        act = null;
-//        if (AirAnchor.EnoughLevel)
-//        {
-//            if (!AirAnchor.IsCoolingDown || AirAnchor.ElapsedAfter(18)) return false;
-//        }
-//        else
-//        {
-//            if (!HotShot.IsCoolingDown || HotShot.ElapsedAfter(18)) return false;
-//        }
+    const float REST_TIME = 6f;
+    private bool CanUseHypercharge(out IAction? act)
+    {
+        act = null;
 
-//        return RookAutoturret.CanUse(out act);
-//    }
+        //Check recast.
+        if (!SpreadShotPvE.CanUse(out _))
+        {
+            if (AirAnchorPvE.EnoughLevel)
+            {
+                if (AirAnchorPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
+            }
+            else
+            {
+                if (HotShotPvE.EnoughLevel && HotShotPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
+            }
+        }
+        if (DrillPvE.EnoughLevel && DrillPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
+        if (ChainSawPvE.EnoughLevel && ChainSawPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
 
-//    const float REST_TIME = 6f;
-//    private static bool CanUseHypercharge(out IAction act)
-//    {
-//        act = null;
-
-//        //if (BarrelStabilizer.IsCoolingDown && BarrelStabilizer.WillHaveOneChargeGCD(8))
-//        //{
-//        //    if (AirAnchorBlockTime(8)) return false;
-//        //}
-//        //else
-//        //{
-//        //    if (AirAnchorBlockTime(12)) return false;
-//        //}
-
-//        //Check recast.
-//        if (!SpreadShot.CanUse(out _))
-//        {
-//            if (AirAnchor.EnoughLevel)
-//            {
-//                if (AirAnchor.WillHaveOneCharge(REST_TIME)) return false;
-//            }
-//            else
-//            {
-//                if (HotShot.EnoughLevel && HotShot.WillHaveOneCharge(REST_TIME)) return false;
-//            }
-//        }
-//        if (Drill.EnoughLevel && Drill.WillHaveOneCharge(REST_TIME)) return false;
-//        if (ChainSaw.EnoughLevel && ChainSaw.WillHaveOneCharge(REST_TIME)) return false;
-
-//        return Hypercharge.CanUse(out act);
-//    }
-//}
+        return HyperchargePvE.CanUse(out act);
+    }
+}

@@ -1,103 +1,96 @@
-//namespace DefaultRotations.Melee;
+namespace DefaultRotations.Melee;
 
-//[SourceCode(Path = "main/DefaultRotations/Melee/DRG_Default.cs")]
-//public sealed class DRG_Default : DRG_Base
-//{
-//    public override CombatType Type => CombatType.PvE;
+[SourceCode(Path = "main/DefaultRotations/Melee/DRG_Default.cs")]
+[Rotation("Default", CombatType.PvE, GameVersion = "6.18")]
 
-//    public override string GameVersion => "6.18";
+public sealed class DRG_Default : DragoonRotation
+{
+    [RotationDesc(ActionID.SpineshatterDivePvE, ActionID.DragonfireDivePvE)]
+    protected override bool MoveForwardAbility(out IAction act)
+    {
+        if (SpineshatterDivePvE.CanUse(out act)) return true;
+        if (DragonfireDivePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        return false;
+    }
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
+    {
+        if (nextGCD.IsTheSameTo(true, FullThrustPvE, CoerthanTormentPvE)
+            || Player.HasStatus(true, StatusID.LanceCharge) && nextGCD.IsTheSameTo(false, FangAndClawPvE))
+        {
+            if (LifeSurgePvE.CanUse(out act, onLastAbility: true, isEmpty: true)) return true;
+        }
 
-//    public override string RotationName => "Default";
+        return base.EmergencyAbility(nextGCD, out act);
+    }
 
-//    [RotationDesc(ActionID.SpineShatterDive, ActionID.DragonFireDive)]
-//    protected override bool MoveForwardAbility(out IAction act)
-//    {
-//        if (SpineShatterDive.CanUse(out act)) return true;
-//        if (DragonFireDive.CanUse(out act, CanUseOption.MustUse)) return true;
+    protected override bool AttackAbility(out IAction? act)
+    {
+        if (IsBurst)
+        {
+            if (LanceChargePvE.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.PowerSurge)) return true;
+            if (LanceChargePvE.CanUse(out act, skipAoeCheck: true, onLastAbility: true) && !Player.HasStatus(true, StatusID.PowerSurge)) return true;
 
-//        return false;
-//    }
-//    protected override bool EmergencyAbility(IAction nextGCD, out IAction act)
-//    {
-//        if (nextGCD.IsTheSameTo(true, FullThrust, CoerthanTorment)
-//            || Player.HasStatus(true, StatusID.LanceCharge) && nextGCD.IsTheSameTo(false, FangandClaw))
-//        {
-//            if (LifeSurge.CanUse(out act, CanUseOption.EmptyOrSkipCombo | CanUseOption.OnLastAbility)) return true;
-//        }
+            if (DragonSightPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (BattleLitanyPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
-//        return base.EmergencyAbility(nextGCD, out act);
-//    }
+        if (NastrondPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (StardiverPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-//    protected override bool AttackAbility(out IAction act)
-//    {
-//        if (IsBurst)
-//        {
-//            if (LanceCharge.CanUse(out act, CanUseOption.MustUse) && Player.HasStatus(true, StatusID.PowerSurge)) return true;
-//            if (LanceCharge.CanUse(out act, CanUseOption.MustUse | CanUseOption.OnLastAbility) && !Player.HasStatus(true, StatusID.PowerSurge)) return true;
+        if (HighJumpPvE.EnoughLevel)
+        {
+            if (HighJumpPvE.CanUse(out act)) return true;
+        }
+        else
+        {
+            if (JumpPvE.CanUse(out act)) return true;
+        }
 
-//            if (DragonSight.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (GeirskogulPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-//            if (BattleLitany.CanUse(out act, CanUseOption.MustUse)) return true;
-//        }
+        if (SpineshatterDivePvE.CanUse(out act, isEmpty: true))
+        {
+            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.Cooldown.ElapsedOneChargeAfterGCD(3)) return true;
+        }
+        if (Player.HasStatus(true, StatusID.PowerSurge) && SpineshatterDivePvE.Cooldown.CurrentCharges != 1 && SpineshatterDivePvE.CanUse(out act)) return true;
 
-//        if (Nastrond.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (MirageDivePvE.CanUse(out act)) return true;
 
-//        if (StarDiver.CanUse(out act, CanUseOption.MustUse)) return true;
+        if (DragonfireDivePvE.CanUse(out act, skipAoeCheck: true))
+        {
+            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.Cooldown.ElapsedOneChargeAfterGCD(3)) return true;
+        }
 
-//        if (HighJump.EnoughLevel)
-//        {
-//            if (HighJump.CanUse(out act)) return true;
-//        }
-//        else
-//        {
-//            if (Jump.CanUse(out act)) return true;
-//        }
+        if (WyrmwindThrustPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-//        if (Geirskogul.CanUse(out act, CanUseOption.MustUse)) return true;
+        return base.AttackAbility(out act);
+    }
 
-//        if (SpineShatterDive.CanUse(out act, CanUseOption.EmptyOrSkipCombo))
-//        {
-//            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceCharge.ElapsedOneChargeAfterGCD(3)) return true;
-//        }
-//        if (Player.HasStatus(true, StatusID.PowerSurge) && SpineShatterDive.CurrentCharges != 1 && SpineShatterDive.CanUse(out act)) return true;
-
-//        if (MirageDive.CanUse(out act)) return true;
-
-//        if (DragonFireDive.CanUse(out act, CanUseOption.MustUse))
-//        {
-//            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceCharge.ElapsedOneChargeAfterGCD(3)) return true;
-//        }
-
-//        if (WyrmwindThrust.CanUse(out act, CanUseOption.MustUse)) return true;
-
-//        return base.AttackAbility(out act);
-//    }
-
-//    protected override bool GeneralGCD(out IAction act)
-//    {
-//        if (CoerthanTorment.CanUse(out act)) return true;
-//        if (SonicThrust.CanUse(out act)) return true;
-//        if (DoomSpike.CanUse(out act)) return true;
+    protected override bool GeneralGCD(out IAction? act)
+    {
+        if (CoerthanTormentPvE.CanUse(out act)) return true;
+        if (SonicThrustPvE.CanUse(out act)) return true;
+        if (DoomSpikePvE.CanUse(out act)) return true;
 
 
-//        if (WheelingThrust.CanUse(out act)) return true;
-//        if (FangandClaw.CanUse(out act)) return true;
+        if (WheelingThrustPvE.CanUse(out act)) return true;
+        if (FangAndClawPvE.CanUse(out act)) return true;
 
 
-//        if (FullThrust.CanUse(out act)) return true;
-//        if (ChaosThrust.CanUse(out act)) return true;
+        if (FullThrustPvE.CanUse(out act)) return true;
+        if (ChaosThrustPvE.CanUse(out act)) return true;
 
-//        if (Player.WillStatusEndGCD(5, 0, true, StatusID.PowerSurge))
-//        {
-//            if (Disembowel.CanUse(out act)) return true;
-//        }
+        if (Player.WillStatusEndGCD(5, 0, true, StatusID.PowerSurge))
+        {
+            if (DisembowelPvE.CanUse(out act)) return true;
+        }
 
-//        if (VorpalThrust.CanUse(out act)) return true;
-//        if (TrueThrust.CanUse(out act)) return true;
+        if (VorpalThrustPvE.CanUse(out act)) return true;
+        if (TrueThrustPvE.CanUse(out act)) return true;
 
-//        if (IsMoveForward && MoveForwardAbility(out act)) return true;
-//        if (PiercingTalon.CanUse(out act)) return true;
+        if (MergedStatus.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
+        if (PiercingTalonPvE.CanUse(out act)) return true;
 
-//        return base.GeneralGCD(out act);
-//    }
-//}
+        return base.GeneralGCD(out act);
+    }
+}
