@@ -80,7 +80,7 @@ public sealed class SMN_Default : SummonerRotation
     {
         if (IsBurst && !Player.HasStatus(false, StatusID.SearingLight))
         {
-            if (SearingLightPvE.CanUse(out act)) return true;
+            if (SearingLightPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;

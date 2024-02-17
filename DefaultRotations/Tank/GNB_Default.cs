@@ -1,5 +1,3 @@
-using RotationSolver.Basic.Actions;
-
 namespace DefaultRotations.Tank;
 
 [Rotation("Default", CombatType.PvE, GameVersion = "6.38")]
@@ -34,7 +32,6 @@ public sealed class GNB_Default : GunbreakerRotation
     {
         if (FatedCirclePvE.CanUse(out act)) return true;
         if (CanUseGnashingFang(out act)) return true;
-        if (FatedCirclePvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (DemonSlaughterPvE.CanUse(out act)) return true;
         if (DemonSlicePvE.CanUse(out act)) return true;

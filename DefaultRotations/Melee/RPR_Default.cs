@@ -88,8 +88,8 @@ public sealed class RPR_Default : ReaperRotation
 
         if (!CombatElapsedLessGCD(2) && PlentifulHarvestPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (SoulScythePvE.CanUse(out act, skipCombo: true)) return true;
-        if (SoulSlicePvE.CanUse(out act, skipCombo: true)) return true;
+        if (SoulScythePvE.CanUse(out act, isEmpty: true)) return true;
+        if (SoulSlicePvE.CanUse(out act, isEmpty: true)) return true;
 
         if (NightmareScythePvE.CanUse(out act)) return true;
         if (SpinningScythePvE.CanUse(out act)) return true;
@@ -123,7 +123,7 @@ public sealed class RPR_Default : ReaperRotation
                 }
             }
             if ((HostileTarget?.HasStatus(true, StatusID.DeathsDesign) ?? false)
-                && ArcaneCirclePvE.CanUse(out act)) return true;
+                && ArcaneCirclePvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         if (IsTargetBoss && IsTargetDying ||

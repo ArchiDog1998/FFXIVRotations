@@ -135,10 +135,10 @@ public sealed class RDM_Default : RedMageRotation
         if (ManaStacks == 0 && (BlackMana < 50 || WhiteMana < 50)
             && (CombatElapsedLess(4) || !ManaficationPvE.EnoughLevel || !ManaficationPvE.Cooldown.WillHaveOneChargeGCD(0, 1)))
         {
-            if (!Player.HasStatus(true, StatusID.VerfireReady, StatusID.VerstoneReady))
+            if (InCombat && !Player.HasStatus(true, StatusID.VerfireReady, StatusID.VerstoneReady))
             {
                 if (SwiftcastPvE.CanUse(out act)) return true;
-                if (InCombat && AccelerationPvE.CanUse(out act, isEmpty: true)) return true;
+                if (AccelerationPvE.CanUse(out act, isEmpty: true)) return true;
             }
         }
 

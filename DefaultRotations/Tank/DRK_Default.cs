@@ -28,7 +28,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
             if ((InTwoMIsBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.BlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
 
-            if ((InTwoMIsBurst() && BloodWeaponPvE.Cooldown.IsCoolingDown && LivingShadowPvE.Cooldown.IsCoolingDown && SaltedEarthPvE.Cooldown.IsCoolingDown && ShadowbringerPvE.Cooldown.CurrentCharges == 0 && CarveAndSpitPvE.Cooldown.IsCoolingDown && SaltAndDarknessPvE.Cooldown.IsCoolingDown)) return true;
+            if ((InTwoMIsBurst() && BloodWeaponPvE.Cooldown.IsCoolingDown && LivingShadowPvE.Cooldown.IsCoolingDown && SaltedEarthPvE.Cooldown.IsCoolingDown && ShadowbringerPvE.Cooldown.CurrentCharges == 0 && CarveAndSpitPvE.Cooldown.IsCoolingDown)) return true;
 
             if (Configs.GetBool("TheBlackestNight") && CurrentMp < 6000) return false;
 
@@ -174,7 +174,7 @@ public sealed class DRK_Default : DarkKnightRotation
         if (IsBurst)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (DeliriumPvE.CanUse(out act)) return true;
+            if (InCombat && DeliriumPvE.CanUse(out act)) return true;
             if (DeliriumPvE.Cooldown.ElapsedAfterGCD(1) && !DeliriumPvE.Cooldown.ElapsedAfterGCD(3) 
                 && BloodWeaponPvE.CanUse(out act)) return true;
             if (LivingShadowPvE.CanUse(out act, skipAoeCheck: true)) return true;
