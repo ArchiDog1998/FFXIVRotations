@@ -25,7 +25,7 @@ public sealed class DRG_Default : DragoonRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
-        if (IsBurst)
+        if (IsBurst && InCombat)
         {
             if (LanceChargePvE.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.PowerSurge)) return true;
             if (LanceChargePvE.CanUse(out act, skipAoeCheck: true, onLastAbility: true) && !Player.HasStatus(true, StatusID.PowerSurge)) return true;
