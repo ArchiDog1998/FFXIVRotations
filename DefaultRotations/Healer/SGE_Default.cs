@@ -134,8 +134,11 @@ public sealed class SGE_Default : SageRotation
             if (EukrasianDosisPvE.CanUse(out _, ignoreCastingCheck : true))
             {
                 if (EukrasiaPvE.CanUse(out act, ignoreCastingCheck: true)) return true;
-                act = EukrasianDosisPvE;
-                return true;
+                if (DosisPvE.CanUse(out act))
+                {
+                    DosisPvE.Target = EukrasianDosisPvE.Target;
+                    return true;
+                }
             }
         }
 
@@ -155,8 +158,12 @@ public sealed class SGE_Default : SageRotation
         if (EukrasianDosisPvE.CanUse(out _, ignoreCastingCheck: true))
         {
             if (EukrasiaPvE.CanUse(out act, ignoreCastingCheck: true)) return true;
-            act = EukrasianDosisPvE;
-            return true;
+            if (DosisPvE.CanUse(out act))
+            {
+                DosisPvE.Target = EukrasianDosisPvE.Target;
+                return true;
+            }
+
         }
 
         if (DosisPvE.CanUse(out act)) return true;
