@@ -97,7 +97,7 @@ public sealed class AST_Default : AstrologianRotation
     {
         if (AspectedBeneficPvE.CanUse(out act)
             && (IsMoving
-            || AspectedBeneficPvE.Target!.Value.Target?.GetHealthRatio() > 0.4)) return true;
+            || AspectedBeneficPvE.Target?.Target?.GetHealthRatio() > 0.4)) return true;
 
         if (BeneficIiPvE.CanUse(out act)) return true;
         if (BeneficPvE.CanUse(out act)) return true;
@@ -114,24 +114,27 @@ public sealed class AST_Default : AstrologianRotation
 
         if (DrawPvE.CanUse(out act, isEmpty: IsBurst)) return true;
 
-        if (IsMoving && LightspeedPvE.CanUse(out act)) return true;
-
-        if (!IsMoving)
+        if (InCombat)
         {
-            if (!Player.HasStatus(true, StatusID.EarthlyDominance, StatusID.GiantDominance))
+            if (IsMoving && LightspeedPvE.CanUse(out act)) return true;
+
+            if (!IsMoving)
             {
-                if (EarthlyStarPvE.CanUse(out act)) return true;
+                if (!Player.HasStatus(true, StatusID.EarthlyDominance, StatusID.GiantDominance))
+                {
+                    if (EarthlyStarPvE.CanUse(out act)) return true;
+                }
+                if (AstrodynePvE.CanUse(out act)) return true;
             }
-            if (AstrodynePvE.CanUse(out act)) return true;
-        }
 
-        if (DrawnCrownCard == CardType.LORD || MinorArcanaPvE.Cooldown.WillHaveOneChargeGCD(1, 0))
-        {
-            if (MinorArcanaPvE.CanUse(out act)) return true;
+            if (DrawnCrownCard == CardType.LORD || MinorArcanaPvE.Cooldown.WillHaveOneChargeGCD(1, 0))
+            {
+                if (MinorArcanaPvE.CanUse(out act)) return true;
+            }
         }
 
         if (RedrawPvE.CanUse(out act)) return true;
-        if (PlayCard(out act)) return true;
+        if (InCombat && PlayCard(out act)) return true;
 
         return base.AttackAbility(out act);
     }
