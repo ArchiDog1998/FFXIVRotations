@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.3](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.2...v1.1.3) (2024-02-20)
+
+
+### Bug Fixes
+
+* sge dot fix. ([8384643](https://github.com/ArchiDog1998/FFXIVRotations/commit/83846439dd62f8119402eda8c21b4d09b5b83039))
+* sge sheild. ([3f800e0](https://github.com/ArchiDog1998/FFXIVRotations/commit/3f800e027f4aa85adc8c9c4a4a5f3888c73f9e16))
+
 ## [1.1.2](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.1...v1.1.2) (2024-02-17)
 
 
