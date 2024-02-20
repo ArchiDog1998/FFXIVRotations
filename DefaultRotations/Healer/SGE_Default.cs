@@ -65,8 +65,8 @@ public sealed class SGE_Default : SageRotation
         if (EukrasianDiagnosisPvE.CanUse(out act))
         {
             if (EukrasianDiagnosisPvE.Target?.Target?.HasStatus(false,
-                StatusID.EukrasianDiagnosis,
-                StatusID.EukrasianPrognosis,
+                StatusID.EukrasianDiagnosis_2865,
+                StatusID.EukrasianPrognosis_2866,
                 StatusID.Galvanize
             ) ?? false) return false;
 
@@ -100,8 +100,8 @@ public sealed class SGE_Default : SageRotation
         if (EukrasianPrognosisPvE.CanUse(out act))
         {
             if (EukrasianDiagnosisPvE.Target?.Target?.HasStatus(false,
-                StatusID.EukrasianDiagnosis,
-                StatusID.EukrasianPrognosis,
+                StatusID.EukrasianDiagnosis_2865,
+                StatusID.EukrasianPrognosis_2866,
                 StatusID.Galvanize
             ) ?? false) return false;
 
@@ -161,7 +161,7 @@ public sealed class SGE_Default : SageRotation
 
         if (DosisPvE.CanUse(out act)) return true;
 
-        if (EukrasianDiagnosisPvE.CanUse(out _))
+        if (EukrasianDiagnosisPvE.CanUse(out _) && (EukrasianDiagnosisPvE.Target?.Target?.IsJobCategory(JobRole.Tank) ?? false))
         {
             if (EukrasiaPvE.CanUse(out act)) return true;
 
