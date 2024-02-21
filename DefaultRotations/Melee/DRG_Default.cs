@@ -80,7 +80,7 @@ public sealed class DRG_Default : DragoonRotation
         if (FullThrustPvE.CanUse(out act)) return true;
         if (ChaosThrustPvE.CanUse(out act)) return true;
 
-        if (Player.WillStatusEndGCD(5, 0, true, StatusID.PowerSurge))
+        if (Player.WillStatusEndGCD(5, 0, true, StatusID.PowerSurge_2720))
         {
             if (DisembowelPvE.CanUse(out act)) return true;
         }

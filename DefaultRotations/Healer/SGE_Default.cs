@@ -131,7 +131,7 @@ public sealed class SGE_Default : SageRotation
     {
         if (HostileTarget?.IsBossFromTTK() ?? false)
         {
-            if (EukrasianDosisPvE.CanUse(out _, ignoreCastingCheck : true))
+            if (EukrasianDosisPvE.CanUse(out _, ignoreCastingCheck: true))
             {
                 if (EukrasiaPvE.CanUse(out act, ignoreCastingCheck: true)) return true;
                 if (DosisPvE.CanUse(out act))
@@ -163,7 +163,6 @@ public sealed class SGE_Default : SageRotation
                 DosisPvE.Target = EukrasianDosisPvE.Target;
                 return true;
             }
-
         }
 
         if (DosisPvE.CanUse(out act)) return true;
@@ -171,7 +170,6 @@ public sealed class SGE_Default : SageRotation
         if (EukrasianDiagnosisPvE.CanUse(out _) && (EukrasianDiagnosisPvE.Target?.Target?.IsJobCategory(JobRole.Tank) ?? false))
         {
             if (EukrasiaPvE.CanUse(out act)) return true;
-
             act = EukrasianDiagnosisPvE;
             return true;
         }

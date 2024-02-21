@@ -1,4 +1,6 @@
-﻿namespace DefaultRotations.Magical;
+﻿using RotationSolver.Basic.Helpers;
+
+namespace DefaultRotations.Magical;
 
 [BetaRotation]
 [RotationDesc(ActionID.SearingLightPvE)]
@@ -65,6 +67,8 @@ public sealed class SMN_Default : SummonerRotation
                 if (SummonRubyPvE.CanUse(out act)) return true;
                 break;
         }
+
+
         if (SummonTimeEndAfterGCD() && AttunmentTimeEndAfterGCD() &&
             !Player.HasStatus(true, StatusID.Swiftcast) && !InBahamut && !InPhoenix &&
             RuinIvPvE.CanUse(out act, skipAoeCheck: true)) return true;
