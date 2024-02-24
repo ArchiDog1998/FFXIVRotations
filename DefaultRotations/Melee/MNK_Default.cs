@@ -192,7 +192,7 @@ public sealed class MNK_Default : MonkRotation
             if (PerfectBalancePvE.CanUse(out act, isEmpty: true)) return true;
         }
 
-        if (BrotherhoodPvE.CanUse(out act)) return true;
+        if (BrotherhoodPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (HowlingFistPvE.CanUse(out act)) return true;
         if (SteelPeakPvE.CanUse(out act)) return true;
