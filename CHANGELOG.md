@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.4...v1.1.5) (2024-02-24)
+
+
+### Bug Fixes
+
+* nin fix. ([c5289bf](https://github.com/ArchiDog1998/FFXIVRotations/commit/c5289bf307117ca4b7f69babbbd0f33bb49db55a))
+
 ## [1.1.4](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.3...v1.1.4) (2024-02-21)
 
 
