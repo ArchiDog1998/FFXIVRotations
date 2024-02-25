@@ -97,25 +97,48 @@ public sealed class WAR_Default : WarriorRotation
     }
 
     [RotationDesc(ActionID.RawIntuitionPvE, ActionID.VengeancePvE, ActionID.RampartPvE, ActionID.RawIntuitionPvE, ActionID.ReprisalPvE)]
-    protected override bool DefenseSingleAbility(out IAction act)
+    protected override bool DefenseSingleAbility(out IAction? act)
     {
-        //10
-        if (RawIntuitionPvE.CanUse(out act, onLastAbility: true)) return true;
+        if (MobsTime)
+        {
+            //10
+            if (RawIntuitionPvE.CanUse(out act, onLastAbility: true) && NumberOfHostilesInRange > 2) return true;
+            //if (RawIntuitionPvE.CanUse(out act)) return false;
 
+            if (!Player.WillStatusEndGCD(0, 0, true, StatusID.Bloodwhetting, StatusID.RawIntuition)) return false;
+
+            if (HighDefense(out act)) return true;
+            if (ReprisalPvE.CanUse(out act)) return true;
+        }
+        else
+        {
+            if (HighDefense(out act)) return true;
+            //10
+            if (RawIntuitionPvE.CanUse(out act, onLastAbility: true)) return true;
+        }
+
+        return false;
+    }
+
+    private bool HighDefense(out IAction? act)
+    {
         //30
         if ((!RampartPvE.Cooldown.IsCoolingDown || RampartPvE.Cooldown.ElapsedAfter(60)) && VengeancePvE.CanUse(out act)) return true;
 
         //20
         if (VengeancePvE.Cooldown.IsCoolingDown && VengeancePvE.Cooldown.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
 
-        if (ReprisalPvE.CanUse(out act)) return true;
-
+        act = null;
         return false;
     }
 
     [RotationDesc(ActionID.ShakeItOffPvE, ActionID.ReprisalPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
+        act = null;
+        if (ShakeItOffPvE.Cooldown.IsCoolingDown && !ShakeItOffPvE.Cooldown.WillHaveOneCharge(60)
+            || ReprisalPvE.Cooldown.IsCoolingDown && !ReprisalPvE.Cooldown.WillHaveOneCharge(50)) return false;
+
         if (ShakeItOffPvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (ReprisalPvE.CanUse(out act, skipAoeCheck: true)) return true;
         return base.DefenseAreaAbility(out act);
