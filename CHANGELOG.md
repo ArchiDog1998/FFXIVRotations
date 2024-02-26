@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.6](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.5...v1.1.6) (2024-02-26)
+
+
+### Bug Fixes
+
+* fixed war rotation. ([c9fafcf](https://github.com/ArchiDog1998/FFXIVRotations/commit/c9fafcf242f7789339ec6c9e10df84a7f5f425cc))
+* whm and brd fixed. ([df245ee](https://github.com/ArchiDog1998/FFXIVRotations/commit/df245eeb6295b928dfcbb3a62b8fee2e5087934f))
+
 ## [1.1.5](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.4...v1.1.5) (2024-02-24)
 
 
