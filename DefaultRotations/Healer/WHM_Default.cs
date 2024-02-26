@@ -30,6 +30,12 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (AeroPvE.CanUse(out act)) return true;
         if (StonePvE.CanUse(out act)) return true;
+
+        if (Lily >= 2 && LilyTime > 5)
+        {
+            if (AfflatusSolacePvE.CanUse(out act)) return true;
+        }
+
         if (AeroPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
 
         return base.GeneralGCD(out act);
@@ -38,7 +44,6 @@ public sealed class WHM_Default :WhiteMageRotation
     protected override bool AttackAbility(out IAction? act)
     {
         if (PresenceOfMindPvE.CanUse(out act)) return true;
-
         if (AssizePvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(out act);
@@ -112,6 +117,10 @@ public sealed class WHM_Default :WhiteMageRotation
     [RotationDesc(ActionID.DivineBenisonPvE, ActionID.AquaveilPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
+        act = null;
+        if (DivineBenisonPvE.Cooldown.IsCoolingDown && !DivineBenisonPvE.Cooldown.WillHaveOneCharge(15)
+            || AquaveilPvE.Cooldown.IsCoolingDown && !AquaveilPvE.Cooldown.WillHaveOneCharge(52)) return false;
+
         if (DivineBenisonPvE.CanUse(out act)) return true;
 
         if (AquaveilPvE.CanUse(out act)) return true;
@@ -121,24 +130,15 @@ public sealed class WHM_Default :WhiteMageRotation
     [RotationDesc(ActionID.TemperancePvE, ActionID.LiturgyOfTheBellPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
+        act = null;
+        if (TemperancePvE.Cooldown.IsCoolingDown && !TemperancePvE.Cooldown.WillHaveOneCharge(100)
+            || LiturgyOfTheBellPvE.Cooldown.IsCoolingDown && !LiturgyOfTheBellPvE.Cooldown.WillHaveOneCharge(160)) return false;
+
         if (TemperancePvE.CanUse(out act)) return true;
 
         if (LiturgyOfTheBellPvE.CanUse(out act)) return true;
         return base.DefenseAreaAbility(out act);
     }
-
-    //[RotationDesc(ActionID.Regen)]
-    //protected override bool DefenseSingleGCD(out IAction act)
-    //{
-    //    if (RegenDefense.CanUse(out act)) return true;
-    //    return base.DefenseSingleGCD(out act);
-    //}
-
-    //protected override bool DefenseAreaGCD(out IAction act)
-    //{
-    //    if (Medica2.CanUse(out act) && PartyMembers.Count((n) => n.HasStatus(true, StatusID.Medica2)) < PartyMembers.Count() / 2) return true;
-    //    return base.DefenseAreaGCD(out act);
-    //}
 
     protected override IAction? CountDownAction(float remainTime)
     {

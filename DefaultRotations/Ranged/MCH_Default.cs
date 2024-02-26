@@ -90,9 +90,9 @@ public sealed class MCH_Default : MachinistRotation
 
         if (GaussRoundPvE.Cooldown.CurrentCharges <= RicochetPvE.Cooldown.CurrentCharges)
         {
-            if (RicochetPvE.CanUse(out act, isEmpty: true)) return true;
+            if (RicochetPvE.CanUse(out act, isEmpty: true, skipAoeCheck: true)) return true;
         }
-        if (GaussRoundPvE.CanUse(out act, isEmpty: true)) return true;
+        if (GaussRoundPvE.CanUse(out act, isEmpty: true, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(out act);
     }
