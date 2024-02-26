@@ -1,6 +1,8 @@
+using Lumina.Excel.GeneratedSheets2;
+
 namespace DefaultRotations.Ranged;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.28", 
+[Rotation("Default", CombatType.PvE | CombatType.PvP, GameVersion = "6.28", 
     Description = "Please make sure that the three song times add up to 120 seconds!")]
 [SourceCode(Path = "main/DefaultRotations/Ranged/BRD_Default.cs")]
 public sealed class BRD_Default : BardRotation
@@ -20,6 +22,18 @@ public sealed class BRD_Default : BardRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        
+
+        //if (PvP_FinalFantasia.CanUse(out act, CanUseOption.MustUse)) return true;
+
+        if (BlastArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (ApexArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (PitchPerfectPvP.CanUse(out act)) return true;
+        if (PowerfulShotPvP.CanUse(out act)) return true;
+        #endregion
+
         if (IronJawsPvE.CanUse(out act)) return true;
         if (IronJawsPvE.CanUse(out act, skipStatusProvideCheck: true) && (IronJawsPvE.Target?.Target?.WillStatusEnd(30, true, IronJawsPvE.Setting.TargetStatusProvide ?? []) ?? false))
         {
@@ -66,6 +80,18 @@ public sealed class BRD_Default : BardRotation
     protected override bool AttackAbility(out IAction? act)
     {
         act = null;
+
+        #region PvP
+        //if (PvP_FinalFantasia.CanUse(out act, CanUseOption.MustUse)) return true;
+
+        if (SilentNocturnePvP.CanUse(out act)) return true;
+        if (TheWardensPaeanPvP.CanUse(out act)) return true;
+
+        
+        if (EmpyrealArrowPvP.CanUse(out act, isEmpty: true)) return true;
+
+        if (RepellingShotPvP.CanUse(out act)) return true;
+        #endregion
 
         if (Song == Song.NONE)
         {
