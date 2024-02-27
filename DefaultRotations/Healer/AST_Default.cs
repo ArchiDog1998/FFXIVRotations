@@ -33,6 +33,10 @@ public sealed class AST_Default : AstrologianRotation
     [RotationDesc(ActionID.MacrocosmosPvE)]
     protected override bool DefenseAreaGCD(out IAction? act)
     {
+        act = null;
+        if (MacrocosmosPvE.Cooldown.IsCoolingDown && !MacrocosmosPvE.Cooldown.WillHaveOneCharge(150)
+            || CollectiveUnconsciousPvE.Cooldown.IsCoolingDown && !CollectiveUnconsciousPvE.Cooldown.WillHaveOneCharge(40)) return false;
+
         if (MacrocosmosPvE.CanUse(out act)) return true;
         return base.DefenseAreaGCD(out act);
     }
@@ -40,6 +44,10 @@ public sealed class AST_Default : AstrologianRotation
     [RotationDesc(ActionID.CollectiveUnconsciousPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
+        act = null;
+        if (MacrocosmosPvE.Cooldown.IsCoolingDown && !MacrocosmosPvE.Cooldown.WillHaveOneCharge(150)
+            || CollectiveUnconsciousPvE.Cooldown.IsCoolingDown && !CollectiveUnconsciousPvE.Cooldown.WillHaveOneCharge(40)) return false;
+
         if (CollectiveUnconsciousPvE.CanUse(out act)) return true;
         return base.DefenseAreaAbility(out act);
     }
@@ -53,7 +61,7 @@ public sealed class AST_Default : AstrologianRotation
 
         if (CombustPvE.CanUse(out act)) return true;
         if (MaleficPvE.CanUse(out act)) return true;
-        if (CombustPvE.CanUse(out act, skipStatusProvideCheck: true )) return true;
+        if (CombustPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
 
         return base.GeneralGCD(out act);
     }
