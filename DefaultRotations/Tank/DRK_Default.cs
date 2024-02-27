@@ -123,7 +123,7 @@ public sealed class DRK_Default : DarkKnightRotation
         if (Player.HasStatus(true, StatusID.BlackestNight)) return false;
 
         //10
-        if (OblationPvE.CanUse(out act, isEmpty: true, onLastAbility: true)) return true;
+        if (OblationPvE.CanUse(out act, usedUp: true, onLastAbility: true)) return true;
 
         if (ReprisalPvE.CanUse(out act, skipAoeCheck: true, onLastAbility: true)) return true;
 
@@ -195,7 +195,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
         if (InTwoMIsBurst())
         {
-            if (ShadowbringerPvE.CanUse(out act, isEmpty: true, skipAoeCheck: true)) return true;
+            if (ShadowbringerPvE.CanUse(out act, usedUp: true, skipAoeCheck: true)) return true;
 
         }
 
@@ -205,7 +205,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
         if (InTwoMIsBurst())
         {
-            if (PlungePvE.CanUse(out act, isEmpty: true, skipAoeCheck: true) && !IsMoving) return true;
+            if (PlungePvE.CanUse(out act, usedUp: true, skipAoeCheck: true) && !IsMoving) return true;
         }
 
         return base.AttackAbility(out act);

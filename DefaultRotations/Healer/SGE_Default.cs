@@ -131,9 +131,9 @@ public sealed class SGE_Default : SageRotation
     {
         if (HostileTarget?.IsBossFromTTK() ?? false)
         {
-            if (EukrasianDosisPvE.CanUse(out _, ignoreCastingCheck: true))
+            if (EukrasianDosisPvE.CanUse(out _, skipCastingCheck: true))
             {
-                if (EukrasiaPvE.CanUse(out act, ignoreCastingCheck: true)) return true;
+                if (EukrasiaPvE.CanUse(out act, skipCastingCheck: true)) return true;
                 if (DosisPvE.CanUse(out act))
                 {
                     DosisPvE.Target = EukrasianDosisPvE.Target;
@@ -142,9 +142,9 @@ public sealed class SGE_Default : SageRotation
             }
         }
 
-        if (PhlegmaIiiPvE.CanUse(out act, isEmpty: IsMoving, skipAoeCheck: true)) return true;
-        if (!PhlegmaIiiPvE.EnoughLevel && PhlegmaIiPvE.CanUse(out act, isEmpty: IsMoving, skipAoeCheck: true)) return true;
-        if (!PhlegmaIiPvE.EnoughLevel && PhlegmaPvE.CanUse(out act, isEmpty: IsMoving, skipAoeCheck: true)) return true;
+        if (PhlegmaIiiPvE.CanUse(out act, usedUp: IsMoving, skipAoeCheck: true)) return true;
+        if (!PhlegmaIiiPvE.EnoughLevel && PhlegmaIiPvE.CanUse(out act, usedUp: IsMoving, skipAoeCheck: true)) return true;
+        if (!PhlegmaIiPvE.EnoughLevel && PhlegmaPvE.CanUse(out act, usedUp: IsMoving, skipAoeCheck: true)) return true;
 
         if (PartyMembers.Any(b => b.GetHealthRatio() < 0.20f) || PartyMembers.GetJobCategory(JobRole.Tank).Any(t => t.GetHealthRatio() < 0.6f))
         {
@@ -155,9 +155,9 @@ public sealed class SGE_Default : SageRotation
 
         if (DyskrasiaPvE.CanUse(out act)) return true;
 
-        if (EukrasianDosisPvE.CanUse(out _, ignoreCastingCheck: true))
+        if (EukrasianDosisPvE.CanUse(out _, skipCastingCheck: true))
         {
-            if (EukrasiaPvE.CanUse(out act, ignoreCastingCheck: true)) return true;
+            if (EukrasiaPvE.CanUse(out act, skipCastingCheck: true)) return true;
             if (DosisPvE.CanUse(out act))
             {
                 DosisPvE.Target = EukrasianDosisPvE.Target;

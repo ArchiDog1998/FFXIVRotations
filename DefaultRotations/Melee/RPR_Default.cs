@@ -88,8 +88,8 @@ public sealed class RPR_Default : ReaperRotation
 
         if (!CombatElapsedLessGCD(2) && PlentifulHarvestPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (SoulScythePvE.CanUse(out act, isEmpty: true)) return true;
-        if (SoulSlicePvE.CanUse(out act, isEmpty: true)) return true;
+        if (SoulScythePvE.CanUse(out act, usedUp: true)) return true;
+        if (SoulSlicePvE.CanUse(out act, usedUp: true)) return true;
 
         if (NightmareScythePvE.CanUse(out act)) return true;
         if (SpinningScythePvE.CanUse(out act)) return true;
@@ -140,8 +140,8 @@ public sealed class RPR_Default : ReaperRotation
 
         if (HasEnshrouded && (Player.HasStatus(true, StatusID.ArcaneCircle) || LemureShroud < 3))
         {
-            if (LemuresScythePvE.CanUse(out act, isEmpty: true)) return true;
-            if (LemuresSlicePvE.CanUse(out act, isEmpty: true)) return true;
+            if (LemuresScythePvE.CanUse(out act, usedUp: true)) return true;
+            if (LemuresSlicePvE.CanUse(out act, usedUp: true)) return true;
         }
 
         if (PlentifulHarvestPvE.EnoughLevel && !Player.HasStatus(true, StatusID.ImmortalSacrifice) && !Player.HasStatus(true, StatusID.BloodsownCircle_2972) || !PlentifulHarvestPvE.EnoughLevel)

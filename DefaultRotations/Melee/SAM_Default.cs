@@ -45,8 +45,8 @@ public sealed class SAM_Default : SamuraiRotation
         if ((!HasFlower || !IsMoonTimeLessThanFlower) && OkaPvE.CanUse(out act, skipAoeCheck: HaveMeikyoShisui && !HasKa)) return true;
         if (!HasSetsu && YukikazePvE.CanUse(out act, skipAoeCheck: HaveMeikyoShisui && HasGetsu && HasKa && !HasSetsu)) return true;
 
-        if (GekkoPvE.CanUse(out act, skipCombo: HaveMeikyoShisui && !HasGetsu)) return true;
-        if (KashaPvE.CanUse(out act, skipCombo: HaveMeikyoShisui && !HasKa)) return true;
+        if (GekkoPvE.CanUse(out act, skipComboCheck: HaveMeikyoShisui && !HasGetsu)) return true;
+        if (KashaPvE.CanUse(out act, skipComboCheck: HaveMeikyoShisui && !HasKa)) return true;
 
         if ((!HasMoon || IsMoonTimeLessThanFlower || !ShifuPvE.EnoughLevel) && JinpuPvE.CanUse(out act)) return true;
         if ((!HasFlower || !IsMoonTimeLessThanFlower) && ShifuPvE.CanUse(out act)) return true;
@@ -100,7 +100,7 @@ public sealed class SAM_Default : SamuraiRotation
         if (HasHostilesInRange && IsLastGCD(true, YukikazePvE, MangetsuPvE, OkaPvE) &&
             (!IsTargetBoss || (HostileTarget?.HasStatus(true, StatusID.Higanbana) ?? false) && !(HostileTarget?.WillStatusEnd(40, true, StatusID.Higanbana) ?? false) || !HasMoon && !HasFlower || IsTargetBoss && IsTargetDying))
         {
-            if (MeikyoShisuiPvE.CanUse(out act, isEmpty: true)) return true;
+            if (MeikyoShisuiPvE.CanUse(out act, usedUp: true)) return true;
         }
         return base.EmergencyAbility(nextGCD, out act);
     }

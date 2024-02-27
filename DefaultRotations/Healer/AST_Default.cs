@@ -25,7 +25,7 @@ public sealed class AST_Default : AstrologianRotation
     [RotationDesc(ActionID.CelestialIntersectionPvE, ActionID.ExaltationPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
-        if (CelestialIntersectionPvE.CanUse(out act, isEmpty:true)) return true;
+        if (CelestialIntersectionPvE.CanUse(out act, usedUp:true)) return true;
         if (ExaltationPvE.CanUse(out act)) return true;
         return base.DefenseSingleAbility(out act);
     }
@@ -110,9 +110,9 @@ public sealed class AST_Default : AstrologianRotation
         if (IsBurst && !IsMoving
             && DivinationPvE.CanUse(out act)) return true;
 
-        if (MinorArcanaPvE.CanUse(out act, isEmpty:true)) return true;
+        if (MinorArcanaPvE.CanUse(out act, usedUp:true)) return true;
 
-        if (DrawPvE.CanUse(out act, isEmpty: IsBurst)) return true;
+        if (DrawPvE.CanUse(out act, usedUp: IsBurst)) return true;
 
         if (InCombat)
         {
@@ -144,7 +144,7 @@ public sealed class AST_Default : AstrologianRotation
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (EssentialDignityPvE.CanUse(out act)) return true;
-        if (CelestialIntersectionPvE.CanUse(out act, isEmpty:true)) return true;
+        if (CelestialIntersectionPvE.CanUse(out act, usedUp:true)) return true;
 
         if (DrawnCrownCard == CardType.LADY 
             && MinorArcanaPvE.CanUse(out act)) return true;

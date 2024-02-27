@@ -138,7 +138,7 @@ public sealed class RDM_Default : RedMageRotation
             if (InCombat && !Player.HasStatus(true, StatusID.VerfireReady, StatusID.VerstoneReady))
             {
                 if (SwiftcastPvE.CanUse(out act)) return true;
-                if (AccelerationPvE.CanUse(out act, isEmpty: true)) return true;
+                if (AccelerationPvE.CanUse(out act, usedUp: true)) return true;
             }
         }
 
@@ -148,7 +148,7 @@ public sealed class RDM_Default : RedMageRotation
         if (ContreSixtePvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (FlechePvE.CanUse(out act)) return true;
 
-        if (EngagementPvE.CanUse(out act, isEmpty: true)) return true;
+        if (EngagementPvE.CanUse(out act, usedUp: true)) return true;
         if (CorpsacorpsPvE.CanUse(out act) && !IsMoving) return true;
 
         return base.AttackAbility(out act);

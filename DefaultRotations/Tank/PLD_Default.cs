@@ -43,7 +43,7 @@ public class PLD_Default : PaladinRotation
         if (Player.WillStatusEndGCD(6, 0, true, StatusID.FightOrFlight)
             && RequiescatPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (!IsMoving && IntervenePvE.CanUse(out act, skipAoeCheck: true, isEmpty: HasFightOrFlight)) return true;
+        if (!IsMoving && IntervenePvE.CanUse(out act, skipAoeCheck: true, usedUp: HasFightOrFlight)) return true;
 
         if (HasTankStance && OathGauge == 100 && UseOath(out act)) return true;
 

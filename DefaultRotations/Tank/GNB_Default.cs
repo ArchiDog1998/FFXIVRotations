@@ -40,8 +40,8 @@ public sealed class GNB_Default : GunbreakerRotation
 
         if (Player.HasStatus(true, StatusID.NoMercy) && CanUseDoubleDown(out act)) return true;
 
-        if (SavageClawPvE.CanUse(out act, skipCombo: true)) return true;
-        if (WickedTalonPvE.CanUse(out act, skipCombo: true)) return true;
+        if (SavageClawPvE.CanUse(out act, skipComboCheck: true)) return true;
+        if (WickedTalonPvE.CanUse(out act, skipComboCheck: true)) return true;
 
         if (CanUseBurstStrike(out act)) return true;
 
@@ -60,7 +60,7 @@ public sealed class GNB_Default : GunbreakerRotation
     {
         //if (IsBurst && CanUseNoMercy(out act)) return true;
 
-        if (!CombatElapsedLessGCD(5) && NoMercyPvE.CanUse(out act, skipAoeCheck: true, ignoreClippingCheck: true)) return true;
+        if (!CombatElapsedLessGCD(5) && NoMercyPvE.CanUse(out act, skipAoeCheck: true, skipClippingCheck: true)) return true;
 
         if (JugularRipPvE.CanUse(out act)) return true;
 
@@ -84,7 +84,7 @@ public sealed class GNB_Default : GunbreakerRotation
 
         if (Player.HasStatus(true, StatusID.NoMercy))
         {
-            if (RoughDividePvE.CanUse(out act, isEmpty: true) && !IsMoving) return true;
+            if (RoughDividePvE.CanUse(out act, usedUp: true) && !IsMoving) return true;
         }
 
         if (EyeGougePvE.CanUse(out act)) return true;
@@ -122,7 +122,7 @@ public sealed class GNB_Default : GunbreakerRotation
     [RotationDesc(ActionID.AuroraPvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
-        if (AuroraPvE.CanUse(out act, isEmpty: true, onLastAbility: true)) return true;
+        if (AuroraPvE.CanUse(out act, usedUp: true, onLastAbility: true)) return true;
         return base.HealSingleAbility(out act);
     }
 

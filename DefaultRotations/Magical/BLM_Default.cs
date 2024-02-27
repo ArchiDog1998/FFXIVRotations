@@ -44,7 +44,7 @@ public class BLM_Default : BlackMageRotation
         {
             if (FireIiiPvE.CanUse(out act)) return act;
         }
-        if (remainTime <= 12 && SharpcastPvE.CanUse(out act, isEmpty: true)) return act;
+        if (remainTime <= 12 && SharpcastPvE.CanUse(out act, usedUp: true)) return act;
         return base.CountDownAction(remainTime);
     }
 
@@ -57,11 +57,11 @@ public class BLM_Default : BlackMageRotation
                 && !IsLastGCD(ActionID.ParadoxPvE))
             {
                 if (SwiftcastPvE.CanUse(out act)) return true;
-                if (TriplecastPvE.CanUse(out act, isEmpty: true)) return true;
+                if (TriplecastPvE.CanUse(out act, usedUp: true)) return true;
             }
 
             if (UmbralIceStacks < 3 && LucidDreamingPvE.CanUse(out act)) return true;
-            if (SharpcastPvE.CanUse(out act, isEmpty: true)) return true;
+            if (SharpcastPvE.CanUse(out act, usedUp: true)) return true;
         }
         if (InAstralFire)
         {
@@ -100,7 +100,7 @@ public class BLM_Default : BlackMageRotation
         if (InFireOrIce(out act, out var mustGo)) return true;
         if (mustGo) return false;
         //Triplecast for moving.
-        if (IsMoving && HasHostilesInRange && TriplecastPvE.CanUse(out act, isEmpty: true, ignoreClippingCheck: true)) return true;
+        if (IsMoving && HasHostilesInRange && TriplecastPvE.CanUse(out act, usedUp: true, skipClippingCheck: true)) return true;
 
         if (AddElementBase(out act)) return true;
         if (ScathePvE.CanUse(out act)) return true;
@@ -258,7 +258,7 @@ public class BLM_Default : BlackMageRotation
             if (AddThunder(out act, 0)) return true;
         }
 
-        if (TriplecastPvE.CanUse(out act,ignoreClippingCheck:true)) return true;
+        if (TriplecastPvE.CanUse(out act, skipClippingCheck:true)) return true;
 
         if (AddThunder(out act, 0) && Player.WillStatusEndGCD(1, 0, true,
             StatusID.Thundercloud)) return true;
