@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.7](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.6...v1.1.7) (2024-02-28)
+
+
+### Bug Fixes
+
+* ast defense. ([c2e6302](https://github.com/ArchiDog1998/FFXIVRotations/commit/c2e6302e9c0aff80d69dd232071802848a8c0d54))
+* update api. ([d5642a8](https://github.com/ArchiDog1998/FFXIVRotations/commit/d5642a83eb4440d4753d4c9b8d53e4db4eac97cd))
+
 ## [1.1.6](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.5...v1.1.6) (2024-02-26)
 
 
