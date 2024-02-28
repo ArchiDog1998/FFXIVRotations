@@ -17,7 +17,7 @@ public sealed class DRG_Default : DragoonRotation
         if (nextGCD.IsTheSameTo(true, FullThrustPvE, CoerthanTormentPvE)
             || Player.HasStatus(true, StatusID.LanceCharge) && nextGCD.IsTheSameTo(false, FangAndClawPvE))
         {
-            if (LifeSurgePvE.CanUse(out act, onLastAbility: true, isEmpty: true)) return true;
+            if (LifeSurgePvE.CanUse(out act, onLastAbility: true, usedUp: true)) return true;
         }
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -48,7 +48,7 @@ public sealed class DRG_Default : DragoonRotation
 
         if (GeirskogulPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (SpineshatterDivePvE.CanUse(out act, isEmpty: true))
+        if (SpineshatterDivePvE.CanUse(out act, usedUp: true))
         {
             if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.Cooldown.ElapsedOneChargeAfterGCD(3)) return true;
         }

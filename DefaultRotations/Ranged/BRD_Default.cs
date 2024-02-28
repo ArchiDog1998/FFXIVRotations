@@ -79,8 +79,6 @@ public sealed class BRD_Default : BardRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
-        act = null;
-
         #region PvP
         //if (PvP_FinalFantasia.CanUse(out act, CanUseOption.MustUse)) return true;
 
@@ -88,7 +86,7 @@ public sealed class BRD_Default : BardRotation
         if (TheWardensPaeanPvP.CanUse(out act)) return true;
 
         
-        if (EmpyrealArrowPvP.CanUse(out act, isEmpty: true)) return true;
+        if (EmpyrealArrowPvP.CanUse(out act, usedUp: true)) return true;
 
         if (RepellingShotPvP.CanUse(out act)) return true;
         #endregion
@@ -168,9 +166,9 @@ public sealed class BRD_Default : BardRotation
 
         if (EmpyrealArrowPvE.Cooldown.IsCoolingDown || !EmpyrealArrowPvE.Cooldown.WillHaveOneChargeGCD() || Repertoire != 3 || !EmpyrealArrowPvE.EnoughLevel)
         {
-            if (RainOfDeathPvE.CanUse(out act, isEmpty:true)) return true;
+            if (RainOfDeathPvE.CanUse(out act, usedUp: true)) return true;
 
-            if (BloodletterPvE.CanUse(out act, isEmpty: true)) return true;
+            if (BloodletterPvE.CanUse(out act, usedUp: true)) return true;
         }
 
         return base.AttackAbility(out act);

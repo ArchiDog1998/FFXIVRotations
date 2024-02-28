@@ -11,11 +11,10 @@ namespace DefaultRotations.Melee;
 [YoutubeLink(ID = "Al9KlhA3Zvw")]
 public sealed class NIN_Default : NinjaRotation
 {
-
     private IBaseAction? _ninActionAim = null;
     private bool InTrickAttack => TrickAttackPvE.Cooldown.IsCoolingDown && !TrickAttackPvE.Cooldown.ElapsedAfter(17);
     private bool InMug => MugPvE.Cooldown.IsCoolingDown && !MugPvE.Cooldown.ElapsedAfter(19);
-    private bool NoNinjutsu => AdjustId(ActionID.NinjutsuPvE) is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
+    private static bool NoNinjutsu => AdjustId(ActionID.NinjutsuPvE) is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
 
     protected override IRotationConfigSet CreateConfiguration()
     {
@@ -114,7 +113,7 @@ public sealed class NIN_Default : NinjaRotation
                 ClearNinjutsu();
                 return false;
             }
-            if (TenPvE.CanUse(out _, isEmpty: true)
+            if (TenPvE.CanUse(out _, usedUp: true)
                && (!InCombat || !HuraijinPvE.EnoughLevel) && HutonPvE.CanUse(out _)
                && !IsLastAction(false, HutonPvE))
             {
@@ -139,7 +138,7 @@ public sealed class NIN_Default : NinjaRotation
             }
 
             //Single
-            if (TenPvE.CanUse(out _, isEmpty: InTrickAttack && !Player.HasStatus(false, StatusID.RaijuReady)))
+            if (TenPvE.CanUse(out _, usedUp: InTrickAttack && !Player.HasStatus(false, StatusID.RaijuReady)))
             {
                 if (RaitonPvE.CanUse(out _))
                 {
@@ -227,7 +226,7 @@ public sealed class NIN_Default : NinjaRotation
         {
             //Can't use.
             if (!Player.HasStatus(true, StatusID.Kassatsu, StatusID.TenChiJin)
-                && !TenPvE.CanUse(out _, isEmpty: true)
+                && !TenPvE.CanUse(out _, usedUp: true)
                 && !IsLastAction(false, _ninActionAim.Setting.Ninjutsu![0]))
             {
                 return false;

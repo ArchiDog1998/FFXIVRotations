@@ -15,30 +15,38 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (AfflatusMiseryPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        bool liliesNearlyFull = Lily == 2 && LilyAfter(17);
-        bool liliesFullNoBlood = Lily == 3 && BloodLily < 3;
-        if (Configs.GetBool("UseLilyWhenFull") && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel)
+        bool liliesNearlyFull = Lily == 2 && LilyAfter(10);
+        bool liliesFullNoBlood = Lily == 3;
+        if (Configs.GetBool("UseLilyWhenFull") && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel && BloodLily < 3)
         {
-            if (PartyMembersAverHP < 0.7)
-            {
-                if (AfflatusRapturePvE.CanUse(out act)) return true;
-            }
-            if (AfflatusSolacePvE.CanUse(out act)) return true;
+            if (UseLily(out act)) return true;
         }
 
         if (HolyPvE.CanUse(out act)) return true;
 
         if (AeroPvE.CanUse(out act)) return true;
+
         if (StonePvE.CanUse(out act)) return true;
 
         if (Lily >= 2 && LilyTime > 5)
         {
-            if (AfflatusSolacePvE.CanUse(out act)) return true;
+            if (UseLily(out act)) return true;
         }
 
         if (AeroPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
 
         return base.GeneralGCD(out act);
+    }
+
+    private bool UseLily(out IAction? act)
+    {
+        if (PartyMembersAverHP < 0.7)
+        {
+            if (AfflatusRapturePvE.CanUse(out act)) return true;
+        }
+        if (AfflatusSolacePvE.CanUse(out act)) return true;
+
+        return false;
     }
 
     protected override bool AttackAbility(out IAction? act)

@@ -102,7 +102,7 @@ public sealed class SCH_Default : ScholarRotation
         {
             if (SummonSeraphPvE.CanUse(out act)) return true;
         }
-        if (ConsolationPvE.CanUse(out act, isEmpty: true)) return true;
+        if (ConsolationPvE.CanUse(out act, usedUp: true)) return true;
         if (FeyBlessingPvE.CanUse(out act)) return true;
 
         if (WhisperingDawnPvE.CanUse(out act)) return true;
@@ -129,7 +129,7 @@ public sealed class SCH_Default : ScholarRotation
         {
             if (SummonSeraphPvE.CanUse(out act)) return true;
         }
-        if (ConsolationPvE.CanUse(out act, isEmpty: true)) return true;
+        if (ConsolationPvE.CanUse(out act, usedUp: true)) return true;
         if (SacredSoilPvE.CanUse(out act)) return true;
 
         return base.DefenseAreaAbility(out act);
@@ -145,7 +145,7 @@ public sealed class SCH_Default : ScholarRotation
 
         if (DissipationPvE.EnoughLevel && DissipationPvE.Cooldown.WillHaveOneChargeGCD(3) && DissipationPvE.IsEnabled || AetherflowPvE.Cooldown.WillHaveOneChargeGCD(3))
         {
-            if (EnergyDrainPvE.CanUse(out act, isEmpty: true)) return true;
+            if (EnergyDrainPvE.CanUse(out act, usedUp: true)) return true;
         }
 
         if (DissipationPvE.CanUse(out act)) return true;

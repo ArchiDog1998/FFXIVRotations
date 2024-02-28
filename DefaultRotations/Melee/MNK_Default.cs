@@ -189,7 +189,7 @@ public sealed class MNK_Default : MonkRotation
             && (!RiddleOfFirePvE.EnoughLevel || Player.HasStatus(false, StatusID.RiddleOfFire) && !Player.WillStatusEndGCD(3, 0, false, StatusID.RiddleOfFire)
             || RiddleOfFirePvE.Cooldown.WillHaveOneChargeGCD(1) && (PerfectBalancePvE.Cooldown.ElapsedAfter(60) || !PerfectBalancePvE.Cooldown.IsCoolingDown)))
         {
-            if (PerfectBalancePvE.CanUse(out act, isEmpty: true)) return true;
+            if (PerfectBalancePvE.CanUse(out act, usedUp: true)) return true;
         }
 
         if (BrotherhoodPvE.CanUse(out act, skipAoeCheck: true)) return true;

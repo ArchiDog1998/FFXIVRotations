@@ -69,7 +69,7 @@ public sealed class WAR_Default : WarriorRotation
 
         if (IsBurstStatus)
         {
-            if (InfuriatePvE.CanUse(out act, isEmpty: true)) return true;
+            if (InfuriatePvE.CanUse(out act, usedUp: true)) return true;
         }
 
         if (CombatElapsedLessGCD(4)) return false;
@@ -77,7 +77,7 @@ public sealed class WAR_Default : WarriorRotation
         if (OrogenyPvE.CanUse(out act)) return true;
         if (UpheavalPvE.CanUse(out act)) return true;
 
-        if (OnslaughtPvE.CanUse(out act, isEmpty: IsBurstStatus) && !IsMoving) return true;
+        if (OnslaughtPvE.CanUse(out act, usedUp: IsBurstStatus) && !IsMoving) return true;
 
         return base.AttackAbility(out act);
     }
