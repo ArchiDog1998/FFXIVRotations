@@ -15,7 +15,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (AfflatusMiseryPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        bool liliesNearlyFull = Lily == 2 && LilyAfter(10);
+        bool liliesNearlyFull = Lily == 2 && LilyTime > 13;
         bool liliesFullNoBlood = Lily == 3;
         if (Configs.GetBool("UseLilyWhenFull") && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel && BloodLily < 3)
         {
@@ -28,7 +28,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (StonePvE.CanUse(out act)) return true;
 
-        if (Lily >= 2 && LilyTime > 5)
+        if (Lily >= 2)
         {
             if (UseLily(out act)) return true;
         }
@@ -40,12 +40,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
     private bool UseLily(out IAction? act)
     {
-        if (PartyMembersAverHP < 0.7)
-        {
-            if (AfflatusRapturePvE.CanUse(out act)) return true;
-        }
-        if (AfflatusSolacePvE.CanUse(out act)) return true;
-
+        if (AfflatusRapturePvE.CanUse(out act, skipAoeCheck: true)) return true;
         return false;
     }
 
@@ -160,4 +155,9 @@ public sealed class WHM_Default :WhiteMageRotation
         }
         return base.CountDownAction(remainTime);
     }
+
+    //public override void DisplayStatus()
+    //{
+    //    ImGui.Text(LilyTime.ToString());
+    //}
 }
