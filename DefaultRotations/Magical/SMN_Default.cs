@@ -1,4 +1,5 @@
 ﻿using RotationSolver.Basic.Helpers;
+using System.ComponentModel;
 
 namespace DefaultRotations.Magical;
 
@@ -9,13 +10,35 @@ namespace DefaultRotations.Magical;
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/smn/6.png")]
 public sealed class SMN_Default : SummonerRotation
 {
-    protected override IRotationConfigSet CreateConfiguration()
+    public enum SwiftType : byte
     {
-        return base.CreateConfiguration()
-            .SetCombo(CombatType.PvE, "addSwiftcast", 0, "Use Swiftcast", "No", "Emerald", "Ruby", "All")
-            .SetCombo(CombatType.PvE, "SummonOrder", 0, "Order", "Topaz-Emerald-Ruby", "Topaz-Ruby-Emerald", "Emerald-Topaz-Ruby")
-            .SetBool(CombatType.PvE, "addCrimsonCyclone", true, "Use Crimson Cyclone");
+        No,
+        Emerald,
+        Ruby,
+        All,
     }
+
+    public enum SummonOrderType : byte
+    {
+        [Description("Topaz-Emerald-Ruby")]
+        TopazEmeraldRuby,
+
+        [Description("Topaz-Ruby-Emerald")]
+        TopazRubyEmerald,
+
+        [Description("Emerald-Topaz-Ruby")]
+        EmeraldTopazRuby,
+    }
+
+    [RotationConfig(CombatType.PvE, Name = "Order")]
+    public SummonOrderType SummonOrder { get; set; } = SummonOrderType.EmeraldTopazRuby;
+
+
+    [RotationConfig(CombatType.PvE, Name = "Use Swiftcast")]
+    public SwiftType AddSwiftcast { get; set; } = SwiftType.No;
+
+    [RotationConfig(CombatType.PvE, Name = "Use Crimson Cyclone")]
+    public bool AddCrimsonCyclone { get; set; } = true;
 
     public override bool CanHealSingleSpell => false;
 
@@ -38,7 +61,7 @@ public sealed class SMN_Default : SummonerRotation
         //Single
         if (GemshinePvE.CanUse(out act)) return true;
 
-        if (!IsMoving && Configs.GetBool("addCrimsonCyclone") && CrimsonCyclonePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!IsMoving && AddCrimsonCyclone && CrimsonCyclonePvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         if ((Player.HasStatus(false, StatusID.SearingLight) || SearingLightPvE.Cooldown.IsCoolingDown) && SummonBahamutPvE.CanUse(out act)) return true;
         if (!SummonBahamutPvE.EnoughLevel && HasHostilesInRange && AetherchargePvE.CanUse(out act)) return true;
@@ -47,21 +70,22 @@ public sealed class SMN_Default : SummonerRotation
             && !Player.HasStatus(true, StatusID.Swiftcast) && !InBahamut && !InPhoenix
             && RuinIvPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        switch (Configs.GetCombo("SummonOrder"))
+        switch (SummonOrder)
         {
+            case SummonOrderType.TopazEmeraldRuby:
             default:
                 if (SummonTopazPvE.CanUse(out act)) return true;
                 if (SummonEmeraldPvE.CanUse(out act)) return true;
                 if (SummonRubyPvE.CanUse(out act)) return true;
                 break;
 
-            case 1:
+            case  SummonOrderType.TopazRubyEmerald:
                 if (SummonTopazPvE.CanUse(out act)) return true;
                 if (SummonRubyPvE.CanUse(out act)) return true;
                 if (SummonEmeraldPvE.CanUse(out act)) return true;
                 break;
 
-            case 2:
+            case  SummonOrderType.EmeraldTopazRuby:
                 if (SummonEmeraldPvE.CanUse(out act)) return true;
                 if (SummonTopazPvE.CanUse(out act)) return true;
                 if (SummonRubyPvE.CanUse(out act)) return true;
@@ -110,25 +134,25 @@ public sealed class SMN_Default : SummonerRotation
     }
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-        //即刻进循环
-        switch (Configs.GetCombo("addSwiftcast"))
+        switch (AddSwiftcast)
         {
+            case SwiftType.No:
             default:
                 break;
-            case 1:
+            case SwiftType.Emerald:
                 if (nextGCD.IsTheSameTo(true, SlipstreamPvE) || Attunement == 0 && Player.HasStatus(true, StatusID.GarudasFavor))
                 {
                     if (SwiftcastPvE.CanUse(out act)) return true;
                 }
                 break;
-            case 2:
+            case SwiftType.Ruby:
                 if (InIfrit && (nextGCD.IsTheSameTo(true, GemshinePvE, PreciousBrilliancePvE) || IsMoving))
                 {
                     if (SwiftcastPvE.CanUse(out act)) return true;
                 }
                 break;
 
-            case 3:
+            case SwiftType.All:
                 if (nextGCD.IsTheSameTo(true, SlipstreamPvE) || Attunement == 0 && Player.HasStatus(true, StatusID.GarudasFavor) ||
                    InIfrit && (nextGCD.IsTheSameTo(true, GemshinePvE, PreciousBrilliancePvE) || IsMoving))
                 {

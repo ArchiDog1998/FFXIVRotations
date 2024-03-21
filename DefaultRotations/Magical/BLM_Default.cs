@@ -31,11 +31,14 @@ public class BLM_Default : BlackMageRotation
         return true;
     }
 
-    protected override IRotationConfigSet CreateConfiguration()
-        => base.CreateConfiguration()
-        .SetBool(CombatType.PvE, "UseTransposeForParadox", true, "Use Transpose to Astral Fire before Paradox")
-        .SetBool(CombatType.PvE, "ExtendTimeSafely", false, "Extend Astral Fire Time Safely")
-        .SetBool(CombatType.PvE, "UseN15", false, @"Use ""Double Paradox"" rotation [N15]");
+    [RotationConfig(CombatType.PvE, Name = "Use Transpose to Astral Fire before Paradox")]
+    public bool UseTransposeForParadox { get; set; } = true;
+
+    [RotationConfig(CombatType.PvE, Name = "Extend Astral Fire Time Safely")]
+    public bool ExtendTimeSafely { get; set; } = false;
+
+    [RotationConfig(CombatType.PvE, Name = @"Use ""Double Paradox"" rotation [N15]")]
+    public bool UseN15 { get; set; } = false;
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -224,7 +227,7 @@ public class BLM_Default : BlackMageRotation
         {
             case 1:
                 if (FireIiPvE.CanUse(out act)) return true;
-                if (Configs.GetBool("UseN15"))
+                if (UseN15)
                 {
                     if (HasFire && FireIiiPvE.CanUse(out act)) return true;
                     if (IsParadoxActive && FirePvE.CanUse(out act)) return true;
@@ -237,7 +240,7 @@ public class BLM_Default : BlackMageRotation
                 break;
         }
 
-        if (ElementTimeEndAfterGCD(Configs.GetBool("ExtendTimeSafely") ? 3u : 2u))
+        if (ElementTimeEndAfterGCD(ExtendTimeSafely ? 3u : 2u))
         {
             if (CurrentMp >= FirePvE.Info.MPNeed * 2 + 800 && FirePvE.CanUse(out act)) return true;
             if (FlarePvE.CanUse(out act)) return true;
@@ -344,7 +347,7 @@ public class BLM_Default : BlackMageRotation
         if (CombatElapsedLess(6)) return false;
         if (UmbralSoulPvE.CanUse(out act)) return true;
         if (InAstralFire && TransposePvE.CanUse(out act)) return true;
-        if (Configs.GetBool("UseTransposeForParadox") &&
+        if (UseTransposeForParadox &&
             InUmbralIce && !IsParadoxActive && UmbralIceStacks == 3
             && TransposePvE.CanUse(out act)) return true;
 

@@ -4,10 +4,17 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default :WhiteMageRotation
 {
-    protected override IRotationConfigSet CreateConfiguration()
-        => base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "UseLilyWhenFull", true, "Use Lily at max stacks.")
-            .SetBool(CombatType.PvE, "UsePreRegen", false, "Regen on Tank at 5 seconds remaining on Countdown.");
+    [RotationConfig(CombatType.PvE, Name = "Use Lily at max stacks.")]
+    public bool UseLilyWhenFull { get; set; } = true;
+
+    [RotationConfig(CombatType.PvE, Name = "Regen on Tank at 5 seconds remaining on Countdown.")]
+    public bool UsePreRegen { get; set; } = true;
+
+    public WHM_Default()
+    {
+        AfflatusRapturePvE.Setting.RotationCheck = () => BloodLily < 3;
+        AfflatusSolacePvE.Setting.RotationCheck = () => BloodLily < 3;
+    }
 
     protected override bool GeneralGCD(out IAction? act)
     {
@@ -15,9 +22,9 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (AfflatusMiseryPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        bool liliesNearlyFull = Lily == 2 && LilyAfter(10);
+        bool liliesNearlyFull = Lily == 2 && LilyTime > 13;
         bool liliesFullNoBlood = Lily == 3;
-        if (Configs.GetBool("UseLilyWhenFull") && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel && BloodLily < 3)
+        if (UseLilyWhenFull && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel && BloodLily < 3)
         {
             if (UseLily(out act)) return true;
         }
@@ -28,7 +35,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (StonePvE.CanUse(out act)) return true;
 
-        if (Lily >= 2 && LilyTime > 5)
+        if (Lily >= 2)
         {
             if (UseLily(out act)) return true;
         }
@@ -40,19 +47,18 @@ public sealed class WHM_Default :WhiteMageRotation
 
     private bool UseLily(out IAction? act)
     {
-        if (PartyMembersAverHP < 0.7)
-        {
-            if (AfflatusRapturePvE.CanUse(out act)) return true;
-        }
+        if (AfflatusRapturePvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (AfflatusSolacePvE.CanUse(out act)) return true;
-
         return false;
     }
 
     protected override bool AttackAbility(out IAction? act)
     {
-        if (PresenceOfMindPvE.CanUse(out act)) return true;
-        if (AssizePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (InCombat)
+        {
+            if (PresenceOfMindPvE.CanUse(out act)) return true;
+            if (AssizePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
         return base.AttackAbility(out act);
     }
@@ -62,7 +68,8 @@ public sealed class WHM_Default :WhiteMageRotation
         if (nextGCD is IBaseAction action && action.Info.MPNeed >= 1000 &&
             ThinAirPvE.CanUse(out act)) return true;
 
-        if (nextGCD.IsTheSameTo(true, AfflatusRapturePvE, MedicaPvE, MedicaIiPvE, CureIiiPvE))
+        if (nextGCD.IsTheSameTo(true, AfflatusRapturePvE, MedicaPvE, MedicaIiPvE, CureIiiPvE)
+            && (MergedStatus.HasFlag(AutoStatus.HealAreaSpell) || MergedStatus.HasFlag(AutoStatus.HealSingleSpell)))
         {
             if (PlenaryIndulgencePvE.CanUse(out act)) return true;
         }
@@ -144,7 +151,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (TemperancePvE.CanUse(out act)) return true;
 
-        if (LiturgyOfTheBellPvE.CanUse(out act)) return true;
+        if (LiturgyOfTheBellPvE.CanUse(out act, skipAoeCheck: true)) return true;
         return base.DefenseAreaAbility(out act);
     }
 
@@ -153,11 +160,16 @@ public sealed class WHM_Default :WhiteMageRotation
         if (remainTime < StonePvE.Info.CastTime + CountDownAhead
             && StonePvE.CanUse(out var act)) return act;
 
-        if (Configs.GetBool("UsePreRegen") && remainTime <= 5 && remainTime > 3)
+        if (UsePreRegen && remainTime <= 5 && remainTime > 3)
         {
             if (RegenPvE.CanUse(out act)) return act;
             if (DivineBenisonPvE.CanUse(out act)) return act;
         }
         return base.CountDownAction(remainTime);
     }
+
+    //public override void DisplayStatus()
+    //{
+    //    ImGui.Text(LilyTime.ToString());
+    //}
 }

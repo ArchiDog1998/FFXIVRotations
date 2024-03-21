@@ -8,6 +8,9 @@
 [SourceCode(Path = "main/DefaultRotations/Melee/RPR_Default.cs")]
 public sealed class RPR_Default : ReaperRotation
 {
+    [RotationConfig(CombatType.PvE)]
+    public bool EnshroudPooling { get; set; } = false;
+
     protected override IAction? CountDownAction(float remainTime)
     {
         if (remainTime < HarpePvE.Info.CastTime + CountDownAhead
@@ -127,8 +130,8 @@ public sealed class RPR_Default : ReaperRotation
         }
 
         if (IsTargetBoss && IsTargetDying ||
-           !Configs.GetBool("EnshroudPooling") && Shroud >= 50 ||
-           Configs.GetBool("EnshroudPooling") && Shroud >= 50 &&
+           !EnshroudPooling && Shroud >= 50 ||
+           EnshroudPooling && Shroud >= 50 &&
            (!PlentifulHarvestPvE.EnoughLevel ||
            Player.HasStatus(true, StatusID.ArcaneCircle) ||
            ArcaneCirclePvE.Cooldown.WillHaveOneCharge(8) ||

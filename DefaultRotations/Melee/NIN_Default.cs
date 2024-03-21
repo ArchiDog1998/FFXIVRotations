@@ -16,12 +16,11 @@ public sealed class NIN_Default : NinjaRotation
     private bool InMug => MugPvE.Cooldown.IsCoolingDown && !MugPvE.Cooldown.ElapsedAfter(19);
     private static bool NoNinjutsu => AdjustId(ActionID.NinjutsuPvE) is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
 
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "UseHide", true, "Use Hide")
-            .SetBool(CombatType.PvE, "AutoUnhide", true, "Use Unhide");
-    }
+    [RotationConfig(CombatType.PvE, Name = "Use Hide")]
+    public bool UseHide { get; set; } = true;
+
+    [RotationConfig(CombatType.PvE, Name = "Use Unhide")]
+    public bool AutoUnhide { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -57,6 +56,7 @@ public sealed class NIN_Default : NinjaRotation
         if (act == null || AdjustId(ActionID.NinjutsuPvE) == ActionID.RabbitMediumPvE) return;
 
         if (_ninActionAim != null && IsLastAction(false, TenPvE, JinPvE, ChiPvE, FumaShurikenPvE_18873, FumaShurikenPvE_18874, FumaShurikenPvE_18875)) return;
+
         if (_ninActionAim != act)
         {
             _ninActionAim = act;
@@ -106,6 +106,12 @@ public sealed class NIN_Default : NinjaRotation
         }
         else
         {
+            if (Player.HasStatus(true, StatusID.Suiton)
+                && _ninActionAim == SuitonPvE && NoNinjutsu)
+            {
+                ClearNinjutsu();
+            }
+
             //Buff
             if (HuraijinPvE.CanUse(out act)) return true;
             if (!HutonEndAfterGCD() && _ninActionAim?.ID == HutonPvE.ID)
@@ -124,7 +130,8 @@ public sealed class NIN_Default : NinjaRotation
             //Aoe
             if (KatonPvE.CanUse(out _))
             {
-                if (!Player.HasStatus(true, StatusID.Doton) && !IsMoving && !TenChiJinPvE.Cooldown.WillHaveOneCharge(10))
+                if (!Player.HasStatus(true, StatusID.Doton) && !IsMoving 
+                    && (!TenChiJinPvE.Cooldown.WillHaveOneCharge(6)) || !TenChiJinPvE.Cooldown.IsCoolingDown)
                     SetNinjutsu(DotonPvE);
                 else SetNinjutsu(KatonPvE);
                 return false;
@@ -273,39 +280,40 @@ public sealed class NIN_Default : NinjaRotation
         var hasRaijuReady = Player.HasStatus(true, StatusID.RaijuReady);
 
         if ((InTrickAttack || InMug) && NoNinjutsu && !hasRaijuReady
+            && !Player.HasStatus(true, StatusID.TenChiJin)
             && PhantomKamaitachiPvE.CanUse(out act)) return true;
 
         if (ChoiceNinjutsu(out act)) return true;
-        if ((!InCombat || !CombatElapsedLess(9)) && DoNinjutsu(out act)) return true;
+        if ((!InCombat || !CombatElapsedLess(7)) && DoNinjutsu(out act)) return true;
 
         //No Ninjutsu
         if (NoNinjutsu)
         {
             if (!CombatElapsedLess(10) && FleetingRaijuPvE.CanUse(out act)) return true;
             if (hasRaijuReady) return false;
-
-            if (HuraijinPvE.CanUse(out act)) return true;
-
-            //AOE
-            if (HakkeMujinsatsuPvE.CanUse(out act)) return true;
-            if (DeathBlossomPvE.CanUse(out act)) return true;
-
-            //Single
-            if (ArmorCrushPvE.CanUse(out act)) return true;
-            if (AeolianEdgePvE.CanUse(out act)) return true;
-            if (GustSlashPvE.CanUse(out act)) return true;
-            if (SpinningEdgePvE.CanUse(out act)) return true;
-
-            //Range
-            if (MergedStatus.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
-            if (ThrowingDaggerPvE.CanUse(out act)) return true;
         }
 
-        if (Configs.GetBool("AutoUnhide"))
+        if (HuraijinPvE.CanUse(out act)) return true;
+
+        //AOE
+        if (HakkeMujinsatsuPvE.CanUse(out act)) return true;
+        if (DeathBlossomPvE.CanUse(out act)) return true;
+
+        //Single
+        if (ArmorCrushPvE.CanUse(out act)) return true;
+        if (AeolianEdgePvE.CanUse(out act)) return true;
+        if (GustSlashPvE.CanUse(out act)) return true;
+        if (SpinningEdgePvE.CanUse(out act)) return true;
+
+        //Range
+        if (MergedStatus.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
+        if (ThrowingDaggerPvE.CanUse(out act)) return true;
+
+        if (AutoUnhide)
         {
             StatusHelper.StatusOff(StatusID.Hidden);
         }
-        if (!InCombat && _ninActionAim == null && Configs.GetBool("UseHide")
+        if (!InCombat && _ninActionAim == null && UseHide
             && TenPvE.Cooldown.IsCoolingDown && HidePvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
@@ -370,7 +378,10 @@ public sealed class NIN_Default : NinjaRotation
 
     public override void DisplayStatus()
     {
-        ImGui.Text(_ninActionAim?.ToString() ?? "No Aimed Ninjustus.");
+        if(_ninActionAim != null)
+        {
+            ImGui.Text(_ninActionAim.ToString()  + _ninActionAim.AdjustedID.ToString());
+        }
         base.DisplayStatus();
     }
 }

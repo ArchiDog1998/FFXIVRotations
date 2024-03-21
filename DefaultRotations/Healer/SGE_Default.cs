@@ -5,13 +5,11 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/SGE_Default.cs")]
 public sealed class SGE_Default : SageRotation
 {
-    public override bool CanHealSingleSpell => base.CanHealSingleSpell && (Configs.GetBool("GCDHeal") || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
-    public override bool CanHealAreaSpell => base.CanHealAreaSpell && (Configs.GetBool("GCDHeal") || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
+    [RotationConfig(CombatType.PvE, Name = "Use spells with cast times to heal.")]
+    public bool GCDHeal { get; set; } = false;
 
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration().SetBool(CombatType.PvE, "GCDHeal", false, "Use spells with cast times to heal.");
-    }
+    public override bool CanHealSingleSpell => base.CanHealSingleSpell && (GCDHeal || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
+    public override bool CanHealAreaSpell => base.CanHealAreaSpell && (GCDHeal || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
 
     protected override IAction? CountDownAction(float remainTime)
     {

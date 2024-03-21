@@ -6,10 +6,8 @@ namespace DefaultRotations.Melee;
 [LinkDescription("https://i.imgur.com/C5lQhpe.png")]
 public sealed class MNK_Default : MonkRotation
 {
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration().SetBool(CombatType.PvE, "AutoFormShift", true, "Use Form Shift");
-    }
+    [RotationConfig(CombatType.PvE, Name = "Use Form Shift")]
+    public bool AutoFormShift { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -61,11 +59,11 @@ public sealed class MNK_Default : MonkRotation
     {
         if (PerfectBalanceActions(out act)) return true;
 
-
         if (Player.HasStatus(true, StatusID.CoeurlForm))
         {
             if (CoerlForm(out act)) return true;
         }
+
         if (Player.HasStatus(true, StatusID.RiddleOfFire)
             && !RiddleOfFirePvE.Cooldown.ElapsedAfterGCD(2) && (PerfectBalancePvE.Cooldown.ElapsedAfter(60) || !PerfectBalancePvE.Cooldown.IsCoolingDown))
         {
@@ -79,7 +77,7 @@ public sealed class MNK_Default : MonkRotation
 
         if (MergedStatus.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
         if (Chakra < 5 && MeditationPvE.CanUse(out act)) return true;
-        if (Configs.GetBool("AutoFormShift") && FormShiftPvE.CanUse(out act)) return true;
+        if (AutoFormShift && FormShiftPvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
     }

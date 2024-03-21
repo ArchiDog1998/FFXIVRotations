@@ -30,7 +30,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
             if ((InTwoMIsBurst() && BloodWeaponPvE.Cooldown.IsCoolingDown && LivingShadowPvE.Cooldown.IsCoolingDown && SaltedEarthPvE.Cooldown.IsCoolingDown && ShadowbringerPvE.Cooldown.CurrentCharges == 0 && CarveAndSpitPvE.Cooldown.IsCoolingDown)) return true;
 
-            if (Configs.GetBool("TheBlackestNight") && CurrentMp < 6000) return false;
+            if (TheBlackestNight && CurrentMp < 6000) return false;
 
             return CurrentMp >= 8500;
         }
@@ -50,9 +50,8 @@ public sealed class DRK_Default : DarkKnightRotation
         }
     }
 
-    protected override IRotationConfigSet CreateConfiguration()
-        => base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "TheBlackestNight", true, "Keep at least 3000 MP");
+    [RotationConfig(CombatType.PvE, Name = "Keep at least 3000 MP")]
+    public bool TheBlackestNight { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)
     {
