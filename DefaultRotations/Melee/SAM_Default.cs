@@ -4,15 +4,10 @@
 [SourceCode(Path = "main/DefaultRotations/Melee/SAM_Default.cs")]
 public sealed class SAM_Default : SamuraiRotation
 {
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration()
-            .SetInt(CombatType.PvE, "addKenki", 50, "Use Kenki above.", min: 0, max: 85, speed: 5);
-    }
+    [Range(0, 85, ConfigUnitType.None, 5)]
+    [RotationConfig(CombatType.PvE, Name = "Use Kenki above.")]
+    public int AddKenki { get; set; } = 50;
 
-    /// <summary>
-    /// 明镜止水
-    /// </summary>
     private static bool HaveMeikyoShisui => Player.HasStatus(true, StatusID.MeikyoShisui);
 
     protected override bool GeneralGCD(out IAction? act)
@@ -43,6 +38,7 @@ public sealed class SAM_Default : SamuraiRotation
 
         if ((!HasMoon || IsMoonTimeLessThanFlower || !OkaPvE.EnoughLevel) && MangetsuPvE.CanUse(out act, skipAoeCheck : HaveMeikyoShisui && !HasGetsu)) return true;
         if ((!HasFlower || !IsMoonTimeLessThanFlower) && OkaPvE.CanUse(out act, skipAoeCheck: HaveMeikyoShisui && !HasKa)) return true;
+
         if (!HasSetsu && YukikazePvE.CanUse(out act, skipAoeCheck: HaveMeikyoShisui && HasGetsu && HasKa && !HasSetsu)) return true;
 
         if (GekkoPvE.CanUse(out act, skipComboCheck: HaveMeikyoShisui && !HasGetsu)) return true;
@@ -51,10 +47,11 @@ public sealed class SAM_Default : SamuraiRotation
         if ((!HasMoon || IsMoonTimeLessThanFlower || !ShifuPvE.EnoughLevel) && JinpuPvE.CanUse(out act)) return true;
         if ((!HasFlower || !IsMoonTimeLessThanFlower) && ShifuPvE.CanUse(out act)) return true;
 
+        if (FukoPvE.CanUse(out act)) return true;
+        if (!FukoPvE.EnoughLevel && FugaPvE.CanUse(out act)) return true;
+
         if (!HaveMeikyoShisui)
         {
-            if (FukoPvE.CanUse(out act)) return true;
-            if (!FukoPvE.EnoughLevel && FugaPvE.CanUse(out act)) return true;
             if (HakazePvE.CanUse(out act)) return true;
 
             if (EnpiPvE.CanUse(out act)) return true;
@@ -84,7 +81,7 @@ public sealed class SAM_Default : SamuraiRotation
         if (ShohaIiPvE.CanUse(out act)) return true;
         if (ShohaPvE.CanUse(out act)) return true;
 
-        if (Kenki >= 50 && IkishotenPvE.Cooldown.WillHaveOneCharge(10) || Kenki >= Configs.GetInt("addKenki") || IsTargetBoss && IsTargetDying)
+        if (Kenki >= 50 && IkishotenPvE.Cooldown.WillHaveOneCharge(10) || Kenki >= AddKenki || IsTargetBoss && IsTargetDying)
         {
             if (HissatsuKyutenPvE.CanUse(out act)) return true;
             if (HissatsuShintenPvE.CanUse(out act)) return true;

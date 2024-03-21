@@ -5,15 +5,17 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/SCH_Default.cs")]
 public sealed class SCH_Default : ScholarRotation
 {
-    public override bool CanHealSingleSpell => base.CanHealSingleSpell && (Configs.GetBool("GCDHeal") || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
-    public override bool CanHealAreaSpell => base.CanHealAreaSpell && (Configs.GetBool("GCDHeal") || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
+    [RotationConfig(CombatType.PvE, Name = "Use spells with cast times to heal.")]
+    public bool GCDHeal { get; set; } = false;
 
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration().SetBool(CombatType.PvE, "GCDHeal", false, "Use spells with cast times to heal.")
-                                            .SetBool(CombatType.PvE, "prevDUN", false, "Recitation at 15 seconds remaining on Countdown.")
-                                            .SetBool(CombatType.PvE, "GiveT", false, "Give Recitation to Tank");
-    }
+    [RotationConfig(CombatType.PvE, Name = "Recitation at 15 seconds remaining on Countdown.")]
+    public bool PrevDUN { get; set; } = false;
+
+    [RotationConfig(CombatType.PvE, Name = "Give Recitation to Tank")]
+    public bool GiveT { get; set; } = false;
+
+    public override bool CanHealSingleSpell => base.CanHealSingleSpell && (GCDHeal || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
+    public override bool CanHealAreaSpell => base.CanHealAreaSpell && (GCDHeal || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
@@ -159,13 +161,13 @@ public sealed class SCH_Default : ScholarRotation
         if (remainTime < RuinPvE.Info.CastTime + CountDownAhead
             && RuinPvE.CanUse(out var act)) return act;
 
-        if (Configs.GetBool("prevDUN") && remainTime <= 15 && !DeploymentTacticsPvE.Cooldown.IsCoolingDown && PartyMembers.Count() > 1)
+        if (PrevDUN && remainTime <= 15 && !DeploymentTacticsPvE.Cooldown.IsCoolingDown && PartyMembers.Count() > 1)
         {
 
             if (!RecitationPvE.Cooldown.IsCoolingDown) return RecitationPvE;
             if (!PartyMembers.Any((n) => n.HasStatus(true, StatusID.Galvanize)))
             {
-                if (Configs.GetBool("GiveT"))
+                if (GiveT)
                 {
                     return AdloquiumPvE;
                 }

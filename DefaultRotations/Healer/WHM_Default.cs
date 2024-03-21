@@ -4,10 +4,11 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default :WhiteMageRotation
 {
-    protected override IRotationConfigSet CreateConfiguration()
-        => base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "UseLilyWhenFull", true, "Use Lily at max stacks.")
-            .SetBool(CombatType.PvE, "UsePreRegen", false, "Regen on Tank at 5 seconds remaining on Countdown.");
+    [RotationConfig(CombatType.PvE, Name = "Use Lily at max stacks.")]
+    public bool UseLilyWhenFull { get; set; } = true;
+
+    [RotationConfig(CombatType.PvE, Name = "Regen on Tank at 5 seconds remaining on Countdown.")]
+    public bool UsePreRegen { get; set; } = true;
 
     public WHM_Default()
     {
@@ -23,7 +24,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         bool liliesNearlyFull = Lily == 2 && LilyTime > 13;
         bool liliesFullNoBlood = Lily == 3;
-        if (Configs.GetBool("UseLilyWhenFull") && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel && BloodLily < 3)
+        if (UseLilyWhenFull && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel && BloodLily < 3)
         {
             if (UseLily(out act)) return true;
         }
@@ -159,7 +160,7 @@ public sealed class WHM_Default :WhiteMageRotation
         if (remainTime < StonePvE.Info.CastTime + CountDownAhead
             && StonePvE.CanUse(out var act)) return act;
 
-        if (Configs.GetBool("UsePreRegen") && remainTime <= 5 && remainTime > 3)
+        if (UsePreRegen && remainTime <= 5 && remainTime > 3)
         {
             if (RegenPvE.CanUse(out act)) return act;
             if (DivineBenisonPvE.CanUse(out act)) return act;

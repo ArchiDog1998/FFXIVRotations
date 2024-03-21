@@ -5,9 +5,9 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/AST_Default.cs")]
 public sealed class AST_Default : AstrologianRotation
 {
-    protected override IRotationConfigSet CreateConfiguration()
-        => base.CreateConfiguration()
-            .SetFloat(ConfigUnitType.Seconds, CombatType.PvE, "UseEarthlyStarTime", 15, "Use Earthly Star during countdown timer.", 4, 20);
+    [Range(4, 20, ConfigUnitType.Seconds)]
+    [RotationConfig(CombatType.PvE, Name = "Use Earthly Star during countdown timer.")]
+    public float UseEarthlyStarTime { get; set; } = 15;
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -15,7 +15,7 @@ public sealed class AST_Default : AstrologianRotation
             && MaleficPvE.CanUse(out var act)) return act;
         if (remainTime < 3 && UseBurstMedicine(out act)) return act;
         if (remainTime is < 4 and > 3 && AspectedBeneficPvE.CanUse(out act)) return act;
-        if (remainTime < Configs.GetFloat("UseEarthlyStarTime")
+        if (remainTime < UseEarthlyStarTime
             && EarthlyStarPvE.CanUse(out act)) return act;
         if (remainTime < 30 && DrawPvE.CanUse(out act)) return act;
 

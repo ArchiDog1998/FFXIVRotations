@@ -7,20 +7,21 @@
 [SourceCode(Path = "main/DefaultRotations/Tank/PLD_Default.cs")]
 public class PLD_Default : PaladinRotation
 {
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "UseDivineVeilPre", false, "Use Divine Veil at 15 seconds remaining on Countdown")
-            .SetBool(CombatType.PvE, "UseHolyWhenAway", true, "Use Holy Circle or Holy Spirit when out of melee range")
-            .SetBool(CombatType.PvE, "UseShieldBash", true, "Use Shield Bash when Low Blow is cooling down");
-    }
+    [RotationConfig(CombatType.PvE, Name = "Use Divine Veil at 15 seconds remaining on Countdown")]
+    public bool UseDivineVeilPre { get; set; } = false;
+
+    [RotationConfig(CombatType.PvE, Name = "Use Holy Circle or Holy Spirit when out of melee range")]
+    public bool UseHolyWhenAway { get; set; } = true;
+
+    [RotationConfig(CombatType.PvE, Name = "Use Shield Bash when Low Blow is cooling down")]
+    public bool UseShieldBash { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)
     {
         if (remainTime < HolySpiritPvE.Info.CastTime + CountDownAhead
             && HolySpiritPvE.CanUse(out var act)) return act;
 
-        if (remainTime < 15 && Configs.GetBool("UseDivineVeilPre")
+        if (remainTime < 15 && UseDivineVeilPre
             && DivineVeilPvE.CanUse(out act)) return act;
 
         return base.CountDownAction(remainTime);
@@ -78,14 +79,14 @@ public class PLD_Default : PaladinRotation
             if (AtonementPvE.CanUse(out act)) return true;
         }
         //123
-        if (Configs.GetBool("UseShieldBash") && ShieldBashPvE.CanUse(out act)) return true;
+        if (UseShieldBash && ShieldBashPvE.CanUse(out act)) return true;
 
         if (RageOfHalonePvE.CanUse(out act)) return true;
         if (RiotBladePvE.CanUse(out act)) return true;
         if (FastBladePvE.CanUse(out act)) return true;
 
         //Range
-        if (Configs.GetBool("UseHolyWhenAway"))
+        if (UseHolyWhenAway)
         {
             if (HolyCirclePvE.CanUse(out act)) return true;
             if (HolySpiritPvE.CanUse(out act)) return true;

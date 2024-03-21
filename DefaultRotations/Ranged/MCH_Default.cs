@@ -19,11 +19,9 @@ public sealed class MCH_Default : MachinistRotation
         return base.CountDownAction(remainTime);
     }
 
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "MCH_Reassemble", true, "Use Reassamble with ChainSaw");
-    }
+    [RotationConfig(CombatType.PvE, Name = "Use Reassamble with ChainSaw")]
+    public bool MCH_Reassemble { get; set; } = true;
+
 
     protected override bool GeneralGCD(out IAction? act)
     {
@@ -57,7 +55,7 @@ public sealed class MCH_Default : MachinistRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-        if (Configs.GetBool("MCH_Reassemble") && ChainSawPvE.EnoughLevel && nextGCD.IsTheSameTo(true, ChainSawPvE))
+        if (MCH_Reassemble && ChainSawPvE.EnoughLevel && nextGCD.IsTheSameTo(true, ChainSawPvE))
         {
             if (ReassemblePvE.CanUse(out act, usedUp: true)) return true;
         }

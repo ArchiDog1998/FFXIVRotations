@@ -7,23 +7,32 @@ namespace DefaultRotations.Ranged;
 [SourceCode(Path = "main/DefaultRotations/Ranged/BRD_Default.cs")]
 public sealed class BRD_Default : BardRotation
 {
-    protected override IRotationConfigSet CreateConfiguration() => base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "BindWAND", false, @"Use Raging Strikes on ""Wanderer's Minuet""")
-            .SetCombo(CombatType.PvE, "FirstSong", 0, "First Song", "Wanderer's Minuet", "Mage's Ballad", "Army's Paeon")
-            .SetFloat(ConfigUnitType.Seconds, CombatType.PvE, "WANDTime", 43, "Wanderer's Minuet Uptime", min: 0, max: 45, speed: 1)
-            .SetFloat(ConfigUnitType.Seconds, CombatType.PvE, "MAGETime", 34, "Mage's Ballad Uptime", min: 0, max: 45, speed: 1)
-            .SetFloat(ConfigUnitType.Seconds, CombatType.PvE, "ARMYTime", 43, "Army's Paeon Uptime", min: 0, max: 45, speed: 1);
+    [RotationConfig(CombatType.PvE, Name = @"Use Raging Strikes on ""Wanderer's Minuet""")]
+    public bool BindWAND { get; set; } = false;
 
-    private bool BindWAND => Configs.GetBool("BindWAND") && this.TheWanderersMinuetPvE.EnoughLevel;
-    private int FirstSong => Configs.GetCombo("FirstSong");
-    private float WANDRemainTime => 45 - Configs.GetFloat("WANDTime");
-    private float MAGERemainTime => 45 - Configs.GetFloat("MAGETime");
-    private float ARMYRemainTime => 45 - Configs.GetFloat("ARMYTime");
+    [RotationConfig(CombatType.PvE, Name = "First Song")]
+    private Song FirstSong { get; set; } = Song.WANDERER;
+
+    [Range(0, 45, ConfigUnitType.Seconds, 1)]
+    [RotationConfig(CombatType.PvE, Name = "Wanderer's Minuet Uptime")]
+    public float WANDTime { get; set; } = 43;
+
+    [Range(0, 45, ConfigUnitType.Seconds, 1)]
+    [RotationConfig(CombatType.PvE, Name = "Mage's Ballad Uptime")]
+    public float MAGETime { get; set; } = 34;
+
+    [Range(0, 45, ConfigUnitType.Seconds, 1)]
+    [RotationConfig(CombatType.PvE, Name = "Army's Paeon Uptime")]
+    public float ARMYTime { get; set; } = 43;
+
+    private bool BindWANDEnough => BindWAND && this.TheWanderersMinuetPvE.EnoughLevel;
+    private float WANDRemainTime => 45 - WANDTime;
+    private float MAGERemainTime => 45 - MAGETime;
+    private float ARMYRemainTime => 45 - ARMYTime;
 
     protected override bool GeneralGCD(out IAction? act)
     {
         #region PvP
-        
 
         //if (PvP_FinalFantasia.CanUse(out act, CanUseOption.MustUse)) return true;
 
@@ -93,9 +102,20 @@ public sealed class BRD_Default : BardRotation
 
         if (Song == Song.NONE)
         {
-            if (FirstSong == 0 && TheWanderersMinuetPvE.CanUse(out act)) return true;
-            if (FirstSong == 1 && MagesBalladPvE.CanUse(out act)) return true;
-            if (FirstSong == 2 && ArmysPaeonPvE.CanUse(out act)) return true;
+            switch (FirstSong)
+            {
+                case Song.WANDERER:
+                    if (TheWanderersMinuetPvE.CanUse(out act)) return true;
+                    break;
+
+                case Song.ARMY:
+                    if (ArmysPaeonPvE.CanUse(out act)) return true;
+                    break;
+
+                case Song.MAGE:
+                    if (MagesBalladPvE.CanUse(out act)) return true;
+                    break;
+            }
             if (TheWanderersMinuetPvE.CanUse(out act)) return true;
             if (MagesBalladPvE.CanUse(out act)) return true;
             if (ArmysPaeonPvE.CanUse(out act)) return true;
@@ -105,8 +125,8 @@ public sealed class BRD_Default : BardRotation
         {
             if (RagingStrikesPvE.CanUse(out act))
             {
-                if (BindWAND && Song == Song.WANDERER && TheWanderersMinuetPvE.EnoughLevel) return true;
-                if (!BindWAND) return true;
+                if (BindWANDEnough && Song == Song.WANDERER && TheWanderersMinuetPvE.EnoughLevel) return true;
+                if (!BindWANDEnough) return true;
             }
 
             if (RadiantFinalePvE.CanUse(out act, skipAoeCheck: true))

@@ -16,12 +16,11 @@ public sealed class NIN_Default : NinjaRotation
     private bool InMug => MugPvE.Cooldown.IsCoolingDown && !MugPvE.Cooldown.ElapsedAfter(19);
     private static bool NoNinjutsu => AdjustId(ActionID.NinjutsuPvE) is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
 
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "UseHide", true, "Use Hide")
-            .SetBool(CombatType.PvE, "AutoUnhide", true, "Use Unhide");
-    }
+    [RotationConfig(CombatType.PvE, Name = "Use Hide")]
+    public bool UseHide { get; set; } = true;
+
+    [RotationConfig(CombatType.PvE, Name = "Use Unhide")]
+    public bool AutoUnhide { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -301,11 +300,11 @@ public sealed class NIN_Default : NinjaRotation
             if (ThrowingDaggerPvE.CanUse(out act)) return true;
         }
 
-        if (Configs.GetBool("AutoUnhide"))
+        if (AutoUnhide)
         {
             StatusHelper.StatusOff(StatusID.Hidden);
         }
-        if (!InCombat && _ninActionAim == null && Configs.GetBool("UseHide")
+        if (!InCombat && _ninActionAim == null && UseHide
             && TenPvE.Cooldown.IsCoolingDown && HidePvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);

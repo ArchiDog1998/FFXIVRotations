@@ -6,7 +6,7 @@ namespace DefaultRotations.Magical;
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
 public sealed class RDM_Default : RedMageRotation
 {
-    static IBaseAction VerthunderStartUp { get; } = new BaseAction(ActionID.VerthunderPvE, false);
+    private static BaseAction VerthunderStartUp { get; } = new BaseAction(ActionID.VerthunderPvE, false);
 
     private bool CanStartMeleeCombo
     {
@@ -35,11 +35,8 @@ public sealed class RDM_Default : RedMageRotation
         }
     }
 
-    protected override IRotationConfigSet CreateConfiguration()
-    {
-        return base.CreateConfiguration()
-            .SetBool(CombatType.PvE, "UseVercure", false, "Use Vercure for Dualcast when out of combat.");
-    }
+    [RotationConfig( CombatType.PvE, Name = "Use Vercure for Dualcast when out of combat.")]
+    public bool UseVercure { get; set; }
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -76,7 +73,7 @@ public sealed class RDM_Default : RedMageRotation
 
         if (JoltPvE.CanUse(out act)) return true;
 
-        if (Configs.GetBool("UseVercure") && NotInCombatDelay && VercurePvE.CanUse(out act)) return true;
+        if (UseVercure && NotInCombatDelay && VercurePvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
     }
