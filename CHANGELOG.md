@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.8](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.7...v1.1.8) (2024-03-21)
+
+
+### Bug Fixes
+
+* changed the way to add configs. ([1830057](https://github.com/ArchiDog1998/FFXIVRotations/commit/1830057f4d4d1baa0163e04ce66a91c0af9c479a))
+* nin. ([5b1a2e8](https://github.com/ArchiDog1998/FFXIVRotations/commit/5b1a2e83f3b6ad42ae3b606ebb5e709bde86361f))
+* whm fix. ([5b61a81](https://github.com/ArchiDog1998/FFXIVRotations/commit/5b61a81faa446a7e1885da1c9fdb741c09d41dfa))
+* whm. ([ee56513](https://github.com/ArchiDog1998/FFXIVRotations/commit/ee565134751f71bac96bb6cc14766ec816bdaa56))
+
 ## [1.1.7](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.6...v1.1.7) (2024-02-28)
 
 
