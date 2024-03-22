@@ -302,7 +302,7 @@ public class BLM_Default : BlackMageRotation
         if (IsLastGCD(ActionID.ThunderPvE, ActionID.ThunderIiPvE, ActionID.ThunderIiiPvE, ActionID.ThunderIvPvE)) return false;
 
         //So long for thunder.
-        if (ThunderPvE.CanUse(out _) && (!ThunderPvE.Target?.Target?.WillStatusEndGCD(gcdCount, 0, true,
+        if (ThunderPvE.CanUse(out _) && (!ThunderPvE.Target.Target?.WillStatusEndGCD(gcdCount, 0, true,
             StatusID.Thunder, StatusID.ThunderIi, StatusID.ThunderIii, StatusID.ThunderIv) ?? false))
             return false;
 

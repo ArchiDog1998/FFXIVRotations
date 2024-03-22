@@ -43,7 +43,7 @@ public sealed class SGE_Default : SageRotation
             if (HaimaPvE.CanUse(out act, onLastAbility: true)) return true;
         }
 
-        if (TaurocholePvE.CanUse(out act, onLastAbility: true) && TaurocholePvE.Target?.Target?.GetHealthRatio() < 0.8) return true;
+        if (TaurocholePvE.CanUse(out act, onLastAbility: true) && TaurocholePvE.Target.Target?.GetHealthRatio() < 0.8) return true;
 
         if (Addersgall <= 1)
         {
@@ -62,7 +62,7 @@ public sealed class SGE_Default : SageRotation
     {
         if (EukrasianDiagnosisPvE.CanUse(out act))
         {
-            if (EukrasianDiagnosisPvE.Target?.Target?.HasStatus(false,
+            if (EukrasianDiagnosisPvE.Target.Target?.HasStatus(false,
                 StatusID.EukrasianDiagnosis_2865,
                 StatusID.EukrasianPrognosis_2866,
                 StatusID.Galvanize
@@ -97,7 +97,7 @@ public sealed class SGE_Default : SageRotation
     {
         if (EukrasianPrognosisPvE.CanUse(out act))
         {
-            if (EukrasianDiagnosisPvE.Target?.Target?.HasStatus(false,
+            if (EukrasianDiagnosisPvE.Target.Target?.HasStatus(false,
                 StatusID.EukrasianDiagnosis_2865,
                 StatusID.EukrasianPrognosis_2866,
                 StatusID.Galvanize
@@ -165,7 +165,7 @@ public sealed class SGE_Default : SageRotation
 
         if (DosisPvE.CanUse(out act)) return true;
 
-        if (EukrasianDiagnosisPvE.CanUse(out _) && (EukrasianDiagnosisPvE.Target?.Target?.IsJobCategory(JobRole.Tank) ?? false))
+        if (EukrasianDiagnosisPvE.CanUse(out _) && (EukrasianDiagnosisPvE.Target.Target?.IsJobCategory(JobRole.Tank) ?? false))
         {
             if (EukrasiaPvE.CanUse(out act)) return true;
             act = EukrasianDiagnosisPvE;

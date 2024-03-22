@@ -105,7 +105,7 @@ public sealed class AST_Default : AstrologianRotation
     {
         if (AspectedBeneficPvE.CanUse(out act)
             && (IsMoving
-            || AspectedBeneficPvE.Target?.Target?.GetHealthRatio() > 0.4)) return true;
+            || AspectedBeneficPvE.Target.Target?.GetHealthRatio() > 0.4)) return true;
 
         if (BeneficIiPvE.CanUse(out act)) return true;
         if (BeneficPvE.CanUse(out act)) return true;

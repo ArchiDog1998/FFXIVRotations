@@ -49,7 +49,7 @@ public sealed class MNK_Default : MonkRotation
     {
         if (RockbreakerPvE.CanUse(out act)) return true;
         if (UseLunarPerfectBalance && DemolishPvE.CanUse(out act, skipStatusProvideCheck: true)
-            && (DemolishPvE.Target?.Target?.WillStatusEndGCD(7, 0, true, StatusID.Demolish) ?? false)) return true;
+            && (DemolishPvE.Target.Target?.WillStatusEndGCD(7, 0, true, StatusID.Demolish) ?? false)) return true;
         if (DemolishPvE.CanUse(out act)) return true;
         if (SnapPunchPvE.CanUse(out act)) return true;
         return false;

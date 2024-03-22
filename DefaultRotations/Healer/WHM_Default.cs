@@ -83,7 +83,7 @@ public sealed class WHM_Default :WhiteMageRotation
         if (AfflatusSolacePvE.CanUse(out act)) return true;
 
         if (RegenPvE.CanUse(out act)
-            && (IsMoving || RegenPvE.Target?.Target?.GetHealthRatio() > 0.4)) return true;
+            && (IsMoving || RegenPvE.Target.Target?.GetHealthRatio() > 0.4)) return true;
 
         if (CureIiPvE.CanUse(out act)) return true;
 
@@ -96,7 +96,7 @@ public sealed class WHM_Default :WhiteMageRotation
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (BenedictionPvE.CanUse(out act) &&
-            RegenPvE.Target?.Target?.GetHealthRatio() < 0.3) return true;
+            RegenPvE.Target.Target?.GetHealthRatio() < 0.3) return true;
 
         if (!IsMoving && AsylumPvE.CanUse(out act)) return true;
 

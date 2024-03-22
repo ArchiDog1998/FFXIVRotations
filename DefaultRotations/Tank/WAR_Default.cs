@@ -29,7 +29,7 @@ public sealed class WAR_Default : WarriorRotation
         {
             if (!IsMoving && IsBurstStatus && PrimalRendPvE.CanUse(out act, skipAoeCheck: true))
             {
-                if (PrimalRendPvE.Target?.Target?.DistanceToPlayer() < 1) return true;
+                if (PrimalRendPvE.Target.Target?.DistanceToPlayer() < 1) return true;
             }
             if (IsBurstStatus || !Player.HasStatus(false, StatusID.NascentChaos) || BeastGauge > 80)
             {

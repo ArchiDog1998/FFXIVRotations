@@ -66,7 +66,7 @@ public sealed class GNB_Default : GunbreakerRotation
 
         if (DangerZonePvE.CanUse(out act))
         {
-            if (!IsFullParty && !(DangerZonePvE.Target?.Target?.IsBossFromTTK() ?? false)) return true;
+            if (!IsFullParty && !(DangerZonePvE.Target.Target?.IsBossFromTTK() ?? false)) return true;
 
             if (!GnashingFangPvE.EnoughLevel && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercyPvE.Cooldown.WillHaveOneCharge(15))) return true;
 
