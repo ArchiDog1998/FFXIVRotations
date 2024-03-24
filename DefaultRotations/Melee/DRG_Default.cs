@@ -88,9 +88,14 @@ public sealed class DRG_Default : DragoonRotation
         if (VorpalThrustPvE.CanUse(out act)) return true;
         if (TrueThrustPvE.CanUse(out act)) return true;
 
-        if (MergedStatus.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
         if (PiercingTalonPvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
+    }
+
+    protected override bool MoveForwardGCD(out IAction? act)
+    {
+        if (MoveForwardAbility(out act)) return true;
+        return base.MoveForwardGCD(out act);
     }
 }

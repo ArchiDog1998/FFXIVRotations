@@ -155,10 +155,15 @@ public sealed class DRK_Default : DarkKnightRotation
         if (SyphonStrikePvE.CanUse(out act)) return true;
         if (HardSlashPvE.CanUse(out act)) return true;
 
-        if (MergedStatus.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
         if (BloodWeaponPvE.Cooldown.IsCoolingDown && !Player.HasStatus(true, StatusID.BloodWeapon) && UnmendPvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
+    }
+
+    protected override bool MoveForwardGCD(out IAction? act)
+    {
+        if (MoveForwardAbility(out act)) return true;
+        return base.MoveForwardGCD(out act);
     }
 
     protected override bool AttackAbility(out IAction? act)
