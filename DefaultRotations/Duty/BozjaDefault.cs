@@ -5,28 +5,6 @@ namespace DefaultRotations.Duty;
 [Rotation("Bozja Default",  CombatType.PvE)]
 internal class BozjaDefault : BozjaRotation
 {
-    public override bool ProvokeAbility(out IAction? act)
-    {
-        if (VariantUltimatumPvE.CanUse(out act)) return true;
-        return base.ProvokeAbility(out act);
-    }
-
-    public override bool AttackAbility(out IAction? act)
-    {
-        if (VariantSpiritDartPvE.CanUse(out act, skipAoeCheck: true)) return true;
-        if (VariantSpiritDartPvE_33863.CanUse(out act, skipAoeCheck: true)) return true;
-        if (VariantRampartPvE.CanUse(out act)) return true;
-        if (VariantRampartPvE_33864.CanUse(out act)) return true;
-        return base.AttackAbility(out act);
-    }
-
-    public override bool HealSingleGCD(out IAction? act)
-    {
-        if (VariantCurePvE.CanUse(out act)) return true;
-        if (VariantCurePvE_33862.CanUse(out act)) return true;
-        return base.HealSingleGCD(out act);
-    }
-
     public override bool DefenseSingleGCD(out IAction? act)
     {
         if (LostStoneskinPvE.CanUse(out act)) return true;

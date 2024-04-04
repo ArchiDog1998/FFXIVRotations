@@ -179,13 +179,8 @@ public sealed class MNK_Default : MonkRotation
             if (UseBurstMedicine(out act)) return true;
             if (IsBurst && !CombatElapsedLessGCD(2) && RiddleOfFirePvE.CanUse(out act, onLastAbility: true)) return true;
         }
-        return base.EmergencyAbility(nextGCD, out act);
-    }
 
-    protected override bool AttackAbility(out IAction? act)
-    {
         act = null;
-
         if (CombatElapsedLessGCD(3)) return false;
 
         if (BeastChakras.Contains(BeastChakra.NONE) && Player.HasStatus(true, StatusID.RaptorForm)
@@ -196,6 +191,15 @@ public sealed class MNK_Default : MonkRotation
         }
 
         if (BrotherhoodPvE.CanUse(out act, skipAoeCheck: true)) return true;
+
+        return base.EmergencyAbility(nextGCD, out act);
+    }
+
+    protected override bool AttackAbility(out IAction? act)
+    {
+        act = null;
+
+        if (CombatElapsedLessGCD(3)) return false;
 
         if (HowlingFistPvE.CanUse(out act)) return true;
         if (SteelPeakPvE.CanUse(out act)) return true;

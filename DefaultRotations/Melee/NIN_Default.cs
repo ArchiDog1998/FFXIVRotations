@@ -283,8 +283,8 @@ public sealed class NIN_Default : NinjaRotation
             && !Player.HasStatus(true, StatusID.TenChiJin)
             && PhantomKamaitachiPvE.CanUse(out act)) return true;
 
-        if (ChoiceNinjutsu(out act)) return true;
-        if ((!InCombat || !CombatElapsedLess(7)) && DoNinjutsu(out act)) return true;
+        if ((!InCombat || !CombatElapsedLess(7)) && ChoiceNinjutsu(out act)) return true;
+        if (DoNinjutsu(out act)) return true;
 
         //No Ninjutsu
         if (NoNinjutsu)
