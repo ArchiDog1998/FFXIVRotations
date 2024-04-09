@@ -3,9 +3,6 @@
 	  <DalamudLibPath>$(AppData)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="RotationSolver.Basic" Version="4.2.4.3" />
-  </ItemGroup>
-  <ItemGroup>
 	  <Reference Include="Dalamud">
 		  <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
 		  <Private>False</Private>
@@ -34,6 +31,8 @@
 		  <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
 		  <Private>False</Private>
 	  </Reference>
+	  <PackageReference Include="RotationSolver.Basic" Version="4.2.6.3" />
+	  
 	  <Using Include="Dalamud.Game.ClientState.JobGauge.Enums" />
 	  <Using Include="Dalamud.Game.ClientState.Objects.Types" />
 	  <Using Include="Dalamud.Interface" />
@@ -49,5 +48,6 @@
 	  <Using Include="RotationSolver.Basic.Rotations.Basic" />
 	  <Using Include="System.Numerics" />
 	  <Using Include="System.Reflection" />
+	  <Using Include="XIVConfigUI" />
   </ItemGroup>
 </Project>
