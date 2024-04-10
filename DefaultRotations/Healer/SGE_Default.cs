@@ -5,7 +5,8 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/SGE_Default.cs")]
 public sealed class SGE_Default : SageRotation
 {
-    [RotationConfig(CombatType.PvE, Name = "Use spells with cast times to heal.")]
+    [UI("Use spells with cast times to heal.")]
+    [RotationConfig(CombatType.PvE)]
     public bool GCDHeal { get; set; } = false;
 
     public override bool CanHealSingleSpell => base.CanHealSingleSpell && (GCDHeal || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);

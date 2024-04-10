@@ -8,6 +8,7 @@
 [SourceCode(Path = "main/DefaultRotations/Melee/RPR_Default.cs")]
 public sealed class RPR_Default : ReaperRotation
 {
+    [UI("Enshroud Pooling")]
     [RotationConfig(CombatType.PvE)]
     public bool EnshroudPooling { get; set; } = false;
 

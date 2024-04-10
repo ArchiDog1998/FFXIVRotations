@@ -6,7 +6,8 @@ namespace DefaultRotations.Melee;
 [LinkDescription("https://i.imgur.com/C5lQhpe.png")]
 public sealed class MNK_Default : MonkRotation
 {
-    [RotationConfig(CombatType.PvE, Name = "Use Form Shift")]
+    [UI("Use Form Shift")]
+    [RotationConfig(CombatType.PvE)]
     public bool AutoFormShift { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)

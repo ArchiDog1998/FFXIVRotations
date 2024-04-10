@@ -5,8 +5,9 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/AST_Default.cs")]
 public sealed class AST_Default : AstrologianRotation
 {
+    [UI("Use Earthly Star Time", Description = "Use Earthly Star during countdown timer.")]
     [Range(4, 20, ConfigUnitType.Seconds)]
-    [RotationConfig(CombatType.PvE, Name = "Use Earthly Star during countdown timer.")]
+    [RotationConfig(CombatType.PvE)]
     public float UseEarthlyStarTime { get; set; } = 15;
 
     protected override IAction? CountDownAction(float remainTime)

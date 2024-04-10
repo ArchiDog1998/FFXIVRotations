@@ -1,5 +1,4 @@
-﻿using RotationSolver.Basic.Helpers;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace DefaultRotations.Magical;
 
@@ -30,14 +29,17 @@ public sealed class SMN_Default : SummonerRotation
         EmeraldTopazRuby,
     }
 
-    [RotationConfig(CombatType.PvE, Name = "Order")]
+    [UI("Order")]
+    [RotationConfig(CombatType.PvE)]
     public SummonOrderType SummonOrder { get; set; } = SummonOrderType.EmeraldTopazRuby;
 
 
-    [RotationConfig(CombatType.PvE, Name = "Use Swiftcast")]
+    [UI("Use Swiftcast")]
+    [RotationConfig(CombatType.PvE)]
     public SwiftType AddSwiftcast { get; set; } = SwiftType.No;
 
-    [RotationConfig(CombatType.PvE, Name = "Use Crimson Cyclone")]
+    [UI("Use Crimson Cyclone")]
+    [RotationConfig(CombatType.PvE)]
     public bool AddCrimsonCyclone { get; set; } = true;
 
     public override bool CanHealSingleSpell => false;

@@ -4,8 +4,9 @@
 [SourceCode(Path = "main/DefaultRotations/Melee/SAM_Default.cs")]
 public sealed class SAM_Default : SamuraiRotation
 {
+    [UI("Use Kenki above.")]
     [Range(0, 85, ConfigUnitType.None, 5)]
-    [RotationConfig(CombatType.PvE, Name = "Use Kenki above.")]
+    [RotationConfig(CombatType.PvE)]
     public int AddKenki { get; set; } = 50;
 
     private static bool HaveMeikyoShisui => Player.HasStatus(true, StatusID.MeikyoShisui);

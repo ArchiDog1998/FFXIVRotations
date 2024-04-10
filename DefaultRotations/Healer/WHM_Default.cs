@@ -4,10 +4,12 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default :WhiteMageRotation
 {
-    [RotationConfig(CombatType.PvE, Name = "Use Lily at max stacks.")]
+    [UI("Use Lily at max stacks.")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseLilyWhenFull { get; set; } = true;
 
-    [RotationConfig(CombatType.PvE, Name = "Regen on Tank at 5 seconds remaining on Countdown.")]
+    [UI("Regen on Tank at 5 seconds remaining on Countdown.")]
+    [RotationConfig(CombatType.PvE)]
     public bool UsePreRegen { get; set; } = true;
 
     public WHM_Default()

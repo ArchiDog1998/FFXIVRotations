@@ -19,9 +19,9 @@ public sealed class MCH_Default : MachinistRotation
         return base.CountDownAction(remainTime);
     }
 
-    [RotationConfig(CombatType.PvE, Name = "Use Reassamble with ChainSaw")]
+    [UI("Use Reassamble with ChainSaw")]
+    [RotationConfig(CombatType.PvE)]
     public bool MCH_Reassemble { get; set; } = true;
-
 
     protected override bool GeneralGCD(out IAction? act)
     {

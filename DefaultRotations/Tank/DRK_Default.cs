@@ -50,7 +50,8 @@ public sealed class DRK_Default : DarkKnightRotation
         }
     }
 
-    [RotationConfig(CombatType.PvE, Name = "Keep at least 3000 MP")]
+    [UI("Keep at least 3000 MP")]
+    [RotationConfig(CombatType.PvE)]
     public bool TheBlackestNight { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)

@@ -35,7 +35,8 @@ public sealed class RDM_Default : RedMageRotation
         }
     }
 
-    [RotationConfig( CombatType.PvE, Name = "Use Vercure for Dualcast when out of combat.")]
+    [UI("Use Vercure", Description = "Use Vercure for Dualcast when out of combat.")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseVercure { get; set; }
 
     protected override IAction? CountDownAction(float remainTime)

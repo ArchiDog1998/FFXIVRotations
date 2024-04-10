@@ -31,13 +31,16 @@ public class BLM_Default : BlackMageRotation
         return true;
     }
 
-    [RotationConfig(CombatType.PvE, Name = "Use Transpose to Astral Fire before Paradox")]
+    [UI("Use Transpose to Astral Fire before Paradox")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseTransposeForParadox { get; set; } = true;
 
-    [RotationConfig(CombatType.PvE, Name = "Extend Astral Fire Time Safely")]
+    [UI("Extend Astral Fire Time Safely")]
+    [RotationConfig(CombatType.PvE)]
     public bool ExtendTimeSafely { get; set; } = false;
 
-    [RotationConfig(CombatType.PvE, Name = @"Use ""Double Paradox"" rotation [N15]")]
+    [UI(@"Use ""Double Paradox"" rotation [N15]")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseN15 { get; set; } = false;
 
     protected override IAction? CountDownAction(float remainTime)

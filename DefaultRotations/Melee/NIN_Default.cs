@@ -16,10 +16,12 @@ public sealed class NIN_Default : NinjaRotation
     private bool InMug => MugPvE.Cooldown.IsCoolingDown && !MugPvE.Cooldown.ElapsedAfter(19);
     private static bool NoNinjutsu => AdjustId(ActionID.NinjutsuPvE) is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
 
-    [RotationConfig(CombatType.PvE, Name = "Use Hide")]
+    [UI("Use Hide")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseHide { get; set; } = true;
 
-    [RotationConfig(CombatType.PvE, Name = "Use Unhide")]
+    [UI("Use Unhide")]
+    [RotationConfig(CombatType.PvE)]
     public bool AutoUnhide { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)

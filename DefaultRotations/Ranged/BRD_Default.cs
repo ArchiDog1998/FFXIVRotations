@@ -7,22 +7,27 @@ namespace DefaultRotations.Ranged;
 [SourceCode(Path = "main/DefaultRotations/Ranged/BRD_Default.cs")]
 public sealed class BRD_Default : BardRotation
 {
-    [RotationConfig(CombatType.PvE, Name = @"Use Raging Strikes on ""Wanderer's Minuet""")]
+    [UI(@"Use Raging Strikes on ""Wanderer's Minuet""")]
+    [RotationConfig(CombatType.PvE)]
     public bool BindWAND { get; set; } = false;
 
-    [RotationConfig(CombatType.PvE, Name = "First Song")]
+    [UI("First Song")]
+    [RotationConfig(CombatType.PvE)]
     private Song FirstSong { get; set; } = Song.WANDERER;
 
+    [UI("Wanderer's Minuet Uptime")]
     [Range(0, 45, ConfigUnitType.Seconds, 1)]
-    [RotationConfig(CombatType.PvE, Name = "Wanderer's Minuet Uptime")]
+    [RotationConfig(CombatType.PvE)]
     public float WANDTime { get; set; } = 43;
 
+    [UI("Mage's Ballad Uptime")]
     [Range(0, 45, ConfigUnitType.Seconds, 1)]
-    [RotationConfig(CombatType.PvE, Name = "Mage's Ballad Uptime")]
+    [RotationConfig(CombatType.PvE)]
     public float MAGETime { get; set; } = 34;
 
+    [UI("Army's Paeon Uptime")]
     [Range(0, 45, ConfigUnitType.Seconds, 1)]
-    [RotationConfig(CombatType.PvE, Name = "Army's Paeon Uptime")]
+    [RotationConfig(CombatType.PvE)]
     public float ARMYTime { get; set; } = 43;
 
     private bool BindWANDEnough => BindWAND && this.TheWanderersMinuetPvE.EnoughLevel;

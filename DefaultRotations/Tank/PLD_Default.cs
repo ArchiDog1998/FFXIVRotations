@@ -7,13 +7,16 @@
 [SourceCode(Path = "main/DefaultRotations/Tank/PLD_Default.cs")]
 public class PLD_Default : PaladinRotation
 {
-    [RotationConfig(CombatType.PvE, Name = "Use Divine Veil at 15 seconds remaining on Countdown")]
+    [UI("Use Divine Veil at 15 seconds remaining on Countdown")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseDivineVeilPre { get; set; } = false;
 
-    [RotationConfig(CombatType.PvE, Name = "Use Holy Circle or Holy Spirit when out of melee range")]
+    [UI("Use Holy Circle or Holy Spirit when out of melee range")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseHolyWhenAway { get; set; } = true;
 
-    [RotationConfig(CombatType.PvE, Name = "Use Shield Bash when Low Blow is cooling down")]
+    [UI("Use Shield Bash when Low Blow is cooling down")]
+    [RotationConfig(CombatType.PvE)]
     public bool UseShieldBash { get; set; } = true;
 
     protected override IAction? CountDownAction(float remainTime)

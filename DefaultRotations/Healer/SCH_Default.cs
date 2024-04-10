@@ -5,13 +5,16 @@ namespace DefaultRotations.Healer;
 [SourceCode(Path = "main/DefaultRotations/Healer/SCH_Default.cs")]
 public sealed class SCH_Default : ScholarRotation
 {
-    [RotationConfig(CombatType.PvE, Name = "Use spells with cast times to heal.")]
+    [UI("Gcd Heal", Description = "Use spells with cast times to heal.")]
+    [RotationConfig(CombatType.PvE)]
     public bool GCDHeal { get; set; } = false;
 
-    [RotationConfig(CombatType.PvE, Name = "Recitation at 15 seconds remaining on Countdown.")]
+    [UI("Recitation at 15 seconds remaining on Countdown.")]
+    [RotationConfig(CombatType.PvE)]
     public bool PrevDUN { get; set; } = false;
 
-    [RotationConfig(CombatType.PvE, Name = "Give Recitation to Tank")]
+    [UI("Give Recitation to Tank", Parent = nameof(PrevDUN))]
+    [RotationConfig(CombatType.PvE)]
     public bool GiveT { get; set; } = false;
 
     public override bool CanHealSingleSpell => base.CanHealSingleSpell && (GCDHeal || PartyMembers.GetJobCategory(JobRole.Healer).Count() < 2);
