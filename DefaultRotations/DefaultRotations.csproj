@@ -31,7 +31,7 @@
 		  <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
 		  <Private>False</Private>
 	  </Reference>
-	  <PackageReference Include="RotationSolver.Basic" Version="4.2.6.5" />
+	  <PackageReference Include="RotationSolver.Basic" Version="4.2.6.6" />
 	  
 	  <Using Include="Dalamud.Game.ClientState.JobGauge.Enums" />
 	  <Using Include="Dalamud.Game.ClientState.Objects.Types" />
@@ -48,5 +48,6 @@
 	  <Using Include="System.Numerics" />
 	  <Using Include="System.Reflection" />
 	  <Using Include="XIVConfigUI" />
+	  <Using Include="XIVConfigUI.Attributes" />
   </ItemGroup>
 </Project>
