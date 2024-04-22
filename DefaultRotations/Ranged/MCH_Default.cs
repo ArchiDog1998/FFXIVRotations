@@ -86,7 +86,7 @@ public sealed class MCH_Default : MachinistRotation
 
         if (CombatElapsedLess(8)) return false;
 
-        if (GaussRoundPvE.Cooldown.CurrentCharges <= RicochetPvE.Cooldown.CurrentCharges)
+        if (GaussRoundPvE.CD.CurrentCharges <= RicochetPvE.CD.CurrentCharges)
         {
             if (RicochetPvE.CanUse(out act, usedUp: true, skipAoeCheck: true)) return true;
         }
@@ -100,11 +100,11 @@ public sealed class MCH_Default : MachinistRotation
         act = null;
         if (AirAnchorPvE.EnoughLevel)
         {
-            if (!AirAnchorPvE.Cooldown.IsCoolingDown || AirAnchorPvE.Cooldown.ElapsedAfter(18)) return false;
+            if (!AirAnchorPvE.CD.IsCoolingDown || AirAnchorPvE.CD.ElapsedAfter(18)) return false;
         }
         else
         {
-            if (!HotShotPvE.Cooldown.IsCoolingDown || HotShotPvE.Cooldown.ElapsedAfter(18)) return false;
+            if (!HotShotPvE.CD.IsCoolingDown || HotShotPvE.CD.ElapsedAfter(18)) return false;
         }
 
         return RookAutoturretPvE.CanUse(out act);
@@ -120,15 +120,15 @@ public sealed class MCH_Default : MachinistRotation
         {
             if (AirAnchorPvE.EnoughLevel)
             {
-                if (AirAnchorPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
+                if (AirAnchorPvE.CD.WillHaveOneCharge(REST_TIME)) return false;
             }
             else
             {
-                if (HotShotPvE.EnoughLevel && HotShotPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
+                if (HotShotPvE.EnoughLevel && HotShotPvE.CD.WillHaveOneCharge(REST_TIME)) return false;
             }
         }
-        if (DrillPvE.EnoughLevel && DrillPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
-        if (ChainSawPvE.EnoughLevel && ChainSawPvE.Cooldown.WillHaveOneCharge(REST_TIME)) return false;
+        if (DrillPvE.EnoughLevel && DrillPvE.CD.WillHaveOneCharge(REST_TIME)) return false;
+        if (ChainSawPvE.EnoughLevel && ChainSawPvE.CD.WillHaveOneCharge(REST_TIME)) return false;
 
         return HyperchargePvE.CanUse(out act);
     }

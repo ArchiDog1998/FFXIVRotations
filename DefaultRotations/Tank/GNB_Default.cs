@@ -72,17 +72,17 @@ public sealed class GNB_Default : GunbreakerRotation
         {
             if (!IsFullParty && !(DangerZonePvE.Target.Target?.IsBossFromTTK() ?? false)) return true;
 
-            if (!GnashingFangPvE.EnoughLevel && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercyPvE.Cooldown.WillHaveOneCharge(15))) return true;
+            if (!GnashingFangPvE.EnoughLevel && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercyPvE.CD.WillHaveOneCharge(15))) return true;
 
-            if (Player.HasStatus(true, StatusID.NoMercy) && GnashingFangPvE.Cooldown.IsCoolingDown) return true;
+            if (Player.HasStatus(true, StatusID.NoMercy) && GnashingFangPvE.CD.IsCoolingDown) return true;
 
-            if (!Player.HasStatus(true, StatusID.NoMercy) && !GnashingFangPvE.Cooldown.WillHaveOneCharge(20)) return true;
+            if (!Player.HasStatus(true, StatusID.NoMercy) && !GnashingFangPvE.CD.WillHaveOneCharge(20)) return true;
         }
 
         if (Player.HasStatus(true, StatusID.NoMercy) && CanUseBowShock(out act)) return true;
 
         if (RoughDividePvE.CanUse(out act) && !IsMoving) return true;
-        if (GnashingFangPvE.Cooldown.IsCoolingDown && DoubleDownPvE.Cooldown.IsCoolingDown && Ammo == 0 && BloodfestPvE.CanUse(out act)) return true;
+        if (GnashingFangPvE.CD.IsCoolingDown && DoubleDownPvE.CD.IsCoolingDown && Ammo == 0 && BloodfestPvE.CanUse(out act)) return true;
 
         if (AbdomenTearPvE.CanUse(out act)) return true;
 
@@ -114,9 +114,9 @@ public sealed class GNB_Default : GunbreakerRotation
         if (HeartOfStonePvE.CanUse(out act, onLastAbility: true)) return true;
 
         //30
-        if ((!RampartPvE.Cooldown.IsCoolingDown || RampartPvE.Cooldown.ElapsedAfter(60)) && NebulaPvE.CanUse(out act)) return true;
+        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && NebulaPvE.CanUse(out act)) return true;
         //20
-        if (NebulaPvE.Cooldown.IsCoolingDown && NebulaPvE.Cooldown.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
+        if (NebulaPvE.CD.IsCoolingDown && NebulaPvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
 
         if (ReprisalPvE.CanUse(out act)) return true;
 
@@ -155,15 +155,15 @@ public sealed class GNB_Default : GunbreakerRotation
         {
             if (DemonSlicePvE.CanUse(out _)) return false;
 
-            if (Ammo == MaxAmmo && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercyPvE.Cooldown.WillHaveOneCharge(55))) return true;
+            if (Ammo == MaxAmmo && (Player.HasStatus(true, StatusID.NoMercy) || !NoMercyPvE.CD.WillHaveOneCharge(55))) return true;
 
-            if (Ammo > 0 && !NoMercyPvE.Cooldown.WillHaveOneCharge(17) && NoMercyPvE.Cooldown.WillHaveOneCharge(35)) return true;
+            if (Ammo > 0 && !NoMercyPvE.CD.WillHaveOneCharge(17) && NoMercyPvE.CD.WillHaveOneCharge(35)) return true;
 
-            if (Ammo == 3 && IsLastGCD((ActionID)BrutalShellPvE.ID) && NoMercyPvE.Cooldown.WillHaveOneCharge(3)) return true;
+            if (Ammo == 3 && IsLastGCD((ActionID)BrutalShellPvE.ID) && NoMercyPvE.CD.WillHaveOneCharge(3)) return true;
 
-            if (Ammo == 1 && !NoMercyPvE.Cooldown.WillHaveOneCharge(55) && BloodfestPvE.Cooldown.WillHaveOneCharge(5)) return true;
+            if (Ammo == 1 && !NoMercyPvE.CD.WillHaveOneCharge(55) && BloodfestPvE.CD.WillHaveOneCharge(5)) return true;
 
-            if (Ammo == 1 && !NoMercyPvE.Cooldown.WillHaveOneCharge(55) && (!BloodfestPvE.Cooldown.IsCoolingDown && BloodfestPvE.EnoughLevel || !BloodfestPvE.EnoughLevel)) return true;
+            if (Ammo == 1 && !NoMercyPvE.CD.WillHaveOneCharge(55) && (!BloodfestPvE.CD.IsCoolingDown && BloodfestPvE.EnoughLevel || !BloodfestPvE.EnoughLevel)) return true;
         }
         return false;
     }
@@ -178,10 +178,10 @@ public sealed class GNB_Default : GunbreakerRotation
 
             if (!GnashingFangPvE.EnoughLevel && Player.HasStatus(true, StatusID.NoMercy)) return true;
 
-            if (GnashingFangPvE.Cooldown.IsCoolingDown && Player.HasStatus(true, StatusID.NoMercy)) return true;
+            if (GnashingFangPvE.CD.IsCoolingDown && Player.HasStatus(true, StatusID.NoMercy)) return true;
 
             if (!DoubleDownPvE.EnoughLevel && Player.HasStatus(true, StatusID.ReadyToRip)
-                && GnashingFangPvE.Cooldown.IsCoolingDown) return true;
+                && GnashingFangPvE.CD.IsCoolingDown) return true;
 
         }
         return false;
@@ -193,9 +193,9 @@ public sealed class GNB_Default : GunbreakerRotation
         {
             if (DemonSlicePvE.CanUse(out _) && Player.HasStatus(true, StatusID.NoMercy)) return true;
 
-            if (SonicBreakPvE.Cooldown.IsCoolingDown && Player.HasStatus(true, StatusID.NoMercy)) return true;
+            if (SonicBreakPvE.CD.IsCoolingDown && Player.HasStatus(true, StatusID.NoMercy)) return true;
 
-            if (Player.HasStatus(true, StatusID.NoMercy) && !NoMercyPvE.Cooldown.WillHaveOneCharge(55) && BloodfestPvE.Cooldown.WillHaveOneCharge(5)) return true;
+            if (Player.HasStatus(true, StatusID.NoMercy) && !NoMercyPvE.CD.WillHaveOneCharge(55) && BloodfestPvE.CD.WillHaveOneCharge(5)) return true;
 
         }
         return false;
@@ -207,17 +207,17 @@ public sealed class GNB_Default : GunbreakerRotation
         {
             if (DemonSlicePvE.CanUse(out _)) return false;
 
-            if (SonicBreakPvE.Cooldown.IsCoolingDown && SonicBreakPvE.Cooldown.WillHaveOneCharge(0.5f) && GnashingFangPvE.EnoughLevel) return false;
+            if (SonicBreakPvE.CD.IsCoolingDown && SonicBreakPvE.CD.WillHaveOneCharge(0.5f) && GnashingFangPvE.EnoughLevel) return false;
 
             if (Player.HasStatus(true, StatusID.NoMercy) &&
             AmmoComboStep == 0 &&
-                !GnashingFangPvE.Cooldown.WillHaveOneCharge(1)) return true;
+                !GnashingFangPvE.CD.WillHaveOneCharge(1)) return true;
             
             if (!CartridgeChargeIiTrait.EnoughLevel && Ammo == 2) return true;
 
             if (IsLastGCD((ActionID)BrutalShellPvE.ID) &&
                 (Ammo == MaxAmmo ||
-                BloodfestPvE.Cooldown.WillHaveOneCharge(6) && Ammo <= 2 && !NoMercyPvE.Cooldown.WillHaveOneCharge(10) && BloodfestPvE.EnoughLevel)) return true;
+                BloodfestPvE.CD.WillHaveOneCharge(6) && Ammo <= 2 && !NoMercyPvE.CD.WillHaveOneCharge(10) && BloodfestPvE.EnoughLevel)) return true;
 
         }
         return false;
@@ -231,7 +231,7 @@ public sealed class GNB_Default : GunbreakerRotation
 
             if (!SonicBreakPvE.EnoughLevel && Player.HasStatus(true, StatusID.NoMercy)) return true;
 
-            if (Player.HasStatus(true, StatusID.NoMercy) && SonicBreakPvE.Cooldown.IsCoolingDown) return true;
+            if (Player.HasStatus(true, StatusID.NoMercy) && SonicBreakPvE.CD.IsCoolingDown) return true;
         }
         return false;
     }

@@ -48,10 +48,10 @@ public sealed class SGE_Default : SageRotation
 
         if (Addersgall <= 1)
         {
-            if ((!HaimaPvE.EnoughLevel || HaimaPvE.Cooldown.ElapsedAfter(20)) && PanhaimaPvE.CanUse(out act, onLastAbility: true)) return true;
+            if ((!HaimaPvE.EnoughLevel || HaimaPvE.CD.ElapsedAfter(20)) && PanhaimaPvE.CanUse(out act, onLastAbility: true)) return true;
         }
 
-        if ((!TaurocholePvE.EnoughLevel || TaurocholePvE.Cooldown.ElapsedAfter(20)) && KeracholePvE.CanUse(out act, onLastAbility: true)) return true;
+        if ((!TaurocholePvE.EnoughLevel || TaurocholePvE.CD.ElapsedAfter(20)) && KeracholePvE.CanUse(out act, onLastAbility: true)) return true;
 
         if (HolosPvE.CanUse(out act, onLastAbility: true)) return true;
 
@@ -183,7 +183,7 @@ public sealed class SGE_Default : SageRotation
 
         if (KeracholePvE.CanUse(out act) && EnhancedKeracholeTrait.EnoughLevel) return true;
 
-        if ((!TaurocholePvE.EnoughLevel || TaurocholePvE.Cooldown.IsCoolingDown) && DruocholePvE.CanUse(out act)) return true;
+        if ((!TaurocholePvE.EnoughLevel || TaurocholePvE.CD.IsCoolingDown) && DruocholePvE.CanUse(out act)) return true;
 
         if (SoteriaPvE.CanUse(out act) && PartyMembers.Any(b => b.HasStatus(true, StatusID.Kardion) && b.GetHealthRatio() < 0.85f)) return true;
 
@@ -198,7 +198,7 @@ public sealed class SGE_Default : SageRotation
 
             if (HolosPvE.CanUse(out act, onLastAbility: true)) return true;
 
-            if ((!HaimaPvE.EnoughLevel || HaimaPvE.Cooldown.ElapsedAfter(20)) && PanhaimaPvE.CanUse(out act, onLastAbility: true)) return true;
+            if ((!HaimaPvE.EnoughLevel || HaimaPvE.CD.ElapsedAfter(20)) && PanhaimaPvE.CanUse(out act, onLastAbility: true)) return true;
         }
 
         if (tank.Any(t => t.GetHealthRatio() < 0.60f))

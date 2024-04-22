@@ -35,8 +35,8 @@ public sealed class AST_Default : AstrologianRotation
     protected override bool DefenseAreaGCD(out IAction? act)
     {
         act = null;
-        if (MacrocosmosPvE.Cooldown.IsCoolingDown && !MacrocosmosPvE.Cooldown.WillHaveOneCharge(150)
-            || CollectiveUnconsciousPvE.Cooldown.IsCoolingDown && !CollectiveUnconsciousPvE.Cooldown.WillHaveOneCharge(40)) return false;
+        if (MacrocosmosPvE.CD.IsCoolingDown && !MacrocosmosPvE.CD.WillHaveOneCharge(150)
+            || CollectiveUnconsciousPvE.CD.IsCoolingDown && !CollectiveUnconsciousPvE.CD.WillHaveOneCharge(40)) return false;
 
         if (MacrocosmosPvE.CanUse(out act)) return true;
         return base.DefenseAreaGCD(out act);
@@ -46,8 +46,8 @@ public sealed class AST_Default : AstrologianRotation
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         act = null;
-        if (MacrocosmosPvE.Cooldown.IsCoolingDown && !MacrocosmosPvE.Cooldown.WillHaveOneCharge(150)
-            || CollectiveUnconsciousPvE.Cooldown.IsCoolingDown && !CollectiveUnconsciousPvE.Cooldown.WillHaveOneCharge(40)) return false;
+        if (MacrocosmosPvE.CD.IsCoolingDown && !MacrocosmosPvE.CD.WillHaveOneCharge(150)
+            || CollectiveUnconsciousPvE.CD.IsCoolingDown && !CollectiveUnconsciousPvE.CD.WillHaveOneCharge(40)) return false;
 
         if (CollectiveUnconsciousPvE.CanUse(out act)) return true;
         return base.DefenseAreaAbility(out act);
@@ -136,7 +136,7 @@ public sealed class AST_Default : AstrologianRotation
                 if (AstrodynePvE.CanUse(out act)) return true;
             }
 
-            if (DrawnCrownCard == CardType.LORD || MinorArcanaPvE.Cooldown.WillHaveOneChargeGCD(1, 0))
+            if (DrawnCrownCard == CardType.LORD || MinorArcanaPvE.CD.WillHaveOneChargeGCD(1, 0))
             {
                 if (MinorArcanaPvE.CanUse(out act)) return true;
             }

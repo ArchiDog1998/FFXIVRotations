@@ -21,7 +21,7 @@ public sealed class DNC_Default : DancerRotation
             return base.EmergencyAbility(nextGCD, out act);
         }
 
-        if (TechnicalStepPvE.Cooldown.ElapsedAfter(115)
+        if (TechnicalStepPvE.CD.ElapsedAfter(115)
             && UseBurstMedicine(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -52,7 +52,7 @@ public sealed class DNC_Default : DancerRotation
 
         if (FanDanceIvPvE.CanUse(out act, skipAoeCheck: true))
         {
-            if (TechnicalStepPvE.EnoughLevel && TechnicalStepPvE.Cooldown.IsCoolingDown && TechnicalStepPvE.Cooldown.WillHaveOneChargeGCD()) return false;
+            if (TechnicalStepPvE.EnoughLevel && TechnicalStepPvE.CD.IsCoolingDown && TechnicalStepPvE.CD.WillHaveOneChargeGCD()) return false;
             return true;
         }
 
@@ -108,7 +108,7 @@ public sealed class DNC_Default : DancerRotation
 
         if (!HasHostilesInRange) return false;
 
-        if (TechnicalStepPvE.EnoughLevel && (Player.HasStatus(true, StatusID.TechnicalFinish) || TechnicalStepPvE.Cooldown.IsCoolingDown && TechnicalStepPvE.Cooldown.WillHaveOneCharge(5))) return false;
+        if (TechnicalStepPvE.EnoughLevel && (Player.HasStatus(true, StatusID.TechnicalFinish) || TechnicalStepPvE.CD.IsCoolingDown && TechnicalStepPvE.CD.WillHaveOneCharge(5))) return false;
 
         return true;
     }

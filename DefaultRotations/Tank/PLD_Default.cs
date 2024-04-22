@@ -74,9 +74,9 @@ public class PLD_Default : PaladinRotation
 
         //Single
         if (!CombatElapsedLess(8) && HasFightOrFlight && GoringBladePvE.CanUse(out act)) return true; // Dot
-        if (!FightOrFlightPvE.Cooldown.WillHaveOneChargeGCD(2))
+        if (!FightOrFlightPvE.CD.WillHaveOneChargeGCD(2))
         {
-            if (!FightOrFlightPvE.Cooldown.WillHaveOneChargeGCD(6) &&
+            if (!FightOrFlightPvE.CD.WillHaveOneChargeGCD(6) &&
                 HasDivineMight && HolySpiritPvE.CanUse(out act)) return true;
             if (RageOfHalonePvE.CanUse(out act)) return true;
             if (AtonementPvE.CanUse(out act)) return true;
@@ -121,10 +121,10 @@ public class PLD_Default : PaladinRotation
         if (BulwarkPvE.CanUse(out act, true)) return true;
         if (UseOath(out act, true)) return true;
         //30
-        if ((!RampartPvE.Cooldown.IsCoolingDown || RampartPvE.Cooldown.ElapsedAfter(60)) && SentinelPvE.CanUse(out act)) return true;
+        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && SentinelPvE.CanUse(out act)) return true;
 
         //20
-        if (SentinelPvE.Cooldown.IsCoolingDown && SentinelPvE.Cooldown.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
+        if (SentinelPvE.CD.IsCoolingDown && SentinelPvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
 
         if (ReprisalPvE.CanUse(out act)) return true;
 

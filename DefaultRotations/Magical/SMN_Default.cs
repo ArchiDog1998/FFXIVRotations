@@ -65,7 +65,7 @@ public sealed class SMN_Default : SummonerRotation
 
         if (!IsMoving && AddCrimsonCyclone && CrimsonCyclonePvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if ((Player.HasStatus(false, StatusID.SearingLight) || SearingLightPvE.Cooldown.IsCoolingDown) && SummonBahamutPvE.CanUse(out act)) return true;
+        if ((Player.HasStatus(false, StatusID.SearingLight) || SearingLightPvE.CD.IsCoolingDown) && SummonBahamutPvE.CanUse(out act)) return true;
         if (!SummonBahamutPvE.EnoughLevel && HasHostilesInRange && AetherchargePvE.CanUse(out act)) return true;
 
         if (IsMoving && (Player.HasStatus(true, StatusID.GarudasFavor) || InIfrit)
@@ -116,17 +116,17 @@ public sealed class SMN_Default : SummonerRotation
         var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
         var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
-        if ((InBahamut && SummonBahamutPvE.Cooldown.ElapsedOneChargeAfterGCD(3) || InPhoenix || 
+        if ((InBahamut && SummonBahamutPvE.CD.ElapsedOneChargeAfterGCD(3) || InPhoenix || 
             IsTargetBoss && IsTargetDying) && EnkindleBahamutPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if ((SummonBahamutPvE.Cooldown.ElapsedOneChargeAfterGCD(3) || IsTargetBoss && IsTargetDying) && DeathflarePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if ((SummonBahamutPvE.CD.ElapsedOneChargeAfterGCD(3) || IsTargetBoss && IsTargetDying) && DeathflarePvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (RekindlePvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (MountainBusterPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if ((Player.HasStatus(false, StatusID.SearingLight) && InBahamut && (SummonBahamutPvE.Cooldown.ElapsedOneChargeAfterGCD(3) || !EnergyDrainPvE.Cooldown.IsCoolingDown) ||
+        if ((Player.HasStatus(false, StatusID.SearingLight) && InBahamut && (SummonBahamutPvE.CD.ElapsedOneChargeAfterGCD(3) || !EnergyDrainPvE.CD.IsCoolingDown) ||
             !SearingLightPvE.EnoughLevel || IsTargetBoss && IsTargetDying) && PainflarePvE.CanUse(out act)) return true;
         
-        if ((Player.HasStatus(false, StatusID.SearingLight) && InBahamut && (SummonBahamutPvE.Cooldown.ElapsedOneChargeAfterGCD(3) || !EnergyDrainPvE.Cooldown.IsCoolingDown) ||
+        if ((Player.HasStatus(false, StatusID.SearingLight) && InBahamut && (SummonBahamutPvE.CD.ElapsedOneChargeAfterGCD(3) || !EnergyDrainPvE.CD.IsCoolingDown) ||
             !SearingLightPvE.EnoughLevel || IsTargetBoss && IsTargetDying) && FesterPvE.CanUse(out act)) return true;
 
         if (EnergySiphonPvE.CanUse(out act)) return true;

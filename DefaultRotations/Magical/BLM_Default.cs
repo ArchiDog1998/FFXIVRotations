@@ -26,8 +26,8 @@ public class BLM_Default : BlackMageRotation
         var count = PolyglotStacks;
         if (count == compare++) return false;
         if (count == compare++ && !EnchinaEndAfterGCD(2)) return false;
-        if (count >= compare && (HasFire || SwiftcastPvE.Cooldown.WillHaveOneChargeGCD(2) || TriplecastPvE.Cooldown.WillHaveOneChargeGCD(2))) return true;
-        if (!HasFire && !SwiftcastPvE.Cooldown.WillHaveOneChargeGCD(2) && !TriplecastPvE.CanUse(out _, gcdCountForAbility: 8)) return false;
+        if (count >= compare && (HasFire || SwiftcastPvE.CD.WillHaveOneChargeGCD(2) || TriplecastPvE.CD.WillHaveOneChargeGCD(2))) return true;
+        if (!HasFire && !SwiftcastPvE.CD.WillHaveOneChargeGCD(2) && !TriplecastPvE.CanUse(out _, gcdCountForAbility: 8)) return false;
         return true;
     }
 
@@ -141,7 +141,7 @@ public class BLM_Default : BlackMageRotation
         if (!NeedToGoIce) return false;
 
         //Use Manafont or transpose.
-        if ((!ManafontPvE.Cooldown.IsCoolingDown || NeedToTransposeGoIce(false))
+        if ((!ManafontPvE.CD.IsCoolingDown || NeedToTransposeGoIce(false))
             && UseInstanceSpell(out act)) return true;
 
         //Go to Ice.

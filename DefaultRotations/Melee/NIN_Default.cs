@@ -12,8 +12,8 @@ namespace DefaultRotations.Melee;
 public sealed class NIN_Default : NinjaRotation
 {
     private IBaseAction? _ninActionAim = null;
-    private bool InTrickAttack => TrickAttackPvE.Cooldown.IsCoolingDown && !TrickAttackPvE.Cooldown.ElapsedAfter(17);
-    private bool InMug => MugPvE.Cooldown.IsCoolingDown && !MugPvE.Cooldown.ElapsedAfter(19);
+    private bool InTrickAttack => TrickAttackPvE.CD.IsCoolingDown && !TrickAttackPvE.CD.ElapsedAfter(17);
+    private bool InMug => MugPvE.CD.IsCoolingDown && !MugPvE.CD.ElapsedAfter(19);
     private static bool NoNinjutsu => AdjustId(ActionID.NinjutsuPvE) is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
 
     [UI("Use Hide")]
@@ -43,7 +43,7 @@ public sealed class NIN_Default : NinjaRotation
         }
         else if (remainTime < 10)
         {
-            if (_ninActionAim == null && TenPvE.Cooldown.IsCoolingDown && HidePvE.CanUse(out act)) return act;
+            if (_ninActionAim == null && TenPvE.CD.IsCoolingDown && HidePvE.CanUse(out act)) return act;
             if (!realInHuton)
             {
                 SetNinjutsu(HutonPvE);
@@ -133,14 +133,14 @@ public sealed class NIN_Default : NinjaRotation
             if (KatonPvE.CanUse(out _))
             {
                 if (!Player.HasStatus(true, StatusID.Doton) && !IsMoving 
-                    && (!TenChiJinPvE.Cooldown.WillHaveOneCharge(6)) || !TenChiJinPvE.Cooldown.IsCoolingDown)
+                    && (!TenChiJinPvE.CD.WillHaveOneCharge(6)) || !TenChiJinPvE.CD.IsCoolingDown)
                     SetNinjutsu(DotonPvE);
                 else SetNinjutsu(KatonPvE);
                 return false;
             }
 
             //Vulnerable
-            if (IsBurst && TrickAttackPvE.Cooldown.WillHaveOneCharge(18) && SuitonPvE.CanUse(out _))
+            if (IsBurst && TrickAttackPvE.CD.WillHaveOneCharge(18) && SuitonPvE.CanUse(out _))
             {
                 SetNinjutsu(SuitonPvE);
                 return false;
@@ -316,7 +316,7 @@ public sealed class NIN_Default : NinjaRotation
             StatusHelper.StatusOff(StatusID.Hidden);
         }
         if (!InCombat && _ninActionAim == null && UseHide
-            && TenPvE.Cooldown.IsCoolingDown && HidePvE.CanUse(out act)) return true;
+            && TenPvE.CD.IsCoolingDown && HidePvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
     }
@@ -341,7 +341,7 @@ public sealed class NIN_Default : NinjaRotation
         if (!CombatElapsedLess(6))
         {
             if (TrickAttackPvE.CanUse(out act)) return true;
-            if (TrickAttackPvE.Cooldown.IsCoolingDown && !TrickAttackPvE.Cooldown.WillHaveOneCharge(19)
+            if (TrickAttackPvE.CD.IsCoolingDown && !TrickAttackPvE.CD.WillHaveOneCharge(19)
                 && MeisuiPvE.CanUse(out act)) return true;
         }
 
@@ -353,7 +353,7 @@ public sealed class NIN_Default : NinjaRotation
         act = null;
         if (!NoNinjutsu || !InCombat) return false;
 
-        if (!IsMoving && InTrickAttack && !TenPvE.Cooldown.ElapsedAfter(30) && TenChiJinPvE.CanUse(out act)) return true;
+        if (!IsMoving && InTrickAttack && !TenPvE.CD.ElapsedAfter(30) && TenChiJinPvE.CanUse(out act)) return true;
 
         if (!CombatElapsedLess(5) && BunshinPvE.CanUse(out act)) return true;
 
@@ -370,7 +370,7 @@ public sealed class NIN_Default : NinjaRotation
         }
 
         if ((!InMug || InTrickAttack)
-            && (!BunshinPvE.Cooldown.WillHaveOneCharge(10) || Player.HasStatus(false, StatusID.PhantomKamaitachiReady) || MugPvE.Cooldown.WillHaveOneCharge(2)))
+            && (!BunshinPvE.CD.WillHaveOneCharge(10) || Player.HasStatus(false, StatusID.PhantomKamaitachiReady) || MugPvE.CD.WillHaveOneCharge(2)))
         {
             if (HellfrogMediumPvE.CanUse(out act)) return true;
             if (BhavacakraPvE.CanUse(out act)) return true;

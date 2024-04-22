@@ -103,7 +103,7 @@ public sealed class SCH_Default : ScholarRotation
     protected override bool HealAreaAbility(out IAction? act)
     {
         //慰藉
-        if (WhisperingDawnPvE.Cooldown.ElapsedOneChargeAfterGCD(1) || FeyIlluminationPvE.Cooldown.ElapsedOneChargeAfterGCD(1) || FeyBlessingPvE.Cooldown.ElapsedOneChargeAfterGCD(1))
+        if (WhisperingDawnPvE.CD.ElapsedOneChargeAfterGCD(1) || FeyIlluminationPvE.CD.ElapsedOneChargeAfterGCD(1) || FeyBlessingPvE.CD.ElapsedOneChargeAfterGCD(1))
         {
             if (SummonSeraphPvE.CanUse(out act)) return true;
         }
@@ -130,7 +130,7 @@ public sealed class SCH_Default : ScholarRotation
         if (FeyIlluminationPvE.CanUse(out act)) return true;
         if (ExpedientPvE.CanUse(out act)) return true;
 
-        if (WhisperingDawnPvE.Cooldown.ElapsedOneChargeAfterGCD(1) || FeyIlluminationPvE.Cooldown.ElapsedOneChargeAfterGCD(1) || FeyBlessingPvE.Cooldown.ElapsedOneChargeAfterGCD(1))
+        if (WhisperingDawnPvE.CD.ElapsedOneChargeAfterGCD(1) || FeyIlluminationPvE.CD.ElapsedOneChargeAfterGCD(1) || FeyBlessingPvE.CD.ElapsedOneChargeAfterGCD(1))
         {
             if (SummonSeraphPvE.CanUse(out act)) return true;
         }
@@ -148,7 +148,7 @@ public sealed class SCH_Default : ScholarRotation
             if (ChainStratagemPvE.CanUse(out act)) return true;
         }
 
-        if (DissipationPvE.EnoughLevel && DissipationPvE.Cooldown.WillHaveOneChargeGCD(3) && DissipationPvE.IsEnabled || AetherflowPvE.Cooldown.WillHaveOneChargeGCD(3))
+        if (DissipationPvE.EnoughLevel && DissipationPvE.CD.WillHaveOneChargeGCD(3) && DissipationPvE.IsEnabled || AetherflowPvE.CD.WillHaveOneChargeGCD(3))
         {
             if (EnergyDrainPvE.CanUse(out act, usedUp: true)) return true;
         }
@@ -164,10 +164,10 @@ public sealed class SCH_Default : ScholarRotation
         if (remainTime < RuinPvE.Info.CastTime + CountDownAhead
             && RuinPvE.CanUse(out var act)) return act;
 
-        if (PrevDUN && remainTime <= 15 && !DeploymentTacticsPvE.Cooldown.IsCoolingDown && PartyMembers.Count() > 1)
+        if (PrevDUN && remainTime <= 15 && !DeploymentTacticsPvE.CD.IsCoolingDown && PartyMembers.Count() > 1)
         {
 
-            if (!RecitationPvE.Cooldown.IsCoolingDown) return RecitationPvE;
+            if (!RecitationPvE.CD.IsCoolingDown) return RecitationPvE;
             if (!PartyMembers.Any((n) => n.HasStatus(true, StatusID.Galvanize)))
             {
                 if (GiveT)

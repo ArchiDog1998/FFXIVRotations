@@ -12,7 +12,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
     private bool InTwoMIsBurst()
     {
-        if ((BloodWeaponPvE.Cooldown.IsCoolingDown && DeliriumPvE.Cooldown.IsCoolingDown && ((LivingShadowPvE.Cooldown.IsCoolingDown && !(LivingShadowPvE.Cooldown.ElapsedAfter(15))) || !LivingShadowPvE.EnoughLevel))) return true;
+        if ((BloodWeaponPvE.CD.IsCoolingDown && DeliriumPvE.CD.IsCoolingDown && ((LivingShadowPvE.CD.IsCoolingDown && !(LivingShadowPvE.CD.ElapsedAfter(15))) || !LivingShadowPvE.EnoughLevel))) return true;
         else return false;
     }
 
@@ -28,7 +28,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
             if ((InTwoMIsBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.BlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
 
-            if ((InTwoMIsBurst() && BloodWeaponPvE.Cooldown.IsCoolingDown && LivingShadowPvE.Cooldown.IsCoolingDown && SaltedEarthPvE.Cooldown.IsCoolingDown && ShadowbringerPvE.Cooldown.CurrentCharges == 0 && CarveAndSpitPvE.Cooldown.IsCoolingDown)) return true;
+            if ((InTwoMIsBurst() && BloodWeaponPvE.CD.IsCoolingDown && LivingShadowPvE.CD.IsCoolingDown && SaltedEarthPvE.CD.IsCoolingDown && ShadowbringerPvE.CD.CurrentCharges == 0 && CarveAndSpitPvE.CD.IsCoolingDown)) return true;
 
             if (TheBlackestNight && CurrentMp < 6000) return false;
 
@@ -42,9 +42,9 @@ public sealed class DRK_Default : DarkKnightRotation
         {
             if (!DeliriumPvE.EnoughLevel) return true;
 
-            if (Player.HasStatus(true, StatusID.Delirium) && LivingShadowPvE.Cooldown.IsCoolingDown) return true;
+            if (Player.HasStatus(true, StatusID.Delirium) && LivingShadowPvE.CD.IsCoolingDown) return true;
 
-            if ((DeliriumPvE.Cooldown.WillHaveOneChargeGCD(1) && !LivingShadowPvE.Cooldown.WillHaveOneChargeGCD(3)) || Blood >= 90 && !LivingShadowPvE.Cooldown.WillHaveOneChargeGCD(1)) return true;
+            if ((DeliriumPvE.CD.WillHaveOneChargeGCD(1) && !LivingShadowPvE.CD.WillHaveOneChargeGCD(3)) || Blood >= 90 && !LivingShadowPvE.CD.WillHaveOneChargeGCD(1)) return true;
 
             return false;
         }
@@ -129,10 +129,10 @@ public sealed class DRK_Default : DarkKnightRotation
 
         if (TheBlackestNightPvE.CanUse(out act, onLastAbility: true)) return true;
         //30
-        if ((!RampartPvE.Cooldown.IsCoolingDown || RampartPvE.Cooldown.ElapsedAfter(60)) && ShadowWallPvE.CanUse(out act)) return true;
+        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && ShadowWallPvE.CanUse(out act)) return true;
 
         //20
-        if (ShadowWallPvE.Cooldown.IsCoolingDown && ShadowWallPvE.Cooldown.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
+        if (ShadowWallPvE.CD.IsCoolingDown && ShadowWallPvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
         if (DarkMindPvE.CanUse(out act)) return true;
 
         return base.DefenseAreaAbility(out act);
@@ -156,7 +156,7 @@ public sealed class DRK_Default : DarkKnightRotation
         if (SyphonStrikePvE.CanUse(out act)) return true;
         if (HardSlashPvE.CanUse(out act)) return true;
 
-        if (BloodWeaponPvE.Cooldown.IsCoolingDown && !Player.HasStatus(true, StatusID.BloodWeapon) && UnmendPvE.CanUse(out act)) return true;
+        if (BloodWeaponPvE.CD.IsCoolingDown && !Player.HasStatus(true, StatusID.BloodWeapon) && UnmendPvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
     }
@@ -180,7 +180,7 @@ public sealed class DRK_Default : DarkKnightRotation
         {
             if (UseBurstMedicine(out act)) return true;
             if (InCombat && DeliriumPvE.CanUse(out act)) return true;
-            if (DeliriumPvE.Cooldown.ElapsedAfterGCD(1) && !DeliriumPvE.Cooldown.ElapsedAfterGCD(3) 
+            if (DeliriumPvE.CD.ElapsedAfterGCD(1) && !DeliriumPvE.CD.ElapsedAfterGCD(3) 
                 && BloodWeaponPvE.CanUse(out act)) return true;
             if (LivingShadowPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }

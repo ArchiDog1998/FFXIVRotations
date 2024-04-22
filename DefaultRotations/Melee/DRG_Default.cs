@@ -50,15 +50,15 @@ public sealed class DRG_Default : DragoonRotation
 
         if (SpineshatterDivePvE.CanUse(out act, usedUp: true))
         {
-            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.Cooldown.ElapsedOneChargeAfterGCD(3)) return true;
+            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.CD.ElapsedOneChargeAfterGCD(3)) return true;
         }
-        if (Player.HasStatus(true, StatusID.PowerSurge) && SpineshatterDivePvE.Cooldown.CurrentCharges != 1 && SpineshatterDivePvE.CanUse(out act)) return true;
+        if (Player.HasStatus(true, StatusID.PowerSurge) && SpineshatterDivePvE.CD.CurrentCharges != 1 && SpineshatterDivePvE.CanUse(out act)) return true;
 
         if (MirageDivePvE.CanUse(out act)) return true;
 
         if (DragonfireDivePvE.CanUse(out act, skipAoeCheck: true))
         {
-            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.Cooldown.ElapsedOneChargeAfterGCD(3)) return true;
+            if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.CD.ElapsedOneChargeAfterGCD(3)) return true;
         }
 
         if (WyrmwindThrustPvE.CanUse(out act, skipAoeCheck: true)) return true;

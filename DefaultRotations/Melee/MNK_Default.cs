@@ -34,7 +34,7 @@ public sealed class MNK_Default : MonkRotation
     }
 
     private bool UseLunarPerfectBalance => (HasSolar || Player.HasStatus(false, StatusID.PerfectBalance))
-        && (!Player.WillStatusEndGCD(0, 0, false, StatusID.RiddleOfFire) || Player.HasStatus(false, StatusID.RiddleOfFire) || RiddleOfFirePvE.Cooldown.WillHaveOneChargeGCD(2)) && PerfectBalancePvE.Cooldown.WillHaveOneChargeGCD(3);
+        && (!Player.WillStatusEndGCD(0, 0, false, StatusID.RiddleOfFire) || Player.HasStatus(false, StatusID.RiddleOfFire) || RiddleOfFirePvE.CD.WillHaveOneChargeGCD(2)) && PerfectBalancePvE.CD.WillHaveOneChargeGCD(3);
 
     private bool RaptorForm(out IAction? act)
     {
@@ -66,7 +66,7 @@ public sealed class MNK_Default : MonkRotation
         }
 
         if (Player.HasStatus(true, StatusID.RiddleOfFire)
-            && !RiddleOfFirePvE.Cooldown.ElapsedAfterGCD(2) && (PerfectBalancePvE.Cooldown.ElapsedAfter(60) || !PerfectBalancePvE.Cooldown.IsCoolingDown))
+            && !RiddleOfFirePvE.CD.ElapsedAfterGCD(2) && (PerfectBalancePvE.CD.ElapsedAfter(60) || !PerfectBalancePvE.CD.IsCoolingDown))
         {
             if (OpoOpoForm(out act)) return true;
         }
@@ -186,7 +186,7 @@ public sealed class MNK_Default : MonkRotation
 
         if (BeastChakras.Contains(BeastChakra.NONE) && Player.HasStatus(true, StatusID.RaptorForm)
             && (!RiddleOfFirePvE.EnoughLevel || Player.HasStatus(false, StatusID.RiddleOfFire) && !Player.WillStatusEndGCD(3, 0, false, StatusID.RiddleOfFire)
-            || RiddleOfFirePvE.Cooldown.WillHaveOneChargeGCD(1) && (PerfectBalancePvE.Cooldown.ElapsedAfter(60) || !PerfectBalancePvE.Cooldown.IsCoolingDown)))
+            || RiddleOfFirePvE.CD.WillHaveOneChargeGCD(1) && (PerfectBalancePvE.CD.ElapsedAfter(60) || !PerfectBalancePvE.CD.IsCoolingDown)))
         {
             if (PerfectBalancePvE.CanUse(out act, usedUp: true)) return true;
         }

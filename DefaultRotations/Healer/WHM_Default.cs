@@ -135,8 +135,8 @@ public sealed class WHM_Default :WhiteMageRotation
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         act = null;
-        if (DivineBenisonPvE.Cooldown.IsCoolingDown && !DivineBenisonPvE.Cooldown.WillHaveOneCharge(15)
-            || AquaveilPvE.Cooldown.IsCoolingDown && !AquaveilPvE.Cooldown.WillHaveOneCharge(52)) return false;
+        if (DivineBenisonPvE.CD.IsCoolingDown && !DivineBenisonPvE.CD.WillHaveOneCharge(15)
+            || AquaveilPvE.CD.IsCoolingDown && !AquaveilPvE.CD.WillHaveOneCharge(52)) return false;
 
         if (DivineBenisonPvE.CanUse(out act)) return true;
 
@@ -148,8 +148,8 @@ public sealed class WHM_Default :WhiteMageRotation
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         act = null;
-        if (TemperancePvE.Cooldown.IsCoolingDown && !TemperancePvE.Cooldown.WillHaveOneCharge(100)
-            || LiturgyOfTheBellPvE.Cooldown.IsCoolingDown && !LiturgyOfTheBellPvE.Cooldown.WillHaveOneCharge(160)) return false;
+        if (TemperancePvE.CD.IsCoolingDown && !TemperancePvE.CD.WillHaveOneCharge(100)
+            || LiturgyOfTheBellPvE.CD.IsCoolingDown && !LiturgyOfTheBellPvE.CD.WillHaveOneCharge(160)) return false;
 
         if (TemperancePvE.CanUse(out act)) return true;
 

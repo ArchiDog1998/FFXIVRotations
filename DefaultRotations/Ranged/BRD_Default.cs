@@ -59,7 +59,7 @@ public sealed class BRD_Default : BardRotation
         if (BlastArrowPvE.CanUse(out act, skipAoeCheck : true))
         {
             if (!Player.HasStatus(true, StatusID.RagingStrikes)) return true;
-            if (Player.HasStatus(true, StatusID.RagingStrikes) && BarragePvE.Cooldown.IsCoolingDown) return true;
+            if (Player.HasStatus(true, StatusID.RagingStrikes) && BarragePvE.CD.IsCoolingDown) return true;
         }
 
         if (ShadowbitePvE.CanUse(out act)) return true;
@@ -82,7 +82,7 @@ public sealed class BRD_Default : BardRotation
         }
         else if ((!RagingStrikesPvE.EnoughLevel || Player.HasStatus(true, StatusID.RagingStrikes)) && (!BattleVoicePvE.EnoughLevel || Player.HasStatus(true, StatusID.BattleVoice)))
         {
-            if ((EmpyrealArrowPvE.Cooldown.IsCoolingDown && !EmpyrealArrowPvE.Cooldown.WillHaveOneChargeGCD(1) || !EmpyrealArrowPvE.EnoughLevel) && Repertoire != 3)
+            if ((EmpyrealArrowPvE.CD.IsCoolingDown && !EmpyrealArrowPvE.CD.WillHaveOneChargeGCD(1) || !EmpyrealArrowPvE.EnoughLevel) && Repertoire != 3)
             {
                 if (!Player.HasStatus(true, StatusID.StraightShotReady) && BarragePvE.CanUse(out act)) return true;
             }
@@ -136,18 +136,18 @@ public sealed class BRD_Default : BardRotation
 
             if (RadiantFinalePvE.CanUse(out act, skipAoeCheck: true))
             {
-                if (Player.HasStatus(true, StatusID.RagingStrikes) && RagingStrikesPvE.Cooldown.ElapsedOneChargeAfterGCD(1)) return true;
+                if (Player.HasStatus(true, StatusID.RagingStrikes) && RagingStrikesPvE.CD.ElapsedOneChargeAfterGCD(1)) return true;
             }
 
             if (BattleVoicePvE.CanUse(out act, skipAoeCheck: true))
             {
                 if (IsLastAction(true, RadiantFinalePvE)) return true;
 
-                if (Player.HasStatus(true, StatusID.RagingStrikes) && RagingStrikesPvE.Cooldown.ElapsedOneChargeAfterGCD(1)) return true;
+                if (Player.HasStatus(true, StatusID.RagingStrikes) && RagingStrikesPvE.CD.ElapsedOneChargeAfterGCD(1)) return true;
             }
         }
 
-        if (RadiantFinalePvE.EnoughLevel && RadiantFinalePvE.Cooldown.IsCoolingDown && BattleVoicePvE.EnoughLevel && !BattleVoicePvE.Cooldown.IsCoolingDown) return false;
+        if (RadiantFinalePvE.EnoughLevel && RadiantFinalePvE.CD.IsCoolingDown && BattleVoicePvE.EnoughLevel && !BattleVoicePvE.CD.IsCoolingDown) return false;
 
         if (TheWanderersMinuetPvE.CanUse(out act, onLastAbility: true))
         {
@@ -162,21 +162,21 @@ public sealed class BRD_Default : BardRotation
 
             if (Repertoire == 3) return true;
 
-            if (Repertoire == 2 && EmpyrealArrowPvE.Cooldown.WillHaveOneChargeGCD(1) && NextAbilityToNextGCD < PitchPerfectPvE.AnimationLockTime + Ping) return true;
+            if (Repertoire == 2 && EmpyrealArrowPvE.CD.WillHaveOneChargeGCD(1) && NextAbilityToNextGCD < PitchPerfectPvE.AnimationLockTime + Ping) return true;
 
-            if (Repertoire == 2 && EmpyrealArrowPvE.Cooldown.WillHaveOneChargeGCD() && NextAbilityToNextGCD > PitchPerfectPvE.AnimationLockTime + Ping) return true;
+            if (Repertoire == 2 && EmpyrealArrowPvE.CD.WillHaveOneChargeGCD() && NextAbilityToNextGCD > PitchPerfectPvE.AnimationLockTime + Ping) return true;
         }
 
         if (MagesBalladPvE.CanUse(out act))
         {
             if (Song == Song.WANDERER && SongEndAfter(WANDRemainTime) && Repertoire == 0) return true;
-            if (Song == Song.ARMY && SongEndAfterGCD(2) && TheWanderersMinuetPvE.Cooldown.IsCoolingDown) return true;
+            if (Song == Song.ARMY && SongEndAfterGCD(2) && TheWanderersMinuetPvE.CD.IsCoolingDown) return true;
         }
 
         if (ArmysPaeonPvE.CanUse(out act))
         {
             if (TheWanderersMinuetPvE.EnoughLevel && SongEndAfter(MAGERemainTime) && Song == Song.MAGE) return true;
-            if (TheWanderersMinuetPvE.EnoughLevel && SongEndAfter(2) && MagesBalladPvE.Cooldown.IsCoolingDown && Song == Song.WANDERER) return true;
+            if (TheWanderersMinuetPvE.EnoughLevel && SongEndAfter(2) && MagesBalladPvE.CD.IsCoolingDown && Song == Song.WANDERER) return true;
             if (!TheWanderersMinuetPvE.EnoughLevel && SongEndAfter(2)) return true;
         }
 
@@ -184,12 +184,12 @@ public sealed class BRD_Default : BardRotation
         {
             if (Player.HasStatus(true, StatusID.BattleVoice) && (Player.HasStatus(true, StatusID.RadiantFinale) || !RadiantFinalePvE.EnoughLevel)) return true;
 
-            if (!BattleVoicePvE.Cooldown.WillHaveOneCharge(10) && !RadiantFinalePvE.Cooldown.WillHaveOneCharge(10)) return true;
+            if (!BattleVoicePvE.CD.WillHaveOneCharge(10) && !RadiantFinalePvE.CD.WillHaveOneCharge(10)) return true;
 
-            if (RagingStrikesPvE.Cooldown.IsCoolingDown && !Player.HasStatus(true, StatusID.RagingStrikes)) return true;
+            if (RagingStrikesPvE.CD.IsCoolingDown && !Player.HasStatus(true, StatusID.RagingStrikes)) return true;
         }
 
-        if (EmpyrealArrowPvE.Cooldown.IsCoolingDown || !EmpyrealArrowPvE.Cooldown.WillHaveOneChargeGCD() || Repertoire != 3 || !EmpyrealArrowPvE.EnoughLevel)
+        if (EmpyrealArrowPvE.CD.IsCoolingDown || !EmpyrealArrowPvE.CD.WillHaveOneChargeGCD() || Repertoire != 3 || !EmpyrealArrowPvE.EnoughLevel)
         {
             if (RainOfDeathPvE.CanUse(out act, usedUp: true)) return true;
 
@@ -205,7 +205,7 @@ public sealed class BRD_Default : BardRotation
 
         if (QuickNockPvE.CanUse(out _) && SoulVoice == 100) return true;
 
-        if (SoulVoice == 100 && BattleVoicePvE.Cooldown.WillHaveOneCharge(25)) return false;
+        if (SoulVoice == 100 && BattleVoicePvE.CD.WillHaveOneCharge(25)) return false;
 
         if (SoulVoice >= 80 && Player.HasStatus(true, StatusID.RagingStrikes) && Player.WillStatusEnd(10, false, StatusID.RagingStrikes)) return true;
 

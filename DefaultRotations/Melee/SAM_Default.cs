@@ -82,7 +82,7 @@ public sealed class SAM_Default : SamuraiRotation
         if (ShohaIiPvE.CanUse(out act)) return true;
         if (ShohaPvE.CanUse(out act)) return true;
 
-        if (Kenki >= 50 && IkishotenPvE.Cooldown.WillHaveOneCharge(10) || Kenki >= AddKenki || IsTargetBoss && IsTargetDying)
+        if (Kenki >= 50 && IkishotenPvE.CD.WillHaveOneCharge(10) || Kenki >= AddKenki || IsTargetBoss && IsTargetDying)
         {
             if (HissatsuKyutenPvE.CanUse(out act)) return true;
             if (HissatsuShintenPvE.CanUse(out act)) return true;

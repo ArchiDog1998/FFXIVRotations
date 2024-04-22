@@ -29,7 +29,7 @@ public sealed class RDM_Default : RedMageRotation
             if (Player.HasStatus(true, VercurePvE.Setting.StatusProvide ?? [])) return false;
 
             //Waiting for embolden.
-            if (EmboldenPvE.EnoughLevel && EmboldenPvE.Cooldown.WillHaveOneChargeGCD(5)) return false;
+            if (EmboldenPvE.EnoughLevel && EmboldenPvE.CD.WillHaveOneChargeGCD(5)) return false;
 
             return true;
         }
@@ -131,7 +131,7 @@ public sealed class RDM_Default : RedMageRotation
     {
         //Swift
         if (ManaStacks == 0 && (BlackMana < 50 || WhiteMana < 50)
-            && (CombatElapsedLess(4) || !ManaficationPvE.EnoughLevel || !ManaficationPvE.Cooldown.WillHaveOneChargeGCD(0, 1)))
+            && (CombatElapsedLess(4) || !ManaficationPvE.EnoughLevel || !ManaficationPvE.CD.WillHaveOneChargeGCD(0, 1)))
         {
             if (InCombat && !Player.HasStatus(true, StatusID.VerfireReady, StatusID.VerstoneReady))
             {

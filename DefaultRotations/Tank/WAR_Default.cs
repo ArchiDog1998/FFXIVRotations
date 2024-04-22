@@ -127,10 +127,10 @@ public sealed class WAR_Default : WarriorRotation
     private bool HighDefense(out IAction? act)
     {
         //30
-        if ((!RampartPvE.Cooldown.IsCoolingDown || RampartPvE.Cooldown.ElapsedAfter(60)) && VengeancePvE.CanUse(out act)) return true;
+        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && VengeancePvE.CanUse(out act)) return true;
 
         //20
-        if (VengeancePvE.Cooldown.IsCoolingDown && VengeancePvE.Cooldown.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
+        if (VengeancePvE.CD.IsCoolingDown && VengeancePvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
 
         act = null;
         return false;
@@ -140,8 +140,8 @@ public sealed class WAR_Default : WarriorRotation
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         act = null;
-        if (ShakeItOffPvE.Cooldown.IsCoolingDown && !ShakeItOffPvE.Cooldown.WillHaveOneCharge(60)
-            || ReprisalPvE.Cooldown.IsCoolingDown && !ReprisalPvE.Cooldown.WillHaveOneCharge(50)) return false;
+        if (ShakeItOffPvE.CD.IsCoolingDown && !ShakeItOffPvE.CD.WillHaveOneCharge(60)
+            || ReprisalPvE.CD.IsCoolingDown && !ReprisalPvE.CD.WillHaveOneCharge(50)) return false;
 
         if (ShakeItOffPvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (ReprisalPvE.CanUse(out act, skipAoeCheck: true)) return true;

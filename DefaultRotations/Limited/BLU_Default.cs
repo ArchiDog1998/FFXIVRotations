@@ -1,6 +1,6 @@
 ﻿//namespace DefaultRotations.Magical;
 
-//[SourceCode(Path = "main/DefaultRotations/Magical/BLU_Default.cs")]
+//[SourceCode(Path = "main/DefaultRotations/Limited/BLU_Default.cs")]
 //public sealed class BLU_Default : BLU_Base
 //{
 //    public override CombatType Type => CombatType.PvE;

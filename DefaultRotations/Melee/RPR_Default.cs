@@ -49,7 +49,7 @@ public sealed class RPR_Default : ReaperRotation
 
             if (LemureShroud > 1)
             {
-                if (PlentifulHarvestPvE.EnoughLevel && ArcaneCirclePvE.Cooldown.WillHaveOneCharge(9) &&
+                if (PlentifulHarvestPvE.EnoughLevel && ArcaneCirclePvE.CD.WillHaveOneCharge(9) &&
                    (LemureShroud == 4 && (HostileTarget?.WillStatusEnd(30, true, StatusID.DeathsDesign) ?? false) || LemureShroud == 3 && (HostileTarget?.WillStatusEnd(50, true, StatusID.DeathsDesign) ?? false)))
                 {
                     if (ShadowOfDeathPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
@@ -123,7 +123,7 @@ public sealed class RPR_Default : ReaperRotation
                 }
                 else
                 {
-                    if (ArcaneCirclePvE.Cooldown.WillHaveOneCharge(5)) return true;
+                    if (ArcaneCirclePvE.CD.WillHaveOneCharge(5)) return true;
                 }
             }
             if ((HostileTarget?.HasStatus(true, StatusID.DeathsDesign) ?? false)
@@ -135,8 +135,8 @@ public sealed class RPR_Default : ReaperRotation
            EnshroudPooling && Shroud >= 50 &&
            (!PlentifulHarvestPvE.EnoughLevel ||
            Player.HasStatus(true, StatusID.ArcaneCircle) ||
-           ArcaneCirclePvE.Cooldown.WillHaveOneCharge(8) ||
-           !Player.HasStatus(true, StatusID.ArcaneCircle) && ArcaneCirclePvE.Cooldown.WillHaveOneCharge(65) && !ArcaneCirclePvE.Cooldown.WillHaveOneCharge(50) ||
+           ArcaneCirclePvE.CD.WillHaveOneCharge(8) ||
+           !Player.HasStatus(true, StatusID.ArcaneCircle) && ArcaneCirclePvE.CD.WillHaveOneCharge(65) && !ArcaneCirclePvE.CD.WillHaveOneCharge(50) ||
            !Player.HasStatus(true, StatusID.ArcaneCircle) && Shroud >= 90))
         {
             if (EnshroudPvE.CanUse(out act)) return true;
@@ -153,7 +153,7 @@ public sealed class RPR_Default : ReaperRotation
             if (GluttonyPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-        if (!Player.HasStatus(true, StatusID.BloodsownCircle_2972) && !Player.HasStatus(true, StatusID.ImmortalSacrifice) && (GluttonyPvE.EnoughLevel && !GluttonyPvE.Cooldown.WillHaveOneChargeGCD(4) || !GluttonyPvE.EnoughLevel || Soul == 100))
+        if (!Player.HasStatus(true, StatusID.BloodsownCircle_2972) && !Player.HasStatus(true, StatusID.ImmortalSacrifice) && (GluttonyPvE.EnoughLevel && !GluttonyPvE.CD.WillHaveOneChargeGCD(4) || !GluttonyPvE.EnoughLevel || Soul == 100))
         {
             if (GrimSwathePvE.CanUse(out act)) return true;
             if (BloodStalkPvE.CanUse(out act)) return true;
