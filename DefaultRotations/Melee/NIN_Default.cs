@@ -1,8 +1,6 @@
 namespace DefaultRotations.Melee;
 
 [Rotation("Standard", CombatType.PvE, GameVersion = "6.35")]
-
-[RotationDesc(ActionID.MugPvE)]
 [SourceCode(Path = "main/DefaultRotations/Melee/NIN_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/nin/earlymug3.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/nin/nininfographicwindows.png")]
@@ -321,7 +319,6 @@ public sealed class NIN_Default : NinjaRotation
         return base.GeneralGCD(out act);
     }
 
-    [RotationDesc(ActionID.ForkedRaijuPvE)]
     protected override bool MoveForwardGCD(out IAction? act)
     {
         if (ForkedRaijuPvE.CanUse(out act)) return true;

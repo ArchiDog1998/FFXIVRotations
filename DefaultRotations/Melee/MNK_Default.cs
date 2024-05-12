@@ -1,7 +1,6 @@
 namespace DefaultRotations.Melee;
 
 [Rotation("Lunar Solar", CombatType.PvE, GameVersion = "6.35")]
-[RotationDesc(ActionID.RiddleOfFirePvE)]
 [SourceCode(Path = "main/DefaultRotations/Melee/MNK_Default.cs")]
 [LinkDescription("https://i.imgur.com/C5lQhpe.png")]
 public sealed class MNK_Default : MonkRotation

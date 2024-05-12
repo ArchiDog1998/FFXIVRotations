@@ -36,7 +36,6 @@ public sealed class SGE_Default : SageRotation
         return base.EmergencyAbility(nextGCD, out act);
     }
 
-    [RotationDesc(ActionID.HaimaPvE, ActionID.TaurocholePvE, ActionID.PanhaimaPvE, ActionID.KeracholePvE, ActionID.HolosPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         if (Addersgall <= 1)
@@ -58,7 +57,6 @@ public sealed class SGE_Default : SageRotation
         return base.DefenseSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.EukrasianDiagnosisPvE)]
     protected override bool DefenseSingleGCD(out IAction? act)
     {
         if (EukrasianDiagnosisPvE.CanUse(out act))
@@ -78,7 +76,6 @@ public sealed class SGE_Default : SageRotation
         return base.DefenseSingleGCD(out act);
     }
 
-    [RotationDesc(ActionID.PanhaimaPvE, ActionID.KeracholePvE, ActionID.HolosPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         if (Addersgall <= 1)
@@ -93,7 +90,6 @@ public sealed class SGE_Default : SageRotation
         return base.DefenseAreaAbility(out act);
     }
 
-    [RotationDesc(ActionID.EukrasianPrognosisPvE)]
     protected override bool DefenseAreaGCD(out IAction? act)
     {
         if (EukrasianPrognosisPvE.CanUse(out act))
@@ -176,7 +172,6 @@ public sealed class SGE_Default : SageRotation
         return base.GeneralGCD(out act);
     }
 
-    [RotationDesc(ActionID.TaurocholePvE, ActionID.KeracholePvE, ActionID.DruocholePvE, ActionID.HolosPvE, ActionID.PhysisPvE, ActionID.PanhaimaPvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (TaurocholePvE.CanUse(out act)) return true;
@@ -216,14 +211,12 @@ public sealed class SGE_Default : SageRotation
         return base.HealSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.DiagnosisPvE)]
     protected override bool HealSingleGCD(out IAction? act)
     {
         if (DiagnosisPvE.CanUse(out act)) return true;
         return base.HealSingleGCD(out act);
     }
 
-    [RotationDesc(ActionID.PneumaPvE, ActionID.PrognosisPvE, ActionID.EukrasianPrognosisPvE)]
     protected override bool HealAreaGCD(out IAction? act)
     {
         if (PartyMembersAverHP < 0.65f || DyskrasiaPvE.CanUse(out _) && PartyMembers.GetJobCategory(JobRole.Tank).Any(t => t.GetHealthRatio() < 0.6f))
@@ -246,7 +239,6 @@ public sealed class SGE_Default : SageRotation
         return base.HealAreaGCD(out act);
     }
 
-    [RotationDesc(ActionID.KeracholePvE, ActionID.PhysisPvE, ActionID.HolosPvE, ActionID.IxocholePvE)]
     protected override bool HealAreaAbility(out IAction? act)
     {
         if (PhysisIiPvE.CanUse(out act)) return true;

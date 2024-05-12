@@ -3,7 +3,6 @@
 namespace DefaultRotations.Magical;
 
 [BetaRotation]
-[RotationDesc(ActionID.SearingLightPvE)]
 [Rotation("General purpose", CombatType.PvE, GameVersion = "6.38")]
 [SourceCode(Path = "main/DefaultRotations/Magical/SMN_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/smn/6.png")]
@@ -44,7 +43,6 @@ public sealed class SMN_Default : SummonerRotation
 
     public override bool CanHealSingleSpell => false;
 
-    [RotationDesc(ActionID.CrimsonCyclonePvE)]
     protected override bool MoveForwardGCD(out IAction? act)
     {
         if (CrimsonCyclonePvE.CanUse(out act, skipAoeCheck: true)) return true;

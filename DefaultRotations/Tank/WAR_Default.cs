@@ -100,7 +100,6 @@ public sealed class WAR_Default : WarriorRotation
         return base.GeneralAbility(out act);
     }
 
-    [RotationDesc(ActionID.RawIntuitionPvE, ActionID.VengeancePvE, ActionID.RampartPvE, ActionID.RawIntuitionPvE, ActionID.ReprisalPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         if (MobsTime)
@@ -136,7 +135,6 @@ public sealed class WAR_Default : WarriorRotation
         return false;
     }
 
-    [RotationDesc(ActionID.ShakeItOffPvE, ActionID.ReprisalPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         act = null;

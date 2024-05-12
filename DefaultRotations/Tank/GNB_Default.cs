@@ -97,7 +97,6 @@ public sealed class GNB_Default : GunbreakerRotation
         return base.AttackAbility(out act);
     }
 
-    [RotationDesc(ActionID.HeartOfLightPvE, ActionID.ReprisalPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         if (!Player.HasStatus(true, StatusID.NoMercy) && HeartOfLightPvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -105,7 +104,6 @@ public sealed class GNB_Default : GunbreakerRotation
         return base.DefenseAreaAbility(out act);
     }
 
-    [RotationDesc(ActionID.HeartOfStonePvE, ActionID.NebulaPvE, ActionID.RampartPvE, ActionID.CamouflagePvE, ActionID.ReprisalPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         //10
@@ -123,7 +121,6 @@ public sealed class GNB_Default : GunbreakerRotation
         return base.DefenseSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.AuroraPvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (AuroraPvE.CanUse(out act, usedUp: true, onLastAbility: true)) return true;

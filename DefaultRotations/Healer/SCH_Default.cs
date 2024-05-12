@@ -1,7 +1,6 @@
 namespace DefaultRotations.Healer;
 
 [Rotation("Default", CombatType.PvE, GameVersion = "6.28")]
-[RotationDesc(ActionID.ChainStratagemPvE)]
 [SourceCode(Path = "main/DefaultRotations/Healer/SCH_Default.cs")]
 public sealed class SCH_Default : ScholarRotation
 {
@@ -59,7 +58,6 @@ public sealed class SCH_Default : ScholarRotation
         return base.GeneralGCD(out act);
     }
 
-    [RotationDesc(ActionID.AdloquiumPvE, ActionID.PhysickPvE)]
     protected override bool HealSingleGCD(out IAction? act)
     {
         if (AdloquiumPvE.CanUse(out act)) return true;
@@ -68,7 +66,6 @@ public sealed class SCH_Default : ScholarRotation
         return base.HealSingleGCD(out act);
     }
 
-    [RotationDesc(ActionID.AetherpactPvE, ActionID.ProtractionPvE, ActionID.SacredSoilPvE, ActionID.ExcogitationPvE, ActionID.LustratePvE, ActionID.AetherpactPvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
         var haveLink = PartyMembers.Any(p => p.HasStatus(true, StatusID.FeyUnion_1223));
@@ -83,14 +80,12 @@ public sealed class SCH_Default : ScholarRotation
         return base.HealSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.ExcogitationPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         if (ExcogitationPvE.CanUse(out act)) return true;
         return base.DefenseSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.SuccorPvE)]
     protected override bool HealAreaGCD(out IAction? act)
     {
         if (SuccorPvE.CanUse(out act)) return true;
@@ -98,8 +93,6 @@ public sealed class SCH_Default : ScholarRotation
         return base.HealAreaGCD(out act);
     }
 
-
-    [RotationDesc(ActionID.SummonSeraphPvE, ActionID.ConsolationPvE, ActionID.WhisperingDawnPvE, ActionID.SacredSoilPvE, ActionID.IndomitabilityPvE)]
     protected override bool HealAreaAbility(out IAction? act)
     {
         //慰藉
@@ -117,14 +110,12 @@ public sealed class SCH_Default : ScholarRotation
         return base.HealAreaAbility(out act);
     }
 
-    [RotationDesc(ActionID.SuccorPvE)]
     protected override bool DefenseAreaGCD(out IAction? act)
     {
         if (SuccorPvE.CanUse(out act)) return true;
         return base.DefenseAreaGCD(out act);
     }
 
-    [RotationDesc(ActionID.FeyIlluminationPvE, ActionID.ExpedientPvE, ActionID.SummonSeraphPvE, ActionID.ConsolationPvE, ActionID.SacredSoilPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         if (FeyIlluminationPvE.CanUse(out act)) return true;

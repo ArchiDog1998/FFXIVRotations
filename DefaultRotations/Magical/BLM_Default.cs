@@ -357,7 +357,6 @@ public class BLM_Default : BlackMageRotation
         return false;
     }
 
-    [RotationDesc(ActionID.BetweenTheLinesPvE, ActionID.LeyLinesPvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (BetweenTheLinesPvE.CanUse(out act)) return true;

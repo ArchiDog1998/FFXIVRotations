@@ -1,7 +1,6 @@
 namespace DefaultRotations.Healer;
 
 [Rotation("Default", CombatType.PvE, GameVersion = "6.28")]
-[RotationDesc(ActionID.DivinationPvE)]
 [SourceCode(Path = "main/DefaultRotations/Healer/AST_Default.cs")]
 public sealed class AST_Default : AstrologianRotation
 {
@@ -23,7 +22,6 @@ public sealed class AST_Default : AstrologianRotation
         return base.CountDownAction(remainTime);
     }
 
-    [RotationDesc(ActionID.CelestialIntersectionPvE, ActionID.ExaltationPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         if (CelestialIntersectionPvE.CanUse(out act, usedUp:true)) return true;
@@ -31,7 +29,6 @@ public sealed class AST_Default : AstrologianRotation
         return base.DefenseSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.MacrocosmosPvE)]
     protected override bool DefenseAreaGCD(out IAction? act)
     {
         act = null;
@@ -42,7 +39,6 @@ public sealed class AST_Default : AstrologianRotation
         return base.DefenseAreaGCD(out act);
     }
 
-    [RotationDesc(ActionID.CollectiveUnconsciousPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         act = null;
@@ -67,7 +63,6 @@ public sealed class AST_Default : AstrologianRotation
         return base.GeneralGCD(out act);
     }
 
-    [RotationDesc(ActionID.AspectedHeliosPvE, ActionID.HeliosPvE)]
     protected override bool HealAreaGCD(out IAction? act)
     {
         if (AspectedHeliosPvE.CanUse(out act)) return true;
@@ -101,7 +96,6 @@ public sealed class AST_Default : AstrologianRotation
         return base.GeneralAbility(out act);
     }
 
-    [RotationDesc(ActionID.AspectedBeneficPvE, ActionID.BeneficIiPvE, ActionID.BeneficPvE)]
     protected override bool HealSingleGCD(out IAction? act)
     {
         if (AspectedBeneficPvE.CanUse(out act)
@@ -148,8 +142,6 @@ public sealed class AST_Default : AstrologianRotation
         return base.AttackAbility(out act);
     }
 
-    [RotationDesc(ActionID.EssentialDignityPvE, ActionID.CelestialIntersectionPvE, ActionID.CelestialOppositionPvE,
-        ActionID.EarthlyStarPvE, ActionID.HoroscopePvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (EssentialDignityPvE.CanUse(out act)) return true;
@@ -175,7 +167,6 @@ public sealed class AST_Default : AstrologianRotation
         return base.HealSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.CelestialOppositionPvE, ActionID.EarthlyStarPvE, ActionID.HoroscopePvE)]
     protected override bool HealAreaAbility(out IAction? act)
     {
         if (CelestialOppositionPvE.CanUse(out act)) return true;

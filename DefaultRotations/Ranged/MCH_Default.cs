@@ -4,7 +4,6 @@ namespace DefaultRotations.Ranged;
 [BetaRotation]
 [SourceCode(Path = "main/DefaultRotations/Ranged/MCH_Default.cs")]
 [LinkDescription("https://cdn.discordapp.com/attachments/277968251789639680/1086348727691780226/mch_rotation.png")]
-[RotationDesc(ActionID.WildfirePvE)]
 public sealed class MCH_Default : MachinistRotation
 {
     protected override IAction? CountDownAction(float remainTime)

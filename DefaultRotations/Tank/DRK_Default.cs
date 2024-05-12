@@ -3,7 +3,6 @@ namespace DefaultRotations.Tank;
 [Rotation("Balance", CombatType.PvE, GameVersion = "6.38",
     Description = "Please contact Nore#7219 on Discord for questions about this rotation.")]
 
-[RotationDesc(ActionID.BloodWeaponPvE, ActionID.DeliriumPvE)]
 [SourceCode(Path = "main/DefaultRotations/Tank/DRK_Balance.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
 public sealed class DRK_Default : DarkKnightRotation
@@ -99,14 +98,12 @@ public sealed class DRK_Default : DarkKnightRotation
         return base.EmergencyAbility(nextGCD, out act);
     }
 
-    [RotationDesc(ActionID.TheBlackestNightPvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (TheBlackestNightPvE.CanUse(out act)) return true;
         return base.HealSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.DarkMissionaryPvE, ActionID.ReprisalPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         if (!InTwoMIsBurst() && DarkMissionaryPvE.CanUse(out act)) return true;
@@ -115,7 +112,6 @@ public sealed class DRK_Default : DarkKnightRotation
         return base.DefenseAreaAbility(out act);
     }
 
-    [RotationDesc(ActionID.TheBlackestNightPvE, ActionID.OblationPvE, ActionID.ReprisalPvE, ActionID.ShadowWallPvE, ActionID.RampartPvE, ActionID.DarkMindPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         act = null;

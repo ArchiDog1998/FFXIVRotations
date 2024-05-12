@@ -5,7 +5,6 @@ namespace DefaultRotations.Melee;
 
 public sealed class DRG_Default : DragoonRotation
 {
-    [RotationDesc(ActionID.SpineshatterDivePvE, ActionID.DragonfireDivePvE)]
     protected override bool MoveForwardAbility(out IAction act)
     {
         if (SpineshatterDivePvE.CanUse(out act)) return true;

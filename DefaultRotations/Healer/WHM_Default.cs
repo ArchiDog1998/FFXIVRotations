@@ -79,7 +79,6 @@ public sealed class WHM_Default :WhiteMageRotation
         return base.EmergencyAbility(nextGCD, out act);
     }
 
-    [RotationDesc(ActionID.AfflatusSolacePvE, ActionID.RegenPvE, ActionID.CureIiPvE, ActionID.CurePvE)]
     protected override bool HealSingleGCD(out IAction? act)
     {
         if (AfflatusSolacePvE.CanUse(out act)) return true;
@@ -94,7 +93,6 @@ public sealed class WHM_Default :WhiteMageRotation
         return base.HealSingleGCD(out act);
     }
 
-    [RotationDesc(ActionID.BenedictionPvE, ActionID.AsylumPvE, ActionID.DivineBenisonPvE, ActionID.TetragrammatonPvE)]
     protected override bool HealSingleAbility(out IAction? act)
     {
         if (BenedictionPvE.CanUse(out act) &&
@@ -108,7 +106,6 @@ public sealed class WHM_Default :WhiteMageRotation
         return base.HealSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.AfflatusRapturePvE, ActionID.MedicaIiPvE, ActionID.CureIiiPvE, ActionID.MedicaPvE)]
     protected override bool HealAreaGCD(out IAction? act)
     {
         if (AfflatusRapturePvE.CanUse(out act)) return true;
@@ -124,14 +121,12 @@ public sealed class WHM_Default :WhiteMageRotation
         return base.HealAreaGCD(out act);
     }
 
-    [RotationDesc(ActionID.AsylumPvE)]
     protected override bool HealAreaAbility(out IAction? act)
     {
         if (AsylumPvE.CanUse(out act)) return true;
         return base.HealAreaAbility(out act);
     }
 
-    [RotationDesc(ActionID.DivineBenisonPvE, ActionID.AquaveilPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         act = null;
@@ -144,7 +139,6 @@ public sealed class WHM_Default :WhiteMageRotation
         return base.DefenseSingleAbility(out act);
     }
 
-    [RotationDesc(ActionID.TemperancePvE, ActionID.LiturgyOfTheBellPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         act = null;

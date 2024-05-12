@@ -1,7 +1,6 @@
 namespace DefaultRotations.Magical;
 
 [Rotation("Standard", CombatType.PvE, GameVersion = "6.31")]
-[RotationDesc(ActionID.EmboldenPvE)]
 [SourceCode(Path = "main/DefaultRotations/Magical/RDM_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
 public sealed class RDM_Default : RedMageRotation

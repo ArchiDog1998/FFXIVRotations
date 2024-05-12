@@ -2,8 +2,6 @@
 
 [Rotation("Tentative v1.2", CombatType.PvE, GameVersion = "6.31")]
 [LinkDescription("https://xiv.sleepyshiba.com/pld/img/63-60stentative2.png")]
-[RotationDesc("The whole rotation's burst\nis base on:")]
-[RotationDesc(ActionID.FightOrFlightPvE)]
 [SourceCode(Path = "main/DefaultRotations/Tank/PLD_Default.cs")]
 public class PLD_Default : PaladinRotation
 {
@@ -99,7 +97,6 @@ public class PLD_Default : PaladinRotation
         return base.GeneralGCD(out act);
     }
 
-    [RotationDesc(ActionID.ReprisalPvE, ActionID.DivineVeilPvE)]
     protected override bool DefenseAreaAbility(out IAction? act)
     {
         if (ReprisalPvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -107,14 +104,12 @@ public class PLD_Default : PaladinRotation
         return base.DefenseAreaAbility(out act);
     }
 
-    [RotationDesc(ActionID.PassageOfArmsPvE)]
     protected override bool HealAreaAbility(out IAction? act)
     {
         if (PassageOfArmsPvE.CanUse(out act)) return true;
         return base.HealAreaAbility(out act);
     }
 
-    [RotationDesc(ActionID.SentinelPvE, ActionID.RampartPvE, ActionID.BulwarkPvE, ActionID.SheltronPvE, ActionID.ReprisalPvE)]
     protected override bool DefenseSingleAbility(out IAction? act)
     {
         //10

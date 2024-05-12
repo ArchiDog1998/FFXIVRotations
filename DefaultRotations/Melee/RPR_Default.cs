@@ -2,7 +2,6 @@
 
 [Rotation("Early Enshroud", CombatType.PvE, GameVersion = "6.38")]
 [BetaRotation]
-[RotationDesc(ActionID.ArcaneCirclePvE)]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/double_communio.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/rpr_6.3_early_enshroud.png")]
 [SourceCode(Path = "main/DefaultRotations/Melee/RPR_Default.cs")]
