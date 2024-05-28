@@ -170,7 +170,7 @@ public class BLM_Default : BlackMageRotation
         return false;
     }
 
-    private bool DoIce(out IAction act)
+    private bool DoIce(out IAction? act)
     {
         if (IsLastAction(ActionID.UmbralSoulPvE, ActionID.TransposePvE)
             && IsParadoxActive && BlizzardPvE.CanUse(out act)) return true;
@@ -290,7 +290,7 @@ public class BLM_Default : BlackMageRotation
         return false;
     }
 
-    private bool UseInstanceSpell(out IAction act)
+    private bool UseInstanceSpell(out IAction? act)
     {
         if (UsePolyglot(out act)) return true;
         if (HasThunder && AddThunder(out act, 1)) return true;

@@ -1,4 +1,5 @@
-﻿using RotationSolver.Basic.Rotations.Duties;
+﻿using RotationSolver.Basic.Record;
+using RotationSolver.Basic.Rotations.Duties;
 
 namespace DefaultRotations.Duty;
 
@@ -8,7 +9,7 @@ public class FF16Default : FF16Rotation
 {
     public override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-        if (VfxNewData.Any(d => d.Path == "vfx/common/eff/kaihi_stlp_c1v.avfx" && d.TimeDuration.TotalSeconds is > 1.2 and < 3))
+        if (GetRecordData<VfxNewData>(1.2f, 3).Any(d => d.Path == "vfx/common/eff/kaihi_stlp_c1v.avfx"))
         {
             if (DodgePvE_33997.CanUse(out act, skipClippingCheck: true)) return true;
         }
