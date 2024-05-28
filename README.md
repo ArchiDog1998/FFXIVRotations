@@ -18,5 +18,3 @@ Download path
 ```
 https://github.com/ArchiDog1998/FFXIVRotations/releases/latest/download/DefaultRotations.dll
 ```
-
-[![Discord](https://discordapp.com/api/guilds/1064448004498653245/embed.png?style=banner2)](https://discord.gg/4fECHunam9)
