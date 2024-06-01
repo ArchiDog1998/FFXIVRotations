@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.9](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.8...v1.1.9) (2024-06-01)
+
+
+### Bug Fixes
+
+* add ff16 rotation. ([a6402ad](https://github.com/ArchiDog1998/FFXIVRotations/commit/a6402ad2d911f2c6759f159974f2398be86a6fe2))
+* add variant actions. ([64c8e6e](https://github.com/ArchiDog1998/FFXIVRotations/commit/64c8e6e6b7ef2018ca20130956bf00d314607de3))
+* clean code. ([56bc8aa](https://github.com/ArchiDog1998/FFXIVRotations/commit/56bc8aaac594b4988a1f971936d920f30d855e8a))
+* clean code. ([084b3fd](https://github.com/ArchiDog1998/FFXIVRotations/commit/084b3fd4d1a40a40e7e439ba1f75d24da4b46aa4))
+* move forward fix. ([2571095](https://github.com/ArchiDog1998/FFXIVRotations/commit/2571095be4bf0bc16bf772c5923bc3b0f59f4d75))
+* patch the new api. ([dac5fc6](https://github.com/ArchiDog1998/FFXIVRotations/commit/dac5fc61d639a43419f389c935370c75b5ac2389))
+* remove the rotation desc attributes. reflection plz! ([da18be2](https://github.com/ArchiDog1998/FFXIVRotations/commit/da18be23bea1c4e55fdb289124e823f4f9eeb359))
+* rp. ([b8fd561](https://github.com/ArchiDog1998/FFXIVRotations/commit/b8fd561f2145a964484c63fc68a48b56d4c50ff4))
+* rp. ([053991e](https://github.com/ArchiDog1998/FFXIVRotations/commit/053991ef00b44328a26f313a40fbfca90cbdb125))
+* target nullable. ([d554d8d](https://github.com/ArchiDog1998/FFXIVRotations/commit/d554d8dd174c3c36746e350c914a5647f9e269cf))
+* update api. ([3f6a121](https://github.com/ArchiDog1998/FFXIVRotations/commit/3f6a1211b309031c56c515056faa5f0aaeaafe6a))
+* update reference. ([7239deb](https://github.com/ArchiDog1998/FFXIVRotations/commit/7239deb444b7c75f455f61644b3f8aca37f7ce81))
+* update the api. ([57890de](https://github.com/ArchiDog1998/FFXIVRotations/commit/57890de043ea0e20bd5dbdb68683fb8962472b01))
+
 ## [1.1.8](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.7...v1.1.8) (2024-03-21)
 
 
