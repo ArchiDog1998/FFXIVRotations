@@ -7,7 +7,7 @@ name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    if : ${{ startsWith(github.event.head_commit.message, 'chore:') || startsWith(github.event.head_commit.message, 'Merge pull request')}}
+    if : ${{ startsWith(github.event.head_commit.message, 'chore:') || (startsWith(github.event.head_commit.message, 'Merge pull request') && contains(github.event.head_commit.message, 'release-please'))}}
     outputs:
       released: ${{ steps.rp.outputs.releases_created }}
       upload_url: ${{ steps.rp.outputs.upload_url }}
@@ -25,7 +25,7 @@ jobs:
     needs: release-please
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
