@@ -2,7 +2,6 @@ namespace DefaultRotations.Melee;
 
 [SourceCode(Path = "main/DefaultRotations/Melee/DRG_Default.cs")]
 [Rotation("Default", CombatType.PvE, GameVersion = "6.18")]
-
 public sealed class DRG_Default : DragoonRotation
 {
     protected override bool MoveForwardAbility(out IAction act)
