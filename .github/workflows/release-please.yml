@@ -15,9 +15,7 @@ jobs:
       - id: rp
         uses: googleapis/release-please-action@v4
         with:
-          release-type: node
-          package-name: release-please-action
-          default-branch: release
+          release-type: simple
 
   build:
     if: ${{ needs.release-please.outputs.released }}
