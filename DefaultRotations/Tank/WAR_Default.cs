@@ -1,6 +1,6 @@
 namespace DefaultRotations.Tank;
 
-[Rotation("All-Around", CombatType.PvE, GameVersion = "6.35")]
+[Rotation("All-Around", CombatType.Both, GameVersion = "6.35")]
 [SourceCode(Path = "main/DefaultRotations/Tank/WAR_Default.cs")]
 [LinkDescription("https://cdn.discordapp.com/attachments/277962807813865472/963548326433796116/unknown.png")]
 public sealed class WAR_Default : WarriorRotation
@@ -25,6 +25,15 @@ public sealed class WAR_Default : WarriorRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (PrimalRendPvP.CanUse(out act)) return true;
+        if (ChaoticCyclonePvP.CanUse(out act)) return true;
+
+        if (StormsPathPvP.CanUse(out act)) return true;
+        if (MaimPvP.CanUse(out act)) return true;
+        if (HeavySwingPvP.CanUse(out act)) return true;
+        #endregion
+
         if (!Player.WillStatusEndGCD(3, 0, true, StatusID.SurgingTempest))
         {
             if (!IsMoving && IsBurstStatus && PrimalRendPvE.CanUse(out act, skipAoeCheck: true))
@@ -59,6 +68,11 @@ public sealed class WAR_Default : WarriorRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (OrogenyPvP.CanUse(out act)) return true;
+        if (OnslaughtPvP.CanUse(out act)) return true;
+        #endregion
+
         if (InfuriatePvE.CanUse(out act, gcdCountForAbility: 3)) return true;
 
         if (CombatElapsedLessGCD(1)) return false;
@@ -88,6 +102,10 @@ public sealed class WAR_Default : WarriorRotation
 
     protected override bool GeneralAbility(out IAction? act)
     {
+        #region PvP
+        if (BloodwhettingPvP.CanUse(out act)) return true;
+        #endregion
+
         //Auto healing
         if (Player.GetHealthRatio() < 0.6f)
         {

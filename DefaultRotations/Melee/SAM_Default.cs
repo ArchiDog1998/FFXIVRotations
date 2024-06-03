@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Melee;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.28")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.28")]
 [SourceCode(Path = "main/DefaultRotations/Melee/SAM_Default.cs")]
 public sealed class SAM_Default : SamuraiRotation
 {
@@ -13,6 +13,12 @@ public sealed class SAM_Default : SamuraiRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (KashaPvP.CanUse(out act)) return true;
+        if (GekkoPvP.CanUse(out act)) return true;
+        if (YukikazePvP.CanUse(out act)) return true;
+        #endregion
+
         if (KaeshiNamikiriPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;

@@ -1,6 +1,6 @@
 namespace DefaultRotations.Magical;
 
-[Rotation("Standard", CombatType.PvE, GameVersion = "6.31")]
+[Rotation("Standard", CombatType.Both, GameVersion = "6.31")]
 [SourceCode(Path = "main/DefaultRotations/Magical/RDM_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
 public sealed class RDM_Default : RedMageRotation
@@ -53,6 +53,27 @@ public sealed class RDM_Default : RedMageRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (Player.HasStatus(true, StatusID.WhiteShift))
+        {
+            if (VerstonePvP.CanUse(out act, skipComboCheck: true)) return true;
+            if (VeraeroIiiPvP.CanUse(out act)) return true;
+            if (EnchantedRipostePvP.CanUse(out act)) return true;
+            if (EnchantedZwerchhauPvP.CanUse(out act)) return true;
+            if (EnchantedRedoublementPvP.CanUse(out act)) return true;
+            if (VerholyPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+        else if (Player.HasStatus(true, StatusID.BlackShift))
+        {
+            if (VerfirePvP.CanUse(out act, skipComboCheck: true)) return true;
+            if (VerthunderIiiPvP.CanUse(out act)) return true;
+            if (EnchantedRipostePvP_29692.CanUse(out act)) return true;
+            if (EnchantedZwerchhauPvP_29693.CanUse(out act)) return true;
+            if (EnchantedRedoublementPvP_29694.CanUse(out act)) return true;
+            if (VerflarePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+        #endregion
+
         act = null;
         if (ManaStacks == 3) return false;
 
@@ -128,6 +149,20 @@ public sealed class RDM_Default : RedMageRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (Player.HasStatus(true, StatusID.BlackShift))
+        {
+            if (ResolutionPvP_29696.CanUse(out act)) return true;
+        }
+        else if (Player.HasStatus(true, StatusID.WhiteShift))
+        {
+            if (ResolutionPvP.CanUse(out act)) return true;
+        }
+
+        if (DisplacementPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (CorpsacorpsPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        #endregion
+
         //Swift
         if (ManaStacks == 0 && (BlackMana < 50 || WhiteMana < 50)
             && (CombatElapsedLess(4) || !ManaficationPvE.EnoughLevel || !ManaficationPvE.CD.WillHaveOneChargeGCD(0, 1)))
@@ -149,6 +184,15 @@ public sealed class RDM_Default : RedMageRotation
         if (CorpsacorpsPvE.CanUse(out act) && !IsMoving) return true;
 
         return base.AttackAbility(out act);
+    }
+
+    protected override bool DefenseAreaAbility(out IAction? act)
+    {
+        #region PvP
+        if (MagickBarrierPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (FrazzlePvP.CanUse(out act, skipAoeCheck: true)) return true;
+        #endregion
+        return base.DefenseAreaAbility(out act);
     }
 }
 

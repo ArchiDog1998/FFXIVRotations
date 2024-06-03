@@ -1,6 +1,6 @@
 namespace DefaultRotations.Ranged;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.28")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.28")]
 [SourceCode(Path = "main/DefaultRotations/Ranged/DNC_Default.cs")]
 public sealed class DNC_Default : DancerRotation
 {
@@ -12,6 +12,15 @@ public sealed class DNC_Default : DancerRotation
             if (ExecuteStepGCD(out act)) return act;
         }
         return base.CountDownAction(remainTime);
+    }
+
+    protected override bool HealAreaAbility(out IAction act)
+    {
+        #region PvP
+        if (CuringWaltzPvP.CanUse(out act)) return true;
+        #endregion
+
+        return base.HealAreaAbility(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
@@ -29,6 +38,10 @@ public sealed class DNC_Default : DancerRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (FanDancePvP.CanUse(out act)) return true;
+        #endregion
+
         act = null;
         if (IsDancing) return false;
 
@@ -61,6 +74,13 @@ public sealed class DNC_Default : DancerRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (StarfallDancePvP.CanUse(out act)) return true;
+
+        if (FountainPvP.CanUse(out act)) return true;
+        if (CascadePvP.CanUse(out act)) return true;
+        #endregion
+
         if (!InCombat && !Player.HasStatus(true, StatusID.ClosedPosition) && ClosedPositionPvE.CanUse(out act)) return true;
 
         if (DanceFinishGCD(out act)) return true;

@@ -1,6 +1,6 @@
 namespace DefaultRotations.Healer;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.28")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.58")]
 [SourceCode(Path = "main/DefaultRotations/Healer/AST_Default.cs")]
 public sealed class AST_Default : AstrologianRotation
 {
@@ -54,6 +54,12 @@ public sealed class AST_Default : AstrologianRotation
         ////Add AspectedBeneficwhen not in combat.
         //if (NotInCombatDelay && AspectedBeneficDefensePvE.CanUse(out act)) return true;
 
+        #region PvP
+        if (GravityIiPvP.CanUse(out act)) return true;
+        if (FallMaleficPvP.CanUse(out act)) return true;
+        if (AspectedBeneficPvP.CanUse(out act)) return true;
+        #endregion
+
         if (GravityPvE.CanUse(out act)) return true;
 
         if (CombustPvE.CanUse(out act)) return true;
@@ -72,6 +78,12 @@ public sealed class AST_Default : AstrologianRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        #region PvP
+        if (TheBolePvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BoleDrawn_3403)) return true;
+        if (TheArrowPvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.ArrowDrawn_3404)) return true;
+        if (TheBalancePvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BalanceDrawn_3101)) return true;
+        #endregion
+
         if (base.EmergencyAbility(nextGCD, out act)) return true;
 
         if (!InCombat) return false;
@@ -91,6 +103,14 @@ public sealed class AST_Default : AstrologianRotation
 
     protected override bool GeneralAbility(out IAction? act)
     {
+        #region PvP
+        if (DrawPvP.CanUse(out act)) return true;
+        if (AspectedBeneficPvP_29247.CanUse(out act)) return true;
+
+        if (MacrocosmosPvP.CanUse(out act)) return true;
+        if (MicrocosmosPvP.CanUse(out act)) return true;
+        #endregion
+
         if (DrawPvE.CanUse(out act)) return true;
         if (RedrawPvE.CanUse(out act)) return true;
         return base.GeneralAbility(out act);
@@ -110,6 +130,10 @@ public sealed class AST_Default : AstrologianRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (GravityIiPvP_29248.CanUse(out act, skipAoeCheck: true)) return true;
+        #endregion
+
         if (IsBurst && !IsMoving
             && DivinationPvE.CanUse(out act)) return true;
 

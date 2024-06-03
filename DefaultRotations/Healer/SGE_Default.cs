@@ -1,7 +1,6 @@
 namespace DefaultRotations.Healer;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.28",
-    Description = "Please contact Nore#7219 on Discord for questions about this rotation.")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.28")]
 [SourceCode(Path = "main/DefaultRotations/Healer/SGE_Default.cs")]
 public sealed class SGE_Default : SageRotation
 {
@@ -124,6 +123,12 @@ public sealed class SGE_Default : SageRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (PneumaPvP.CanUse(out act)) return true;
+        if (PhlegmaIiiPvP.CanUse(out act)) return true;
+        if (DosisIiiPvP.CanUse(out act)) return true;
+        #endregion
+
         if (HostileTarget?.IsBossFromTTK() ?? false)
         {
             if (EukrasianDosisPvE.CanUse(out _, skipCastingCheck: true))
@@ -253,5 +258,14 @@ public sealed class SGE_Default : SageRotation
         if (KeracholePvE.CanUse(out act, onLastAbility: true)) return true;
 
         return base.HealAreaAbility(out act);
+    }
+
+    protected override bool AttackAbility(out IAction? act)
+    {
+        #region PvP
+        if (ToxikonPvP.CanUse(out act)) return true;
+        #endregion
+
+        return base.AttackAbility(out act);
     }
 }

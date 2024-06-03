@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Melee;
 
-[Rotation("Early Enshroud", CombatType.PvE, GameVersion = "6.38")]
+[Rotation("Early Enshroud", CombatType.Both, GameVersion = "6.38")]
 [BetaRotation]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/double_communio.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/rpr_6.3_early_enshroud.png")]
@@ -37,6 +37,16 @@ public sealed class RPR_Default : ReaperRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (SoulSlicePvP.CanUse(out act, usedUp: true)) return true;
+
+        if (PlentifulHarvestPvP.CanUse(out act)) return true;
+
+        if (InfernalSlicePvP.CanUse(out act)) return true;
+        if (WaxingSlicePvP.CanUse(out act)) return true;
+        if (SlicePvP.CanUse(out act)) return true;
+        #endregion
+
         if (SoulsowPvE.CanUse(out act)) return true;
 
         if (WhorlOfDeathPvE.CanUse(out act)) return true;
@@ -109,6 +119,12 @@ public sealed class RPR_Default : ReaperRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (GrimSwathePvP.CanUse(out act)) return true;
+        if (LemuresSlicePvP.CanUse(out act)) return true;
+        if (HarvestMoonPvP.CanUse(out act)) return true;
+        #endregion
+
         var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
         var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
@@ -159,5 +175,14 @@ public sealed class RPR_Default : ReaperRotation
         }
 
         return base.AttackAbility(out act);
+    }
+
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
+    {
+        #region PvP
+        if (ArcaneCrestPvP.CanUse(out act)) return true;
+        #endregion
+
+        return base.EmergencyAbility(nextGCD, out act);
     }
 }

@@ -1,7 +1,7 @@
 namespace DefaultRotations.Melee;
 
 [SourceCode(Path = "main/DefaultRotations/Melee/DRG_Default.cs")]
-[Rotation("Default", CombatType.PvE, GameVersion = "6.18")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.18")]
 public sealed class DRG_Default : DragoonRotation
 {
     protected override bool MoveForwardAbility(out IAction act)
@@ -10,6 +10,7 @@ public sealed class DRG_Default : DragoonRotation
         if (DragonfireDivePvE.CanUse(out act, skipAoeCheck: true)) return true;
         return false;
     }
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         if (nextGCD.IsTheSameTo(true, FullThrustPvE, CoerthanTormentPvE)
@@ -23,6 +24,15 @@ public sealed class DRG_Default : DragoonRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (GeirskogulPvP.CanUse(out act)) return true;
+        if (NastrondPvP.CanUse(out act)) return true;
+
+        if (HighJumpPvP.CanUse(out act)) return true;
+
+        if (HorridRoarPvP.CanUse(out act)) return true;
+        #endregion
+
         if (IsBurst && InCombat)
         {
             if (LanceChargePvE.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.PowerSurge)) return true;
@@ -66,6 +76,16 @@ public sealed class DRG_Default : DragoonRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (WyrmwindThrustPvP.CanUse(out act)) return true;
+
+        if (ChaoticSpringPvP.CanUse(out act)) return true;
+
+        if (WheelingThrustPvP.CanUse(out act)) return true;
+        if (FangAndClawPvP.CanUse(out act)) return true;
+        if (RaidenThrustPvP.CanUse(out act)) return true;
+        #endregion
+
         if (CoerthanTormentPvE.CanUse(out act)) return true;
         if (SonicThrustPvE.CanUse(out act)) return true;
         if (DoomSpikePvE.CanUse(out act)) return true;

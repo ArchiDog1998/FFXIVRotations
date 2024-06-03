@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Magical;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.31")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.31")]
 [SourceCode(Path = "main/DefaultRotations/Magical/BLM_Default.cs")]
 public class BLM_Default : BlackMageRotation
 {
@@ -56,6 +56,11 @@ public class BLM_Default : BlackMageRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (NightWingPvP.CanUse(out act)) return true;
+        if (SuperflarePvP.CanUse(out act)) return true;
+        #endregion
+
         if (IsBurst && UseBurstMedicine(out act)) return true;
         if (InUmbralIce)
         {
@@ -103,6 +108,13 @@ public class BLM_Default : BlackMageRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (BurstPvP.CanUse(out act)) return true;
+        if (ParadoxPvP.CanUse(out act)) return true;
+        if (FirePvP.CanUse(out act)) return true;
+        if (BlizzardPvP.CanUse(out act)) return true;
+        #endregion
+
         if (InFireOrIce(out act, out var mustGo)) return true;
         if (mustGo) return false;
         //Triplecast for moving.
@@ -363,5 +375,13 @@ public class BLM_Default : BlackMageRotation
         if (LeyLinesPvE.CanUse(out act)) return true;
 
         return base.HealSingleAbility(out act);
+    }
+
+    protected override bool GeneralAbility(out IAction? act)
+    {
+        #region PvP
+        if (AetherialManipulationPvP.CanUse(out act)) return true;
+        #endregion
+        return base.GeneralAbility(out act);
     }
 }

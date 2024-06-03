@@ -1,6 +1,6 @@
 namespace DefaultRotations.Tank;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.38")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.38")]
 [SourceCode(Path = "main/DefaultRotations/Tank/GNB_Default.cs")]
 public sealed class GNB_Default : GunbreakerRotation
 {
@@ -30,6 +30,12 @@ public sealed class GNB_Default : GunbreakerRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (SolidBarrelPvP.CanUse(out act)) return true;
+        if (BrutalShellPvP.CanUse(out act)) return true;
+        if (KeenEdgePvP.CanUse(out act)) return true;
+        #endregion
+
         if (FatedCirclePvE.CanUse(out act)) return true;
         if (CanUseGnashingFang(out act)) return true;
 

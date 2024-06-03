@@ -1,5 +1,3 @@
-using Lumina.Excel.GeneratedSheets2;
-
 namespace DefaultRotations.Ranged;
 
 [Rotation("Default", CombatType.PvE | CombatType.PvP, GameVersion = "6.28", 
@@ -35,12 +33,10 @@ public sealed class BRD_Default : BardRotation
     private float MAGERemainTime => 45 - MAGETime;
     private float ARMYRemainTime => 45 - ARMYTime;
 
+
     protected override bool GeneralGCD(out IAction? act)
     {
         #region PvP
-
-        //if (PvP_FinalFantasia.CanUse(out act, CanUseOption.MustUse)) return true;
-
         if (BlastArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
         if (ApexArrowPvP.CanUse(out act, skipAoeCheck: true)) return true;
 

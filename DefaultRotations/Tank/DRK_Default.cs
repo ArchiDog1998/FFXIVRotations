@@ -1,7 +1,6 @@
 namespace DefaultRotations.Tank;
 
-[Rotation("Balance", CombatType.PvE, GameVersion = "6.38",
-    Description = "Please contact Nore#7219 on Discord for questions about this rotation.")]
+[Rotation("Balance", CombatType.Both, GameVersion = "6.38")]
 
 [SourceCode(Path = "main/DefaultRotations/Tank/DRK_Balance.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
@@ -75,24 +74,15 @@ public sealed class DRK_Default : DarkKnightRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        #region PvP
+        if (TheBlackestNightPvP.CanUse(out act)) return true;
+        #endregion
+
         if (base.EmergencyAbility(nextGCD, out act)) return true;
 
-        //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && nextGCD.IsTheSameTo(false, HardSlash, SyphonStrike, Souleater, BloodSpiller, Unmend))
-        //if ((InCombat && CombatElapsedLess(2) || DataCenter.TimeSinceLastAction.TotalSeconds >= 10) && Target != null && Target.IsNPCEnemy() && NumberOfHostilesIn(25) == 1)
         if ((InCombat && CombatElapsedLess(2) || TimeSinceLastAction.TotalSeconds >= 10))
         {
-            //int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            //foreach (int number in numbers)
-            //{
-            //    if (BloodWeapon.IsCoolingDown)
-            //    {
-            //        break;
-            //    }
-
-            //    BloodWeapon.CanUse(out act, CanUseOption.MustUse);
-            //}
             if (BloodWeaponPvE.CanUse(out act, skipAoeCheck: true)) return true;
-
         }
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -136,6 +126,14 @@ public sealed class DRK_Default : DarkKnightRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (QuietusPvP.CanUse(out act)) return true;
+
+        if (SouleaterPvP.CanUse(out act)) return true;
+        if (SyphonStrikePvP.CanUse(out act)) return true;
+        if (HardSlashPvP.CanUse(out act)) return true;
+        #endregion
+
         //Use Blood
         if (UseBlood)
         {
@@ -165,6 +163,12 @@ public sealed class DRK_Default : DarkKnightRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (SaltedEarthPvP.CanUse(out act)) return true;
+        if (SaltAndDarknessPvP.CanUse(out act)) return true;
+        if (PlungePvP.CanUse(out act)) return true;
+        #endregion
+
         //if (InCombat && CombatElapsedLess(2) && BloodWeapon.CanUse(out act)) return true;
         if (CheckDarkSide)
         {

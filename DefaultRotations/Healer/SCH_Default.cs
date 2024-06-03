@@ -1,6 +1,6 @@
 namespace DefaultRotations.Healer;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.28")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.28")]
 [SourceCode(Path = "main/DefaultRotations/Healer/SCH_Default.cs")]
 public sealed class SCH_Default : ScholarRotation
 {
@@ -21,6 +21,11 @@ public sealed class SCH_Default : ScholarRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        #region PvP
+        if (AdloquiumPvP.CanUse(out act)) return true;
+        if (DeploymentTacticsPvP.CanUse(out act)) return true;
+        #endregion
+
         if (nextGCD.IsTheSameTo(true, SuccorPvE, AdloquiumPvE))
         {
             if (RecitationPvE.CanUse(out act)) return true;
@@ -40,8 +45,21 @@ public sealed class SCH_Default : ScholarRotation
         return base.EmergencyAbility(nextGCD, out act);
     }
 
+    protected override bool GeneralAbility(out IAction? act)
+    {
+        #region PvP
+        if (ExpedientPvP.CanUse(out act)) return true;
+        #endregion
+        return base.GeneralAbility(out act);
+    }
+
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (BiolysisPvP.CanUse(out act)) return true;
+        if (BroilIvPvP.CanUse(out act)) return true;
+        #endregion
+
         if (SummonEosPvE.CanUse(out act)) return true;
         if (BioPvE.CanUse(out act)) return true;
 
@@ -134,6 +152,10 @@ public sealed class SCH_Default : ScholarRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (MummificationPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        #endregion
+
         if (IsBurst)
         {
             if (ChainStratagemPvE.CanUse(out act)) return true;

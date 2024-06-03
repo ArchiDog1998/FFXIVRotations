@@ -1,6 +1,6 @@
 namespace DefaultRotations.Healer;
 
-[Rotation("Default", CombatType.PvE, GameVersion = "6.28")]
+[Rotation("Default", CombatType.Both, GameVersion = "6.28")]
 [SourceCode(Path = "main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default :WhiteMageRotation
 {
@@ -20,6 +20,12 @@ public sealed class WHM_Default :WhiteMageRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (AfflatusMiseryPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (GlareIiiPvP.CanUse(out act)) return true;
+        if (CureIiPvP.CanUse(out act)) return true;
+        #endregion
+
         //if (NotInCombatDelay && RegenDefense.CanUse(out act)) return true;
 
         if (AfflatusMiseryPvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -56,6 +62,10 @@ public sealed class WHM_Default :WhiteMageRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (SeraphStrikePvP.CanUse(out act)) return true;
+        #endregion
+
         if (InCombat)
         {
             if (PresenceOfMindPvE.CanUse(out act)) return true;
@@ -67,6 +77,10 @@ public sealed class WHM_Default :WhiteMageRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        #region PvP
+        if (MiracleOfNaturePvP.CanUse(out act)) return true;
+        #endregion
+
         if (nextGCD is IBaseAction action && action.Info.MPNeed >= 1000 &&
             ThinAirPvE.CanUse(out act)) return true;
 
@@ -164,8 +178,11 @@ public sealed class WHM_Default :WhiteMageRotation
         return base.CountDownAction(remainTime);
     }
 
-    //public override void DisplayStatus()
-    //{
-    //    ImGui.Text(LilyTime.ToString());
-    //}
+    protected override bool GeneralAbility(out IAction? act)
+    {
+        #region PvP
+        if (AquaveilPvP.CanUse(out act)) return true;
+        #endregion
+        return base.GeneralAbility(out act);
+    }
 }

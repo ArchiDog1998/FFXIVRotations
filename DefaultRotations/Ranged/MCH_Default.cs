@@ -1,6 +1,6 @@
 namespace DefaultRotations.Ranged;
 
-[Rotation("Delayed Tools Opener", CombatType.PvE, GameVersion = "6.38")]
+[Rotation("Delayed Tools Opener", CombatType.Both, GameVersion = "6.38")]
 [BetaRotation]
 [SourceCode(Path = "main/DefaultRotations/Ranged/MCH_Default.cs")]
 [LinkDescription("https://cdn.discordapp.com/attachments/277968251789639680/1086348727691780226/mch_rotation.png")]
@@ -24,6 +24,33 @@ public sealed class MCH_Default : MachinistRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (!Player.HasStatus(true, StatusID.Overheated_3149) && ScattergunPvP.CanUse(out act, skipAoeCheck: true) && HostileTarget.DistanceToPlayer() <= 10) return true;
+
+        if (Player.HasStatus(true, StatusID.Analysis))
+        {
+            if (Player.HasStatus(true, StatusID.AirAnchorPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && AirAnchorPvP.CanUse(out act, usedUp: true)) return true;
+            if (Player.HasStatus(true, StatusID.BioblasterPrimed) && !Player.HasStatus(true, StatusID.AirAnchorPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && BioblasterPvP.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
+            if (Player.HasStatus(true, StatusID.ChainSawPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.BioblasterPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && ChainSawPvP.CanUse(out act, skipAoeCheck: true)) return true;
+            if (Player.HasStatus(true, StatusID.DrillPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.ChainSawPrimed, StatusID.AirAnchorPrimed, StatusID.Overheated_3149) && DrillPvP.CanUse(out act, usedUp: true)) return true;
+        }
+
+        if (AirAnchorPvP.CD.CurrentCharges == 2 && Player.HasStatus(true, StatusID.AirAnchorPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && AirAnchorPvP.CanUse(out act)) return true;
+        if (BioblasterPvP.CD.CurrentCharges == 2 && Player.HasStatus(true, StatusID.BioblasterPrimed) && !Player.HasStatus(true, StatusID.AirAnchorPrimed, StatusID.ChainSawPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && BioblasterPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (ChainSawPvP.CD.CurrentCharges == 2 && Player.HasStatus(true, StatusID.ChainSawPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.BioblasterPrimed, StatusID.DrillPrimed, StatusID.Overheated_3149) && ChainSawPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (DrillPvP.CD.CurrentCharges == 2 && Player.HasStatus(true, StatusID.DrillPrimed) && !Player.HasStatus(true, StatusID.BioblasterPrimed, StatusID.ChainSawPrimed, StatusID.AirAnchorPrimed, StatusID.Overheated_3149) && DrillPvP.CanUse(out act)) return true;
+
+        if (Player.HasStatus(true, StatusID.Overheated_3149))
+        {
+            if (WildfirePvP.CanUse(out act)) return true;
+            if (WildfirePvP.CD.IsCoolingDown
+                && BlastChargePvP.CanUse(out act, skipCastingCheck: true)) return true;
+            return false;
+        }
+
+        if (BlastChargePvP.CanUse(out act, skipCastingCheck: true)) return true;
+        #endregion
+
         //Overheated
         if (AutoCrossbowPvE.CanUse(out act)) return true;
         if (HeatBlastPvE.CanUse(out act)) return true;
@@ -71,6 +98,17 @@ public sealed class MCH_Default : MachinistRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (BishopAutoturretPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (Player.HasStatus(true, StatusID.Overheated_3149) 
+            && WildfirePvP.CanUse(out act, skipAoeCheck: true, skipComboCheck: true)) return true;
+
+        if (InCombat && !Player.HasStatus(true, StatusID.Analysis) &&
+            (BioblasterPvP.CanUse(out _) && HostileTarget.DistanceToPlayer() <= 12 || AirAnchorPvP.CanUse(out act) || ChainSawPvP.CanUse(out _)) 
+            && AnalysisPvP.CanUse(out act, usedUp: true)) return true;
+        #endregion
+
         if (IsBurst)
         {
             if (UseBurstMedicine(out act)) return true;

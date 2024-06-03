@@ -2,8 +2,7 @@
 
 namespace DefaultRotations.Magical;
 
-[BetaRotation]
-[Rotation("General purpose", CombatType.PvE, GameVersion = "6.38")]
+[Rotation("General purpose", CombatType.Both, GameVersion = "6.38")]
 [SourceCode(Path = "main/DefaultRotations/Magical/SMN_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/smn/6.png")]
 public sealed class SMN_Default : SummonerRotation
@@ -51,6 +50,15 @@ public sealed class SMN_Default : SummonerRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (SlipstreamPvP.CanUse(out act)) return true;
+
+        if (RuinIiiPvP.CanUse(out act)) return true;
+
+        if (CrimsonStrikePvP.CanUse(out act)) return true;
+        if (CrimsonCyclonePvP.CanUse(out act)) return true;
+        #endregion
+
         if (SummonCarbunclePvE.CanUse(out act)) return true;
 
         if (SlipstreamPvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -106,6 +114,13 @@ public sealed class SMN_Default : SummonerRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
+        #region PvP
+        if (FesterPvP.CanUse(out act)) return true;
+        if (MountainBusterPvP.CanUse(out act)) return true;
+        if (EnkindleBahamutPvP.CanUse(out act)) return true;
+        if (EnkindlePhoenixPvP.CanUse(out act)) return true;
+        #endregion
+
         if (IsBurst && !Player.HasStatus(false, StatusID.SearingLight))
         {
             if (SearingLightPvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -132,8 +147,13 @@ public sealed class SMN_Default : SummonerRotation
 
         return base.AttackAbility(out act);
     }
+
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
+        #region PvP
+        if (RadiantAegisPvP.CanUse(out act)) return true;
+        #endregion
+
         switch (AddSwiftcast)
         {
             case SwiftType.No:

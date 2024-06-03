@@ -1,6 +1,6 @@
 namespace DefaultRotations.Melee;
 
-[Rotation("Standard", CombatType.PvE, GameVersion = "6.35")]
+[Rotation("Standard", CombatType.Both, GameVersion = "6.35")]
 [SourceCode(Path = "main/DefaultRotations/Melee/NIN_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/nin/earlymug3.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/nin/nininfographicwindows.png")]
@@ -277,6 +277,14 @@ public sealed class NIN_Default : NinjaRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (AeolianEdgePvP.CanUse(out act)) return true;
+        if (GustSlashPvP.CanUse(out act)) return true;
+        if (SpinningEdgePvP.CanUse(out act)) return true;
+
+        if (FumaShurikenPvP.CanUse(out act)) return true;
+        #endregion
+
         var hasRaijuReady = Player.HasStatus(true, StatusID.RaijuReady);
 
         if ((InTrickAttack || InMug) && NoNinjutsu && !hasRaijuReady

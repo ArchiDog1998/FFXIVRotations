@@ -1,6 +1,6 @@
 ﻿namespace DefaultRotations.Tank;
 
-[Rotation("Tentative v1.2", CombatType.PvE, GameVersion = "6.31")]
+[Rotation("Tentative v1.2", CombatType.Both, GameVersion = "6.31")]
 [LinkDescription("https://xiv.sleepyshiba.com/pld/img/63-60stentative2.png")]
 [SourceCode(Path = "main/DefaultRotations/Tank/PLD_Default.cs")]
 public class PLD_Default : PaladinRotation
@@ -30,7 +30,10 @@ public class PLD_Default : PaladinRotation
 
     protected override bool AttackAbility(out IAction? act)
     {
-        act = null;
+        #region PvP
+        if (ShieldBashPvP.CanUse(out act)) return true;
+        if (IntervenePvP.CanUse(out act)) return true;
+        #endregion
 
         if (InCombat)
         {
@@ -54,6 +57,18 @@ public class PLD_Default : PaladinRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        #region PvP
+        if (BladeOfValorPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (BladeOfTruthPvP.CanUse(out act, skipAoeCheck: true)) return true;
+        if (BladeOfFaithPvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BladeOfFaithReady)) return true;
+
+        if (ConfiteorPvP.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (RoyalAuthorityPvP.CanUse(out act)) return true;
+        if (RiotBladePvP.CanUse(out act)) return true;
+        if (FastBladePvP.CanUse(out act)) return true;
+        #endregion
+
         if (Player.HasStatus(true, StatusID.Requiescat))
         {
             if (ConfiteorPvE.CanUse(out act, skipAoeCheck: true))
@@ -132,5 +147,23 @@ public class PLD_Default : PaladinRotation
         if (InterventionPvE.CanUse(out act, onLastAbility: onLast)) return true;
 
         return false;
+    }
+
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
+    {
+        #region PvP
+        if (GuardianPvP.CanUse(out act)) return true;
+        #endregion
+
+        return base.EmergencyAbility(nextGCD, out act);
+    }
+
+    protected override bool GeneralAbility(out IAction? act)
+    {
+        #region PvP
+        if (HolySheltronPvP.CanUse(out act)) return true;
+        #endregion
+
+        return base.GeneralAbility(out act);
     }
 }
