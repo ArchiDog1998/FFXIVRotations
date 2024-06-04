@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.9...v1.2.0) (2024-06-04)
+
+
+### Features
+
+* add pvp rotations. ([0caec55](https://github.com/ArchiDog1998/FFXIVRotations/commit/0caec551c89d15d4a88a7f5293af014a5688e7dc))
+
 ## [1.1.9](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.8...v1.1.9) (2024-06-01)
 
 
