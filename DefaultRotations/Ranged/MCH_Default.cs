@@ -6,6 +6,15 @@ namespace DefaultRotations.Ranged;
 [LinkDescription("https://cdn.discordapp.com/attachments/277968251789639680/1086348727691780226/mch_rotation.png")]
 public sealed class MCH_Default : MachinistRotation
 {
+    [Range(0, 5, ConfigUnitType.Seconds)]
+    [RotationConfig(CombatType.PvE)]
+    [UI("Reassemble countdown time")]
+    public float ReassembleCountDownTime { get; set; } = 5;
+
+    [UI("Use Reassemble with ChainSaw")]
+    [RotationConfig(CombatType.PvE)]
+    public bool MCH_Reassemble { get; set; } = true;
+
     protected override IAction? CountDownAction(float remainTime)
     {
         if (remainTime < CountDownAhead)
@@ -14,13 +23,10 @@ public sealed class MCH_Default : MachinistRotation
             else if (!AirAnchorPvE.EnoughLevel && HotShotPvE.CanUse(out act1)) return act1;
         }
         if (remainTime < 2 && UseBurstMedicine(out var act)) return act;
-        if (remainTime < 5 && ReassemblePvE.CanUse(out act, usedUp: true)) return act;
+        if (remainTime < ReassembleCountDownTime && ReassemblePvE.CanUse(out act, usedUp: true)) return act;
         return base.CountDownAction(remainTime);
     }
 
-    [UI("Use Reassamble with ChainSaw")]
-    [RotationConfig(CombatType.PvE)]
-    public bool MCH_Reassemble { get; set; } = true;
 
     protected override bool GeneralGCD(out IAction? act)
     {
