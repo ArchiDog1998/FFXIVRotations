@@ -85,7 +85,7 @@ public sealed class WHM_Default :WhiteMageRotation
             ThinAirPvE.CanUse(out act)) return true;
 
         if (nextGCD.IsTheSameTo(true, AfflatusRapturePvE, MedicaPvE, MedicaIiPvE, CureIiiPvE)
-            && (MergedStatus.HasFlag(AutoStatus.HealAreaSpell) || MergedStatus.HasFlag(AutoStatus.HealSingleSpell)))
+            && (MergedStatusState.HasFlag(AutoStatus.HealAreaSpell) || MergedStatusState.HasFlag(AutoStatus.HealSingleSpell)))
         {
             if (PlenaryIndulgencePvE.CanUse(out act)) return true;
         }

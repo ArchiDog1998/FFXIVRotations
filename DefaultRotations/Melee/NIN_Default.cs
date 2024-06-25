@@ -314,7 +314,7 @@ public sealed class NIN_Default : NinjaRotation
         if (SpinningEdgePvE.CanUse(out act)) return true;
 
         //Range
-        if (MergedStatus.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
+        if (MergedStatusState.HasFlag(AutoStatus.MoveForward) && MoveForwardAbility(out act)) return true;
         if (ThrowingDaggerPvE.CanUse(out act)) return true;
 
         if (AutoUnhide)
