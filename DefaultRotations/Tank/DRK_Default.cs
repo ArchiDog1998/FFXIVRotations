@@ -204,13 +204,13 @@ public sealed class DRK_Default : DarkKnightRotation
 
         }
 
-        if (PlungePvE.CanUse(out act, skipAoeCheck: true) && !IsMoving) return true;
+        //if (PlungePvE.CanUse(out act, skipAoeCheck: true) && !IsMoving) return true;
 
         if (SaltAndDarknessPvE.CanUse(out act)) return true;
 
         if (InTwoMIsBurst())
         {
-            if (PlungePvE.CanUse(out act, usedUp: true, skipAoeCheck: true) && !IsMoving) return true;
+            //if (PlungePvE.CanUse(out act, usedUp: true, skipAoeCheck: true) && !IsMoving) return true;
         }
 
         return base.AttackAbility(out act);

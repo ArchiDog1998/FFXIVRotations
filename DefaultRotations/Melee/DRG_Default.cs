@@ -6,7 +6,7 @@ public sealed class DRG_Default : DragoonRotation
 {
     protected override bool MoveForwardAbility(out IAction act)
     {
-        if (SpineshatterDivePvE.CanUse(out act)) return true;
+        //if (SpineshatterDivePvE.CanUse(out act)) return true;
         if (DragonfireDivePvE.CanUse(out act, skipAoeCheck: true)) return true;
         return false;
     }
@@ -38,7 +38,7 @@ public sealed class DRG_Default : DragoonRotation
             if (LanceChargePvE.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.PowerSurge)) return true;
             if (LanceChargePvE.CanUse(out act, skipAoeCheck: true, onLastAbility: true) && !Player.HasStatus(true, StatusID.PowerSurge)) return true;
 
-            if (DragonSightPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            //if (DragonSightPvE.CanUse(out act, skipAoeCheck: true)) return true;
             if (BattleLitanyPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
@@ -56,11 +56,11 @@ public sealed class DRG_Default : DragoonRotation
 
         if (GeirskogulPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (SpineshatterDivePvE.CanUse(out act, usedUp: true))
+        //if (SpineshatterDivePvE.CanUse(out act, usedUp: true))
         {
             if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.CD.ElapsedOneChargeAfterGCD(3)) return true;
         }
-        if (Player.HasStatus(true, StatusID.PowerSurge) && SpineshatterDivePvE.CD.CurrentCharges != 1 && SpineshatterDivePvE.CanUse(out act)) return true;
+        //if (Player.HasStatus(true, StatusID.PowerSurge) && SpineshatterDivePvE.CD.CurrentCharges != 1 && SpineshatterDivePvE.CanUse(out act)) return true;
 
         if (MirageDivePvE.CanUse(out act)) return true;
 

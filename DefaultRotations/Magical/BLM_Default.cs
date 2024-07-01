@@ -50,7 +50,7 @@ public class BLM_Default : BlackMageRotation
         {
             if (FireIiiPvE.CanUse(out act)) return act;
         }
-        if (remainTime <= 12 && SharpcastPvE.CanUse(out act, usedUp: true)) return act;
+        //if (remainTime <= 12 && SharpcastPvE.CanUse(out act, usedUp: true)) return act;
         return base.CountDownAction(remainTime);
     }
 
@@ -72,7 +72,7 @@ public class BLM_Default : BlackMageRotation
             }
 
             if (UmbralIceStacks < 3 && LucidDreamingPvE.CanUse(out act)) return true;
-            if (SharpcastPvE.CanUse(out act, usedUp: true)) return true;
+            //if (SharpcastPvE.CanUse(out act, usedUp: true)) return true;
         }
         if (InAstralFire)
         {

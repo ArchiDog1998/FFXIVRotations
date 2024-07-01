@@ -17,7 +17,7 @@ public sealed class AST_Default : AstrologianRotation
         if (remainTime is < 4 and > 3 && AspectedBeneficPvE.CanUse(out act)) return act;
         if (remainTime < UseEarthlyStarTime
             && EarthlyStarPvE.CanUse(out act)) return act;
-        if (remainTime < 30 && DrawPvE.CanUse(out act)) return act;
+        //if (remainTime < 30 && DrawPvE.CanUse(out act)) return act;
 
         return base.CountDownAction(remainTime);
     }
@@ -111,8 +111,8 @@ public sealed class AST_Default : AstrologianRotation
         if (MicrocosmosPvP.CanUse(out act)) return true;
         #endregion
 
-        if (DrawPvE.CanUse(out act)) return true;
-        if (RedrawPvE.CanUse(out act)) return true;
+        //if (DrawPvE.CanUse(out act)) return true;
+        //if (RedrawPvE.CanUse(out act)) return true;
         return base.GeneralAbility(out act);
     }
 
@@ -139,7 +139,7 @@ public sealed class AST_Default : AstrologianRotation
 
         if (MinorArcanaPvE.CanUse(out act, usedUp:true)) return true;
 
-        if (DrawPvE.CanUse(out act, usedUp: IsBurst)) return true;
+        //if (DrawPvE.CanUse(out act, usedUp: IsBurst)) return true;
 
         if (InCombat)
         {
@@ -151,7 +151,7 @@ public sealed class AST_Default : AstrologianRotation
                 {
                     if (EarthlyStarPvE.CanUse(out act)) return true;
                 }
-                if (AstrodynePvE.CanUse(out act)) return true;
+                //if (AstrodynePvE.CanUse(out act)) return true;
             }
 
             if (DrawnCrownCard == CardType.LORD || MinorArcanaPvE.CD.WillHaveOneChargeGCD(1, 0))
@@ -160,7 +160,7 @@ public sealed class AST_Default : AstrologianRotation
             }
         }
 
-        if (RedrawPvE.CanUse(out act)) return true;
+        //if (RedrawPvE.CanUse(out act)) return true;
         if (InCombat && PlayCard(out act)) return true;
 
         return base.AttackAbility(out act);

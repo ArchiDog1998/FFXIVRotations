@@ -18,8 +18,8 @@ public sealed class MNK_Default : MonkRotation
         }
         if (remainTime < 15)
         {
-            if (Chakra < 5 && MeditationPvE.CanUse(out var act)) return act;
-            if (FormShiftPvE.CanUse(out act)) return act;
+            //if (Chakra < 5 && MeditationPvE.CanUse(out var act)) return act;
+            if (FormShiftPvE.CanUse(out var act)) return act;
         }
 
         return base.CountDownAction(remainTime);
@@ -105,7 +105,7 @@ public sealed class MNK_Default : MonkRotation
         }
         if (OpoOpoForm(out act)) return true;
 
-        if (Chakra < 5 && MeditationPvE.CanUse(out act)) return true;
+        //if (Chakra < 5 && MeditationPvE.CanUse(out act)) return true;
         if (AutoFormShift && FormShiftPvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);

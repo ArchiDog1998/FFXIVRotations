@@ -87,15 +87,15 @@ public sealed class GNB_Default : GunbreakerRotation
 
         if (Player.HasStatus(true, StatusID.NoMercy) && CanUseBowShock(out act)) return true;
 
-        if (RoughDividePvE.CanUse(out act) && !IsMoving) return true;
+        //if (RoughDividePvE.CanUse(out act) && !IsMoving) return true;
         if (GnashingFangPvE.CD.IsCoolingDown && DoubleDownPvE.CD.IsCoolingDown && Ammo == 0 && BloodfestPvE.CanUse(out act)) return true;
 
         if (AbdomenTearPvE.CanUse(out act)) return true;
 
-        if (Player.HasStatus(true, StatusID.NoMercy))
-        {
-            if (RoughDividePvE.CanUse(out act, usedUp: true) && !IsMoving) return true;
-        }
+        //if (Player.HasStatus(true, StatusID.NoMercy))
+        //{
+        //    if (RoughDividePvE.CanUse(out act, usedUp: true) && !IsMoving) return true;
+        //}
 
         if (EyeGougePvE.CanUse(out act)) return true;
         if (HypervelocityPvE.CanUse(out act)) return true;

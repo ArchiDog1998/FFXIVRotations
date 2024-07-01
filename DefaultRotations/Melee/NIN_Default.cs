@@ -113,14 +113,14 @@ public sealed class NIN_Default : NinjaRotation
             }
 
             //Buff
-            if (HuraijinPvE.CanUse(out act)) return true;
+            //if (HuraijinPvE.CanUse(out act)) return true;
             if (!HutonEndAfterGCD() && _ninActionAim?.ID == HutonPvE.ID)
             {
                 ClearNinjutsu();
                 return false;
             }
             if (TenPvE.CanUse(out _, usedUp: true)
-               && (!InCombat || !HuraijinPvE.EnoughLevel) && HutonPvE.CanUse(out _)
+               //&& (!InCombat || !HuraijinPvE.EnoughLevel) && HutonPvE.CanUse(out _)
                && !IsLastAction(false, HutonPvE))
             {
                 SetNinjutsu(HutonPvE);
@@ -301,7 +301,7 @@ public sealed class NIN_Default : NinjaRotation
             if (hasRaijuReady) return false;
         }
 
-        if (HuraijinPvE.CanUse(out act)) return true;
+        //if (HuraijinPvE.CanUse(out act)) return true;
 
         //AOE
         if (HakkeMujinsatsuPvE.CanUse(out act)) return true;
