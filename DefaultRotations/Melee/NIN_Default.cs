@@ -26,7 +26,7 @@ public sealed class NIN_Default : NinjaRotation
     {
         if (remainTime > 10) ClearNinjutsu();
 
-        var realInHuton = !HutonEndAfterGCD() || IsLastAction(false, HutonPvE);
+        var realInHuton = HutonTimer > 0 || IsLastAction(false, HutonPvE);
         if (realInHuton && _ninActionAim == HutonPvE) ClearNinjutsu();
 
         if (DoNinjutsu(out var act))
@@ -114,7 +114,7 @@ public sealed class NIN_Default : NinjaRotation
 
             //Buff
             //if (HuraijinPvE.CanUse(out act)) return true;
-            if (!HutonEndAfterGCD() && _ninActionAim?.ID == HutonPvE.ID)
+            if (HutonTimer > 0 && _ninActionAim?.ID == HutonPvE.ID)
             {
                 ClearNinjutsu();
                 return false;

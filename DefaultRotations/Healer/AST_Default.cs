@@ -137,7 +137,7 @@ public sealed class AST_Default : AstrologianRotation
         if (IsBurst && !IsMoving
             && DivinationPvE.CanUse(out act)) return true;
 
-        if (MinorArcanaPvE.CanUse(out act, usedUp:true)) return true;
+        //if (MinorArcanaPvE.CanUse(out act, usedUp:true)) return true;
 
         //if (DrawPvE.CanUse(out act, usedUp: IsBurst)) return true;
 

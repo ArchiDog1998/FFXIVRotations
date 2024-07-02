@@ -1,14 +1,13 @@
 namespace DefaultRotations.Tank;
 
 [Rotation("Balance", CombatType.Both, GameVersion = "6.38")]
-
 [SourceCode(Path = "main/DefaultRotations/Tank/DRK_Balance.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/drk/drk_standard_6.2_v1.png")]
 public sealed class DRK_Default : DarkKnightRotation
 {
     public override bool CanHealSingleAbility => false;
 
-    private bool InTwoMIsBurst()
+    private bool InTwoMinsBurst()
     {
         if ((BloodWeaponPvE.CD.IsCoolingDown && DeliriumPvE.CD.IsCoolingDown && ((LivingShadowPvE.CD.IsCoolingDown && !(LivingShadowPvE.CD.ElapsedAfter(15))) || !LivingShadowPvE.EnoughLevel))) return true;
         else return false;
@@ -20,13 +19,13 @@ public sealed class DRK_Default : DarkKnightRotation
     {
         get
         {
-            if (DarkSideEndAfterGCD(3)) return true;
+            if (DarksideTimeRemaining < 3) return true;
 
             if (CombatLess) return false;
 
-            if ((InTwoMIsBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.BlackestNight)) || (HasDarkArts && DarkSideEndAfterGCD(3))) return true;
+            if ((InTwoMinsBurst() && HasDarkArts) || (HasDarkArts && Player.HasStatus(true, StatusID.BlackestNight)) || (HasDarkArts && DarksideTimeRemaining < 3)) return true;
 
-            if ((InTwoMIsBurst() && BloodWeaponPvE.CD.IsCoolingDown && LivingShadowPvE.CD.IsCoolingDown && SaltedEarthPvE.CD.IsCoolingDown && ShadowbringerPvE.CD.CurrentCharges == 0 && CarveAndSpitPvE.CD.IsCoolingDown)) return true;
+            if ((InTwoMinsBurst() && BloodWeaponPvE.CD.IsCoolingDown && LivingShadowPvE.CD.IsCoolingDown && SaltedEarthPvE.CD.IsCoolingDown && ShadowbringerPvE.CD.CurrentCharges == 0 && CarveAndSpitPvE.CD.IsCoolingDown)) return true;
 
             if (TheBlackestNight && CurrentMp < 6000) return false;
 
@@ -96,8 +95,8 @@ public sealed class DRK_Default : DarkKnightRotation
 
     protected override bool DefenseAreaAbility(out IAction? act)
     {
-        if (!InTwoMIsBurst() && DarkMissionaryPvE.CanUse(out act)) return true;
-        if (!InTwoMIsBurst() && ReprisalPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!InTwoMinsBurst() && DarkMissionaryPvE.CanUse(out act)) return true;
+        if (!InTwoMinsBurst() && ReprisalPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         return base.DefenseAreaAbility(out act);
     }
@@ -198,7 +197,7 @@ public sealed class DRK_Default : DarkKnightRotation
         if (NumberOfHostilesInRange >= 3 && AbyssalDrainPvE.CanUse(out act)) return true;
         if (CarveAndSpitPvE.CanUse(out act)) return true;
 
-        if (InTwoMIsBurst())
+        if (InTwoMinsBurst())
         {
             if (ShadowbringerPvE.CanUse(out act, usedUp: true, skipAoeCheck: true)) return true;
 
@@ -208,7 +207,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
         if (SaltAndDarknessPvE.CanUse(out act)) return true;
 
-        if (InTwoMIsBurst())
+        if (InTwoMinsBurst())
         {
             //if (PlungePvE.CanUse(out act, usedUp: true, skipAoeCheck: true) && !IsMoving) return true;
         }

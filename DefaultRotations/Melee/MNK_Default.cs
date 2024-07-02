@@ -119,14 +119,15 @@ public sealed class MNK_Default : MonkRotation
 
     private bool PerfectBalanceActions(out IAction? act)
     {
-        if (!BeastChakras.Contains(BeastChakra.NONE))
+       
+        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.NONE))
         {
             if (HasSolar && HasLunar)
             {
                 if (PhantomRushPvE.CanUse(out act, skipAoeCheck: true)) return true;
                 if (TornadoKickPvE.CanUse(out act, skipAoeCheck: true)) return true;
             }
-            if (BeastChakras.Contains(BeastChakra.RAPTOR))
+            if (BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
             {
                 if (RisingPhoenixPvE.CanUse(out act, skipAoeCheck: true)) return true;
                 if (FlintStrikePvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -139,11 +140,11 @@ public sealed class MNK_Default : MonkRotation
         else if (Player.HasStatus(true, StatusID.PerfectBalance) && ElixirFieldPvE.EnoughLevel)
         {
             //Sometimes, no choice
-            if (HasSolar || BeastChakras.Count(c => c == BeastChakra.OPOOPO) > 1)
+            if (HasSolar || BeastChakra.Count(c => c == Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.OPOOPO) > 1)
             {
                 if (LunarNadi(out act)) return true;
             }
-            else if (BeastChakras.Contains(BeastChakra.COEURL) || BeastChakras.Contains(BeastChakra.RAPTOR))
+            else if (BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.COEURL) || BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
             {
                 if (SolarNadi(out act)) return true;
             }
@@ -170,31 +171,31 @@ public sealed class MNK_Default : MonkRotation
     bool SolarNadi(out IAction? act)
     {
         //Emergency usage of status.
-        if (!BeastChakras.Contains(BeastChakra.RAPTOR)
+        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR)
             && HasLunar
             && Player.WillStatusEndGCD(1, 0, true, StatusID.DisciplinedFist))
         {
             if (RaptorForm(out act)) return true;
         }
-        if (!BeastChakras.Contains(BeastChakra.COEURL)
+        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.COEURL)
             && (HostileTarget?.WillStatusEndGCD(1, 0, true, StatusID.Demolish) ?? false))
         {
             if (CoerlForm(out act)) return true;
         }
 
-        if (!BeastChakras.Contains(BeastChakra.OPOOPO))
+        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.OPOOPO))
         {
             if (OpoOpoForm(out act)) return true;
         }
-        if (HasLunar && !BeastChakras.Contains(BeastChakra.RAPTOR))
+        if (HasLunar && !BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
         {
             if (RaptorForm(out act)) return true;
         }
-        if (!BeastChakras.Contains(BeastChakra.COEURL))
+        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.COEURL))
         {
             if (CoerlForm(out act)) return true;
         }
-        if (!BeastChakras.Contains(BeastChakra.RAPTOR))
+        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
         {
             if (RaptorForm(out act)) return true;
         }
@@ -213,7 +214,7 @@ public sealed class MNK_Default : MonkRotation
         act = null;
         if (CombatElapsedLessGCD(3)) return false;
 
-        if (BeastChakras.Contains(BeastChakra.NONE) && Player.HasStatus(true, StatusID.RaptorForm)
+        if (BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.NONE) && Player.HasStatus(true, StatusID.RaptorForm)
             && (!RiddleOfFirePvE.EnoughLevel || Player.HasStatus(false, StatusID.RiddleOfFire) && !Player.WillStatusEndGCD(3, 0, false, StatusID.RiddleOfFire)
             || RiddleOfFirePvE.CD.WillHaveOneChargeGCD(1) && (PerfectBalancePvE.CD.ElapsedAfter(60) || !PerfectBalancePvE.CD.IsCoolingDown)))
         {

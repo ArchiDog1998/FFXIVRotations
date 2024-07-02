@@ -25,7 +25,7 @@ public class BLM_Default : BlackMageRotation
         var compare = usedOne ? -1 : 0;
         var count = PolyglotStacks;
         if (count == compare++) return false;
-        if (count == compare++ && !EnchinaEndAfterGCD(2)) return false;
+        if (count == compare++ && EnochianTimer > 2) return false;
         if (count >= compare && (HasFire || SwiftcastPvE.CD.WillHaveOneChargeGCD(2) || TriplecastPvE.CD.WillHaveOneChargeGCD(2))) return true;
         if (!HasFire && !SwiftcastPvE.CD.WillHaveOneChargeGCD(2) && !TriplecastPvE.CanUse(out _, gcdCountForAbility: 8)) return false;
         return true;
@@ -255,7 +255,7 @@ public class BLM_Default : BlackMageRotation
                 break;
         }
 
-        if (ElementTimeEndAfterGCD(ExtendTimeSafely ? 3u : 2u))
+        if (ElementTimeRemaining < GCDTime(ExtendTimeSafely ? 3u : 2u))
         {
             if (CurrentMp >= FirePvE.Info.MPNeed * 2 + 800 && FirePvE.CanUse(out act)) return true;
             if (FlarePvE.CanUse(out act)) return true;
@@ -346,7 +346,7 @@ public class BLM_Default : BlackMageRotation
 
     private bool UsePolyglot(out IAction? act, uint gcdCount = 3)
     {
-        if (gcdCount == 0 || IsPolyglotStacksMaxed && EnchinaEndAfterGCD(gcdCount))
+        if (gcdCount == 0 || IsPolyglotStacksMaxed && EnochianTimer < GCDTime(gcdCount))
         {
             if (FoulPvE.CanUse(out act)) return true;
             if (XenoglossyPvE.CanUse(out act)) return true;

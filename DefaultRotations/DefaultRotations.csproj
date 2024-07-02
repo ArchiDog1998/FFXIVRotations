@@ -31,7 +31,7 @@
 		  <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
 		  <Private>False</Private>
 	  </Reference>
-	  <PackageReference Include="RotationSolver.Basic" Version="5.0.3.2" />
+	  <PackageReference Include="RotationSolver.Basic" Version="5.0.3.4" />
 	  
 	  <Using Include="Dalamud.Game.ClientState.JobGauge.Enums" />
 	  <Using Include="Dalamud.Game.ClientState.Objects.Types" />

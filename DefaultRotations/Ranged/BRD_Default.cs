@@ -147,14 +147,14 @@ public sealed class BRD_Default : BardRotation
 
         if (TheWanderersMinuetPvE.CanUse(out act, onLastAbility: true))
         {
-            if (SongEndAfter(ARMYRemainTime) && (Song != Song.NONE || Player.HasStatus(true, StatusID.ArmysEthos))) return true;
+            if (SongTimer < ARMYRemainTime && (Song != Song.NONE || Player.HasStatus(true, StatusID.ArmysEthos))) return true;
         }
 
         if (Song != Song.NONE && EmpyrealArrowPvE.CanUse(out act)) return true;
 
         if (PitchPerfectPvE.CanUse(out act))
         {
-            if (SongEndAfter(3) && Repertoire > 0) return true;
+            if (SongTimer < 3 && Repertoire > 0) return true;
 
             if (Repertoire == 3) return true;
 
@@ -165,15 +165,15 @@ public sealed class BRD_Default : BardRotation
 
         if (MagesBalladPvE.CanUse(out act))
         {
-            if (Song == Song.WANDERER && SongEndAfter(WANDRemainTime) && Repertoire == 0) return true;
-            if (Song == Song.ARMY && SongEndAfterGCD(2) && TheWanderersMinuetPvE.CD.IsCoolingDown) return true;
+            if (Song == Song.WANDERER && SongTimer < WANDRemainTime && Repertoire == 0) return true;
+            if (Song == Song.ARMY && SongTimer < 2 && TheWanderersMinuetPvE.CD.IsCoolingDown) return true;
         }
 
         if (ArmysPaeonPvE.CanUse(out act))
         {
-            if (TheWanderersMinuetPvE.EnoughLevel && SongEndAfter(MAGERemainTime) && Song == Song.MAGE) return true;
-            if (TheWanderersMinuetPvE.EnoughLevel && SongEndAfter(2) && MagesBalladPvE.CD.IsCoolingDown && Song == Song.WANDERER) return true;
-            if (!TheWanderersMinuetPvE.EnoughLevel && SongEndAfter(2)) return true;
+            if (TheWanderersMinuetPvE.EnoughLevel && SongTimer < MAGERemainTime && Song == Song.MAGE) return true;
+            if (TheWanderersMinuetPvE.EnoughLevel && SongTimer < 2 && MagesBalladPvE.CD.IsCoolingDown && Song == Song.WANDERER) return true;
+            if (!TheWanderersMinuetPvE.EnoughLevel && SongTimer < 2) return true;
         }
 
         if (SidewinderPvE.CanUse(out act))
@@ -207,7 +207,7 @@ public sealed class BRD_Default : BardRotation
 
         if (SoulVoice == 100 && Player.HasStatus(true, StatusID.RagingStrikes) && Player.HasStatus(true, StatusID.BattleVoice)) return true;
 
-        if (Song == Song.MAGE && SoulVoice >= 80 && SongEndAfter(22) && SongEndAfter(18)) return true;
+        if (Song == Song.MAGE && SoulVoice >= 80 && SongTimer < 22 && SongTimer < 18) return true;
 
         if (!Player.HasStatus(true, StatusID.RagingStrikes) && SoulVoice == 100) return true;
 

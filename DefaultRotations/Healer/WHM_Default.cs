@@ -30,7 +30,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (AfflatusMiseryPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
-        bool liliesNearlyFull = Lily == 2 && LilyTime > 13;
+        bool liliesNearlyFull = Lily == 2 && LilyTimer > 13;
         bool liliesFullNoBlood = Lily == 3;
         if (UseLilyWhenFull && (liliesNearlyFull || liliesFullNoBlood) && AfflatusMiseryPvE.EnoughLevel && BloodLily < 3)
         {

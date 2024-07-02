@@ -74,7 +74,7 @@ public sealed class SMN_Default : SummonerRotation
         if ((Player.HasStatus(false, StatusID.SearingLight) || SearingLightPvE.CD.IsCoolingDown) && SummonBahamutPvE.CanUse(out act)) return true;
         if (!SummonBahamutPvE.EnoughLevel && HasHostilesInRange && AetherchargePvE.CanUse(out act)) return true;
 
-        if (IsMoving && (Player.HasStatus(true, StatusID.GarudasFavor) || InIfrit)
+        if (IsMoving && (Player.HasStatus(true, StatusID.GarudasFavor) || IsIfritAttuned)
             && !Player.HasStatus(true, StatusID.Swiftcast) && !InBahamut && !InPhoenix
             && RuinIvPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -100,8 +100,7 @@ public sealed class SMN_Default : SummonerRotation
                 break;
         }
 
-
-        if (SummonTimeEndAfterGCD() && AttunmentTimeEndAfterGCD() &&
+        if (SummonTimerRemaining < 0 && AttunmentTimerRemaining < 0 &&
             !Player.HasStatus(true, StatusID.Swiftcast) && !InBahamut && !InPhoenix &&
             RuinIvPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -166,7 +165,7 @@ public sealed class SMN_Default : SummonerRotation
                 }
                 break;
             case SwiftType.Ruby:
-                if (InIfrit && (nextGCD.IsTheSameTo(true, GemshinePvE, PreciousBrilliancePvE) || IsMoving))
+                if (IsIfritAttuned && (nextGCD.IsTheSameTo(true, GemshinePvE, PreciousBrilliancePvE) || IsMoving))
                 {
                     if (SwiftcastPvE.CanUse(out act)) return true;
                 }
@@ -174,7 +173,7 @@ public sealed class SMN_Default : SummonerRotation
 
             case SwiftType.All:
                 if (nextGCD.IsTheSameTo(true, SlipstreamPvE) || Attunement == 0 && Player.HasStatus(true, StatusID.GarudasFavor) ||
-                   InIfrit && (nextGCD.IsTheSameTo(true, GemshinePvE, PreciousBrilliancePvE) || IsMoving))
+                   IsIfritAttuned && (nextGCD.IsTheSameTo(true, GemshinePvE, PreciousBrilliancePvE) || IsMoving))
                 {
                     if (SwiftcastPvE.CanUse(out act)) return true;
                 }
