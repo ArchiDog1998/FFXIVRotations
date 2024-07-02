@@ -1,8 +1,8 @@
 namespace DefaultRotations.Tank;
 
-[Rotation("All-Around", CombatType.Both, GameVersion = "6.35")]
+[Rotation("General", CombatType.Both, GameVersion = "7.0")]
 [SourceCode(Path = "main/DefaultRotations/Tank/WAR_Default.cs")]
-[LinkDescription("https://cdn.discordapp.com/attachments/277962807813865472/963548326433796116/unknown.png")]
+//[LinkDescription("https://cdn.discordapp.com/attachments/277962807813865472/963548326433796116/unknown.png")]
 public sealed class WAR_Default : WarriorRotation
 {
     private static bool IsBurstStatus => !Player.WillStatusEndGCD(0, 0, false, StatusID.InnerStrength);
@@ -36,6 +36,10 @@ public sealed class WAR_Default : WarriorRotation
 
         if (!Player.WillStatusEndGCD(3, 0, true, StatusID.SurgingTempest))
         {
+            if (IsBurstStatus)
+            {
+                if (PrimalRuinationPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            }
             if (!IsMoving && IsBurstStatus && PrimalRendPvE.CanUse(out act, skipAoeCheck: true))
             {
                 if (PrimalRendPvE.Target.Target?.DistanceToPlayer() < 1) return true;
@@ -87,13 +91,17 @@ public sealed class WAR_Default : WarriorRotation
 
         if (IsBurstStatus)
         {
+            if (PrimalWrathPvE.CanUse(out act, skipAoeCheck: true)) return true;
             if (InfuriatePvE.CanUse(out act, usedUp: true)) return true;
         }
 
         if (CombatElapsedLessGCD(4)) return false;
 
-        if (OrogenyPvE.CanUse(out act)) return true;
-        if (UpheavalPvE.CanUse(out act)) return true;
+        if (Player.HasStatus(false, StatusID.SurgingTempest))
+        {
+            if (OrogenyPvE.CanUse(out act)) return true;
+            if (UpheavalPvE.CanUse(out act)) return true;
+        }
 
         if (OnslaughtPvE.CanUse(out act, usedUp: IsBurstStatus) && !IsMoving) return true;
 
@@ -143,11 +151,14 @@ public sealed class WAR_Default : WarriorRotation
 
     private bool HighDefense(out IAction? act)
     {
+        //40
+        if (RampartPvE.CD.JustUsedAfter(40) && DamnationPvE.CanUse(out act)) return true;
+
         //30
-        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && VengeancePvE.CanUse(out act)) return true;
+        if (DamnationPvE.CD.JustUsedAfter(40) && VengeancePvE.CanUse(out act)) return true;
 
         //20
-        if (VengeancePvE.CD.IsCoolingDown && VengeancePvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
+        if (VengeancePvE.CD.JustUsedAfter(40) && RampartPvE.CanUse(out act)) return true;
 
         act = null;
         return false;
