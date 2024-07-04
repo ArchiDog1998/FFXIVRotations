@@ -77,7 +77,7 @@ public sealed class RDM_Default : RedMageRotation
         act = null;
         if (ManaStacks == 3) return false;
 
-        if (!VerthunderIiPvE.CanUse(out _))
+        if (!VerthunderIiPvESet.CanUse(out _))
         {
             if (VerfirePvE.CanUse(out act)) return true;
             if (VerstonePvE.CanUse(out act)) return true;
@@ -86,11 +86,11 @@ public sealed class RDM_Default : RedMageRotation
         if (ScatterPvE.CanUse(out act)) return true;
         if (WhiteMana < BlackMana)
         {
-            if (VeraeroIiPvE.CanUse(out act) && BlackMana - WhiteMana != 5) return true;
-            if (VeraeroPvE.CanUse(out act) && BlackMana - WhiteMana != 6) return true;
+            if (VeraeroIiPvESet.CanUse(out act) && BlackMana - WhiteMana != 5) return true;
+            if (VeraeroPvESet.CanUse(out act) && BlackMana - WhiteMana != 6) return true;
         }
-        if (VerthunderIiPvE.CanUse(out act)) return true;
-        if (VerthunderPvE.CanUse(out act)) return true;
+        if (VerthunderIiPvESet.CanUse(out act)) return true;
+        if (VerthunderPvESet.CanUse(out act)) return true;
 
         if (JoltPvE.CanUse(out act)) return true;
 
@@ -114,21 +114,21 @@ public sealed class RDM_Default : RedMageRotation
         if (ScorchPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
 
-        if (IsLastGCD(true, MoulinetPvE) && MoulinetPvE.CanUse(out act, skipAoeCheck: true)) return true;
-        if (ZwerchhauPvE.CanUse(out act)) return true;
-        if (RedoublementPvE.CanUse(out act)) return true;
+        if (IsLastGCD(true, MoulinetPvE) && MoulinetPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+        if (ZwerchhauPvESet.CanUse(out act)) return true;
+        if (RedoublementPvESet.CanUse(out act)) return true;
 
         if (!CanStartMeleeCombo) return false;
 
-        if (MoulinetPvE.CanUse(out act))
+        if (MoulinetPvESet.CanUse(out act))
         {
             if (BlackMana >= 60 && WhiteMana >= 60) return true;
         }
         else
         {
-            if (BlackMana >= 50 && WhiteMana >= 50 && RipostePvE.CanUse(out act)) return true;
+            if (BlackMana >= 50 && WhiteMana >= 50 && RipostePvESet.CanUse(out act)) return true;
         }
-        if (ManaStacks > 0 && RipostePvE.CanUse(out act)) return true;
+        if (ManaStacks > 0 && RipostePvESet.CanUse(out act)) return true;
 
         return base.EmergencyGCD(out act);
     }
@@ -138,11 +138,11 @@ public sealed class RDM_Default : RedMageRotation
         act = null;
         if (CombatElapsedLess(4)) return false;
 
-        if (IsBurst && HasHostilesInRange && EmboldenPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (IsBurst && HasHostilesInRange && EmboldenPvESet.CanUse(out act, skipAoeCheck: true)) return true;
 
         //Use Manafication after embolden.
         if ((Player.HasStatus(true, StatusID.Embolden) || IsLastAbility(ActionID.EmboldenPvE))
-            && ManaficationPvE.CanUse(out act)) return true;
+            && ManaficationPvESet.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }

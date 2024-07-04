@@ -28,7 +28,7 @@ public sealed class SAM_Default : SamuraiRotation
         if (KaeshiSetsugekkaPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         if ((!IsTargetBoss || (HostileTarget?.HasStatus(true, StatusID.Higanbana) ?? false)) && HasMoon && HasFlower
-            && OgiNamikiriPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            && OgiNamikiriPvESet.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (SenCount == 1 && IsTargetBoss && !IsTargetDying)
         {
@@ -55,11 +55,11 @@ public sealed class SAM_Default : SamuraiRotation
         if ((!HasFlower || !IsMoonTimeLessThanFlower) && ShifuPvE.CanUse(out act)) return true;
 
         if (FukoPvE.CanUse(out act)) return true;
-        if (!FukoPvE.EnoughLevel && FugaPvE.CanUse(out act)) return true;
+        if (!FukoPvE.EnoughLevel && FugaPvESet.CanUse(out act)) return true;
 
         if (!HaveMeikyoShisui)
         {
-            if (HakazePvE.CanUse(out act)) return true;
+            if (HakazePvESet.CanUse(out act)) return true;
 
             if (EnpiPvE.CanUse(out act)) return true;
         }
@@ -72,7 +72,7 @@ public sealed class SAM_Default : SamuraiRotation
         var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
         var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
-        if (Kenki <= 50 && IkishotenPvE.CanUse(out act)) return true;
+        if (Kenki <= 50 && IkishotenPvESet.CanUse(out act)) return true;
 
         if ((HostileTarget?.HasStatus(true, StatusID.Higanbana) ?? false) && (HostileTarget?.WillStatusEnd(32, true, StatusID.Higanbana) ?? false) && !(HostileTarget?.WillStatusEnd(28, true, StatusID.Higanbana) ?? false) && SenCount == 1 && IsLastAction(true, YukikazePvE) && !HaveMeikyoShisui)
         {

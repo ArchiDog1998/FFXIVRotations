@@ -61,11 +61,11 @@ public sealed class BRD_Default : BardRotation
         if (ShadowbitePvE.CanUse(out act)) return true;
         if (QuickNockPvE.CanUse(out act)) return true;
 
-        if (WindbitePvE.CanUse(out act)) return true;
-        if (VenomousBitePvE.CanUse(out act)) return true;
+        if (WindbitePvESet.CanUse(out act)) return true;
+        if (VenomousBitePvESet.CanUse(out act)) return true;
 
-        if (StraightShotPvE.CanUse(out act)) return true;
-        if (HeavyShotPvE.CanUse(out act)) return true;
+        if (StraightShotPvESet.CanUse(out act)) return true;
+        if (HeavyShotPvESet.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
     }
@@ -80,7 +80,7 @@ public sealed class BRD_Default : BardRotation
         {
             if ((EmpyrealArrowPvE.CD.IsCoolingDown && !EmpyrealArrowPvE.CD.WillHaveOneChargeGCD(1) || !EmpyrealArrowPvE.EnoughLevel) && Repertoire != 3)
             {
-                if (!Player.HasStatus(true, StatusID.StraightShotReady) && BarragePvE.CanUse(out act)) return true;
+                if (!Player.HasStatus(true, StatusID.StraightShotReady) && BarragePvESet.CanUse(out act)) return true;
             }
         }
 
@@ -130,7 +130,7 @@ public sealed class BRD_Default : BardRotation
                 if (!BindWANDEnough) return true;
             }
 
-            if (RadiantFinalePvE.CanUse(out act, skipAoeCheck: true))
+            if (RadiantFinalePvESet.CanUse(out act, skipAoeCheck: true))
             {
                 if (Player.HasStatus(true, StatusID.RagingStrikes) && RagingStrikesPvE.CD.ElapsedOneChargeAfterGCD(1)) return true;
             }
@@ -189,7 +189,7 @@ public sealed class BRD_Default : BardRotation
         {
             if (RainOfDeathPvE.CanUse(out act, usedUp: true)) return true;
 
-            if (BloodletterPvE.CanUse(out act, usedUp: true)) return true;
+            if (BloodletterPvESet.CanUse(out act, usedUp: true)) return true;
         }
 
         return base.AttackAbility(out act);
@@ -197,9 +197,9 @@ public sealed class BRD_Default : BardRotation
 
     private bool CanUseApexArrow(out IAction act)
     {
-        if (!ApexArrowPvE.CanUse(out act,skipAoeCheck: true)) return false;
+        if (!ApexArrowPvESet.CanUse(out act,skipAoeCheck: true)) return false;
 
-        if (QuickNockPvE.CanUse(out _) && SoulVoice == 100) return true;
+        if (QuickNockPvESet.CanUse(out _) && SoulVoice == 100) return true;
 
         if (SoulVoice == 100 && BattleVoicePvE.CD.WillHaveOneCharge(25)) return false;
 

@@ -21,8 +21,8 @@ public sealed class GNB_Default : GunbreakerRotation
 
         if (InCombat && CombatElapsedLess(30))
         {
-            if (!CombatElapsedLessGCD(2) && NoMercyPvE.CanUse(out act, skipAoeCheck: true)) return true;
-            if (Player.HasStatus(true, StatusID.NoMercy) && BloodfestPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (!CombatElapsedLessGCD(2) && NoMercyPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+            if (Player.HasStatus(true, StatusID.NoMercy) && BloodfestPvESet.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -74,7 +74,7 @@ public sealed class GNB_Default : GunbreakerRotation
 
         if (JugularRipPvE.CanUse(out act)) return true;
 
-        if (DangerZonePvE.CanUse(out act))
+        if (DangerZonePvESet.CanUse(out act))
         {
             if (!IsFullParty && !(DangerZonePvE.Target.Target?.IsBossFromTTK() ?? false)) return true;
 
@@ -88,7 +88,7 @@ public sealed class GNB_Default : GunbreakerRotation
         if (Player.HasStatus(true, StatusID.NoMercy) && CanUseBowShock(out act)) return true;
 
         //if (RoughDividePvE.CanUse(out act) && !IsMoving) return true;
-        if (GnashingFangPvE.CD.IsCoolingDown && DoubleDownPvE.CD.IsCoolingDown && Ammo == 0 && BloodfestPvE.CanUse(out act)) return true;
+        if (GnashingFangPvE.CD.IsCoolingDown && DoubleDownPvE.CD.IsCoolingDown && Ammo == 0 && BloodfestPvESet.CanUse(out act)) return true;
 
         if (AbdomenTearPvE.CanUse(out act)) return true;
 
@@ -115,10 +115,10 @@ public sealed class GNB_Default : GunbreakerRotation
         //10
         if (CamouflagePvE.CanUse(out act, onLastAbility: true)) return true;
         //10
-        if (HeartOfStonePvE.CanUse(out act, onLastAbility: true)) return true;
+        if (HeartOfStonePvESet.CanUse(out act, onLastAbility: true)) return true;
 
         //30
-        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && NebulaPvE.CanUse(out act)) return true;
+        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && NebulaPvESet.CanUse(out act)) return true;
         //20
         if (NebulaPvE.CD.IsCoolingDown && NebulaPvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
 
@@ -154,7 +154,7 @@ public sealed class GNB_Default : GunbreakerRotation
 
     private bool CanUseGnashingFang(out IAction? act)
     {
-        if (GnashingFangPvE.CanUse(out act))
+        if (GnashingFangPvESet.CanUse(out act))
         {
             if (DemonSlicePvE.CanUse(out _)) return false;
 

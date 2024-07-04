@@ -27,9 +27,9 @@ public sealed class MNK_Default : MonkRotation
 
     private bool OpoOpoForm(out IAction? act)
     {
-        if (ArmOfTheDestroyerPvE.CanUse(out act)) return true;
+        if (ArmOfTheDestroyerPvESet.CanUse(out act)) return true;
         if (DragonKickPvE.CanUse(out act)) return true;
-        if (BootshinePvE.CanUse(out act)) return true;
+        if (BootshinePvESet.CanUse(out act)) return true;
         return false;
     }
 
@@ -42,7 +42,7 @@ public sealed class MNK_Default : MonkRotation
         if ((Player.WillStatusEndGCD(3, 0, true, StatusID.DisciplinedFist)
             || Player.WillStatusEndGCD(7, 0, true, StatusID.DisciplinedFist)
             && UseLunarPerfectBalance) && TwinSnakesPvE.CanUse(out act)) return true;
-        if (TrueStrikePvE.CanUse(out act)) return true;
+        if (TrueStrikePvESet.CanUse(out act)) return true;
         return false;
     }
 
@@ -52,7 +52,7 @@ public sealed class MNK_Default : MonkRotation
         if (UseLunarPerfectBalance && DemolishPvE.CanUse(out act, skipStatusProvideCheck: true)
             && (DemolishPvE.Target.Target?.WillStatusEndGCD(7, 0, true, StatusID.Demolish) ?? false)) return true;
         if (DemolishPvE.CanUse(out act)) return true;
-        if (SnapPunchPvE.CanUse(out act)) return true;
+        if (SnapPunchPvESet.CanUse(out act)) return true;
         return false;
     }
 
@@ -208,7 +208,7 @@ public sealed class MNK_Default : MonkRotation
         if (InCombat)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (IsBurst && !CombatElapsedLessGCD(2) && RiddleOfFirePvE.CanUse(out act, onLastAbility: true)) return true;
+            if (IsBurst && !CombatElapsedLessGCD(2) && RiddleOfFirePvESet.CanUse(out act, onLastAbility: true)) return true;
         }
 
         act = null;
@@ -232,11 +232,11 @@ public sealed class MNK_Default : MonkRotation
 
         if (CombatElapsedLessGCD(3)) return false;
 
-        if (HowlingFistPvE.CanUse(out act)) return true;
-        if (SteelPeakPvE.CanUse(out act)) return true;
-        if (HowlingFistPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (HowlingFistPvESet.CanUse(out act)) return true;
+        if (SteelPeakPvESet.CanUse(out act)) return true;
+        if (HowlingFistPvESet.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (RiddleOfWindPvE.CanUse(out act)) return true;
+        if (RiddleOfWindPvESet.CanUse(out act)) return true;
 
         return base.AttackAbility(out act);
     }

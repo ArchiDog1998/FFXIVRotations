@@ -20,7 +20,7 @@ public sealed class MCH_Default : MachinistRotation
         if (remainTime < CountDownAhead)
         {
             if (AirAnchorPvE.CanUse(out var act1)) return act1;
-            else if (!AirAnchorPvE.EnoughLevel && HotShotPvE.CanUse(out act1)) return act1;
+            else if (!AirAnchorPvE.EnoughLevel && HotShotPvESet.CanUse(out act1)) return act1;
         }
         if (remainTime < 2 && UseBurstMedicine(out var act)) return act;
         if (remainTime < ReassembleCountDownTime && ReassemblePvE.CanUse(out act, usedUp: true)) return act;
@@ -59,14 +59,14 @@ public sealed class MCH_Default : MachinistRotation
 
         //Overheated
         if (AutoCrossbowPvE.CanUse(out act)) return true;
-        if (HeatBlastPvE.CanUse(out act)) return true;
+        if (HeatBlastPvESet.CanUse(out act)) return true;
 
         //Long Cds
         if (BioblasterPvE.CanUse(out act)) return true;
-        if (!SpreadShotPvE.CanUse(out _))
+        if (!SpreadShotPvESet.CanUse(out _))
         {
             if (AirAnchorPvE.CanUse(out act)) return true;
-            else if (!AirAnchorPvE.EnoughLevel && HotShotPvE.CanUse(out act)) return true;
+            else if (!AirAnchorPvE.EnoughLevel && HotShotPvESet.CanUse(out act)) return true;
 
             if (DrillPvE.CanUse(out act)) return true;
         }
@@ -74,13 +74,13 @@ public sealed class MCH_Default : MachinistRotation
         if (!CombatElapsedLessGCD(4) && ChainSawPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         //Aoe
-        if (ChainSawPvE.CanUse(out act)) return true;
-        if (SpreadShotPvE.CanUse(out act)) return true;
+        if (ChainSawPvESet.CanUse(out act)) return true;
+        if (SpreadShotPvESet.CanUse(out act)) return true;
 
         //Single
-        if (CleanShotPvE.CanUse(out act)) return true;
-        if (SlugShotPvE.CanUse(out act)) return true;
-        if (SplitShotPvE.CanUse(out act)) return true;
+        if (CleanShotPvESet.CanUse(out act)) return true;
+        if (SlugShotPvESet.CanUse(out act)) return true;
+        if (SplitShotPvESet.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
     }
@@ -91,8 +91,8 @@ public sealed class MCH_Default : MachinistRotation
         {
             if (ReassemblePvE.CanUse(out act, usedUp: true)) return true;
         }
-        if (RicochetPvE.CanUse(out act, skipAoeCheck: true)) return true;
-        if (GaussRoundPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (RicochetPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+        if (GaussRoundPvESet.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (!DrillPvE.EnoughLevel && nextGCD.IsTheSameTo(true, CleanShotPvE)
             || nextGCD.IsTheSameTo(false, AirAnchorPvE, ChainSawPvE, DrillPvE))
@@ -119,21 +119,21 @@ public sealed class MCH_Default : MachinistRotation
         {
             if (UseBurstMedicine(out act)) return true;
             if ((IsLastAbility(false, HyperchargePvE) || Heat >= 50) && !CombatElapsedLess(10)
-                && WildfirePvE.CanUse(out act, onLastAbility: true)) return true;
+                && WildfirePvESet.CanUse(out act, onLastAbility: true)) return true;
         }
 
         if (!CombatElapsedLess(12) && CanUseHypercharge(out act)) return true;
         if (CanUseRookAutoturret(out act)) return true;
 
-        if (BarrelStabilizerPvE.CanUse(out act)) return true;
+        if (BarrelStabilizerPvESet.CanUse(out act)) return true;
 
         if (CombatElapsedLess(8)) return false;
 
         if (GaussRoundPvE.CD.CurrentCharges <= RicochetPvE.CD.CurrentCharges)
         {
-            if (RicochetPvE.CanUse(out act, usedUp: true, skipAoeCheck: true)) return true;
+            if (RicochetPvESet.CanUse(out act, usedUp: true, skipAoeCheck: true)) return true;
         }
-        if (GaussRoundPvE.CanUse(out act, usedUp: true, skipAoeCheck: true)) return true;
+        if (GaussRoundPvESet.CanUse(out act, usedUp: true, skipAoeCheck: true)) return true;
 
         return base.AttackAbility(out act);
     }
@@ -150,7 +150,7 @@ public sealed class MCH_Default : MachinistRotation
             if (!HotShotPvE.CD.IsCoolingDown || HotShotPvE.CD.ElapsedAfter(18)) return false;
         }
 
-        return RookAutoturretPvE.CanUse(out act);
+        return RookAutoturretPvESet.CanUse(out act);
     }
 
     const float REST_TIME = 6f;
@@ -159,7 +159,7 @@ public sealed class MCH_Default : MachinistRotation
         act = null;
 
         //Check recast.
-        if (!SpreadShotPvE.CanUse(out _))
+        if (!SpreadShotPvESet.CanUse(out _))
         {
             if (AirAnchorPvE.EnoughLevel)
             {

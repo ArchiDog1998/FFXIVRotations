@@ -61,17 +61,17 @@ public sealed class SCH_Default : ScholarRotation
         #endregion
 
         if (SummonEosPvE.CanUse(out act)) return true;
-        if (BioPvE.CanUse(out act)) return true;
+        if (BioPvESet.CanUse(out act)) return true;
 
         //AOE
-        if (ArtOfWarPvE.CanUse(out act)) return true;
+        if (ArtOfWarPvESet.CanUse(out act)) return true;
 
         //Single
         if (RuinPvE.CanUse(out act)) return true;
         if (RuinIiPvE.CanUse(out act)) return true;
 
         //Add dot.
-        if (BioPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
+        if (BioPvESet.CanUse(out act, skipStatusProvideCheck: true)) return true;
 
         return base.GeneralGCD(out act);
     }
@@ -88,12 +88,12 @@ public sealed class SCH_Default : ScholarRotation
     {
         var haveLink = PartyMembers.Any(p => p.HasStatus(true, StatusID.FeyUnion_1223));
 
-        if (AetherpactPvE.CanUse(out act) && FairyGauge >= 70 && !haveLink) return true;
+        if (AetherpactPvESet.CanUse(out act) && FairyGauge >= 70 && !haveLink) return true;
         if (ProtractionPvE.CanUse(out act)) return true;
         if (SacredSoilPvE.CanUse(out act)) return true;
         if (ExcogitationPvE.CanUse(out act)) return true;
         if (LustratePvE.CanUse(out act)) return true;
-        if (AetherpactPvE.CanUse(out act) && !haveLink) return true;
+        if (AetherpactPvESet.CanUse(out act) && !haveLink) return true;
 
         return base.HealSingleAbility(out act);
     }
@@ -106,7 +106,7 @@ public sealed class SCH_Default : ScholarRotation
 
     protected override bool HealAreaGCD(out IAction? act)
     {
-        if (SuccorPvE.CanUse(out act)) return true;
+        if (SuccorPvESet.CanUse(out act)) return true;
 
         return base.HealAreaGCD(out act);
     }
@@ -116,7 +116,7 @@ public sealed class SCH_Default : ScholarRotation
         //慰藉
         if (WhisperingDawnPvE.CD.ElapsedOneChargeAfterGCD(1) || FeyIlluminationPvE.CD.ElapsedOneChargeAfterGCD(1) || FeyBlessingPvE.CD.ElapsedOneChargeAfterGCD(1))
         {
-            if (SummonSeraphPvE.CanUse(out act)) return true;
+            if (SummonSeraphPvESet.CanUse(out act)) return true;
         }
         if (ConsolationPvE.CanUse(out act, usedUp: true)) return true;
         if (FeyBlessingPvE.CanUse(out act)) return true;
@@ -158,7 +158,7 @@ public sealed class SCH_Default : ScholarRotation
 
         if (IsBurst)
         {
-            if (ChainStratagemPvE.CanUse(out act)) return true;
+            if (ChainStratagemPvESet.CanUse(out act)) return true;
         }
 
         if (DissipationPvE.EnoughLevel && DissipationPvE.CD.WillHaveOneChargeGCD(3) && DissipationPvE.IsEnabled || AetherflowPvE.CD.WillHaveOneChargeGCD(3))
@@ -185,7 +185,7 @@ public sealed class SCH_Default : ScholarRotation
             {
                 if (GiveT)
                 {
-                    return AdloquiumPvE;
+                    if (AdloquiumPvESet.CanUse(out act)) return act;
                 }
             }
             else

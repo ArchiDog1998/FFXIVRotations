@@ -144,16 +144,16 @@ public sealed class SGE_Default : SageRotation
 
         if (PhlegmaIiiPvE.CanUse(out act, usedUp: IsMoving, skipAoeCheck: true)) return true;
         if (!PhlegmaIiiPvE.EnoughLevel && PhlegmaIiPvE.CanUse(out act, usedUp: IsMoving, skipAoeCheck: true)) return true;
-        if (!PhlegmaIiPvE.EnoughLevel && PhlegmaPvE.CanUse(out act, usedUp: IsMoving, skipAoeCheck: true)) return true;
+        if (!PhlegmaIiPvE.EnoughLevel && PhlegmaPvESet.CanUse(out act, usedUp: IsMoving, skipAoeCheck: true)) return true;
 
         if (PartyMembers.Any(b => b.GetHealthRatio() < 0.20f) || PartyMembers.GetJobCategory(JobRole.Tank).Any(t => t.GetHealthRatio() < 0.6f))
         {
             if (PneumaPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-        if (IsMoving && ToxikonPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (IsMoving && ToxikonPvESet.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (DyskrasiaPvE.CanUse(out act)) return true;
+        if (DyskrasiaPvESet.CanUse(out act)) return true;
 
         if (EukrasianDosisPvE.CanUse(out _, skipCastingCheck: true))
         {
@@ -194,7 +194,7 @@ public sealed class SGE_Default : SageRotation
             if (HaimaPvE.CanUse(out act, onLastAbility: true)) return true;
 
             if (PhysisIiPvE.CanUse(out act)) return true;
-            if (!PhysisIiPvE.EnoughLevel && PhysisPvE.CanUse(out act)) return true;
+            if (!PhysisIiPvE.EnoughLevel && PhysisPvESet.CanUse(out act)) return true;
 
             if (HolosPvE.CanUse(out act, onLastAbility: true)) return true;
 
@@ -224,7 +224,7 @@ public sealed class SGE_Default : SageRotation
 
     protected override bool HealAreaGCD(out IAction? act)
     {
-        if (PartyMembersAverHP < 0.65f || DyskrasiaPvE.CanUse(out _) && PartyMembers.GetJobCategory(JobRole.Tank).Any(t => t.GetHealthRatio() < 0.6f))
+        if (PartyMembersAverHP < 0.65f || DyskrasiaPvESet.CanUse(out _) && PartyMembers.GetJobCategory(JobRole.Tank).Any(t => t.GetHealthRatio() < 0.6f))
         {
             if (PneumaPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }

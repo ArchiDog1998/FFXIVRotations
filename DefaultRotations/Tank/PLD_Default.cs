@@ -38,15 +38,15 @@ public class PLD_Default : PaladinRotation
         if (InCombat)
         {
             if (UseBurstMedicine(out act)) return true;
-            if (IsBurst && !CombatElapsedLess(5) && FightOrFlightPvE.CanUse(out act, onLastAbility: true)) return true;
+            if (IsBurst && !CombatElapsedLess(5) && FightOrFlightPvESet.CanUse(out act, onLastAbility: true)) return true;
         }
         if (CombatElapsedLess(8)) return false;
 
         if (CircleOfScornPvE.CanUse(out act, skipAoeCheck: true)) return true;
-        if (SpiritsWithinPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (SpiritsWithinPvESet.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (Player.WillStatusEndGCD(6, 0, true, StatusID.FightOrFlight)
-            && RequiescatPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            && RequiescatPvESet.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (!IsMoving && IntervenePvE.CanUse(out act, skipAoeCheck: true, usedUp: HasFightOrFlight)) return true;
 
@@ -71,10 +71,9 @@ public class PLD_Default : PaladinRotation
 
         if (Player.HasStatus(true, StatusID.Requiescat))
         {
-            if (ConfiteorPvE.CanUse(out act, skipAoeCheck: true))
+            if (ConfiteorPvESet.CanUse(out act, skipAoeCheck: true))
             {
                 if (Player.HasStatus(true, StatusID.ConfiteorReady)) return true;
-                //if (ConfiteorPvE.ID != ConfiteorPvE.AdjustedID) return true;
             }
             if (HolyCirclePvE.CanUse(out act)) return true;
             if (HolySpiritPvE.CanUse(out act)) return true;
@@ -91,13 +90,13 @@ public class PLD_Default : PaladinRotation
         {
             if (!FightOrFlightPvE.CD.WillHaveOneChargeGCD(6) &&
                 HasDivineMight && HolySpiritPvE.CanUse(out act)) return true;
-            if (RageOfHalonePvE.CanUse(out act)) return true;
-            if (AtonementPvE.CanUse(out act)) return true;
+            if (RageOfHalonePvESet.CanUse(out act)) return true;
+            if (AtonementPvESet.CanUse(out act)) return true;
         }
         //123
         if (UseShieldBash && ShieldBashPvE.CanUse(out act)) return true;
 
-        if (RageOfHalonePvE.CanUse(out act)) return true;
+        if (RageOfHalonePvESet.CanUse(out act)) return true;
         if (RiotBladePvE.CanUse(out act)) return true;
         if (FastBladePvE.CanUse(out act)) return true;
 
@@ -131,7 +130,7 @@ public class PLD_Default : PaladinRotation
         if (BulwarkPvE.CanUse(out act, true)) return true;
         if (UseOath(out act, true)) return true;
         //30
-        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && SentinelPvE.CanUse(out act)) return true;
+        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && SentinelPvESet.CanUse(out act)) return true;
 
         //20
         if (SentinelPvE.CD.IsCoolingDown && SentinelPvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
@@ -143,7 +142,7 @@ public class PLD_Default : PaladinRotation
 
     private bool UseOath(out IAction act, bool onLast = false)
     {
-        if (SheltronPvE.CanUse(out act, onLastAbility: onLast)) return true;
+        if (SheltronPvESet.CanUse(out act, onLastAbility: onLast)) return true;
         if (InterventionPvE.CanUse(out act, onLastAbility: onLast)) return true;
 
         return false;

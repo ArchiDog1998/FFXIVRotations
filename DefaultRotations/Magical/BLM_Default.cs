@@ -157,7 +157,7 @@ public class BLM_Default : BlackMageRotation
             && UseInstanceSpell(out act)) return true;
 
         //Go to Ice.
-        if (BlizzardIiPvE.CanUse(out act)) return true;
+        if (BlizzardIiPvESet.CanUse(out act)) return true;
         if (BlizzardIiiPvE.CanUse(out act)) return true;
         if (TransposePvE.CanUse(out act)) return true;
         if (BlizzardPvE.CanUse(out act)) return true;
@@ -169,14 +169,14 @@ public class BLM_Default : BlackMageRotation
         act = null;
         if (UmbralIceStacks == 1)
         {
-            if (BlizzardIiPvE.CanUse(out act)) return true;
+            if (BlizzardIiPvESet.CanUse(out act)) return true;
 
             if (Player.Level == 90 && BlizzardPvE.CanUse(out act)) return true;
             if (BlizzardIiiPvE.CanUse(out act)) return true;
         }
         if (UmbralIceStacks == 2 && Player.Level < 90)
         {
-            if (BlizzardIiPvE.CanUse(out act)) return true;
+            if (BlizzardIiPvESet.CanUse(out act)) return true;
             if (BlizzardPvE.CanUse(out act)) return true;
         }
         return false;
@@ -206,7 +206,7 @@ public class BLM_Default : BlackMageRotation
             if (BlizzardPvE.CanUse(out act)) return true;
         }
 
-        if (BlizzardIiPvE.CanUse(out act)) return true;
+        if (BlizzardIiPvESet.CanUse(out act)) return true;
         if (BlizzardIvPvE.CanUse(out act)) return true;
         if (BlizzardPvE.CanUse(out act)) return true;
         return false;
@@ -228,10 +228,10 @@ public class BLM_Default : BlackMageRotation
         }
 
         //Go to Fire.
-        if (FireIiPvE.CanUse(out act)) return true;
+        if (FireIiPvESet.CanUse(out act)) return true;
         if (FireIiiPvE.CanUse(out act)) return true;
         if (TransposePvE.CanUse(out act)) return true;
-        if (FirePvE.CanUse(out act)) return true;
+        if (FirePvESet.CanUse(out act)) return true;
 
         return false;
     }
@@ -241,23 +241,23 @@ public class BLM_Default : BlackMageRotation
         switch (AstralFireStacks)
         {
             case 1:
-                if (FireIiPvE.CanUse(out act)) return true;
+                if (FireIiPvESet.CanUse(out act)) return true;
                 if (UseN15)
                 {
                     if (HasFire && FireIiiPvE.CanUse(out act)) return true;
-                    if (IsParadoxActive && FirePvE.CanUse(out act)) return true;
+                    if (IsParadoxActive && FirePvESet.CanUse(out act)) return true;
                 }
                 if (FireIiiPvE.CanUse(out act)) return true;
                 break;
             case 2:
-                if (FireIiPvE.CanUse(out act)) return true;
-                if (FirePvE.CanUse(out act)) return true;
+                if (FireIiPvESet.CanUse(out act)) return true;
+                if (FirePvESet.CanUse(out act)) return true;
                 break;
         }
 
         if (ElementTimeRemaining < GCDTime(ExtendTimeSafely ? 3u : 2u))
         {
-            if (CurrentMp >= FirePvE.Info.MPNeed * 2 + 800 && FirePvE.CanUse(out act)) return true;
+            if (CurrentMp >= FirePvE.Info.MPNeed * 2 + 800 && FirePvESet.CanUse(out act)) return true;
             if (FlarePvE.CanUse(out act)) return true;
             if (DespairPvE.CanUse(out act)) return true;
         }
@@ -282,7 +282,7 @@ public class BLM_Default : BlackMageRotation
             StatusID.Thundercloud)) return true;
 
         if (UmbralHearts < 2 && FlarePvE.CanUse(out act)) return true;
-        if (FireIiPvE.CanUse(out act)) return true;
+        if (FireIiPvESet.CanUse(out act)) return true;
 
         if (CurrentMp >= FirePvE.Info.MPNeed + 800)
         {
@@ -294,7 +294,7 @@ public class BLM_Default : BlackMageRotation
             {
                 if (FireIiiPvE.CanUse(out act)) return true;
             }
-            if (FirePvE.CanUse(out act)) return true;
+            if (FirePvESet.CanUse(out act)) return true;
         }
 
         if (DespairPvE.CanUse(out act)) return true;
@@ -317,12 +317,12 @@ public class BLM_Default : BlackMageRotation
         if (IsLastGCD(ActionID.ThunderPvE, ActionID.ThunderIiPvE, ActionID.ThunderIiiPvE, ActionID.ThunderIvPvE)) return false;
 
         //So long for thunder.
-        if (ThunderPvE.CanUse(out _) && (!ThunderPvE.Target.Target?.WillStatusEndGCD(gcdCount, 0, true,
+        if (ThunderPvESet.CanUse(out _) && (!ThunderPvE.Target.Target?.WillStatusEndGCD(gcdCount, 0, true,
             StatusID.Thunder, StatusID.ThunderIi, StatusID.ThunderIii, StatusID.ThunderIv) ?? false))
             return false;
 
-        if (ThunderIiPvE.CanUse(out act)) return true;
-        if (ThunderPvE.CanUse(out act)) return true;
+        if (ThunderIiPvESet.CanUse(out act)) return true;
+        if (ThunderPvESet.CanUse(out act)) return true;
 
         return false;
     }
@@ -331,13 +331,13 @@ public class BLM_Default : BlackMageRotation
     {
         if (CurrentMp >= 7200)
         {
-            if (FireIiPvE.CanUse(out act)) return true;
+            if (FireIiPvESet.CanUse(out act)) return true;
             if (FireIiiPvE.CanUse(out act)) return true;
-            if (FirePvE.CanUse(out act)) return true;
+            if (FirePvESet.CanUse(out act)) return true;
         }
         else
         {
-            if (BlizzardIiPvE.CanUse(out act)) return true;
+            if (BlizzardIiPvESet.CanUse(out act)) return true;
             if (BlizzardIiiPvE.CanUse(out act)) return true;
             if (BlizzardPvE.CanUse(out act)) return true;
         }

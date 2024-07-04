@@ -340,12 +340,12 @@ public sealed class NIN_Default : NinjaRotation
         if (KassatsuPvE.CanUse(out act)) return true;
         if (UseBurstMedicine(out act)) return true;
 
-        if (IsBurst && !CombatElapsedLess(5) && MugPvE.CanUse(out act)) return true;
+        if (IsBurst && !CombatElapsedLess(5) && MugPvESet.CanUse(out act)) return true;
 
         //Use Suiton
         if (!CombatElapsedLess(6))
         {
-            if (TrickAttackPvE.CanUse(out act)) return true;
+            if (TrickAttackPvESet.CanUse(out act)) return true;
             if (TrickAttackPvE.CD.IsCoolingDown && !TrickAttackPvE.CD.WillHaveOneCharge(19)
                 && MeisuiPvE.CanUse(out act)) return true;
         }
@@ -358,27 +358,20 @@ public sealed class NIN_Default : NinjaRotation
         act = null;
         if (!NoNinjutsu || !InCombat) return false;
 
-        if (!IsMoving && InTrickAttack && !TenPvE.CD.ElapsedAfter(30) && TenChiJinPvE.CanUse(out act)) return true;
+        if (!IsMoving && InTrickAttack && !TenPvE.CD.ElapsedAfter(30) && TenChiJinPvESet.CanUse(out act)) return true;
 
-        if (!CombatElapsedLess(5) && BunshinPvE.CanUse(out act)) return true;
+        if (!CombatElapsedLess(5) && BunshinPvESet.CanUse(out act)) return true;
 
         if (InTrickAttack)
         {
-            if (!DreamWithinADreamPvE.EnoughLevel)
-            {
-                if (AssassinatePvE.CanUse(out act)) return true;
-            }
-            else
-            {
-                if (DreamWithinADreamPvE.CanUse(out act)) return true;
-            }
+            if (AssassinatePvESet.CanUse(out act)) return true;
         }
 
         if ((!InMug || InTrickAttack)
             && (!BunshinPvE.CD.WillHaveOneCharge(10) || Player.HasStatus(false, StatusID.PhantomKamaitachiReady) || MugPvE.CD.WillHaveOneCharge(2)))
         {
-            if (HellfrogMediumPvE.CanUse(out act)) return true;
-            if (BhavacakraPvE.CanUse(out act)) return true;
+            if (HellfrogMediumPvESet.CanUse(out act)) return true;
+            if (BhavacakraPvESet.CanUse(out act)) return true;
         }
         return base.AttackAbility(out act);
     }
