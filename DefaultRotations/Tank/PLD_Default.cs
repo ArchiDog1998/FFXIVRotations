@@ -74,7 +74,7 @@ public class PLD_Default : PaladinRotation
             if (ConfiteorPvE.CanUse(out act, skipAoeCheck: true))
             {
                 if (Player.HasStatus(true, StatusID.ConfiteorReady)) return true;
-                if (ConfiteorPvE.ID != ConfiteorPvE.AdjustedID) return true;
+                //if (ConfiteorPvE.ID != ConfiteorPvE.AdjustedID) return true;
             }
             if (HolyCirclePvE.CanUse(out act)) return true;
             if (HolySpiritPvE.CanUse(out act)) return true;

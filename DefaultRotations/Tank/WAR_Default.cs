@@ -40,14 +40,14 @@ public sealed class WAR_Default : WarriorRotation
             {
                 if (PrimalRuinationPvE.CanUse(out act, skipAoeCheck: true)) return true;
             }
-            if (!IsMoving && IsBurstStatus && PrimalRendPvE.CanUse(out act, skipAoeCheck: true))
+            if (!IsMoving && IsBurstStatus && PrimalRendPvESet.CanUse(out act, skipAoeCheck: true))
             {
-                if (PrimalRendPvE.Target.Target?.DistanceToPlayer() < 1) return true;
+                if (PrimalRendPvESet.ChosenAction?.Target.Target?.DistanceToPlayer() < 1) return true;
             }
             if (IsBurstStatus || !Player.HasStatus(false, StatusID.NascentChaos) || BeastGauge > 80)
             {
-                if (SteelCyclonePvE.CanUse(out act)) return true;
-                if (InnerBeastPvE.CanUse(out act)) return true;
+                if (SteelCyclonePvESet.CanUse(out act)) return true;
+                if (InnerBeastPvESet.CanUse(out act)) return true;
             }
         }
 
@@ -86,7 +86,7 @@ public sealed class WAR_Default : WarriorRotation
             && !Player.WillStatusEndGCD(6, 0, true, StatusID.SurgingTempest)
             || !MythrilTempestPvE.EnoughLevel)
         {
-            if (BerserkPvE.CanUse(out act, onLastAbility: true)) return true;
+            if (BerserkPvESet.CanUse(out act, onLastAbility: true)) return true;
         }
 
         if (IsBurstStatus)
@@ -114,24 +114,33 @@ public sealed class WAR_Default : WarriorRotation
         if (BloodwhettingPvP.CanUse(out act)) return true;
         #endregion
 
-        //Auto healing
-        if (Player.GetHealthRatio() < 0.6f)
+        return base.GeneralAbility(out act);
+    }
+
+    protected override bool HealSingleAbility(out IAction? act)
+    {
+        if (Player.GetHealthRatio() < HealthSingleAbility)
         {
             if (ThrillOfBattlePvE.CanUse(out act)) return true;
             if (EquilibriumPvE.CanUse(out act)) return true;
         }
 
         if (!HasTankStance && NascentFlashPvE.CanUse(out act)) return true;
-
-        return base.GeneralAbility(out act);
+        return base.HealSingleAbility(out act);
     }
 
     protected override bool DefenseSingleAbility(out IAction? act)
     {
+        if (Player.HasStatus(true, StatusID.Holmgang_409) && Player.GetHealthRatio() < 0.3f)
+        {
+            act = null;
+            return false;
+        }
+
         if (MobsTime)
         {
             //10
-            if (RawIntuitionPvE.CanUse(out act, onLastAbility: true) && NumberOfHostilesInRange > 2) return true;
+            if (RawIntuitionPvESet.CanUse(out act, onLastAbility: true) && NumberOfHostilesInRange > 2) return true;
             //if (RawIntuitionPvE.CanUse(out act)) return false;
 
             if (!Player.WillStatusEndGCD(0, 0, true, StatusID.Bloodwhetting, StatusID.RawIntuition)) return false;
@@ -143,7 +152,7 @@ public sealed class WAR_Default : WarriorRotation
         {
             if (HighDefense(out act)) return true;
             //10
-            if (RawIntuitionPvE.CanUse(out act, onLastAbility: true)) return true;
+            if (RawIntuitionPvESet.CanUse(out act, onLastAbility: true)) return true;
         }
 
         return false;
@@ -151,14 +160,11 @@ public sealed class WAR_Default : WarriorRotation
 
     private bool HighDefense(out IAction? act)
     {
-        //40
-        if (RampartPvE.CD.JustUsedAfter(40) && DamnationPvE.CanUse(out act)) return true;
-
-        //30
-        if (DamnationPvE.CD.JustUsedAfter(40) && VengeancePvE.CanUse(out act)) return true;
+        //40 30
+        if (DamnationPvE.CD.JustUsedAfter(60) && VengeancePvESet.CanUse(out act)) return true;
 
         //20
-        if (VengeancePvE.CD.JustUsedAfter(40) && RampartPvE.CanUse(out act)) return true;
+        if ((VengeancePvESet.ChosenAction?.CD.JustUsedAfter(60) ?? false) && RampartPvE.CanUse(out act)) return true;
 
         act = null;
         return false;

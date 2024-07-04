@@ -35,7 +35,7 @@ public sealed class AST_Default : AstrologianRotation
         if (MacrocosmosPvE.CD.IsCoolingDown && !MacrocosmosPvE.CD.WillHaveOneCharge(150)
             || CollectiveUnconsciousPvE.CD.IsCoolingDown && !CollectiveUnconsciousPvE.CD.WillHaveOneCharge(40)) return false;
 
-        if (MacrocosmosPvE.CanUse(out act)) return true;
+        if (MacrocosmosPvESet.CanUse(out act)) return true;
         return base.DefenseAreaGCD(out act);
     }
 
@@ -60,11 +60,16 @@ public sealed class AST_Default : AstrologianRotation
         if (AspectedBeneficPvP.CanUse(out act)) return true;
         #endregion
 
-        if (GravityPvE.CanUse(out act)) return true;
+        if (GravityPvESet.CanUse(out act)) return true;
 
-        if (CombustPvE.CanUse(out act)) return true;
+        if (CombustPvESet.CanUse(out act)) return true;
+
+        if (MaleficIvPvE.CanUse(out act)) return true;
+        if (MaleficIiiPvE.CanUse(out act)) return true;
+        if (MaleficIiPvE.CanUse(out act)) return true;
         if (MaleficPvE.CanUse(out act)) return true;
-        if (CombustPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
+
+        if (CombustPvESet.CanUse(out act, skipStatusProvideCheck: true)) return true;
 
         return base.GeneralGCD(out act);
     }

@@ -387,7 +387,7 @@ public sealed class NIN_Default : NinjaRotation
     {
         if(_ninActionAim != null)
         {
-            ImGui.Text(_ninActionAim.ToString()  + _ninActionAim.AdjustedID.ToString());
+            ImGui.Text(_ninActionAim.ToString()  + _ninActionAim.ID.ToString());
         }
         base.DisplayStatus();
     }
