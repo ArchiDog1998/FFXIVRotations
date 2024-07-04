@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.1](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.0...v1.2.1) (2024-07-04)
+
+
+### Bug Fixes
+
+* add reassemble countdown time config. ([1774e29](https://github.com/ArchiDog1998/FFXIVRotations/commit/1774e2982937ce80cb31cf9dbdb31b3dd8ca75d4))
+* api fix. ([d7faaba](https://github.com/ArchiDog1998/FFXIVRotations/commit/d7faaba2332a1bda8cccfb00a00daa627ab26436))
+* api update. ([c87c3e6](https://github.com/ArchiDog1998/FFXIVRotations/commit/c87c3e63a35751038d32ca9d5fe979bfa18aeb91))
+* make it work? ([2aec7df](https://github.com/ArchiDog1998/FFXIVRotations/commit/2aec7df790067ea887d6e9fde28852aa1f46df0c))
+* update api. ([ddb0b46](https://github.com/ArchiDog1998/FFXIVRotations/commit/ddb0b46edd0e6e34933b0704517c0d0aa39c2805))
+* war rotation 7.0 ([9428844](https://github.com/ArchiDog1998/FFXIVRotations/commit/94288444aa9043323ab9855e5177951ab2cb8263))
+* war? ([8ee5d05](https://github.com/ArchiDog1998/FFXIVRotations/commit/8ee5d05b7e8e576b0b030ce268c5134faf74acde))
+
 ## [1.2.0](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.1.9...v1.2.0) (2024-06-04)
 
 
