@@ -98,7 +98,7 @@ public sealed class DNC_Default : DancerRotation
         act = null;
         if (IsDancing) return false;
 
-        if ((burst || Esprit >= 85) && SaberDancePvESet.CanUse(out act, skipAoeCheck: true)) return true;
+        if ((burst || Esprit >= 85) && SaberDancePvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (StarfallDancePvE.CanUse(out act, skipAoeCheck: true)) return true;
 

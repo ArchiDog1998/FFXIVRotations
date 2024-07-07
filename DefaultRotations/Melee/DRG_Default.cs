@@ -43,12 +43,12 @@ public sealed class DRG_Default : DragoonRotation
         }
 
         if (NastrondPvE.CanUse(out act, skipAoeCheck: true)) return true;
-        if (StardiverPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+        if (StardiverPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (JumpPvESet.CanUse(out act)) return true;
+        if (JumpPvEReplace.CanUse(out act)) return true;
 
 
-        if (GeirskogulPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+        if (GeirskogulPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 
         //if (SpineshatterDivePvE.CanUse(out act, usedUp: true))
         {
@@ -58,7 +58,7 @@ public sealed class DRG_Default : DragoonRotation
 
         if (MirageDivePvE.CanUse(out act)) return true;
 
-        if (DragonfireDivePvESet.CanUse(out act, skipAoeCheck: true))
+        if (DragonfireDivePvEReplace.CanUse(out act, skipAoeCheck: true))
         {
             if (Player.HasStatus(true, StatusID.LanceCharge) && LanceChargePvE.CD.ElapsedOneChargeAfterGCD(3)) return true;
         }
@@ -82,23 +82,23 @@ public sealed class DRG_Default : DragoonRotation
 
         if (CoerthanTormentPvE.CanUse(out act)) return true;
         if (SonicThrustPvE.CanUse(out act)) return true;
-        if (DoomSpikePvESet.CanUse(out act)) return true;
+        if (DoomSpikePvEReplace.CanUse(out act)) return true;
 
 
-        if (WheelingThrustPvESet.CanUse(out act)) return true;
-        if (FangAndClawPvESet.CanUse(out act)) return true;
+        if (WheelingThrustPvEReplace.CanUse(out act)) return true;
+        if (FangAndClawPvEReplace.CanUse(out act)) return true;
 
 
-        if (FullThrustPvESet.CanUse(out act)) return true;
-        if (ChaosThrustPvESet.CanUse(out act)) return true;
+        if (FullThrustPvEReplace.CanUse(out act)) return true;
+        if (ChaosThrustPvEReplace.CanUse(out act)) return true;
 
         if (Player.WillStatusEndGCD(5, 0, true, StatusID.PowerSurge_2720))
         {
-            if (DisembowelPvESet.CanUse(out act)) return true;
+            if (DisembowelPvEReplace.CanUse(out act)) return true;
         }
 
-        if (VorpalThrustPvESet.CanUse(out act)) return true;
-        if (TrueThrustPvESet.CanUse(out act)) return true;
+        if (VorpalThrustPvEReplace.CanUse(out act)) return true;
+        if (TrueThrustPvEReplace.CanUse(out act)) return true;
 
         if (PiercingTalonPvE.CanUse(out act)) return true;
 

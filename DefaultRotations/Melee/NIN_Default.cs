@@ -26,7 +26,7 @@ public sealed class NIN_Default : NinjaRotation
     {
         if (remainTime > 10) ClearNinjutsu();
 
-        var realInHuton = HutonTimer > 0 || IsLastAction(false, HutonPvE);
+        var realInHuton = false;// HutonTimer > 0 || IsLastAction(false, HutonPvE);
         if (realInHuton && _ninActionAim == HutonPvE) ClearNinjutsu();
 
         if (DoNinjutsu(out var act))
@@ -114,7 +114,7 @@ public sealed class NIN_Default : NinjaRotation
 
             //Buff
             //if (HuraijinPvE.CanUse(out act)) return true;
-            if (HutonTimer > 0 && _ninActionAim?.ID == HutonPvE.ID)
+            if (/*HutonTimer > 0 && */_ninActionAim?.ID == HutonPvE.ID)
             {
                 ClearNinjutsu();
                 return false;
@@ -340,12 +340,12 @@ public sealed class NIN_Default : NinjaRotation
         if (KassatsuPvE.CanUse(out act)) return true;
         if (UseBurstMedicine(out act)) return true;
 
-        if (IsBurst && !CombatElapsedLess(5) && MugPvESet.CanUse(out act)) return true;
+        if (IsBurst && !CombatElapsedLess(5) && MugPvEReplace.CanUse(out act)) return true;
 
         //Use Suiton
         if (!CombatElapsedLess(6))
         {
-            if (TrickAttackPvESet.CanUse(out act)) return true;
+            if (TrickAttackPvEReplace.CanUse(out act)) return true;
             if (TrickAttackPvE.CD.IsCoolingDown && !TrickAttackPvE.CD.WillHaveOneCharge(19)
                 && MeisuiPvE.CanUse(out act)) return true;
         }
@@ -358,20 +358,20 @@ public sealed class NIN_Default : NinjaRotation
         act = null;
         if (!NoNinjutsu || !InCombat) return false;
 
-        if (!IsMoving && InTrickAttack && !TenPvE.CD.ElapsedAfter(30) && TenChiJinPvESet.CanUse(out act)) return true;
+        if (!IsMoving && InTrickAttack && !TenPvE.CD.ElapsedAfter(30) && TenChiJinPvEReplace.CanUse(out act)) return true;
 
-        if (!CombatElapsedLess(5) && BunshinPvESet.CanUse(out act)) return true;
+        if (!CombatElapsedLess(5) && BunshinPvEReplace.CanUse(out act)) return true;
 
         if (InTrickAttack)
         {
-            if (AssassinatePvESet.CanUse(out act)) return true;
+            if (AssassinatePvEReplace.CanUse(out act)) return true;
         }
 
         if ((!InMug || InTrickAttack)
             && (!BunshinPvE.CD.WillHaveOneCharge(10) || Player.HasStatus(false, StatusID.PhantomKamaitachiReady) || MugPvE.CD.WillHaveOneCharge(2)))
         {
-            if (HellfrogMediumPvESet.CanUse(out act)) return true;
-            if (BhavacakraPvESet.CanUse(out act)) return true;
+            if (HellfrogMediumPvEReplace.CanUse(out act)) return true;
+            if (BhavacakraPvEReplace.CanUse(out act)) return true;
         }
         return base.AttackAbility(out act);
     }

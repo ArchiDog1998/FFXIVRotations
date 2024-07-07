@@ -37,9 +37,9 @@ public sealed class WHM_Default :WhiteMageRotation
             if (UseLily(out act)) return true;
         }
 
-        if (HolyPvESet.CanUse(out act)) return true;
+        if (HolyPvEReplace.CanUse(out act)) return true;
 
-        if (AeroPvESet.CanUse(out act)) return true;
+        if (AeroPvEReplace.CanUse(out act)) return true;
 
         if (StonePvE.CanUse(out act)) return true;
 
@@ -48,7 +48,7 @@ public sealed class WHM_Default :WhiteMageRotation
             if (UseLily(out act)) return true;
         }
 
-        if (AeroPvESet.CanUse(out act, skipStatusProvideCheck: true)) return true;
+        if (AeroPvEReplace.CanUse(out act, skipStatusProvideCheck: true)) return true;
 
         return base.GeneralGCD(out act);
     }
@@ -68,7 +68,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (InCombat)
         {
-            if (PresenceOfMindPvESet.CanUse(out act)) return true;
+            if (PresenceOfMindPvEReplace.CanUse(out act)) return true;
             if (AssizePvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
@@ -126,7 +126,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         int hasMedica2 = PartyMembers.Count((n) => n.HasStatus(true, StatusID.MedicaIi));
 
-        if (MedicaIiPvESet.CanUse(out act) && hasMedica2 < PartyMembers.Count() / 2 && !IsLastAction(true, MedicaIiPvE)) return true;
+        if (MedicaIiPvEReplace.CanUse(out act) && hasMedica2 < PartyMembers.Count() / 2 && !IsLastAction(true, MedicaIiPvE)) return true;
 
         if (CureIiiPvE.CanUse(out act)) return true;
 
@@ -159,9 +159,9 @@ public sealed class WHM_Default :WhiteMageRotation
         if (TemperancePvE.CD.IsCoolingDown && !TemperancePvE.CD.WillHaveOneCharge(100)
             || LiturgyOfTheBellPvE.CD.IsCoolingDown && !LiturgyOfTheBellPvE.CD.WillHaveOneCharge(160)) return false;
 
-        if (TemperancePvESet.CanUse(out act)) return true;
+        if (TemperancePvEReplace.CanUse(out act)) return true;
 
-        if (LiturgyOfTheBellPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+        if (LiturgyOfTheBellPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         return base.DefenseAreaAbility(out act);
     }
 

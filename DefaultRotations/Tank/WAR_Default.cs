@@ -40,14 +40,14 @@ public sealed class WAR_Default : WarriorRotation
             {
                 if (PrimalRuinationPvE.CanUse(out act, skipAoeCheck: true)) return true;
             }
-            if (!IsMoving && IsBurstStatus && PrimalRendPvESet.CanUse(out act, skipAoeCheck: true))
+            if (!IsMoving && IsBurstStatus && PrimalRendPvEReplace.CanUse(out act, skipAoeCheck: true))
             {
-                if (PrimalRendPvESet.ChosenAction?.Target.Target?.DistanceToPlayer() < 1) return true;
+                if (PrimalRendPvEReplace.ChosenAction?.Target.Target?.DistanceToPlayer() < 1) return true;
             }
             if (IsBurstStatus || !Player.HasStatus(false, StatusID.NascentChaos) || BeastGauge > 80)
             {
-                if (SteelCyclonePvESet.CanUse(out act)) return true;
-                if (InnerBeastPvESet.CanUse(out act)) return true;
+                if (SteelCyclonePvEReplace.CanUse(out act)) return true;
+                if (InnerBeastPvEReplace.CanUse(out act)) return true;
             }
         }
 
@@ -86,7 +86,7 @@ public sealed class WAR_Default : WarriorRotation
             && !Player.WillStatusEndGCD(6, 0, true, StatusID.SurgingTempest)
             || !MythrilTempestPvE.EnoughLevel)
         {
-            if (BerserkPvESet.CanUse(out act, onLastAbility: true)) return true;
+            if (BerserkPvEReplace.CanUse(out act, onLastAbility: true)) return true;
         }
 
         if (IsBurstStatus)
@@ -140,7 +140,7 @@ public sealed class WAR_Default : WarriorRotation
         if (MobsTime)
         {
             //10
-            if (RawIntuitionPvESet.CanUse(out act, onLastAbility: true) && NumberOfHostilesInRange > 2) return true;
+            if (RawIntuitionPvEReplace.CanUse(out act, onLastAbility: true) && NumberOfHostilesInRange > 2) return true;
             //if (RawIntuitionPvE.CanUse(out act)) return false;
 
             if (!Player.WillStatusEndGCD(0, 0, true, StatusID.Bloodwhetting, StatusID.RawIntuition)) return false;
@@ -152,7 +152,7 @@ public sealed class WAR_Default : WarriorRotation
         {
             if (HighDefense(out act)) return true;
             //10
-            if (RawIntuitionPvESet.CanUse(out act, onLastAbility: true)) return true;
+            if (RawIntuitionPvEReplace.CanUse(out act, onLastAbility: true)) return true;
         }
 
         return false;
@@ -161,10 +161,10 @@ public sealed class WAR_Default : WarriorRotation
     private bool HighDefense(out IAction? act)
     {
         //40 30
-        if (DamnationPvE.CD.JustUsedAfter(60) && VengeancePvESet.CanUse(out act)) return true;
+        if (DamnationPvE.CD.JustUsedAfter(60) && VengeancePvEReplace.CanUse(out act)) return true;
 
         //20
-        if ((VengeancePvESet.ChosenAction?.CD.JustUsedAfter(60) ?? false) && RampartPvE.CanUse(out act)) return true;
+        if ((VengeancePvEReplace.ChosenAction?.CD.JustUsedAfter(60) ?? false) && RampartPvE.CanUse(out act)) return true;
 
         act = null;
         return false;

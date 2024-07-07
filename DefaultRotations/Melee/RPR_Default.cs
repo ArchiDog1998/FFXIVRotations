@@ -47,7 +47,7 @@ public sealed class RPR_Default : ReaperRotation
         if (SlicePvP.CanUse(out act)) return true;
         #endregion
 
-        if (SoulsowPvESet.CanUse(out act)) return true;
+        if (SoulsowPvEReplace.CanUse(out act)) return true;
 
         if (WhorlOfDeathPvE.CanUse(out act)) return true;
         if (ShadowOfDeathPvE.CanUse(out act)) return true;
@@ -70,7 +70,7 @@ public sealed class RPR_Default : ReaperRotation
             {
                 if (CommunioPvE.EnoughLevel)
                 {
-                    if (!IsMoving && CommunioPvESet.CanUse(out act, skipAoeCheck: true))
+                    if (!IsMoving && CommunioPvEReplace.CanUse(out act, skipAoeCheck: true))
                     {
                         return true;
                     }
@@ -91,11 +91,11 @@ public sealed class RPR_Default : ReaperRotation
             if (GuillotinePvE.CanUse(out act)) return true;
             if (Player.HasStatus(true, StatusID.EnhancedGibbet))
             {
-                if (GibbetPvESet.CanUse(out act)) return true;
+                if (GibbetPvEReplace.CanUse(out act)) return true;
             }
             else
             {
-                if (GallowsPvESet.CanUse(out act)) return true;
+                if (GallowsPvEReplace.CanUse(out act)) return true;
             }
         }
 
@@ -165,13 +165,13 @@ public sealed class RPR_Default : ReaperRotation
 
         if (PlentifulHarvestPvE.EnoughLevel && !Player.HasStatus(true, StatusID.ImmortalSacrifice) && !Player.HasStatus(true, StatusID.BloodsownCircle_2972) || !PlentifulHarvestPvE.EnoughLevel)
         {
-            if (GluttonyPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+            if (GluttonyPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         if (!Player.HasStatus(true, StatusID.BloodsownCircle_2972) && !Player.HasStatus(true, StatusID.ImmortalSacrifice) && (GluttonyPvE.EnoughLevel && !GluttonyPvE.CD.WillHaveOneChargeGCD(4) || !GluttonyPvE.EnoughLevel || Soul == 100))
         {
-            if (GrimSwathePvESet.CanUse(out act)) return true;
-            if (BloodStalkPvESet.CanUse(out act)) return true;
+            if (GrimSwathePvEReplace.CanUse(out act)) return true;
+            if (BloodStalkPvEReplace.CanUse(out act)) return true;
         }
 
         return base.AttackAbility(out act);

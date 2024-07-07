@@ -82,21 +82,21 @@ public sealed class SMN_Default : SummonerRotation
         {
             case SummonOrderType.TopazEmeraldRuby:
             default:
-                if (SummonTopazPvESet.CanUse(out act)) return true;
-                if (SummonEmeraldPvESet.CanUse(out act)) return true;
-                if (SummonRubyPvESet.CanUse(out act)) return true;
+                if (SummonTopazPvEReplace.CanUse(out act)) return true;
+                if (SummonEmeraldPvEReplace.CanUse(out act)) return true;
+                if (SummonRubyPvEReplace.CanUse(out act)) return true;
                 break;
 
             case  SummonOrderType.TopazRubyEmerald:
-                if (SummonTopazPvESet.CanUse(out act)) return true;
-                if (SummonRubyPvESet.CanUse(out act)) return true;
-                if (SummonEmeraldPvESet.CanUse(out act)) return true;
+                if (SummonTopazPvEReplace.CanUse(out act)) return true;
+                if (SummonRubyPvEReplace.CanUse(out act)) return true;
+                if (SummonEmeraldPvEReplace.CanUse(out act)) return true;
                 break;
 
             case  SummonOrderType.EmeraldTopazRuby:
-                if (SummonEmeraldPvESet.CanUse(out act)) return true;
-                if (SummonTopazPvESet.CanUse(out act)) return true;
-                if (SummonRubyPvESet.CanUse(out act)) return true;
+                if (SummonEmeraldPvEReplace.CanUse(out act)) return true;
+                if (SummonTopazPvEReplace.CanUse(out act)) return true;
+                if (SummonRubyPvEReplace.CanUse(out act)) return true;
                 break;
         }
 
@@ -122,14 +122,14 @@ public sealed class SMN_Default : SummonerRotation
 
         if (IsBurst && !Player.HasStatus(false, StatusID.SearingLight))
         {
-            if (SearingLightPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+            if (SearingLightPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         var IsTargetBoss = HostileTarget?.IsBossFromTTK() ?? false;
         var IsTargetDying = HostileTarget?.IsDying() ?? false;
 
         if ((InBahamut && SummonBahamutPvE.CD.ElapsedOneChargeAfterGCD(3) || InPhoenix || 
-            IsTargetBoss && IsTargetDying) && EnkindleBahamutPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+            IsTargetBoss && IsTargetDying) && EnkindleBahamutPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 
         if ((SummonBahamutPvE.CD.ElapsedOneChargeAfterGCD(3) || IsTargetBoss && IsTargetDying) && DeathflarePvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (RekindlePvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -139,7 +139,7 @@ public sealed class SMN_Default : SummonerRotation
             !SearingLightPvE.EnoughLevel || IsTargetBoss && IsTargetDying) && PainflarePvE.CanUse(out act)) return true;
         
         if ((Player.HasStatus(false, StatusID.SearingLight) && InBahamut && (SummonBahamutPvE.CD.ElapsedOneChargeAfterGCD(3) || !EnergyDrainPvE.CD.IsCoolingDown) ||
-            !SearingLightPvE.EnoughLevel || IsTargetBoss && IsTargetDying) && FesterPvESet.CanUse(out act)) return true;
+            !SearingLightPvE.EnoughLevel || IsTargetBoss && IsTargetDying) && FesterPvEReplace.CanUse(out act)) return true;
 
         if (EnergySiphonPvE.CanUse(out act)) return true;
         if (EnergyDrainPvE.CanUse(out act)) return true;

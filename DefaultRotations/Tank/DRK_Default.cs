@@ -67,7 +67,7 @@ public sealed class DRK_Default : DarkKnightRotation
         }
         if (remainTime <= 2 && UseBurstMedicine(out var act)) return act;
         if (remainTime <= 3 && TheBlackestNightPvE.CanUse(out act)) return act;
-        if (remainTime <= 4 && BloodWeaponPvESet.CanUse(out act)) return act;
+        if (remainTime <= 4 && BloodWeaponPvEReplace.CanUse(out act)) return act;
         return base.CountDownAction(remainTime);
     }
 
@@ -81,7 +81,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
         if ((InCombat && CombatElapsedLess(2) || TimeSinceLastAction.TotalSeconds >= 10))
         {
-            if (BloodWeaponPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+            if (BloodWeaponPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         return base.EmergencyAbility(nextGCD, out act);
@@ -114,7 +114,7 @@ public sealed class DRK_Default : DarkKnightRotation
 
         if (TheBlackestNightPvE.CanUse(out act, onLastAbility: true)) return true;
         //30
-        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && ShadowWallPvESet.CanUse(out act)) return true;
+        if ((!RampartPvE.CD.IsCoolingDown || RampartPvE.CD.ElapsedAfter(60)) && ShadowWallPvEReplace.CanUse(out act)) return true;
 
         //20
         if (ShadowWallPvE.CD.IsCoolingDown && ShadowWallPvE.CD.ElapsedAfter(60) && RampartPvE.CanUse(out act)) return true;
@@ -136,8 +136,8 @@ public sealed class DRK_Default : DarkKnightRotation
         //Use Blood
         if (UseBlood)
         {
-            if (QuietusPvESet.CanUse(out act)) return true;
-            if (BloodspillerPvESet.CanUse(out act)) return true;
+            if (QuietusPvEReplace.CanUse(out act)) return true;
+            if (BloodspillerPvEReplace.CanUse(out act)) return true;
         }
 
         //AOE
@@ -171,8 +171,8 @@ public sealed class DRK_Default : DarkKnightRotation
         //if (InCombat && CombatElapsedLess(2) && BloodWeapon.CanUse(out act)) return true;
         if (CheckDarkSide)
         {
-            if (FloodOfDarknessPvESet.CanUse(out act)) return true;
-            if (EdgeOfDarknessPvESet.CanUse(out act)) return true;
+            if (FloodOfDarknessPvEReplace.CanUse(out act)) return true;
+            if (EdgeOfDarknessPvEReplace.CanUse(out act)) return true;
         }
 
         if (IsBurst)
@@ -180,8 +180,8 @@ public sealed class DRK_Default : DarkKnightRotation
             if (UseBurstMedicine(out act)) return true;
             if (InCombat && DeliriumPvE.CanUse(out act)) return true;
             if (DeliriumPvE.CD.ElapsedAfterGCD(1) && !DeliriumPvE.CD.ElapsedAfterGCD(3) 
-                && BloodWeaponPvESet.CanUse(out act)) return true;
-            if (LivingShadowPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+                && BloodWeaponPvEReplace.CanUse(out act)) return true;
+            if (LivingShadowPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         if (CombatLess)
@@ -190,7 +190,7 @@ public sealed class DRK_Default : DarkKnightRotation
             return false;
         }
 
-        if (!IsMoving && SaltedEarthPvESet.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!IsMoving && SaltedEarthPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (ShadowbringerPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
