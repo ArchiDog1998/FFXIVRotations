@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.4](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.3...v1.2.4) (2024-07-23)
+
+
+### Bug Fixes
+
+* add PCT rotation, unfinished! ([136938c](https://github.com/ArchiDog1998/FFXIVRotations/commit/136938c0dbd2cc9555baeb464325ced4315112b9))
+* war rotation! ([56e87fb](https://github.com/ArchiDog1998/FFXIVRotations/commit/56e87fb039fde2c735bb8c2840b8c6a7d5a86923))
+
 ## [1.2.3](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.2...v1.2.3) (2024-07-07)
 
 
