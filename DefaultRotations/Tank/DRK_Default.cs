@@ -144,7 +144,7 @@ public sealed class DRK_Default : DarkKnightRotation
         if (StalwartSoulPvE.CanUse(out act)) return true;
         if (UnleashPvE.CanUse(out act)) return true;
 
-        //单体
+        //Single
         if (SouleaterPvE.CanUse(out act)) return true;
         if (SyphonStrikePvE.CanUse(out act)) return true;
         if (HardSlashPvE.CanUse(out act)) return true;
