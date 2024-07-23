@@ -1,8 +1,12 @@
+using System.ComponentModel;
+
 namespace DefaultRotations.Tank;
 
+[BetaRotation]
 [Rotation("General", CombatType.Both, GameVersion = "7.0")]
 [SourceCode(Path = "main/DefaultRotations/Tank/WAR_Default.cs")]
-//[LinkDescription("https://cdn.discordapp.com/attachments/277962807813865472/963548326433796116/unknown.png")]
+[LinkDescription("https://raw.githubusercontent.com/Moxfi/XIV/main/Dawntrail/Resources/Openers/Warrior_Dawntrail_2.5_GCD_Warrior_Opener.png")]
+[Description("I don't know why the action Primal Wrath was used AFTER Fell Cleave, so I make it earilier.")]
 public sealed class WAR_Default : WarriorRotation
 {
     private static bool IsBurstStatus => !Player.WillStatusEndGCD(0, 0, false, StatusID.InnerStrength);
@@ -29,35 +33,30 @@ public sealed class WAR_Default : WarriorRotation
         if (PrimalRendPvP.CanUse(out act)) return true;
         if (ChaoticCyclonePvP.CanUse(out act)) return true;
 
-        if (StormsPathPvP.CanUse(out act)) return true;
-        if (MaimPvP.CanUse(out act)) return true;
-        if (HeavySwingPvP.CanUse(out act)) return true;
+        if (StormsPathPvPCombo.CanUse(out act)) return true;
         #endregion
 
         if (!Player.WillStatusEndGCD(3, 0, true, StatusID.SurgingTempest))
         {
+            if (ChaoticCyclonePvE.CanUse(out act)) return true;
+            if (InnerChaosPvE.CanUse(out act)) return true;
+
             if (IsBurstStatus)
             {
-                if (PrimalRuinationPvE.CanUse(out act, skipAoeCheck: true)) return true;
+                if (!IsMoving && PrimalRendPvEReplace.CanUse(out act, skipAoeCheck: true)
+                    && PrimalRendPvEReplace.ChosenAction?.Target.Target?.DistanceToPlayer() < 1) return true;
             }
-            if (!IsMoving && IsBurstStatus && PrimalRendPvEReplace.CanUse(out act, skipAoeCheck: true))
-            {
-                if (PrimalRendPvEReplace.ChosenAction?.Target.Target?.DistanceToPlayer() < 1) return true;
-            }
-            if (IsBurstStatus || !Player.HasStatus(false, StatusID.NascentChaos) || BeastGauge > 80)
+            if (IsBurstStatus || BeastGauge > 80 || !Player.WillStatusEndGCD(0, 0, false, StatusID.InnerRelease))
             {
                 if (SteelCyclonePvEReplace.CanUse(out act)) return true;
                 if (InnerBeastPvEReplace.CanUse(out act)) return true;
             }
         }
 
-        if (MythrilTempestPvE.CanUse(out act)) return true;
-        if (OverpowerPvE.CanUse(out act)) return true;
+        if (MythrilTempestPvECombo.CanUse(out act)) return true;
 
         if (StormsEyePvE.CanUse(out act)) return true;
-        if (StormsPathPvE.CanUse(out act)) return true;
-        if (MaimPvE.CanUse(out act)) return true;
-        if (HeavySwingPvE.CanUse(out act)) return true;
+        if (StormsPathPvECombo.CanUse(out act)) return true;
 
         if (TomahawkPvE.CanUse(out act)) return true;
 
@@ -77,33 +76,32 @@ public sealed class WAR_Default : WarriorRotation
         if (OnslaughtPvP.CanUse(out act)) return true;
         #endregion
 
-        if (InfuriatePvE.CanUse(out act, gcdCountForAbility: 3)) return true;
-
-        if (CombatElapsedLessGCD(1)) return false;
-
-        if (UseBurstMedicine(out act)) return true;
-        if (Player.HasStatus(false, StatusID.SurgingTempest)
-            && !Player.WillStatusEndGCD(6, 0, true, StatusID.SurgingTempest)
-            || !MythrilTempestPvE.EnoughLevel)
+        if (PrimalWrathPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (Player.WillStatusEndGCD(0, 0, false, StatusID.InnerRelease))
         {
-            if (BerserkPvEReplace.CanUse(out act, onLastAbility: true)) return true;
-        }
-
-        if (IsBurstStatus)
-        {
-            if (PrimalWrathPvE.CanUse(out act, skipAoeCheck: true)) return true;
             if (InfuriatePvE.CanUse(out act, usedUp: true)) return true;
         }
 
-        if (CombatElapsedLessGCD(4)) return false;
+        if (!Player.WillStatusEndGCD(6, 0, true, StatusID.SurgingTempest)
+            || !MythrilTempestPvE.EnoughLevel)
+        {
+            if (InnerReleasePvE.EnoughLevel)
+            {
+                if (InnerReleasePvE.CanUse(out act)) return true;
+            }
+            else
+            {
+                if (BerserkPvE.CanUse(out act)) return true;
+            }
+            if (UseBurstMedicine(out act)) return true;
+        }
 
-        if (Player.HasStatus(false, StatusID.SurgingTempest))
+        if (!Player.WillStatusEndGCD(0, 0, false, StatusID.SurgingTempest))
         {
             if (OrogenyPvE.CanUse(out act)) return true;
             if (UpheavalPvE.CanUse(out act)) return true;
+            if (OnslaughtPvE.CanUse(out act, usedUp: IsBurstStatus) && !IsMoving) return true;
         }
-
-        if (OnslaughtPvE.CanUse(out act, usedUp: IsBurstStatus) && !IsMoving) return true;
 
         return base.AttackAbility(out act);
     }
