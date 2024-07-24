@@ -3,7 +3,7 @@ using System.ComponentModel;
 namespace DefaultRotations.Tank;
 
 [BetaRotation]
-[Rotation("General", CombatType.Both, GameVersion = "7.0", Description = "I don't know why the action Primal Wrath was used AFTER Fell Cleave, so I make it earlier.")]
+[Rotation("General", CombatType.Both, GameVersion = "7.01", Description = "I don't know why the action Primal Wrath was used AFTER Fell Cleave, so I make it earlier.")]
 [SourceCode(Path = "main/DefaultRotations/Tank/WAR_Default.cs")]
 [LinkDescription("https://raw.githubusercontent.com/Moxfi/XIV/main/Dawntrail/Resources/Openers/Warrior_Dawntrail_2.5_GCD_Warrior_Opener.png")]
 public sealed class WAR_Default : WarriorRotation

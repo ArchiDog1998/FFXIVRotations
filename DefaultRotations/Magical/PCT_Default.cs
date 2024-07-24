@@ -1,21 +1,23 @@
 ﻿namespace DefaultRotations.Magical;
 
 [BetaRotation]
-[Rotation("General", CombatType.PvE, GameVersion = "7.0", Description = "This haven't finished yet! Archi doesn't have enough time!")]
+[Rotation("General", CombatType.PvE, GameVersion = "7.01", Description = "This isn't perfect. The logic of it is not clear from the Balance, So I can only sure that the actions will be used in these pics, but not in the order.")]
 [SourceCode(Path = "main/DefaultRotations/Magical/PCT_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/pct/pictomancer9spellsinglemuseopener.png")]
-//[LinkDescription("https://www.thebalanceffxiv.com/img/jobs/pct/1000091140.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/pct/pictomancer8spelltriplemuseburst.png")]
-internal class PCT_Default : PictomancerRotation
+public sealed class PCT_Default : PictomancerRotation
 {
-    protected static bool InBurstStatus => !Player.WillStatusEndGCD(0, 0, true, StatusID.StarryMuse);
+    private static bool InBurstStatus => !Player.WillStatusEndGCD(0, 0, true, StatusID.StarryMuse);
 
     protected override IAction? CountDownAction(float remainTime)
     {
-        if (remainTime < 0.4f && SteelMusePvEReplace.CanUse(out var act)) return act;
-        if (remainTime < 4.5f && RainbowDripPvE.CanUse(out act, skipAoeCheck: true)) return act;
+        if (remainTime < CountDownAhead 
+            && SteelMusePvEReplace.CanUse(out var act, skipAoeCheck: true, usedUp: true)) return act;
 
-        if(remainTime > 6)
+        if (remainTime < RainbowDripPvE.Info.CastTime + CountDownAhead 
+            && RainbowDripPvE.CanUse(out act, skipAoeCheck: true)) return act;
+
+        if (remainTime > 6)
         {
             if (DrawPictures(out act)) return act;
         }
@@ -23,27 +25,46 @@ internal class PCT_Default : PictomancerRotation
         return base.CountDownAction(remainTime);
     }
 
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
+    {
+        if (nextGCD.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE) && InBurstStatus)
+        {
+            if (SwiftcastPvE.CanUse(out act)) return true;
+        }
+        return base.EmergencyAbility(nextGCD, out act);
+    }
+
+    public override void DisplayStatus()
+    {
+        ImGui.Text(ClawMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
+        ImGui.Text(MawMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
+        ImGui.Text(PomMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
+        ImGui.Text(WingMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
+        base.DisplayStatus();
+    }
+
     protected override bool GeneralGCD(out IAction? act)
     {
-        if (CombatElapsedLess(3))
+        if (CombatElapsedLess(2))
         {
-            if (HolyInWhitePvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (HolyInWhitePvPReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
-        if (IsMoving) // Moving.
+        if (Player.HasStatus(true, StatusID.StarryMuse)
+            && Player.WillStatusEndGCD(2, 0, true, StatusID.StarryMuse))
         {
-            if (CometInBlackPvE.CanUse(out act, skipAoeCheck: true)) return true;
-            if (HolyInWhitePvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (StarPrismPvE.CanUse(out act, skipAoeCheck: true)) return true;
+
+            if (!Player.WillStatusEndGCD(0, 0, true, StatusID.RainbowBright))
+            {
+                if (RainbowDripPvE.CanUse(out act, skipCastingCheck: true, skipAoeCheck: true)) return true;
+            }
         }
 
-        if (StarPrismPvE.CanUse(out act, skipAoeCheck: true)) return true;
-
-        if (!Player.WillStatusEndGCD(0, 0, true, StatusID.RainbowBright))
+        if (!CombatElapsedLess(seperateTime) && !ScenicMusePvE.CD.WillHaveOneCharge(10))
         {
-            if(RainbowDripPvE.CanUse(out act, skipCastingCheck: true, skipAoeCheck: true)) return true;
+            if (HammerStampPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
-
-        if (HammerStampPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (DrawPictures(out act)) return true;
 
@@ -55,7 +76,12 @@ internal class PCT_Default : PictomancerRotation
 
         //Single
         if (BlizzardInCyanPvEReplace.CanUse(out act)) return true;
-        if (FireInRedPvEReplace.CanUse(out act)) return true; 
+        if (FireInRedPvEReplace.CanUse(out act)) return true;
+
+        if (IsMoving) // Moving.
+        {
+            if (HolyInWhitePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        }
 
         return base.GeneralGCD(out act);
     }
@@ -66,28 +92,44 @@ internal class PCT_Default : PictomancerRotation
 
         if (Muse(out act)) return true;
 
-        if (SubtractivePalettePvE.CanUse(out act)) return true;
+        if (!Player.HasStatus(true, StatusID.HammerTime) 
+            && SubtractivePalettePvE.CanUse(out act)) return true;
 
         return base.AttackAbility(out act);
     }
 
+    private const float seperateTime = 3.5f;
+
     private bool Muse(out IAction? act)
     {
-        if (SteelMusePvEReplace.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
+        if (SteelMusePvEReplace.CanUse(out act, skipAoeCheck: true, usedUp: InBurstStatus)) return true;
 
-        if (CombatElapsedLess(30) || InBurstStatus)
+        if (InBurstStatus)
         {
             if (MogOfTheAgesPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
-        if (LivingMusePvEReplace.CanUse(out act, skipAoeCheck: true, usedUp: true)) return true;
-        if (ScenicMusePvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (!CombatElapsedLess(seperateTime))
+        {
+            if (ScenicMusePvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+
+        if (LivingMusePvEReplace.CanUse(out act, skipAoeCheck: true, usedUp: InBurstStatus)) return true;
+
         return false;
     }
 
     private bool DrawPictures(out IAction? act)
     {
         act = null;
-        if (!InCombat || !InBurstStatus)
+
+        if (CombatElapsedLess(seperateTime))
+        {
+            if (CreatureMotifPvEReplace.CanUse(out act)) return true;
+        }
+
+        if (!InCombat || !InBurstStatus && !CombatElapsedLess(20))
+            //Don't draw at first.
         {
             if (CreatureMotifPvEReplace.CanUse(out act)) return true;
             if (WeaponMotifPvEReplace.CanUse(out act)) return true;
