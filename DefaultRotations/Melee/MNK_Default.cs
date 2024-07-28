@@ -1,8 +1,11 @@
 namespace DefaultRotations.Melee;
 
+[BetaRotation]
 [Rotation("Lunar Solar", CombatType.Both, GameVersion = "6.35")]
 [SourceCode(Path = "main/DefaultRotations/Melee/MNK_Default.cs")]
-[LinkDescription("https://i.imgur.com/C5lQhpe.png")]
+[LinkDescription("https://files.catbox.moe/cy23wy.png")]
+[LinkDescription("https://files.catbox.moe/pebjzp.png")]
+[LinkDescription("https://files.catbox.moe/erzg5q.png")]
 
 public sealed class MNK_Default : MonkRotation
 {

@@ -1,7 +1,7 @@
 ﻿namespace DefaultRotations.Magical;
 
 [BetaRotation]
-[Rotation("General", CombatType.PvE, GameVersion = "7.01", Description = "This isn't perfect. The logic of it is not clear from the Balance, So I can only sure that the actions will be used in these pics, but not in the order.")]
+[Rotation("General", CombatType.PvE, GameVersion = "7.01", Description = "This isn't perfect. The logic of it is not clear from the Balance. And I don't like the PCT, so the burst window isn't perfect. If anyone wants to improve it, plz create your own rotation!")]
 [SourceCode(Path = "main/DefaultRotations/Magical/PCT_Default.cs")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/pct/pictomancer9spellsinglemuseopener.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/pct/pictomancer8spelltriplemuseburst.png")]
@@ -27,31 +27,24 @@ public sealed class PCT_Default : PictomancerRotation
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-        if (nextGCD.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE) && InBurstStatus)
+        if (nextGCD.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE) 
+            && InBurstStatus && Player.WillStatusEndGCD(2, 0, true, StatusID.StarryMuse))
         {
             if (SwiftcastPvE.CanUse(out act)) return true;
         }
         return base.EmergencyAbility(nextGCD, out act);
     }
 
-    public override void DisplayStatus()
-    {
-        ImGui.Text(ClawMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
-        ImGui.Text(MawMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
-        ImGui.Text(PomMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
-        ImGui.Text(WingMotifPvE.IsTheSameTo(ActionID.ClawMotifPvE, ActionID.MawMotifPvE, ActionID.PomMotifPvE, ActionID.WingMotifPvE).ToString());
-        base.DisplayStatus();
-    }
-
     protected override bool GeneralGCD(out IAction? act)
     {
         if (CombatElapsedLess(2))
         {
-            if (HolyInWhitePvPReplace.CanUse(out act, skipAoeCheck: true)) return true;
+            if (CometInBlackPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (HolyInWhitePvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
         if (Player.HasStatus(true, StatusID.StarryMuse)
-            && Player.WillStatusEndGCD(2, 0, true, StatusID.StarryMuse))
+            && (!CombatElapsedLess(30) || Player.WillStatusEndGCD(2, 0, true, StatusID.StarryMuse)))
         {
             if (StarPrismPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
@@ -126,6 +119,15 @@ public sealed class PCT_Default : PictomancerRotation
         if (CombatElapsedLess(seperateTime))
         {
             if (CreatureMotifPvEReplace.CanUse(out act)) return true;
+        }
+        else
+        {
+            if (LivingMusePvE.CD.CurrentCharges > 1 ||
+                LivingMusePvE.CD.CurrentCharges == 1 
+                && Player.WillStatusEndGCD(1, 0, true, StatusID.StarryMuse))
+            {
+                if (CreatureMotifPvEReplace.CanUse(out act)) return true;
+            }
         }
 
         if (!InCombat || !InBurstStatus && !CombatElapsedLess(20))

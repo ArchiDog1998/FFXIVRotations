@@ -12,7 +12,7 @@ public sealed class NIN_Default : NinjaRotation
     private IBaseAction? _ninActionAim = null;
     private bool InTrickAttack => TrickAttackPvE.CD.IsCoolingDown && !TrickAttackPvE.CD.ElapsedAfter(17);
     private bool InMug => MugPvE.CD.IsCoolingDown && !MugPvE.CD.ElapsedAfter(19);
-    private static bool NoNinjutsu => AdjustId(ActionID.NinjutsuPvE) is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
+    private static bool NoNinjutsu => ActionID.NinjutsuPvE.AdjustId() is ActionID.NinjutsuPvE or ActionID.RabbitMediumPvE;
 
     [UI("Use Hide")]
     [RotationConfig(CombatType.PvE)]
@@ -53,7 +53,7 @@ public sealed class NIN_Default : NinjaRotation
     #region Ninjutsu
     private void SetNinjutsu(IBaseAction act)
     {
-        if (act == null || AdjustId(ActionID.NinjutsuPvE) == ActionID.RabbitMediumPvE) return;
+        if (act == null || ActionID.NinjutsuPvE.AdjustId() == ActionID.RabbitMediumPvE) return;
 
         if (_ninActionAim != null && IsLastAction(false, TenPvE, JinPvE, ChiPvE, FumaShurikenPvE_18873, FumaShurikenPvE_18874, FumaShurikenPvE_18875)) return;
 
@@ -74,7 +74,7 @@ public sealed class NIN_Default : NinjaRotation
     private bool ChoiceNinjutsu(out IAction? act)
     {
         act = null;
-        if (AdjustId(ActionID.NinjutsuPvE) != ActionID.NinjutsuPvE) return false;
+        if (ActionID.NinjutsuPvE.AdjustId() != ActionID.NinjutsuPvE) return false;
         if (TimeSinceLastAction.TotalSeconds > 4.5) ClearNinjutsu();
         if (_ninActionAim != null && WeaponRemain < 0.2) return false;
 
@@ -177,9 +177,9 @@ public sealed class NIN_Default : NinjaRotation
         //TenChiJin
         if (Player.HasStatus(true, StatusID.TenChiJin))
         {
-            uint tenId = AdjustId(TenPvE.ID);
-            uint chiId = AdjustId(ChiPvE.ID);
-            uint jinId = AdjustId(JinPvE.ID);
+            uint tenId = (uint)ActionID.TenPvE.AdjustId();
+            uint chiId = (uint)ActionID.ChiPvE.AdjustId();
+            uint jinId = (uint)ActionID.JinPvE.AdjustId();
 
             //First
             if (tenId == FumaShurikenPvE_18873.ID
@@ -219,7 +219,7 @@ public sealed class NIN_Default : NinjaRotation
             && Player.HasStatus(false, StatusID.Kassatsu) && !InTrickAttack) return false;
         if (_ninActionAim == null) return false;
 
-        var id = AdjustId(ActionID.NinjutsuPvE);
+        var id = ActionID.NinjutsuPvE.AdjustId();
 
         //Failed
         if ((uint)id == RabbitMediumPvE.ID)
