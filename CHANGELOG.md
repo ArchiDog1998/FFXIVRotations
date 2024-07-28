@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.5](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.4...v1.2.5) (2024-07-28)
+
+
+### Bug Fixes
+
+* new rotation! ([1d35f62](https://github.com/ArchiDog1998/FFXIVRotations/commit/1d35f620269460db6415e6192bc1fd20c84dd4fd))
+* pct fix. ([72d6053](https://github.com/ArchiDog1998/FFXIVRotations/commit/72d60536bbb19270562cfea54133d1fa15d85bbf))
+
 ## [1.2.4](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.3...v1.2.4) (2024-07-23)
 
 
