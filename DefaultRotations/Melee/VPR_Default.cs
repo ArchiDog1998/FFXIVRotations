@@ -17,10 +17,11 @@ public sealed class VPR_Default : ViperRotation
 
     protected override bool GeneralGCD(out IAction? act)
     {
+        var willDie = HostileTarget?.IsDying() ?? false;
         var cd = SerpentsIrePvE.CD;
-        var inLongBurst = cd.IsCoolingDown && !cd.ElapsedAfter(35);
+        var inLongBurst = cd.IsCoolingDown && !cd.ElapsedAfter(35) || willDie;
         var burst = cd.IsCoolingDown && (!cd.ElapsedAfter(20)
-            || cd.ElapsedAfter(60) && !cd.ElapsedAfter(75));
+            || cd.ElapsedAfter(60) && !cd.ElapsedAfter(75)) || willDie;
 
         if (RattlingCoilStacks >= 3)
         {
@@ -148,9 +149,14 @@ public sealed class VPR_Default : ViperRotation
         return false;
     }
 
-    protected override bool AttackAbility(out IAction? act)
+    protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
         if (SerpentsTailPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
+        return base.EmergencyAbility(nextGCD, out act);
+    }
+
+    protected override bool AttackAbility(out IAction? act)
+    {
         if (TwinbloodPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         if (TwinfangPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 

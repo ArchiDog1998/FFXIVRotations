@@ -1,17 +1,55 @@
 namespace DefaultRotations.Melee;
 
 [BetaRotation]
-[Rotation("Lunar Solar", CombatType.Both, GameVersion = "6.35")]
+[Rotation("Double Lunar", CombatType.Both, GameVersion = "7.01")]
 [SourceCode(Path = "main/DefaultRotations/Melee/MNK_Default.cs")]
-[LinkDescription("https://files.catbox.moe/cy23wy.png")]
-[LinkDescription("https://files.catbox.moe/pebjzp.png")]
-[LinkDescription("https://files.catbox.moe/erzg5q.png")]
-
+[LinkDescription("https://files.catbox.moe/cy23wy.png", "Double Lunar 5s Buffs DK")]
+[LinkDescription("https://files.catbox.moe/pebjzp.png", "Even window")]
+[LinkDescription("https://files.catbox.moe/erzg5q.png", "Odd window")]
 public sealed class MNK_Default : MonkRotation
 {
     [UI("Use Form Shift")]
     [RotationConfig(CombatType.PvE)]
     public bool AutoFormShift { get; set; } = true;
+
+    [RotationConfig(CombatType.PvE)]
+    [Range(0, 3, ConfigUnitType.None)]
+    [UI("The GCD Count of Using Perfect Balance Before Brotherhood",
+        Description = "It may miss one Masterful Blitz if it is set too big or small.")]
+    public int GcdCountPB { get; set; } = 3;
+
+    private static bool HasPerfectBalance => Player.HasStatus(true, StatusID.PerfectBalance);
+
+    public bool In120s
+    {
+        get
+        {
+            if (HostileTarget?.IsDying() ?? false) return true;
+            var cd = BrotherhoodPvE.CD;
+            if (!cd.IsCoolingDown) return false;
+            return !cd.ElapsedAfter(20);
+        }
+    }
+
+    public bool In60s 
+    {
+        get
+        {
+            if (HostileTarget?.IsDying() ?? false) return true;
+
+            var cd = BrotherhoodPvE.CD;
+            if (!cd.IsCoolingDown) return false;
+            return cd.ElapsedAfter(60) && !cd.ElapsedAfter(75);
+        }
+    }
+
+    public MNK_Default()
+    {
+        PerfectBalancePvE.Setting.RotationCheck = () => HasRaptorForm() && !Player.HasStatus(true, StatusID.FiresRumination, StatusID.WindsRumination);
+        FiresReplyPvE.Setting.RotationCheck = () => HasRaptorForm() && !HasPerfectBalance;
+    }
+
+    private static bool HasRaptorForm() => Player.HasStatus(true, StatusID.RaptorForm);
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -21,8 +59,8 @@ public sealed class MNK_Default : MonkRotation
         }
         if (remainTime < 15)
         {
-            //if (Chakra < 5 && MeditationPvE.CanUse(out var act)) return act;
-            if (FormShiftPvE.CanUse(out var act)) return act;
+            if (Chakra < 5 && DoMediationPvE(out var act)) return act;
+            if (FormShiftPvE.CanUse(out act)) return act;
         }
 
         return base.CountDownAction(remainTime);
@@ -36,15 +74,10 @@ public sealed class MNK_Default : MonkRotation
         return false;
     }
 
-    private bool UseLunarPerfectBalance => (HasSolar || Player.HasStatus(false, StatusID.PerfectBalance))
-        && (!Player.WillStatusEndGCD(0, 0, false, StatusID.RiddleOfFire) || Player.HasStatus(false, StatusID.RiddleOfFire) || RiddleOfFirePvE.CD.WillHaveOneChargeGCD(2)) && PerfectBalancePvE.CD.WillHaveOneChargeGCD(3);
-
     private bool RaptorForm(out IAction? act)
     {
         if (FourpointFuryPvE.CanUse(out act)) return true;
-        if ((Player.WillStatusEndGCD(3, 0, true, StatusID.DisciplinedFist)
-            || Player.WillStatusEndGCD(7, 0, true, StatusID.DisciplinedFist)
-            && UseLunarPerfectBalance) && TwinSnakesPvE.CanUse(out act)) return true;
+        if (TwinSnakesPvE.CanUse(out act)) return true;
         if (TrueStrikePvEReplace.CanUse(out act)) return true;
         return false;
     }
@@ -52,8 +85,6 @@ public sealed class MNK_Default : MonkRotation
     private bool CoerlForm(out IAction? act)
     {
         if (RockbreakerPvE.CanUse(out act)) return true;
-        if (UseLunarPerfectBalance && DemolishPvE.CanUse(out act, skipStatusProvideCheck: true)
-            && (DemolishPvE.Target.Target?.WillStatusEndGCD(7, 0, true, StatusID.Demolish) ?? false)) return true;
         if (DemolishPvE.CanUse(out act)) return true;
         if (SnapPunchPvEReplace.CanUse(out act)) return true;
         return false;
@@ -92,15 +123,15 @@ public sealed class MNK_Default : MonkRotation
 
         if (PerfectBalanceActions(out act)) return true;
 
+        if (!HasPerfectBalance)
+        {
+            if (FiresReplyPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (WindsReplyPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+
         if (Player.HasStatus(true, StatusID.CoeurlForm))
         {
             if (CoerlForm(out act)) return true;
-        }
-
-        if (Player.HasStatus(true, StatusID.RiddleOfFire)
-            && !RiddleOfFirePvE.CD.ElapsedAfterGCD(2) && (PerfectBalancePvE.CD.ElapsedAfter(60) || !PerfectBalancePvE.CD.IsCoolingDown))
-        {
-            if (OpoOpoForm(out act)) return true;
         }
         if (Player.HasStatus(true, StatusID.RaptorForm))
         {
@@ -108,7 +139,7 @@ public sealed class MNK_Default : MonkRotation
         }
         if (OpoOpoForm(out act)) return true;
 
-        //if (Chakra < 5 && MeditationPvE.CanUse(out act)) return true;
+        if (Chakra < 5 && DoMediationPvE(out act)) return true;
         if (AutoFormShift && FormShiftPvE.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
@@ -122,43 +153,24 @@ public sealed class MNK_Default : MonkRotation
 
     private bool PerfectBalanceActions(out IAction? act)
     {
-       
         if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.NONE))
         {
-            if (HasSolar && HasLunar)
-            {
-                if (PhantomRushPvE.CanUse(out act, skipAoeCheck: true)) return true;
-                if (TornadoKickPvE.CanUse(out act, skipAoeCheck: true)) return true;
-            }
-            if (BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
-            {
-                if (RisingPhoenixPvE.CanUse(out act, skipAoeCheck: true)) return true;
-                if (FlintStrikePvE.CanUse(out act, skipAoeCheck: true)) return true;
-            }
-            else
-            {
-                if (ElixirFieldPvE.CanUse(out act, skipAoeCheck: true)) return true;
-            }
+            if (MasterfulBlitzPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         }
-        else if (Player.HasStatus(true, StatusID.PerfectBalance) && ElixirFieldPvE.EnoughLevel)
+        else if (HasPerfectBalance && EnhancedPerfectBalanceTrait.EnoughLevel)
         {
-            //Sometimes, no choice
-            if (HasSolar || BeastChakra.Count(c => c == Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.OPOOPO) > 1)
+            if (In120s)
             {
                 if (LunarNadi(out act)) return true;
             }
-            else if (BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.COEURL) || BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
+            else if (In60s)
             {
                 if (SolarNadi(out act)) return true;
             }
-
-            //Add status when solar.
-            if (Player.WillStatusEndGCD(3, 0, true, StatusID.DisciplinedFist)
-                || (HostileTarget?.WillStatusEndGCD(3, 0, true, StatusID.Demolish) ?? false))
+            else
             {
-                if (SolarNadi(out act)) return true;
+                if (LunarNadi(out act)) return true;
             }
-            if (LunarNadi(out act)) return true;
         }
 
         act = null;
@@ -167,79 +179,52 @@ public sealed class MNK_Default : MonkRotation
 
     bool LunarNadi(out IAction? act)
     {
-        if (OpoOpoForm(out act)) return true;
-        return false;
+        return OpoOpoForm(out act);
     }
 
     bool SolarNadi(out IAction? act)
     {
-        //Emergency usage of status.
-        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR)
-            && HasLunar
-            && Player.WillStatusEndGCD(1, 0, true, StatusID.DisciplinedFist))
-        {
-            if (RaptorForm(out act)) return true;
-        }
-        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.COEURL)
-            && (HostileTarget?.WillStatusEndGCD(1, 0, true, StatusID.Demolish) ?? false))
-        {
-            if (CoerlForm(out act)) return true;
-        }
-
         if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.OPOOPO))
         {
             if (OpoOpoForm(out act)) return true;
         }
-        if (HasLunar && !BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
+        else if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
         {
             if (RaptorForm(out act)) return true;
         }
-        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.COEURL))
+        else if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.COEURL))
         {
             if (CoerlForm(out act)) return true;
         }
-        if (!BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.RAPTOR))
-        {
-            if (RaptorForm(out act)) return true;
-        }
 
-        return CoerlForm(out act);
+        return OpoOpoForm(out act);
     }
 
     protected override bool EmergencyAbility(IAction nextGCD, out IAction? act)
     {
-        if (InCombat)
-        {
-            if (UseBurstMedicine(out act)) return true;
-            if (IsBurst && !CombatElapsedLessGCD(2) && RiddleOfFirePvEReplace.CanUse(out act, onLastAbility: true)) return true;
-        }
-
         act = null;
-        if (CombatElapsedLessGCD(3)) return false;
-
-        if (BeastChakra.Contains(Dalamud.Game.ClientState.JobGauge.Enums.BeastChakra.NONE) && Player.HasStatus(true, StatusID.RaptorForm)
-            && (!RiddleOfFirePvE.EnoughLevel || Player.HasStatus(false, StatusID.RiddleOfFire) && !Player.WillStatusEndGCD(3, 0, false, StatusID.RiddleOfFire)
-            || RiddleOfFirePvE.CD.WillHaveOneChargeGCD(1) && (PerfectBalancePvE.CD.ElapsedAfter(60) || !PerfectBalancePvE.CD.IsCoolingDown)))
+        if (In60s || In120s || CombatElapsedLessGCD(3) || BrotherhoodPvE.CD.WillHaveOneChargeGCD((uint)GcdCountPB))
         {
             if (PerfectBalancePvE.CanUse(out act, usedUp: true)) return true;
         }
 
+        if (CombatElapsedLessGCD(1)) return false;
+        if (UseBurstMedicine(out act)) return true;
+
+        if (CombatElapsedLessGCD(2)) return false;
+
         if (BrotherhoodPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (RiddleOfFirePvEReplace.CanUse(out act)) return true;
+
+        if (RiddleOfWindPvEReplace.CanUse(out act)) return true;
 
         return base.EmergencyAbility(nextGCD, out act);
     }
 
     protected override bool AttackAbility(out IAction? act)
     {
-        act = null;
-
-        if (CombatElapsedLessGCD(3)) return false;
-
         if (HowlingFistPvEReplace.CanUse(out act)) return true;
         if (SteelPeakPvEReplace.CanUse(out act)) return true;
-        if (HowlingFistPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
-
-        if (RiddleOfWindPvEReplace.CanUse(out act)) return true;
 
         return base.AttackAbility(out act);
     }
