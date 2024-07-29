@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.6](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.5...v1.2.6) (2024-07-29)
+
+
+### Bug Fixes
+
+* new MNK rotation. ([9ef022b](https://github.com/ArchiDog1998/FFXIVRotations/commit/9ef022b9297b9ea2f4610b22af8b2311e730332a))
+
 ## [1.2.5](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.4...v1.2.5) (2024-07-28)
 
 
