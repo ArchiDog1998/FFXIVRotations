@@ -38,12 +38,12 @@ public sealed class VPR_Default : ViperRotation
         //Start the status.
         if (CombatElapsedLess(2))
         {
-            return BasicCombo(out act);
+            if (BasicCombo(out act)) return true;
         }
         if (CombatElapsedLess(10))
         {
             if (FinishCoil(out act)) return true;
-            return StartCoil(out act, true);
+            if (StartCoil(out act, true)) return true;
         }
 
         if (SerpentOffering == 100 || burst)

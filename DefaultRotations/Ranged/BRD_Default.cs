@@ -1,38 +1,19 @@
 namespace DefaultRotations.Ranged;
 
-[Rotation("Default", CombatType.PvE | CombatType.PvP, GameVersion = "6.28", 
-    Description = "Please make sure that the three song times add up to 120 seconds!")]
+[BetaRotation]
+[Rotation("369 Opener", CombatType.PvE | CombatType.PvP, GameVersion = "7.05")]
 [SourceCode(Path = "main/DefaultRotations/Ranged/BRD_Default.cs")]
+[LinkDescription("https://i.imgur.com/ZHSg4M0.png")]
+[LinkDescription("https://i.imgur.com/40vYKDd.png")]
 public sealed class BRD_Default : BardRotation
 {
     [UI(@"Use Raging Strikes on ""Wanderer's Minuet""")]
     [RotationConfig(CombatType.PvE)]
     public bool BindWAND { get; set; } = false;
 
-    [UI("First Song")]
-    [RotationConfig(CombatType.PvE)]
-    private Song FirstSong { get; set; } = Song.WANDERER;
+    private const float WANDRemainTime = 3, MAGERemainTime = 6, ARMYRemainTime = 9;
 
-    [UI("Wanderer's Minuet Uptime")]
-    [Range(0, 45, ConfigUnitType.Seconds, 1)]
-    [RotationConfig(CombatType.PvE)]
-    public float WANDTime { get; set; } = 43;
-
-    [UI("Mage's Ballad Uptime")]
-    [Range(0, 45, ConfigUnitType.Seconds, 1)]
-    [RotationConfig(CombatType.PvE)]
-    public float MAGETime { get; set; } = 34;
-
-    [UI("Army's Paeon Uptime")]
-    [Range(0, 45, ConfigUnitType.Seconds, 1)]
-    [RotationConfig(CombatType.PvE)]
-    public float ARMYTime { get; set; } = 43;
-
-    private bool BindWANDEnough => BindWAND && this.TheWanderersMinuetPvE.EnoughLevel;
-    private float WANDRemainTime => 45 - WANDTime;
-    private float MAGERemainTime => 45 - MAGETime;
-    private float ARMYRemainTime => 45 - ARMYTime;
-
+    public static bool InBurstStatus => Player.WillStatusEndGCD(0, 0, true, StatusID.RagingStrikes);
 
     protected override bool GeneralGCD(out IAction? act)
     {
@@ -52,19 +33,18 @@ public sealed class BRD_Default : BardRotation
 
         if (CanUseApexArrow(out act)) return true;
 
-        if (BlastArrowPvE.CanUse(out act, skipAoeCheck : true))
-        {
-            if (!Player.HasStatus(true, StatusID.RagingStrikes)) return true;
-            if (Player.HasStatus(true, StatusID.RagingStrikes) && BarragePvE.CD.IsCoolingDown) return true;
-        }
+        if (WideVolleyPvEReplace.CanUse(out act)) return true;
+        if (StraightShotPvEReplace.CanUse(out act)) return true;
 
-        if (ShadowbitePvE.CanUse(out act)) return true;
-        if (QuickNockPvE.CanUse(out act)) return true;
+        if (RadiantEncorePvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (ResonantArrowPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        if (BlastArrowPvE.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (QuickNockPvEReplace.CanUse(out act)) return true;
 
         if (WindbitePvEReplace.CanUse(out act)) return true;
         if (VenomousBitePvEReplace.CanUse(out act)) return true;
 
-        if (StraightShotPvEReplace.CanUse(out act)) return true;
         if (HeavyShotPvEReplace.CanUse(out act)) return true;
 
         return base.GeneralGCD(out act);
@@ -101,98 +81,49 @@ public sealed class BRD_Default : BardRotation
         if (RepellingShotPvP.CanUse(out act)) return true;
         #endregion
 
-        if (Song == Song.NONE)
+        if (RainOfDeathPvE.CanUse(out act)) return true;
+        if (BloodletterPvEReplace.CanUse(out act)) return true; // Make it into GCD
+        if (DoSong(out act)) return true;
+
+        if (IsBurst && Song != Song.NONE)
         {
-            switch (FirstSong)
-            {
-                case Song.WANDERER:
-                    if (TheWanderersMinuetPvE.CanUse(out act)) return true;
-                    break;
-
-                case Song.ARMY:
-                    if (ArmysPaeonPvE.CanUse(out act)) return true;
-                    break;
-
-                case Song.MAGE:
-                    if (MagesBalladPvE.CanUse(out act)) return true;
-                    break;
-            }
-            if (TheWanderersMinuetPvE.CanUse(out act)) return true;
-            if (MagesBalladPvE.CanUse(out act)) return true;
-            if (ArmysPaeonPvE.CanUse(out act)) return true;
+            if (UseBurstMedicine(out act)) return true;
+            if (RadiantFinalePvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (BattleVoicePvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (RagingStrikesPvE.CanUse(out act)) return true;
         }
 
-        if (IsBurst && Song != Song.NONE && MagesBalladPvE.EnoughLevel)
-        {
-            if (RagingStrikesPvE.CanUse(out act))
-            {
-                if (BindWANDEnough && Song == Song.WANDERER && TheWanderersMinuetPvE.EnoughLevel) return true;
-                if (!BindWANDEnough) return true;
-            }
+        if (EmpyrealArrowPvE.CanUse(out act)) return true;
+        if (BarragePvE.CanUse(out act)) return true;
 
-            if (RadiantFinalePvEReplace.CanUse(out act, skipAoeCheck: true))
-            {
-                if (Player.HasStatus(true, StatusID.RagingStrikes) && RagingStrikesPvE.CD.ElapsedOneChargeAfterGCD(1)) return true;
-            }
+        if (SidewinderPvE.CanUse(out act)) return true;
 
-            if (BattleVoicePvE.CanUse(out act, skipAoeCheck: true))
-            {
-                if (IsLastAction(true, RadiantFinalePvE)) return true;
-
-                if (Player.HasStatus(true, StatusID.RagingStrikes) && RagingStrikesPvE.CD.ElapsedOneChargeAfterGCD(1)) return true;
-            }
-        }
-
-        if (RadiantFinalePvE.EnoughLevel && RadiantFinalePvE.CD.IsCoolingDown && BattleVoicePvE.EnoughLevel && !BattleVoicePvE.CD.IsCoolingDown) return false;
-
-        if (TheWanderersMinuetPvE.CanUse(out act, onLastAbility: true))
-        {
-            if (SongTimer < ARMYRemainTime && (Song != Song.NONE || Player.HasStatus(true, StatusID.ArmysEthos))) return true;
-        }
-
-        if (Song != Song.NONE && EmpyrealArrowPvE.CanUse(out act)) return true;
-
-        if (PitchPerfectPvE.CanUse(out act))
-        {
-            if (SongTimer < 3 && Repertoire > 0) return true;
-
-            if (Repertoire == 3) return true;
-
-            if (Repertoire == 2 && EmpyrealArrowPvE.CD.WillHaveOneChargeGCD(1) && NextAbilityToNextGCD < PitchPerfectPvE.AnimationLockTime + Ping) return true;
-
-            if (Repertoire == 2 && EmpyrealArrowPvE.CD.WillHaveOneChargeGCD() && NextAbilityToNextGCD > PitchPerfectPvE.AnimationLockTime + Ping) return true;
-        }
-
-        if (MagesBalladPvE.CanUse(out act))
-        {
-            if (Song == Song.WANDERER && SongTimer < WANDRemainTime && Repertoire == 0) return true;
-            if (Song == Song.ARMY && SongTimer < 2 && TheWanderersMinuetPvE.CD.IsCoolingDown) return true;
-        }
-
-        if (ArmysPaeonPvE.CanUse(out act))
-        {
-            if (TheWanderersMinuetPvE.EnoughLevel && SongTimer < MAGERemainTime && Song == Song.MAGE) return true;
-            if (TheWanderersMinuetPvE.EnoughLevel && SongTimer < 2 && MagesBalladPvE.CD.IsCoolingDown && Song == Song.WANDERER) return true;
-            if (!TheWanderersMinuetPvE.EnoughLevel && SongTimer < 2) return true;
-        }
-
-        if (SidewinderPvE.CanUse(out act))
-        {
-            if (Player.HasStatus(true, StatusID.BattleVoice) && (Player.HasStatus(true, StatusID.RadiantFinale) || !RadiantFinalePvE.EnoughLevel)) return true;
-
-            if (!BattleVoicePvE.CD.WillHaveOneCharge(10) && !RadiantFinalePvE.CD.WillHaveOneCharge(10)) return true;
-
-            if (RagingStrikesPvE.CD.IsCoolingDown && !Player.HasStatus(true, StatusID.RagingStrikes)) return true;
-        }
-
-        if (EmpyrealArrowPvE.CD.IsCoolingDown || !EmpyrealArrowPvE.CD.WillHaveOneChargeGCD() || Repertoire != 3 || !EmpyrealArrowPvE.EnoughLevel)
+        if (InBurstStatus)
         {
             if (RainOfDeathPvE.CanUse(out act, usedUp: true)) return true;
-
-            if (BloodletterPvEReplace.CanUse(out act, usedUp: true)) return true;
+            if (BloodletterPvEReplace.CanUse(out act, usedUp: true)) return true; // Make it into GCD
         }
 
         return base.AttackAbility(out act);
+    }
+
+    private bool DoSong(out IAction? act)
+    {
+        switch (Song)
+        {
+            case Song.WANDERER when SongTimer < WANDRemainTime:
+                if (PitchPerfectPvE.CanUse(out act)) return true;
+                return MagesBalladPvE.CanUse(out act);
+
+            case Song.MAGE when SongTimer < MAGERemainTime:
+                return ArmysPaeonPvE.CanUse(out act);
+
+            default:
+            case Song.NONE:
+            case Song.ARMY when SongTimer < ARMYRemainTime:
+                if (TheWanderersMinuetPvE.CanUse(out act, onLastAbility: true)) return true;
+                return MagesBalladPvE.CanUse(out act);
+        }
     }
 
     private bool CanUseApexArrow(out IAction act)
