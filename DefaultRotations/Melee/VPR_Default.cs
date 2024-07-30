@@ -25,7 +25,7 @@ public sealed class VPR_Default : ViperRotation
 
         if (RattlingCoilStacks >= 3)
         {
-            if (FinishCoil(out act)) return true;
+            if (FinishVice(out act)) return true;
             if (UncoiledFuryPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
         if (Player.HasStatus(true, StatusID.Reawakened) && !SerpentsIrePvE.CD.IsCoolingDown)
@@ -42,17 +42,17 @@ public sealed class VPR_Default : ViperRotation
         }
         if (CombatElapsedLess(10))
         {
-            if (FinishCoil(out act)) return true;
-            if (StartCoil(out act, true)) return true;
+            if (FinishVice(out act)) return true;
+            if (StartVice(out act, true)) return true;
         }
 
         if (SerpentOffering == 100 || burst)
         {
             if (HostileTarget?.WillStatusEnd(10, true, StatusID.NoxiousGnash) ?? false)
             {
-                if (StartCoil(out act, true)) return true;
+                if (StartVice(out act, true)) return true;
             }
-            if (FinishCoil(out act)) return true;
+            if (FinishVice(out act)) return true;
             if (ReawakenPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
@@ -63,8 +63,8 @@ public sealed class VPR_Default : ViperRotation
         {
             if ((burst || inLongBurst) && UncoiledFuryPvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
-        if (FinishCoil(out act)) return true;
-        if (StartCoil(out act, inLongBurst || willNoDebuff || DreadwinderPvE.CD.CurrentCharges == DreadwinderPvE.CD.MaxCharges
+        if (FinishVice(out act)) return true;
+        if (StartVice(out act, inLongBurst || willNoDebuff || VicepitPvE.CD.CurrentCharges == VicepitPvE.CD.MaxCharges
             || cd.WillHaveOneCharge(9) && (HostileTarget?.WillStatusEnd(17, true, StatusID.NoxiousGnash) ?? false))) return true;
 
         //TODO: It may lose a Combo3 buff!
@@ -77,14 +77,14 @@ public sealed class VPR_Default : ViperRotation
         return base.GeneralGCD(out act);
     }
 
-    private bool StartCoil(out IAction? act, bool usedUp)
+    private bool StartVice(out IAction? act, bool usedUp)
     {
-        if (PitOfDreadPvE.CanUse(out act, usedUp: usedUp)) return true;
-        if (DreadwinderPvE.CanUse(out act, usedUp: usedUp)) return true;
+        if (VicepitPvE.CanUse(out act, usedUp: usedUp)) return true;
+        if (VicewinderPvE.CanUse(out act, usedUp: usedUp)) return true;
         return false;
     }
 
-    private bool FinishCoil(out IAction? act)
+    private bool FinishVice(out IAction? act)
     {
         if (HuntersCoilPvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (SwiftskinsCoilPvE.CanUse(out act, skipAoeCheck: true)) return true;
@@ -130,7 +130,7 @@ public sealed class VPR_Default : ViperRotation
             if (HuntersBitePvE.CanUse(out act)) return true;
         }
 
-        if (DreadMawPvE.CanUse(out act)) return true;
+        if (ReavingMawPvE.CanUse(out act)) return true;
         if (SteelMawPvE.CanUse(out act)) return true;
 
         //Single
@@ -143,7 +143,7 @@ public sealed class VPR_Default : ViperRotation
             if (SwiftskinsStingPvE.CanUse(out act)) return true;
         }
 
-        if (DreadFangsPvE.CanUse(out act)) return true;
+        if (ReavingFangsPvE.CanUse(out act)) return true;
         if (SteelFangsPvE.CanUse(out act)) return true;
 
         return false;

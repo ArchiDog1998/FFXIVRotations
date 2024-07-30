@@ -1,8 +1,5 @@
-using System.ComponentModel;
-
 namespace DefaultRotations.Tank;
 
-[BetaRotation]
 [Rotation("General", CombatType.Both, GameVersion = "7.01", Description = "I don't know why the action Primal Wrath was used AFTER Fell Cleave, so I make it earlier.")]
 [SourceCode(Path = "main/DefaultRotations/Tank/WAR_Default.cs")]
 [LinkDescription("https://raw.githubusercontent.com/Moxfi/XIV/main/Dawntrail/Resources/Openers/Warrior_Dawntrail_2.5_GCD_Warrior_Opener.png")]
@@ -47,8 +44,13 @@ public sealed class WAR_Default : WarriorRotation
             }
             if (IsBurstStatus || BeastGauge > 80 || !Player.WillStatusEndGCD(0, 0, false, StatusID.InnerRelease))
             {
-                if (SteelCyclonePvEReplace.CanUse(out act)) return true;
-                if (InnerBeastPvEReplace.CanUse(out act)) return true;
+                if (ChaoticCyclonePvE.CanUse(out act)) return true;
+                if (DecimatePvE.CanUse(out act)) return true;
+                if (SteelCyclonePvE.CanUse(out act)) return true;
+
+                if (InnerChaosPvE.CanUse(out act)) return true;
+                if (FellCleavePvE.CanUse(out act)) return true;
+                if (InnerBeastPvE.CanUse(out act)) return true;
             }
         }
 

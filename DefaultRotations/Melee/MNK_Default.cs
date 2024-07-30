@@ -1,6 +1,5 @@
 namespace DefaultRotations.Melee;
 
-[BetaRotation]
 [Rotation("Double Lunar", CombatType.Both, GameVersion = "7.01")]
 [SourceCode(Path = "main/DefaultRotations/Melee/MNK_Default.cs")]
 [LinkDescription("https://files.catbox.moe/cy23wy.png", "Double Lunar 5s Buffs DK")]
