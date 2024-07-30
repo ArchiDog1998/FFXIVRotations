@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.7](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.6...v1.2.7) (2024-07-30)
+
+
+### Bug Fixes
+
+* brd rotation without tests. ([9e2083d](https://github.com/ArchiDog1998/FFXIVRotations/commit/9e2083d7e3e3783a18b8ad02b0072e67aca3ce6d))
+* update modules and add some rotations. ([892f17f](https://github.com/ArchiDog1998/FFXIVRotations/commit/892f17faf755a0781ad8d81499752c39f2bcc496))
+
 ## [1.2.6](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.5...v1.2.6) (2024-07-29)
 
 
