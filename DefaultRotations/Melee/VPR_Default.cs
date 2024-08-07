@@ -123,11 +123,11 @@ public sealed class VPR_Default : ViperRotation
 
         if (Player.StatusTime(false, StatusID.HuntersInstinct) > Player.StatusTime(false, StatusID.Swiftscaled))
         {
-            if (SwiftskinsBitePvE.CanUse(out act)) return true;
+            if (SwiftskinsBitePvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
         }
         else
         {
-            if (HuntersBitePvE.CanUse(out act)) return true;
+            if (HuntersBitePvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
         }
 
         if (ReavingMawPvE.CanUse(out act)) return true;
@@ -136,11 +136,11 @@ public sealed class VPR_Default : ViperRotation
         //Single
         if (!Player.WillStatusEndGCD(0, 0, true, StatusID.FlankstungVenom, StatusID.FlanksbaneVenom))
         {
-            if (HuntersStingPvE.CanUse(out act)) return true;
+            if (HuntersStingPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
         }
         else
         {
-            if (SwiftskinsStingPvE.CanUse(out act)) return true;
+            if (SwiftskinsStingPvE.CanUse(out act, skipStatusProvideCheck: true)) return true;
         }
 
         if (ReavingFangsPvE.CanUse(out act)) return true;

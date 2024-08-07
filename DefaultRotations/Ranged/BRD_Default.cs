@@ -1,19 +1,31 @@
 namespace DefaultRotations.Ranged;
 
-[BetaRotation]
 [Rotation("369 Opener", CombatType.Both, GameVersion = "7.05", Description = "Work in Progress!")]
 [SourceCode(Path = "main/DefaultRotations/Ranged/BRD_Default.cs")]
 [LinkDescription("https://i.imgur.com/ZHSg4M0.png")]
 [LinkDescription("https://i.imgur.com/40vYKDd.png")]
 public sealed class BRD_Default : BardRotation
 {
-    [UI(@"Use Raging Strikes on ""Wanderer's Minuet""")]
+    [Range(1, 5, ConfigUnitType.None)]
+    [UI("Iron Jaws Gcd Behind")]
     [RotationConfig(CombatType.PvE)]
-    public bool BindWAND { get; set; } = false;
+    public int IronJawsGcdCount { get; set; } = 3;
 
     private const float WANDRemainTime = 3, MAGERemainTime = 6, ARMYRemainTime = 9;
 
     public static bool InBurstStatus => !Player.WillStatusEndGCD(0, 0, true, StatusID.RagingStrikes);
+
+    public BRD_Default()
+    {
+        RadiantFinalePvE.Setting.RotationCheck = () => RagingStrikesPvE.CD.WillHaveOneChargeGCD(0);
+        ApexArrowPvE.Setting.RotationCheck = () =>
+        {
+            if (RagingStrikesPvE.CD.WillHaveOneChargeGCD(3)) return false;
+            if (SoulVoice == 100) return true;
+            if (Song == Song.MAGE && SongTimer < 21 && SoulVoice >= 80) return true;
+            return false;
+        };
+    }
 
     protected override bool GeneralGCD(out IAction? act)
     {
@@ -32,12 +44,14 @@ public sealed class BRD_Default : BardRotation
         }
 
         if (IronJawsPvE.CanUse(out act)) return true;
-        if (IronJawsPvE.CanUse(out act, skipStatusProvideCheck: true) && (IronJawsPvE.Target.Target?.WillStatusEnd(30, true, IronJawsPvE.Setting.TargetStatusProvide ?? []) ?? false))
+        if (IronJawsPvE.CanUse(out act, skipStatusProvideCheck: true)
+            && (IronJawsPvE.Target.Target?.WillStatusEnd(30, true, IronJawsPvE.Info.TargetStatusProvide ?? []) ?? false))
         {
-            if (Player.HasStatus(true, StatusID.RagingStrikes) && Player.WillStatusEndGCD(3, 0, true, StatusID.RagingStrikes)) return true;
+            if (Player.HasStatus(true, StatusID.RagingStrikes)
+                && Player.WillStatusEndGCD((uint)IronJawsGcdCount, 0, true, StatusID.RagingStrikes)) return true;
         }
 
-        if (CanUseApexArrow(out act)) return true;
+        if (ApexArrowPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (WideVolleyPvEReplace.CanUse(out act)) return true;
         if (StraightShotPvEReplace.CanUse(out act)) return true;
@@ -62,25 +76,22 @@ public sealed class BRD_Default : BardRotation
     protected override bool AttackAbility(out IAction? act)
     {
         #region PvP
-        //if (PvP_FinalFantasia.CanUse(out act, CanUseOption.MustUse)) return true;
-
         if (SilentNocturnePvP.CanUse(out act)) return true;
         if (TheWardensPaeanPvP.CanUse(out act)) return true;
 
-        
         if (EmpyrealArrowPvP.CanUse(out act, usedUp: true)) return true;
 
         if (RepellingShotPvP.CanUse(out act)) return true;
         #endregion
 
-        if (RainOfDeathPvE.CanUse(out act)) return true;
-        if (BloodletterPvEReplace.CanUse(out act)) return true; // Make it into GCD
+        if (BloodletterPvECdGrp.CanUse(out act)) return true;
         if (DoSong(out act)) return true;
 
         if (IsBurst && Song != Song.NONE)
         {
             if (UseBurstMedicine(out act)) return true;
             if (RadiantFinalePvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (CombatElapsedLess(4)) return false;
             if (BattleVoicePvE.CanUse(out act, skipAoeCheck: true)) return true;
             if (RagingStrikesPvE.CanUse(out act)) return true;
         }
@@ -94,8 +105,7 @@ public sealed class BRD_Default : BardRotation
 
         if (InBurstStatus)
         {
-            if (RainOfDeathPvE.CanUse(out act, usedUp: true)) return true;
-            if (BloodletterPvEReplace.CanUse(out act, usedUp: true)) return true; // Make it into GCD
+            if (BloodletterPvECdGrp.CanUse(out act, usedUp: true)) return true;
         }
 
         return base.AttackAbility(out act);
@@ -119,24 +129,5 @@ public sealed class BRD_Default : BardRotation
                     ? TheWanderersMinuetPvE.CanUse(out act, onLastAbility: true)
                     : MagesBalladPvE.CanUse(out act);
         }
-    }
-
-    private bool CanUseApexArrow(out IAction act)
-    {
-        if (!ApexArrowPvEReplace.CanUse(out act,skipAoeCheck: true)) return false;
-
-        if (QuickNockPvEReplace.CanUse(out _) && SoulVoice == 100) return true;
-
-        if (SoulVoice == 100 && BattleVoicePvE.CD.WillHaveOneCharge(25)) return false;
-
-        if (SoulVoice >= 80 && Player.HasStatus(true, StatusID.RagingStrikes) && Player.WillStatusEnd(10, false, StatusID.RagingStrikes)) return true;
-
-        if (SoulVoice == 100 && Player.HasStatus(true, StatusID.RagingStrikes) && Player.HasStatus(true, StatusID.BattleVoice)) return true;
-
-        if (Song == Song.MAGE && SoulVoice >= 80 && SongTimer < 22 && SongTimer < 18) return true;
-
-        if (!Player.HasStatus(true, StatusID.RagingStrikes) && SoulVoice == 100) return true;
-
-        return false;
     }
 }

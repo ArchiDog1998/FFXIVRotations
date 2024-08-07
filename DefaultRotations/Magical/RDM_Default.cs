@@ -2,7 +2,8 @@ namespace DefaultRotations.Magical;
 
 [Rotation("Standard", CombatType.Both, GameVersion = "6.31")]
 [SourceCode(Path = "main/DefaultRotations/Magical/RDM_Default.cs")]
-[LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rdm/rdm_ew_opener.png")]
+[LinkDescription("https://i.imgur.com/5TW44kN.png")]
+[LinkDescription("https://i.imgur.com/LGRfOzV.jpeg")]
 public sealed class RDM_Default : RedMageRotation
 {
     private static BaseAction VerthunderStartUp { get; } = new BaseAction(ActionID.VerthunderPvE, false);
@@ -25,7 +26,7 @@ public sealed class RDM_Default : RedMageRotation
                 if (Player.HasStatus(true, StatusID.VerfireReady)) return false;
             }
 
-            if (Player.HasStatus(true, VercurePvE.Setting.StatusProvide ?? [])) return false;
+            if (Player.HasStatus(true, VercurePvE.Info.StatusProvide ?? [])) return false;
 
             //Waiting for embolden.
             if (EmboldenPvE.EnoughLevel && EmboldenPvE.CD.WillHaveOneChargeGCD(5)) return false;

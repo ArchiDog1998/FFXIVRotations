@@ -44,13 +44,8 @@ public sealed class WAR_Default : WarriorRotation
             }
             if (IsBurstStatus || BeastGauge > 80 || !Player.WillStatusEndGCD(0, 0, false, StatusID.InnerRelease))
             {
-                if (ChaoticCyclonePvE.CanUse(out act)) return true;
-                if (DecimatePvE.CanUse(out act)) return true;
-                if (SteelCyclonePvE.CanUse(out act)) return true;
-
-                if (InnerChaosPvE.CanUse(out act)) return true;
-                if (FellCleavePvE.CanUse(out act)) return true;
-                if (InnerBeastPvE.CanUse(out act)) return true;
+                if (SteelCyclonePvEReplace.CanUse(out act, skipStatusProvideCheck: true)) return true;
+                if (InnerBeastPvEReplace.CanUse(out act, skipStatusProvideCheck: true)) return true;
             }
         }
 
