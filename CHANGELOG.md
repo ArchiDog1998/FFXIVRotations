@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.8](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.7...v1.2.8) (2024-08-07)
+
+
+### Bug Fixes
+
+* brd fix. ([11db31b](https://github.com/ArchiDog1998/FFXIVRotations/commit/11db31b38541afe9a03a3ca0d975bd0bb574f41e))
+
 ## [1.2.7](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.6...v1.2.7) (2024-07-30)
 
 
