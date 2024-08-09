@@ -17,8 +17,8 @@ public sealed class BRD_Default : BardRotation
 
     public BRD_Default()
     {
-        RadiantFinalePvE.Setting.RotationCheck = () => RagingStrikesPvE.CD.WillHaveOneChargeGCD(0);
-        ApexArrowPvE.Setting.RotationCheck = () =>
+        RadiantFinalePvE.RotationCheck = () => RagingStrikesPvE.CD.WillHaveOneChargeGCD(0);
+        ApexArrowPvE.RotationCheck = () =>
         {
             if (RagingStrikesPvE.CD.WillHaveOneChargeGCD(3)) return false;
             if (SoulVoice == 100) return true;

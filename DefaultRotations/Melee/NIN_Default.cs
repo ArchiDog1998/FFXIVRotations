@@ -234,11 +234,11 @@ public sealed class NIN_Default : NinjaRotation
             //Can't use.
             if (!Player.HasStatus(true, StatusID.Kassatsu, StatusID.TenChiJin)
                 && !TenPvE.CanUse(out _, usedUp: true)
-                && !IsLastAction(false, _ninActionAim.Setting.Ninjutsu![0]))
+                && !IsLastAction(false, _ninActionAim.Ninjutsu![0]))
             {
                 return false;
             }
-            act = _ninActionAim.Setting.Ninjutsu![0];
+            act = _ninActionAim.Ninjutsu![0];
             return true;
         }
         //Finished
@@ -254,20 +254,20 @@ public sealed class NIN_Default : NinjaRotation
         //Second
         else if ((uint)id == FumaShurikenPvE.ID)
         {
-            if (_ninActionAim.Setting.Ninjutsu!.Length > 1
-                && !IsLastAction(false, _ninActionAim.Setting.Ninjutsu![1]))
+            if (_ninActionAim.Ninjutsu!.Length > 1
+                && !IsLastAction(false, _ninActionAim.Ninjutsu![1]))
             {
-                act = _ninActionAim.Setting.Ninjutsu![1];
+                act = _ninActionAim.Ninjutsu![1];
                 return true;
             }
         }
         //Third
         else if ((uint)id == KatonPvE.ID || (uint)id == RaitonPvE.ID || (uint)id == HyotonPvE.ID)
         {
-            if (_ninActionAim.Setting.Ninjutsu!.Length > 2
-                && !IsLastAction(false, _ninActionAim.Setting.Ninjutsu![2]))
+            if (_ninActionAim.Ninjutsu!.Length > 2
+                && !IsLastAction(false, _ninActionAim.Ninjutsu![2]))
             {
-                act = _ninActionAim.Setting.Ninjutsu![2];
+                act = _ninActionAim.Ninjutsu![2];
                 return true;
             }
         }

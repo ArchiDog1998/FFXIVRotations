@@ -14,8 +14,8 @@ public sealed class WHM_Default :WhiteMageRotation
 
     public WHM_Default()
     {
-        AfflatusRapturePvE.Setting.RotationCheck = () => BloodLily < 3;
-        AfflatusSolacePvE.Setting.RotationCheck = () => BloodLily < 3;
+        AfflatusRapturePvE.RotationCheck = () => BloodLily < 3;
+        AfflatusSolacePvE.RotationCheck = () => BloodLily < 3;
     }
 
     protected override bool GeneralGCD(out IAction? act)

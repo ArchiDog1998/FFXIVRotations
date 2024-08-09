@@ -44,8 +44,8 @@ public sealed class MNK_Default : MonkRotation
 
     public MNK_Default()
     {
-        PerfectBalancePvE.Setting.RotationCheck = () => HasRaptorForm() && !Player.HasStatus(true, StatusID.FiresRumination, StatusID.WindsRumination);
-        FiresReplyPvE.Setting.RotationCheck = () => HasRaptorForm() && !HasPerfectBalance;
+        PerfectBalancePvE.RotationCheck = () => HasRaptorForm() && !Player.HasStatus(true, StatusID.FiresRumination, StatusID.WindsRumination);
+        FiresReplyPvE.RotationCheck = () => HasRaptorForm() && !HasPerfectBalance;
     }
 
     private static bool HasRaptorForm() => Player.HasStatus(true, StatusID.RaptorForm);

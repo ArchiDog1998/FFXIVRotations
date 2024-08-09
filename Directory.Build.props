@@ -9,6 +9,7 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>preview</LangVersion>
 
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DalamudLibPath>$(AppData)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
     </PropertyGroup>
     <ItemGroup>
