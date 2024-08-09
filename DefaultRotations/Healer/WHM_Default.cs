@@ -37,11 +37,15 @@ public sealed class WHM_Default :WhiteMageRotation
             if (UseLily(out act)) return true;
         }
 
+        if (GlareIvPvE.CanUse(out act)) return true;
+
         if (HolyPvEReplace.CanUse(out act)) return true;
 
         if (AeroPvEReplace.CanUse(out act)) return true;
 
-        if (StonePvE.CanUse(out act)) return true;
+        if (GlareIvPvE.CanUse(out act, skipAoeCheck: true)) return true;
+
+        if (StonePvEReplace.CanUse(out act)) return true;
 
         if (Lily >= 2)
         {
@@ -168,7 +172,7 @@ public sealed class WHM_Default :WhiteMageRotation
     protected override IAction? CountDownAction(float remainTime)
     {
         if (remainTime < StonePvE.Info.CastTime + CountDownAhead
-            && StonePvE.CanUse(out var act)) return act;
+            && StonePvEReplace.CanUse(out var act)) return act;
 
         if (UsePreRegen && remainTime <= 5 && remainTime > 3)
         {
