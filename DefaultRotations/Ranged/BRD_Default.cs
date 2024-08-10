@@ -37,10 +37,9 @@ public sealed class BRD_Default : BardRotation
         if (PowerfulShotPvP.CanUse(out act)) return true;
         #endregion
 
-        if (CombatElapsedLess(5))
+        if (!CombatElapsedLess(5))
         {
-            if (WindbitePvEReplace.CanUse(out act)) return true;
-            if (VenomousBitePvEReplace.CanUse(out act)) return true;
+            if (StraightShotPvEReplace.CanUse(out act)) return true;
         }
 
         if (IronJawsPvE.CanUse(out act)) return true;
@@ -54,7 +53,6 @@ public sealed class BRD_Default : BardRotation
         if (ApexArrowPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (WideVolleyPvEReplace.CanUse(out act)) return true;
-        if (StraightShotPvEReplace.CanUse(out act)) return true;
 
         if (InBurstStatus && !CombatElapsedLess(4))
         {

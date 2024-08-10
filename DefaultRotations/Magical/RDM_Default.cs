@@ -1,7 +1,7 @@
 namespace DefaultRotations.Magical;
 
 [BetaRotation]
-[Rotation("Standard", CombatType.Both, GameVersion = "7.05")]
+[Rotation("Standard", CombatType.Both, GameVersion = "7.05", Description = "It is not perfect at melee combo or the usage of Acceleration. But it works!")]
 [SourceCode(Path = "main/DefaultRotations/Magical/RDM_Default.cs")]
 [LinkDescription("https://i.imgur.com/5TW44kN.png")]
 [LinkDescription("https://i.imgur.com/LGRfOzV.jpeg")]

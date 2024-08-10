@@ -1,6 +1,6 @@
 namespace DefaultRotations.Healer;
 
-[Rotation("Default", CombatType.Both, GameVersion = "6.28")]
+[Rotation("Default", CombatType.Both, GameVersion = "7.0-", Description = "Well, Just make it works!")]
 [SourceCode(Path = "main/DefaultRotations/Healer/WHM_Default.cs")]
 public sealed class WHM_Default :WhiteMageRotation
 {
@@ -72,7 +72,7 @@ public sealed class WHM_Default :WhiteMageRotation
 
         if (InCombat)
         {
-            if (PresenceOfMindPvEReplace.CanUse(out act)) return true;
+            if (PresenceOfMindPvE.CanUse(out act)) return true;
             if (AssizePvE.CanUse(out act, skipAoeCheck: true)) return true;
         }
 
@@ -88,7 +88,7 @@ public sealed class WHM_Default :WhiteMageRotation
         if (nextGCD is IBaseAction action && action.Info.MPNeed >= 1000 &&
             ThinAirPvE.CanUse(out act)) return true;
 
-        if (nextGCD.IsTheSameTo(true, AfflatusRapturePvE, MedicaPvE, MedicaIiPvE, CureIiiPvE)
+        if (nextGCD.IsTheSameTo(true, AfflatusRapturePvE, MedicaPvE, MedicaIiPvE, MedicaIiiPvE, CureIiiPvE)
             && (MergedStatusState.HasFlag(AutoStatus.HealAreaSpell) || MergedStatusState.HasFlag(AutoStatus.HealSingleSpell)))
         {
             if (PlenaryIndulgencePvE.CanUse(out act)) return true;
@@ -128,7 +128,7 @@ public sealed class WHM_Default :WhiteMageRotation
     {
         if (AfflatusRapturePvE.CanUse(out act)) return true;
 
-        int hasMedica2 = PartyMembers.Count((n) => n.HasStatus(true, StatusID.MedicaIi));
+        int hasMedica2 = PartyMembers.Count((n) => n.HasStatus(true, StatusID.MedicaIi, StatusID.MedicaIii));
 
         if (MedicaIiPvEReplace.CanUse(out act) && hasMedica2 < PartyMembers.Count() / 2 && !IsLastAction(true, MedicaIiPvE)) return true;
 
@@ -159,11 +159,12 @@ public sealed class WHM_Default :WhiteMageRotation
 
     protected override bool DefenseAreaAbility(out IAction? act)
     {
-        act = null;
+        if (DivineCaressPvE.CanUse(out act)) return true;
+
         if (TemperancePvE.CD.IsCoolingDown && !TemperancePvE.CD.WillHaveOneCharge(100)
             || LiturgyOfTheBellPvE.CD.IsCoolingDown && !LiturgyOfTheBellPvE.CD.WillHaveOneCharge(160)) return false;
 
-        if (TemperancePvEReplace.CanUse(out act)) return true;
+        if (TemperancePvE.CanUse(out act)) return true;
 
         if (LiturgyOfTheBellPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
         return base.DefenseAreaAbility(out act);
