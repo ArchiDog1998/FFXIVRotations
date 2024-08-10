@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.10](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.9...v1.2.10) (2024-08-10)
+
+
+### Bug Fixes
+
+* new rpr rotation! It is clean. ([111afd4](https://github.com/ArchiDog1998/FFXIVRotations/commit/111afd411b8f965ec7124dc25da7288387390192))
+
 ## [1.2.9](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.8...v1.2.9) (2024-08-09)
 
 
