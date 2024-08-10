@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.9](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.8...v1.2.9) (2024-08-09)
+
+
+### Bug Fixes
+
+* rdm ready. ([c08a395](https://github.com/ArchiDog1998/FFXIVRotations/commit/c08a39526640300a9eeac3d28e288e3d46021f4c))
+
 ## [1.2.8](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.7...v1.2.8) (2024-08-07)
 
 
