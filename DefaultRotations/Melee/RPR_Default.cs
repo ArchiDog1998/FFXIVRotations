@@ -1,7 +1,6 @@
 ﻿namespace DefaultRotations.Melee;
 
 [Rotation("2nd GCD AC", CombatType.Both, GameVersion = "7.05")]
-[BetaRotation]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/second-gcd-ac.png")]
 [LinkDescription("https://www.thebalanceffxiv.com/img/jobs/rpr/standardouble.png")]
 [SourceCode(Path = "main/DefaultRotations/Melee/RPR_Default.cs")]

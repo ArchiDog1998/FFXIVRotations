@@ -1,7 +1,10 @@
 ﻿namespace DefaultRotations.Tank;
 
-[Rotation("Tentative v1.2", CombatType.Both, GameVersion = "6.31")]
-[LinkDescription("https://xiv.sleepyshiba.com/pld/img/63-60stentative2.png")]
+[BetaRotation]
+[Rotation("Standard", CombatType.Both, GameVersion = "7.05",
+    Description = "It is almost there but the burst window is not perfect!")]
+[LinkDescription("https://xiv.sleepyshiba.com/pld/img/100open.png")]
+[LinkDescription("https://xiv.sleepyshiba.com/pld/img/100burst.png")]
 [SourceCode(Path = "main/DefaultRotations/Tank/PLD_Default.cs")]
 public class PLD_Default : PaladinRotation
 {
@@ -11,11 +14,13 @@ public class PLD_Default : PaladinRotation
 
     [UI("Use Holy Circle or Holy Spirit when out of melee range")]
     [RotationConfig(CombatType.PvE)]
-    public bool UseHolyWhenAway { get; set; } = true;
+    public bool UseHolyWhenAway { get; set; } = false;
 
     [UI("Use Shield Bash when Low Blow is cooling down")]
     [RotationConfig(CombatType.PvE)]
     public bool UseShieldBash { get; set; } = true;
+
+    private static bool InBurstStatus => !Player.WillStatusEnd(0, true, StatusID.FightOrFlight);
 
     protected override IAction? CountDownAction(float remainTime)
     {
@@ -35,22 +40,26 @@ public class PLD_Default : PaladinRotation
         if (IntervenePvP.CanUse(out act)) return true;
         #endregion
 
-        if (InCombat)
+        if (!CombatElapsedLess(3) && UseBurstMedicine(out act)) return true;
+        if (CombatElapsedLess(6)) return false;
+        if (IsBurst)
         {
-            if (UseBurstMedicine(out act)) return true;
-            if (IsBurst && !CombatElapsedLess(5) && FightOrFlightPvEReplace.CanUse(out act, onLastAbility: true)) return true;
+            if (FightOrFlightPvE.CanUse(out act)) return true;
         }
-        if (CombatElapsedLess(8)) return false;
+        if (InBurstStatus)
+        {
+            if (ImperatorPvE.CanUse(out act, skipAoeCheck: true)) return true;
+            if (RequiescatPvE.CanUse(out act, skipAoeCheck: true)) return true;
+        }
+
+        if (BladeOfHonorPvE.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (CircleOfScornPvE.CanUse(out act, skipAoeCheck: true)) return true;
         if (SpiritsWithinPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (Player.WillStatusEndGCD(6, 0, true, StatusID.FightOrFlight)
-            && RequiescatPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!IsMoving && IntervenePvE.CanUse(out act, usedUp: InBurstStatus)) return true;
 
-        if (!IsMoving && IntervenePvE.CanUse(out act, skipAoeCheck: true, usedUp: HasFightOrFlight)) return true;
-
-        if (HasTankStance && OathGauge == 100 && UseOath(out act)) return true;
+        if (OathGauge == 100 && UseOath(out act)) return true;
 
         return base.AttackAbility(out act);
     }
@@ -58,47 +67,41 @@ public class PLD_Default : PaladinRotation
     protected override bool GeneralGCD(out IAction? act)
     {
         #region PvP
-        if (BladeOfValorPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (BladeOfTruthPvP.CanUse(out act, skipAoeCheck: true)) return true;
-        if (BladeOfFaithPvP.CanUse(out act, skipAoeCheck: true) && Player.HasStatus(true, StatusID.BladeOfFaithReady)) return true;
+        if (BladeOfValorPvPCombo.CanUse(out act, skipAoeCheck: true)) return true;
 
         if (ConfiteorPvP.CanUse(out act, skipAoeCheck: true)) return true;
 
-        if (RoyalAuthorityPvP.CanUse(out act)) return true;
-        if (RiotBladePvP.CanUse(out act)) return true;
-        if (FastBladePvP.CanUse(out act)) return true;
+        if (RoyalAuthorityPvPCombo.CanUse(out act)) return true;
         #endregion
 
-        if (Player.HasStatus(true, StatusID.Requiescat))
+        //Burst
+        if (ConfiteorPvEReplace.CanUse(out act, skipAoeCheck: true)) return true;
+        if (!TotalEclipsePvE.CanUse(out _) && GoringBladePvE.CanUse(out act)) return true;
+        var cd = FightOrFlightPvE.CD;
+        if (cd.IsCoolingDown && cd.WillHaveOneCharge(7))
         {
-            if (ConfiteorPvEReplace.CanUse(out act, skipAoeCheck: true))
+            if (AtonementPvE.CanUse(out act)) return true;
+            if (LastComboAction is ActionID.RiotBladePvE)
             {
-                if (Player.HasStatus(true, StatusID.ConfiteorReady)) return true;
+                if (AtonementPvEReplace.CanUse(out act)) return true;
             }
-            if (HolyCirclePvE.CanUse(out act)) return true;
-            if (HolySpiritPvE.CanUse(out act)) return true;
+        }
+        else
+        {
+            if (AtonementPvEReplace.CanUse(out act)) return true;
+            if (!Player.WillStatusEnd(0, true, StatusID.DivineMight))
+            {
+                if (HolyCirclePvE.CanUse(out act)) return true;
+                if (HolySpiritPvE.CanUse(out act)) return true;
+            }
         }
 
         //AOE
-        if (HasDivineMight && HolyCirclePvE.CanUse(out act)) return true;
-        if (ProminencePvE.CanUse(out act)) return true;
-        if (TotalEclipsePvE.CanUse(out act)) return true;
+        if (ProminencePvECombo.CanUse(out act)) return true;
 
         //Single
-        if (!CombatElapsedLess(8) && HasFightOrFlight && GoringBladePvE.CanUse(out act)) return true; // Dot
-        if (!FightOrFlightPvE.CD.WillHaveOneChargeGCD(2))
-        {
-            if (!FightOrFlightPvE.CD.WillHaveOneChargeGCD(6) &&
-                HasDivineMight && HolySpiritPvE.CanUse(out act)) return true;
-            if (RageOfHalonePvEReplace.CanUse(out act)) return true;
-            if (AtonementPvEReplace.CanUse(out act)) return true;
-        }
-        //123
         if (UseShieldBash && ShieldBashPvE.CanUse(out act)) return true;
-
-        if (RageOfHalonePvEReplace.CanUse(out act)) return true;
-        if (RiotBladePvE.CanUse(out act)) return true;
-        if (FastBladePvE.CanUse(out act)) return true;
+        if (RageOfHalonePvECombo.CanUse(out act)) return true;
 
         //Range
         if (UseHolyWhenAway)
