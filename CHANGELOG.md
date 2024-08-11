@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.11](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.10...v1.2.11) (2024-08-11)
+
+
+### Bug Fixes
+
+* add pld rotation! ([909816b](https://github.com/ArchiDog1998/FFXIVRotations/commit/909816bd695f22c69393f7f618c211df9a0334fa))
+* blm rotations beta. ([c2eccbf](https://github.com/ArchiDog1998/FFXIVRotations/commit/c2eccbf79a2afcac23bb01fce7a082ad3f171ace))
+
 ## [1.2.10](https://github.com/ArchiDog1998/FFXIVRotations/compare/v1.2.9...v1.2.10) (2024-08-10)
 
 
